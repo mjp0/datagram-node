@@ -90,6 +90,15 @@ Multifeed.prototype._loadFeeds = function (cb) {
   next(0)
 }
 
+Multifeed.prototype.removeFeed = function(key) {
+  var self = this
+
+  // Load NOSYNC file
+  var NOSYNC = self._storage('NOSYNC')
+
+  
+}
+
 Multifeed.prototype.writer = function (name, cb) {
   if (typeof name === 'function' && !cb) {
     cb = name
