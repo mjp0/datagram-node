@@ -3,7 +3,7 @@ const async = require('async')
 const { createNewCore } = require('../create_core')
 const load_core = require('../load_core')
 
-module.exports = {
+const API = {
   attach_core: (core) => {
     return function (name, hypercore, type, callback) {
       // Get a key from core
@@ -22,14 +22,14 @@ module.exports = {
   add_core: (core) => {
     return function (name, type, callback) {
       // Create new hypercore
-      createNewCore(type, core.default_storage || null, (err, hypercore) => {
+      createNewCore(type, core.default_storage || null, null, (err, hypercore) => {
         // Get a key from core
         const key = hypercore.key.toString("hex")
 
         // Create a reference to initialized hypercore
         core.add_core_reference(key, hypercore)
         core.add_core_reference(name, hypercore)
-
+        
         // Add core details to the meta core
         core.add_core_details(name, key, type, (err) => {
           if (err) callback(err)
@@ -203,12 +203,12 @@ module.exports = {
   export_legacy: (core) => {
     return function(callback) {
       // first get all the core keys
-      core.get_all_cores((err, cores) => {
+      core.get_all_core_details((err, cores) => {
         const _cores = {}
         const _coreKeyToCore = {}
-        cores.forEach(core => {
-          _cores[core.name] = core.core_references[core.key]
-          _coreKeyToCore[core.key] = core.core_references[core.key]
+        cores.forEach(c => {
+          _cores[c.name] = core.core_references[c.key]
+          _coreKeyToCore[c.key] = core.core_references[c.key]
         })
         callback(null, { _cores, _coreKeyToCore })
       })
@@ -216,3 +216,5 @@ module.exports = {
     }
   }
 }
+
+module.exports = API

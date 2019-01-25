@@ -19,10 +19,9 @@ exports.replicate = function (opts) {
 exports._replicate = function (opts) {
   if (!opts) opts = {}
   let self = this
-
-
+  debug(self.key)
   // Create a multiplexed replication stream from all cores in hypervisor
-  let mux = (this.mux = multiplexer(Buffer.from(self.key, "hex"), opts))
+  let mux = (this.mux = multiplexer(self.key, opts))
 
   // Listen for "manifest" packet to tell us what the peer has to offer
   mux.once("manifest", function (m) {
@@ -95,6 +94,7 @@ exports._replicate = function (opts) {
 
     // Wait until mux has initialized properly
     mux.ready(function () {
+      
       // Create a list of the cores in hypervisor
       let available = values(self._cores).map(function (core) {
         return core.key.toString("hex")
@@ -143,7 +143,7 @@ exports._replicate = function (opts) {
   function addMissingKeys(keys, cb) {
     self.ready(function (err) {
       if (err) return cb(err)
-
+      debug("keys", keys)
       // Lock the core to prevent race conditions
       self.coreLock(function (release) {
         _addMissingKeysLocked(keys, function (err) {

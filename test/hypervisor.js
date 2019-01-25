@@ -25,7 +25,7 @@ test('create core', function (t) {
       t.error(err)
       core.append('foo', function (err) {
         t.error(err)
-        core.get(1, function (err, data) {
+        core.get(0, function (err, data) {
           t.error(err)
           t.equals(data.toString(), 'foo', "core contains stored string")
           hv.cores((err, cores) => {

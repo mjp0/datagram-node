@@ -3,15 +3,23 @@ const hypercore = require('hypercore')
 const _open_storage = require('../utils/storage')._open_storage
 const crypto = require('hypercore-crypto')
 
-exports.createNewCore = function(type, storage, callback) {
+exports.createNewCore = function(type, storage, keys, callback) {
   // Make storage optional
   if (storage && !callback) {
     callback = storage
     storage = null
   }
-
+  
   const opts = { }
-  if (!opts.key) {
+  // If this is meta core, use generated keys
+  if(type === "meta") {
+    if(typeof keys !== "object") return callback("META_REQUIRES_KEYS")
+    opts.key = Buffer.from(keys.key, "hex")
+    opts.secretKey = Buffer.from(keys.secret, "hex")
+  } else if(keys) {
+    opts.key = Buffer.from(keys.key, "hex")
+    opts.secretKey = Buffer.from(keys.secret, "hex")
+  } else {
     const keyPair = crypto.keyPair()
     opts.key = keyPair.publicKey
     opts.secretKey = keyPair.secretKey

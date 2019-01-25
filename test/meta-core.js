@@ -78,7 +78,7 @@ test("check meta core interface", (t) => {
       // Let's check if we can pull out all known cores
       // To make this more robust, add random crap into the store
       MC.set_kv("foo", "bar", (err) => {
-        MC.get_all_cores((err, cores) => {
+        MC.get_all_core_details((err, cores) => {
           t.error(err)
           debug("cores", cores)
           t.equal(cores[0].name, "foo", "core 1 name matches")
@@ -96,7 +96,7 @@ test("check meta core interface", (t) => {
       // Let's remove a core
       MC.remove_core(core1_key, (err) => {
         t.error(err)
-        MC.get_all_cores((err, cores) => {
+        MC.get_all_core_details((err, cores) => {
           t.error(err)
           t.equal(cores[0].name, "bar", "core 2 name matches")
           t.equal(cores[0].key, core2_key, "core 2 key matches")
@@ -142,10 +142,10 @@ test("storage persistence", t => {
         t.error(err)
         t.ok(mc2.key.toString("hex"), "mc2 has a key")
         t.equal(mc1_key, mc2.key.toString("hex"), "mc1 and mc2 keys match")
-        t.equal(mc2.length, 2, "should have two items in store")
+        t.equal(mc2.length, 1, "should have one item in store")
         mc2.load_cores_from_storage((err) => {
           t.error(err)
-          mc2.get_all_cores((err, cores) => {
+          mc2.get_all_core_details((err, cores) => {
             t.error(err)
             t.equal(cores.length, 1, "mc2 should have one core")
             t.ok(typeof mc2.core_references, "object", "core references should exist")
