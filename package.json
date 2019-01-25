@@ -1,7 +1,7 @@
 {
   "name": "datagram-node",
   "description": "",
-  "author": "Marko Polojärvi <marko@machian.com>",
+  "author": "Machianists <devs@machian.com>",
   "version": "0.1.0",
   "repository": {
     "url": "git://github.com/machianists/datagram-node.git"
@@ -25,21 +25,20 @@
     "inherits": "^2.0.3",
     "mutexify": "^1.2.0",
     "random-access-file": "^2.0.1",
+    "hypercore": "^6.18.1",
+    "random-access-memory": "^2.4.0"
+  },
+  "devDependencies": {
     "tap-dot": "^2.0.0",
     "tap-spec": "^5.0.0",
     "trace": "^3.1.1",
-    "unique-names-generator": "^2.0.1"
-  },
-  "devDependencies": {
-    "hypercore": "^6.18.1",
     "pumpify": "^1.5.1",
-    "random-access-memory": "^2.4.0",
     "standard": "~10.0.0",
     "tape": "~4.6.2",
     "through2": "^3.0.0",
     "tmp": "0.0.33"
   },
-  "license": "ISC",
+  "license": "Apache-2.0",
   "directories": {
     "test": "test"
   }
