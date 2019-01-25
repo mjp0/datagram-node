@@ -1,14 +1,14 @@
 {
-  "name": "multifeed",
-  "description": "multi-writer hypercore",
-  "author": "Stephen Whitmore <sww@eight.net>",
-  "version": "2.0.9",
+  "name": "datagram-node",
+  "description": "",
+  "author": "Marko Polojärvi <marko@machian.com>",
+  "version": "0.1.0",
   "repository": {
-    "url": "git://github.com/telamon/multifeed.git"
+    "url": "git://github.com/machianists/datagram-node.git"
   },
-  "homepage": "https://github.com/noffle/multifeed",
+  "homepage": "https://github.com/machianists/datagram-node",
   "bugs": {
-    "url": "https://github.com/telamon/multifeed/issues"
+    "url": "https://github.com/machianists/datagram-node/issues"
   },
   "main": "index.js",
   "scripts": {
@@ -17,11 +17,18 @@
   },
   "keywords": [],
   "dependencies": {
+    "async": "^2.6.1",
     "debug": "^4.1.0",
+    "fs-extra": "^7.0.1",
+    "hypercore-crypto": "^1.0.0",
     "hypercore-protocol": "^6.8.0",
     "inherits": "^2.0.3",
     "mutexify": "^1.2.0",
-    "random-access-file": "^2.0.1"
+    "random-access-file": "^2.0.1",
+    "tap-dot": "^2.0.0",
+    "tap-spec": "^5.0.0",
+    "trace": "^3.1.1",
+    "unique-names-generator": "^2.0.1"
   },
   "devDependencies": {
     "hypercore": "^6.18.1",

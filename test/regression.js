@@ -1,34 +1,35 @@
 var test = require('tape')
 var hypercore = require('hypercore')
-var multifeed = require('..')
+var hypervisor = require('../hypervisor')
 var ram = require('random-access-memory')
 var tmp = require('tmp').tmpNameSync
+const debug = require('../utils/debug')(__filename, "test")
 
-test('regression: concurrency of writer creation', function (t) {
+test('regression: concurrency of core creation', function (t) {
   t.plan(3)
 
   var storage = tmp()
   var key
 
-  var multi = multifeed(hypercore, storage, { valueEncoding: 'json' })
+  var hv = hypervisor(storage)
 
-  multi.writer('minuette', function (err, w) {
+  hv.add_core('minuette', function (err, w) {
     t.error(err)
     t.ok(w.key)
     key = w.key
   })
 
-  multi.ready(function () {
-    t.equals(multi.feeds().length, 0)
+  hv.ready(function () {
+    t.equals(hv.cores().length, 0)
   })
 })
 
-test('regression: MF with no writer replicate to MF with 1 writer', function (t) {
-  var m1 = multifeed(hypercore, ram, { valueEncoding: 'json' })
-  var m2 = multifeed(hypercore, ram, { valueEncoding: 'json' })
+test('regression: MF with no core replicate to MF with 1 core', function (t) {
+  var m1 = hypervisor(ram)
+  var m2 = hypervisor(ram)
 
   function setup1 (m, buf, cb) {
-    m.writer(function (err, w) {
+    m.add_core(function (err, w) {
       t.error(err)
       var bufs = []
       for(var i=0; i < 1000; i++) {
@@ -38,8 +39,8 @@ test('regression: MF with no writer replicate to MF with 1 writer', function (t)
         t.error(err)
         w.get(13, function (err, data) {
           t.error(err)
-          t.equals(data, buf)
-          t.deepEquals(m.feeds(), [w], 'read matches write')
+          t.equals(data.toString(), buf)
+          t.deepEquals(m.cores(), [w], 'read matches write')
           cb()
         })
       })
@@ -47,7 +48,7 @@ test('regression: MF with no writer replicate to MF with 1 writer', function (t)
   }
 
   function setup2 (m, buf, cb) {
-    m.writer(function (err, w) {
+    m.add_core(function (err, w) {
       t.error(err)
       var bufs = []
       for(var i=0; i < 10; i++) {
@@ -57,14 +58,14 @@ test('regression: MF with no writer replicate to MF with 1 writer', function (t)
         t.error(err)
         w.get(3, function (err, data) {
           t.error(err)
-          t.equals(data, buf)
-          t.deepEquals(m.feeds(), [w], 'read matches write')
+          t.equals(data.toString(), buf)
+          t.deepEquals(m.cores(), [w], 'read matches write')
           cb()
         })
       })
     })
     //cb()
-    //m.writer(function (err, w) {
+    //m.add_core(function (err, w) {
     //  t.error(err)
     //  cb()
     //})
@@ -86,50 +87,50 @@ test('regression: MF with no writer replicate to MF with 1 writer', function (t)
   })
 
   function check () {
-    t.equals(m1.feeds().length, 2, '2 feeds')
-    t.equals(m2.feeds().length, 2, '2 feeds')
-    t.equals(m1.feeds()[0].length, 1000, 'writer sees 1000 entries')
-    t.equals(m1.feeds()[1].length, 10, 'writer sees 10 entries')
-    t.equals(m2.feeds()[0].length, 10, 'receiver sees 10 entries')
-    t.equals(m2.feeds()[1].length, 1000, 'receiver sees 1000 entries')
-    m1.feeds()[1].get(0, function (err, data) {
+    t.equals(m1.cores().length, 2, '2 cores')
+    t.equals(m2.cores().length, 2, '2 cores')
+    t.equals(m1.cores()[0].length, 1000, 'core sees 1000 entries')
+    t.equals(m1.cores()[1].length, 10, 'core sees 10 entries')
+    t.equals(m2.cores()[0].length, 10, 'receiver sees 10 entries')
+    t.equals(m2.cores()[1].length, 1000, 'receiver sees 1000 entries')
+    m1.cores()[1].get(0, function (err, data) {
       t.error(err)
-      t.equals(data, 'bar', 'feed 1 has feed 2 data')
-      m2.feeds()[1].get(0, function (err, data) {
+      t.equals(data.toString(), 'bar', 'core 1 has core 2 data')
+      m2.cores()[1].get(0, function (err, data) {
         t.error(err)
-        t.equals(data, 'foo', 'feed 2 has feed 1 data')
+        t.equals(data.toString(), 'foo', 'core 2 has core 1 data')
         t.end()
       })
     })
   }
 })
 
-test('regression: start replicating before feeds are loaded', function (t) {
+test('regression: start replicating before cores are loaded', function (t) {
   t.plan(22)
 
-  var m1 = multifeed(hypercore, ram, { valueEncoding: 'json' })
-  var m2 = multifeed(hypercore, ram, { valueEncoding: 'json' })
+  var m1 = hypervisor(ram)
+  var m2 = hypervisor(ram)
 
-  var feedEvents1 = 0
-  var feedEvents2 = 0
-  m1.on('feed', function (feed, name) {
-    t.equals(name, String(feedEvents1))
-    feedEvents1++
+  var coreEvents1 = 0
+  var coreEvents2 = 0
+  m1.on('core', function (core, name) {
+    t.equals(name, String(coreEvents1))
+    coreEvents1++
   })
-  m2.on('feed', function (feed, name) {
-    t.equals(name, String(feedEvents2))
-    feedEvents2++
+  m2.on('core', function (core, name) {
+    t.equals(name, String(coreEvents2))
+    coreEvents2++
   })
 
   function setup (m, buf, cb) {
-    m.writer(function (err, w) {
+    m.add_core(function (err, w) {
       t.error(err)
       w.append(buf, function (err) {
         t.error(err)
         w.get(0, function (err, data) {
           t.error(err)
-          t.equals(data, buf)
-          t.deepEquals(m.feeds(), [w])
+          t.equals(data.toString(), buf)
+          t.deepEquals(m.cores(), [w])
           cb()
         })
       })
@@ -145,18 +146,18 @@ test('regression: start replicating before feeds are loaded', function (t) {
   })
 
   function check () {
-    t.equals(m1.feeds().length, 2)
-    t.equals(m2.feeds().length, 2)
-    m1.feeds()[1].get(0, function (err, data) {
+    t.equals(m1.cores().length, 2)
+    t.equals(m2.cores().length, 2)
+    m1.cores()[1].get(0, function (err, data) {
       t.error(err)
-      t.equals(data, 'bar')
+      t.equals(data.toString(), 'bar')
     })
-    m2.feeds()[1].get(0, function (err, data) {
+    m2.cores()[1].get(0, function (err, data) {
       t.error(err)
-      t.equals(data, 'foo')
+      t.equals(data.toString(), 'foo')
     })
-    t.equals(feedEvents1, 2)
-    t.equals(feedEvents2, 2)
+    t.equals(coreEvents1, 2)
+    t.equals(coreEvents2, 2)
   }
 })
 

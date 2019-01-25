@@ -1,10 +1,10 @@
 var test = require('tape')
 var hypercore = require('hypercore')
 var ram = require('random-access-memory')
-var multiplexer = require('../mux.js')
+var multiplexer = require('../hypervisor/multiplexer')
 var pump = require('pump')
 var through = require('through2')
-var debug = require('debug')('multifeed/protodump')
+const debug = require('../utils/debug')(__filename, "test")
 
 test('Key exchange API', function(t){
   t.plan(11)
