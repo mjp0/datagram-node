@@ -64,7 +64,7 @@ function Multiplexer (key, opts) {
   }))
 
   // Create a new hypercore replication protocol for given key
-  this._stream = stream.feed(Buffer.from(key, "hex"))
+  const feed = this._feed = stream.feed(Buffer.from(key, "hex"))
 
   // When stream delivers "handshake" packet...
   stream.on('handshake', function () {
@@ -97,7 +97,7 @@ function Multiplexer (key, opts) {
   })
 
   // When stream delivers "extension" packet...
-  stream.on('extension', function (type, message) {
+  feed.on('extension', function (type, message) {
     debug('Extension:', type, message.toString('utf8'))
 
     // List of all known extensions
@@ -195,7 +195,7 @@ Multiplexer.prototype.haveFeeds = function (keys, opts) {
   this._localHave = manifest.keys
 
   // Send manifest as an extension to the stream
-  this._stream.extension(MANIFEST, Buffer.from(JSON.stringify(manifest)))
+  this._feed.extension(MANIFEST, Buffer.from(JSON.stringify(manifest)))
 }
 
 // TODO: provide feature to share a secret set of keys that are available but not announced over the wire and can be secretly requested.
@@ -211,7 +211,7 @@ Multiplexer.prototype.wantFeeds = function (keys) {
   debug('[REPLICATION] Sending feeds request', keys)
 
   // Send request for feeds as an extension
-  this._stream.extension(REQUEST_FEEDS, Buffer.from(JSON.stringify(keys)))
+  this._feed.extension(REQUEST_FEEDS, Buffer.from(JSON.stringify(keys)))
 
   // Store wanted feeds as _localWant
   this._localWant = keys
@@ -276,25 +276,26 @@ Multiplexer.prototype._initRepl = function() {
   /**
    * Creates replication stream from all of the streams provided
    *
-   * @param {Multifeed|array[Multifeed]} streams
+   * @param {Multifeed|array[Multifeed]} feeds
    */
-  function startFeedReplication(streams){
-    if (!Array.isArray(streams)) streams = [streams]
-    self.stream.expectedFeeds = streams.length
-
+  function startFeedReplication(feeds){
+    if (!Array.isArray(feeds)) feeds = [feeds]
+    self.stream.expectedFeeds = feeds.length
     // only the streams passed to `streams` option will be replicated (sent or received)
     // hypercore-protocol has built in protection against receiving unexpected/not asked for data.
-    streams.forEach(function(feed) {
-      feed.ready(function() { // wait for each to be ready before replicating.
-        debug('[REPLICATION] replicating feed:', feed.key.toString('hex'))
-        feed.replicate(xtend({}, {
-          live: self._opts.live,
-          download: self._opts.download,
-          upload: self._opts.upload,
-          encrypt: self._opts.encrypt,
-          stream: self.stream // Uses shared multiplexer stream with all streams
-        }))
-      })
+    feeds.forEach(function(feed) {
+      if(feed) {
+        feed.ready(function() { // wait for each to be ready before replicating.
+          debug('[REPLICATION] replicating feed:', feed.key.toString('hex'))
+          feed.replicate(xtend({}, {
+            live: self._opts.live,
+            download: self._opts.download,
+            upload: self._opts.upload,
+            encrypt: self._opts.encrypt,
+            stream: self.stream // Uses shared multiplexer stream with all streams
+          }))
+        })
+      }
     })
   }
 }

@@ -12,20 +12,16 @@ test('replicate two hypervisors', function (t) {
   var m1
   var m2
 
-  var coreEvents1 = 0
-  var coreEvents2 = 0
-  
-
   function setup(m, buf, cb) {
     m.add_core("test", "text", function (err, core) {
-      t.error(err)
+      t.error(err, "no errors")
       core.append(buf, function (err) {
-        t.error(err)
+        t.error(err, "no errors")
         core.get(0, function (err, data) {
-          t.error(err)
+          t.error(err, "no errors")
           t.equals(data.toString(), buf, "saved data should exist")
           m.cores((err, cores) => {
-            t.error(err)
+            t.error(err, "no errors")
             t.deepEquals(cores, [core], "core is correctly found in the cores")
             cb()
           })
@@ -35,18 +31,9 @@ test('replicate two hypervisors', function (t) {
   }
 
   m1 = hypervisor(ram, "test")
-  m1.ready(() => {
-    m1.on('core', function (core, name) {
-      t.equals(name, String(coreEvents1))
-      coreEvents1++
-    })
-    
+  m1.ready(() => {   
     m2 = hypervisor(ram, "test")
     m2.ready(() => {
-      m2.on('core', function (core, name) {
-        t.equals(name, String(coreEvents2))
-        coreEvents2++
-      })
       setup(m1, 'foo', function () {
         setup(m2, 'bar', function () {
           var r = m1.replicate()
@@ -61,35 +48,32 @@ test('replicate two hypervisors', function (t) {
     async.waterfall([
       next => {
         m1.cores((err, cores) => {
-          t.error(err)
-          t.equals(cores.length, 2)
+          t.error(err, "no errors")
+          t.equals(cores.length, 2, "should have two cores")
           
           m2.cores((err, cores) => {
-            t.error(err)
-            t.equals(cores.length, 2)
+            t.error(err, "no errors")
+            t.equals(cores.length, 2, "should have two cores")
             next()
           })
         })
       },
       next => {
         m1.get_cores((err, cores) => {
-          t.error(err)
-          debug(cores)
+          t.error(err, "no errors")
           cores[1].get(0, function (err, data) {
-            t.error(err)
-            t.equals(data.toString(), 'bar')
+            t.error(err, "no errors")
+            t.equals(data.toString(), 'bar', "should have replicated content")
             next()
           })
         })
       },
       next => {
         m2.get_cores((err, cores) => {
-          t.error(err)
+          t.error(err, "no errors")
           cores[1].get(0, function (err, data) {
-            t.error(err)
-            t.equals(data.toString(), 'foo')
-            t.equals(coreEvents1, 2)
-            t.equals(coreEvents2, 2)
+            t.error(err, "no errors")
+            t.equals(data.toString(), 'foo', "should have replicated content")
             next()
           })
         })
@@ -98,58 +82,78 @@ test('replicate two hypervisors', function (t) {
   }
 })
 
-// test('live replicate two hypervisors', function (t) {
-//   t.plan(22)
+test('replicate two live hypervisors', function (t) {
+  t.plan(22)
 
-//   var m1 = hypervisor("test1", ram)
-//   var m2 = hypervisor("test2", ram)
+  var m1
+  var m2
 
-//   var coreEvents1 = 0
-//   var coreEvents2 = 0
-//   m1.on('core', function (core, name) {
-//     t.equals(name, String(coreEvents1))
-//     coreEvents1++
-//   })
-//   m2.on('core', function (core, name) {
-//     t.equals(name, String(coreEvents2))
-//     coreEvents2++
-//   })
+  function setup(m, buf, cb) {
+    m.add_core("test", "text", function (err, core) {
+      t.error(err, "no errors")
+      core.append(buf, function (err) {
+        t.error(err, "no errors")
+        core.get(0, function (err, data) {
+          t.error(err, "no errors")
+          t.equals(data.toString(), buf, "saved data should exist")
+          m.cores((err, cores) => {
+            t.error(err, "no errors")
+            t.deepEquals(cores, [core], "core is correctly found in the cores")
+            cb()
+          })
+        })
+      })
+    })
+  }
 
-//   function setup(m, buf, cb) {
-//     m.add_core("test", "text", function (err, w) {
-//       t.error(err)
-//       w.append(buf, function (err) {
-//         t.error(err)
-//         w.get(0, function (err, data) {
-//           t.error(err)
-//           t.equals(data.toString(), buf)
-//           t.deepEquals(m.cores(), [w])
-//           cb()
-//         })
-//       })
-//     })
-//   }
+  m1 = hypervisor(ram, "test")
+  m1.ready(() => {
+    m2 = hypervisor(ram, "test")
+    m2.ready(() => {
+      setup(m1, 'foo', function () {
+        setup(m2, 'bar', function () {
+          var r = m1.replicate({ live: true })
+          r.pipe(m2.replicate({ live: true })).pipe(r)
+          setTimeout(check, 1000)
+        })
+      })
+    })
+  })
 
-//   setup(m1, 'foo', function () {
-//     setup(m2, 'bar', function () {
-//       var r = m1.replicate({ live: true })
-//       r.pipe(m2.replicate({ live: true })).pipe(r)
-//       setTimeout(check, 1000)
-//     })
-//   })
+  function check() {
+    async.waterfall([
+      next => {
+        m1.cores((err, cores) => {
+          t.error(err, "no errors")
+          t.equals(cores.length, 2, "should have two cores")
 
-//   function check() {
-//     t.equals(m1.cores().length, 2)
-//     t.equals(m2.cores().length, 2)
-//     m1.cores()[1].get(0, function (err, data) {
-//       t.error(err)
-//       t.equals(data.toString(), 'bar')
-//     })
-//     m2.cores()[1].get(0, function (err, data) {
-//       t.error(err)
-//       t.equals(data.toString(), 'foo')
-//     })
-//     t.equals(coreEvents1, 2)
-//     t.equals(coreEvents2, 2)
-//   }
-// })
+          m2.cores((err, cores) => {
+            t.error(err, "no errors")
+            t.equals(cores.length, 2, "should have two cores")
+            next()
+          })
+        })
+      },
+      next => {
+        m1.get_cores((err, cores) => {
+          t.error(err, "no errors")
+          cores[1].get(0, function (err, data) {
+            t.error(err, "no errors")
+            t.equals(data.toString(), 'bar', "should have replicated content")
+            next()
+          })
+        })
+      },
+      next => {
+        m2.get_cores((err, cores) => {
+          t.error(err, "no errors")
+          cores[1].get(0, function (err, data) {
+            t.error(err, "no errors")
+            t.equals(data.toString(), 'foo', "should have replicated content")
+            next()
+          })
+        })
+      }
+    ])
+  }
+})

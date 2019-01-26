@@ -12,8 +12,8 @@ const { _add_to_ignore_list } = require("../cores/remove_core")
 const { replicate, _replicate } = require("./replicate")
 const crypto = require("hypercore-crypto")
 const MetaCore = require("./meta-core")
-const { deriveKeyPair } = require('../utils/crypto')
-const waterfall = require('async/waterfall')
+const { deriveKeyPair } = require("../utils/crypto")
+const waterfall = require("async/waterfall")
 
 module.exports = Hypervisor
 
@@ -30,11 +30,6 @@ module.exports = Hypervisor
 function Hypervisor(storage, password, opts) {
   if (!(this instanceof Hypervisor)) return new Hypervisor(storage, password, opts)
 
-  // Make key optional
-  if (typeof password === "object") {
-    opts = password
-    password = null
-  }
   const self = this
 
   this._hypercore = hypercore
@@ -53,7 +48,6 @@ function Hypervisor(storage, password, opts) {
 
   if (typeof storage === "string") this._storage_path = storage
 
-  
   // Generate keys for meta core and replication stream
   const metacore_keypair = deriveKeyPair(Buffer.from(password + "metacore"))
   this._metacore_opts.key = metacore_keypair.publicKey.toString("hex")
@@ -64,9 +58,9 @@ function Hypervisor(storage, password, opts) {
   this._opts.secretKey = replication_keypair.secretKey.toString("hex")
 
   this._hypervisor_key = this._opts.key.toString("hex")
-  
+
   this.key = this._opts.key
-  
+
   this._open_storage = function(dir) {
     return function(name) {
       var s = storage
@@ -81,16 +75,16 @@ function Hypervisor(storage, password, opts) {
 
     // First try to open the core, if it's not there, create a new one
     waterfall([
-      next => {
-        MetaCore.open(self._metacore_opts, storage, (err, MC) => {
+      (next) => {
+        MetaCore.open(storage, self._metacore_opts, (err, MC) => {
           if (err) return callback(err)
           // If we have a key, we exist
-          if(MC && MC.key) next(null, MC)
+          if (MC && MC.key) next(null, MC)
           else next(null, null)
         })
       },
       (MC, next) => {
-        if(!MC) {
+        if (!MC) {
           MetaCore.create(storage, self._metacore_opts, (err, MC) => {
             if (err) return callback(err)
             // If we have a key, we exist
@@ -100,7 +94,7 @@ function Hypervisor(storage, password, opts) {
       },
       (MC, next) => {
         generateAPI(MC)
-          MC.load_cores_from_storage((err) => {
+        MC.load_cores_from_storage((err) => {
           if (err) return callback(err)
           MC.export_legacy((err, cores) => {
             if (err) return callback(err)
@@ -109,38 +103,60 @@ function Hypervisor(storage, password, opts) {
             done()
           })
         })
-      }
+      },
     ])
 
     function generateAPI(MetaCore) {
       self.add_core = (name, type, callback) => {
         MetaCore.add_core(name, type, (err, core) => {
-          if(err) return callback(err)
-          MetaCore.export_legacy((err, cores) => {
+          if (err) return callback(err)
+          self.update_legacy((err) => {
             if (err) return callback(err)
-            self._cores = cores._cores
-            self._coreKeyToCore = cores._coreKeyToCore
             callback(err, core)
           })
         })
-      },
+      }
+      self.attach_core = (name, hypercore, type, callback) => {
+        MetaCore.attach_core(name, hypercore, type, (err, core) => {
+          if (err) return callback(err)
+          self.update_legacy((err) => {
+            if (err) return callback(err)
+            callback(err, core)
+          })
+        })
+      }
+      self.update_legacy = (callback) => {
+        MetaCore.export_legacy((err, cores) => {
+          if (err) return callback(err)
+          self._cores = cores._cores
+          self._coreKeyToCore = cores._coreKeyToCore
+          callback()
+        })
+      }
       self.open_core = MetaCore.open_core
       self.cores = MetaCore.get_all_cores
       self.get_cores = MetaCore.get_all_cores
+      self.attach_core = MetaCore.attach_core
+      self.replicate = function(opts) {
+        return replicate(self, MetaCore, opts)
+      }
       self.core = (key) => {
         if (Buffer.isBuffer(key)) key = key.toString("hex")
         return MetaCore.core_references[key]
       }
     }
   })
+
+  this.ready = function(cb) {
+    self._ready(cb)
+  }
 }
 
 inherits(Hypervisor, events.EventEmitter)
 
-Hypervisor.prototype.replicate = replicate
+//Hypervisor.prototype.replicate = replicate
 Hypervisor.prototype._remove_core = remove_core
 Hypervisor.prototype._add_to_ignore_list = _add_to_ignore_list
-Hypervisor.prototype._replicate = _replicate
 
 /**
  * Passes ready callback to internal _ready 
@@ -148,9 +164,9 @@ Hypervisor.prototype._replicate = _replicate
  * @public
  * @param {Function} cb callback()
  */
-Hypervisor.prototype.ready = function(cb) {
-  this._ready(cb)
-}
+// Hypervisor.prototype.ready = function(cb) {
+//   this._ready(cb)
+// }
 
 /**
  * Add replication policy functions

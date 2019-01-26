@@ -25,7 +25,7 @@ module.exports = function(keys, storage, callback) {
     }
     
     // Everything seems to be cool so let's try to initialize it
-    let core = hypercore(store, keys)
+    let core = hypercore(store, { key: Buffer.from(keys.key, "hex"), secretKey: (keys.secret ? Buffer.from(keys.secret, "hex"): null) })
     //debug("core", core)
     // Wait until everything is loaded and then deliver core forward
     core.ready((err) => {

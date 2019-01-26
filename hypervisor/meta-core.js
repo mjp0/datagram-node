@@ -15,12 +15,6 @@ DESIGN
 */
 
 exports.create = function(storage, keys, callback) {
-  // Make storage optional
-  if(storage && !callback) {
-    callback = storage
-    storage = null
-  }
-
   debug("[META] creating new meta core")
   createNewCore("meta", storage, keys, (err, core) => {
     if(err) return callback(err)
@@ -37,20 +31,13 @@ exports.create = function(storage, keys, callback) {
   })
 }
 
-exports.open = function(keys, storage, callback) {
-  // Make storage optional
-  if (storage && !callback) {
-    callback = storage
-    storage = null
-  }
-
+exports.open = function (storage, keys, callback) {
   debug("Open meta core", keys.key)
   load_core(keys, storage, (err, core) => {
     if(err) return callback(err)
 
     if(core) {
 
-      debug("core", core)
       // This is where a good old hypercore turns into meta-core
       applyInterface(kv_ui, core)
       applyInterface(meta_ui, core)

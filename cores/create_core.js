@@ -18,7 +18,7 @@ exports.createNewCore = function(type, storage, keys, callback) {
     opts.secretKey = Buffer.from(keys.secret, "hex")
   } else if(keys) {
     opts.key = Buffer.from(keys.key, "hex")
-    opts.secretKey = Buffer.from(keys.secret, "hex")
+    opts.secretKey = keys.secret ? Buffer.from(keys.secret, "hex") : null // secret is not required
   } else {
     const keyPair = crypto.keyPair()
     opts.key = keyPair.publicKey

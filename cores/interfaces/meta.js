@@ -11,6 +11,7 @@ const API = {
 
       // Create a reference to initialized hypercore
       core.add_core_reference(key, hypercore)
+      core.add_core_reference(name, hypercore)
 
       // Add core details to the meta core
       core.add_core_details(name, key, type, (err) => {
@@ -136,11 +137,11 @@ const API = {
 
         // initialize cores
         async.forEach(cores, (uninitd_core, core_done) => {
-          load_core(uninitd_core.key, core.default_storage, (err, initd_core) => {
+          load_core({ key: uninitd_core.key }, core.default_storage, (err, initd_core) => {
             if(err) return core_done(err)
             else if (initd_core && initd_core.key) {
               core.add_core_reference(uninitd_core.key.toString("hex"), initd_core)
-              debug("refs", core.core_references)
+
               return core_done()
             } else {
               return core_done()

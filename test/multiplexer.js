@@ -85,13 +85,13 @@ test('Actual replication', function(t) {
   function setup(cb) {
     h1.ready(function() {
       h1.append('hyper',function(err){
-        t.error(err)
+        t.error(err, "no errors")
         h2.ready(function(){
           h2.append('sea', function(err){
-            t.error(err)
+            t.error(err, "no errors")
             h3.ready(function(){
               h3.append('late to the party', function(err){
-                t.error(err)
+                t.error(err, "no errors")
                 cb()
               })
             })
@@ -164,19 +164,19 @@ test('Actual replication', function(t) {
     }))
     .pipe(mux1.stream)
     .once('end', function(err){
-      t.error(err)
+      t.error(err, "no errors")
       h1r.get(0, function (err, data) {
-        t.error(err)
+        t.error(err, "no errors")
         t.equals(data.toString('utf8'), 'hyper', 'core 1 repl success!')
       })
 
       h2r.get(0, function (err, data) {
-        t.error(err)
+        t.error(err, "no errors")
         t.equals(data.toString('utf8'), 'sea', 'core 2 repl success!')
       })
 
       h3r.get(0, function (err, data) {
-        t.error(err)
+        t.error(err, "no errors")
         t.equals(data.toString('utf8'), 'late to the party', 'core 3 repl success!')
       })
     })
