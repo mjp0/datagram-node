@@ -1,6 +1,6 @@
-const debug = require('../utils/debug')(__filename)
-const hypercore = require('hypercore')
-const _open_storage = require('../utils/storage')._open_storage
+const debug = require("../utils/debug")(__filename)
+const hypercore = require("hypercore")
+const _open_storage = require("../utils/storage")._open_storage
 
 module.exports = function(keys, storage, callback) {
   // Make storage optional
@@ -23,15 +23,19 @@ module.exports = function(keys, storage, callback) {
       debug("No core found with key", keys.key)
       return callback()
     }
-    
+
     // Everything seems to be cool so let's try to initialize it
-    let core = hypercore(store, { key: Buffer.from(keys.key, "hex"), secretKey: (keys.secret ? Buffer.from(keys.secret, "hex"): null) })
+    let core = hypercore(store, {
+      key: Buffer.from(keys.key, "hex"),
+      secretKey:
+        keys.secret ? Buffer.from(keys.secret, "hex") :
+        null,
+    })
     //debug("core", core)
     // Wait until everything is loaded and then deliver core forward
     core.ready((err) => {
       //debug(callback)
       callback(err, core)
     })
-
   })
 }

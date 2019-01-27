@@ -1,10 +1,10 @@
-const debug = require('../utils/debug')(__filename)
+const debug = require("../utils/debug")(__filename)
 const writeStringToStorage = require("../utils/storage").writeStringToStorage
 const readStringFromStorage = require("../utils/storage").readStringFromStorage
-const path = require('path')
+const path = require("path")
 const fs = require("fs-extra")
 
-exports.remove_core = function (key) {
+exports.remove_core = function(key) {
   const self = this
   // Get core
   const core = this._coreKeyToCore[key]
@@ -56,7 +56,7 @@ exports.remove_core = function (key) {
   })
 }
 
-exports._add_to_ignore_list = function (key, cb) {
+exports._add_to_ignore_list = function(key, cb) {
   let self = this
   // Add it to IGNORELIST
   let storage = self._open_storage("IGNORELIST")
@@ -75,7 +75,10 @@ exports._add_to_ignore_list = function (key, cb) {
     debug("[IGNORELIST]", `Added ${key} to the list `)
     writeStringToStorage(list, ignorelist, (err) => {
       if (err) throw err
-      else ((typeof cb === "function") ? cb() : null)
+      else
+
+          typeof cb === "function" ? cb() :
+          null
     })
   })
 }

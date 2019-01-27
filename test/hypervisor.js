@@ -1,11 +1,9 @@
-let test = require('tape')
-const debug = require('../utils/debug')(__filename, "test")
+const test = require("tape")
 
-let hypervisor = require('../hypervisor')
-let ram = require('random-access-memory')
-let tmp = require('tmp').tmpNameSync
+let hypervisor = require("../hypervisor")
+let ram = require("random-access-memory")
 
-test('no cores', function (t) {
+test("no cores", function(t) {
   const hv = hypervisor(ram, "testpassword")
   hv.ready(() => {
     hv.cores((err, cores) => {
@@ -16,21 +14,21 @@ test('no cores', function (t) {
   })
 })
 
-test('create core', function (t) {
+test("create core", function(t) {
   t.plan(6)
 
   const hv = hypervisor(ram, "testpassword")
   hv.ready(() => {
-    hv.add_core("test", "text", function (err, core) {
+    hv.add_core("test", "text", function(err, core) {
       t.error(err, "no errors")
-      core.append('foo', function (err) {
+      core.append("foo", function(err) {
         t.error(err, "no errors")
-        core.get(0, function (err, data) {
+        core.get(0, function(err, data) {
           t.error(err, "no errors")
-          t.equals(data.toString(), 'foo', "core contains stored string")
+          t.equals(data.toString(), "foo", "core contains stored string")
           hv.cores((err, cores) => {
             t.error(err, "no errors")
-            t.deepEquals(cores, [core], "core is correctly found in the cores")
+            t.deepEquals(cores, [ core ], "core is correctly found in the cores")
           })
         })
       })
@@ -38,31 +36,31 @@ test('create core', function (t) {
   })
 })
 
-test('get core by key', function (t) {
+test("get core by key", function(t) {
   t.plan(3)
 
   const hv = hypervisor(ram, "testpassword")
   hv.ready(() => {
-    hv.add_core("test", "text", function (err, core) {
+    hv.add_core("test", "text", function(err, core) {
       t.error(err, "no errors")
       let core_reference = hv.core(core.key)
-      t.deepEquals(core_reference, core, 'core is the same as retrieved core (buffer key)')
-      core = hv.core(core.key.toString('hex'))
-      t.deepEquals(core_reference, core, 'core is the same as retrieved core (hex key)')
+      t.deepEquals(core_reference, core, "core is the same as retrieved core (buffer key)")
+      core = hv.core(core.key.toString("hex"))
+      t.deepEquals(core_reference, core, "core is the same as retrieved core (hex key)")
     })
   })
 })
 
-test('get localcore by name', function (t) {
+test("get localcore by name", function(t) {
   t.plan(3)
 
   const hv = hypervisor(ram, "testpassword")
   hv.ready(() => {
-    hv.add_core('bob', "text", function (err, w) {
+    hv.add_core("bob", "text", function(err, w) {
       t.error(err, "no errors")
-      hv.open_core('bob', function (err, w2) {
-        t.error(err, 'valid core retrieved')
-        t.deepEquals(w2, w, 'core is the same as retrieved core')
+      hv.open_core("bob", function(err, w2) {
+        t.error(err, "valid core retrieved")
+        t.deepEquals(w2, w, "core is the same as retrieved core")
       })
     })
   })
@@ -81,7 +79,7 @@ test('get localcore by name', function (t) {
 //       t.error(err, "no errors")
 //       t.ok(w.key)
 //       key = w.key
-  
+
 //       // HACK: close its storage
 //       w._storage.close(function () {
 //         const hv2 = hypervisor(storage, hv._hypervisor_key)
