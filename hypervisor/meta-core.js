@@ -1,17 +1,17 @@
-const debug = require("../utils/debug")(__filename)
-const kv_ui = require("../cores/interfaces/kv")
-const meta_ui = require("../cores/interfaces/meta")
-const { createNewCore } = require("../cores/create_core")
-const load_core = require("../cores/load_core")
+const debug = require('../utils/debug')(__filename)
+const ikv = require('../cores/interfaces/kv')
+const imeta = require('../cores/interfaces/meta')
+const { createNewCore } = require('../cores/create_core')
+const loadCore = require('../cores/load_core')
 
-exports.create = function(storage, keys, callback) {
-  debug("[META] creating new meta core")
-  createNewCore("meta", storage, keys, (err, core) => {
+exports.create = function (storage, keys, callback) {
+  debug('[META] creating new meta core')
+  createNewCore('meta', storage, keys, (err, core) => {
     if (err) return callback(err)
 
     // This is where a good old hypercore turns into meta-core
-    applyInterface(kv_ui, core)
-    applyInterface(meta_ui, core)
+    applyInterface(ikv, core)
+    applyInterface(imeta, core)
 
     // It's likely we want to use the same storage used here with
     // new cores so let's make our lives easier
@@ -21,15 +21,15 @@ exports.create = function(storage, keys, callback) {
   })
 }
 
-exports.open = function(storage, keys, callback) {
-  debug("Open meta core", keys.key)
-  load_core(keys, storage, (err, core) => {
+exports.open = function (storage, keys, callback) {
+  debug('Open meta core', keys.key)
+  loadCore(keys, storage, (err, core) => {
     if (err) return callback(err)
 
     if (core) {
       // This is where a good old hypercore turns into meta-core
-      applyInterface(kv_ui, core)
-      applyInterface(meta_ui, core)
+      applyInterface(ikv, core)
+      applyInterface(imeta, core)
 
       // It's likely we want to use the same storage used here with
       // new cores so let's make our lives easier
@@ -41,10 +41,10 @@ exports.open = function(storage, keys, callback) {
   })
 }
 
-function applyInterface(interface, core) {
-  for (const method in interface) {
-    if (interface.hasOwnProperty(method)) {
-      core[method] = interface[method](core)
+function applyInterface (interf, core) {
+  for (const method in interf) {
+    if (interf.hasOwnProperty(method)) {
+      core[method] = interf[method](core)
     }
   }
   return core

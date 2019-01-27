@@ -1,13 +1,12 @@
-const debug = require("../../utils/debug")(__filename)
-const async = require("async")
-const { createNewCore } = require("../create_core")
-const load_core = require("../load_core")
+const async = require('async')
+const { createNewCore } = require('../create_core')
+const load_core = require('../load_core')
 
 const API = {
   attach_core: (core) => {
     return function(name, hypercore, type, callback) {
       // Get a key from core
-      const key = hypercore.key.toString("hex")
+      const key = hypercore.key.toString('hex')
 
       // Create a reference to initialized hypercore
       core.add_core_reference(key, hypercore)
@@ -24,8 +23,10 @@ const API = {
     return function(name, type, callback) {
       // Create new hypercore
       createNewCore(type, core.default_storage || null, null, (err, hypercore) => {
+        if (err) return callback(err)
+
         // Get a key from core
-        const key = hypercore.key.toString("hex")
+        const key = hypercore.key.toString('hex')
 
         // Create a reference to initialized hypercore
         core.add_core_reference(key, hypercore)
@@ -67,23 +68,25 @@ const API = {
   remove_core: (core) => {
     return function(key, callback) {
       core.rem_kv(`details:${key}`, (err) => {
+        if (err) return callback(err)
+
         core.remove_core_reference(key)
         callback()
       })
       // remove details:key
 
-      //add_to_blocklist(key)
+      // add_to_blocklist(key)
     }
   },
-  add_meta: (core) => {
-    return function(key, meta_key, value) {
+  add_meta: () => {
+    return function() {
       // fetch details:key
       // add or replace existing meta_key data
       // create details:key={name, key, type, meta_key, ...}
     }
   },
-  remove_meta: (core) => {
-    return function(key, meta_key) {
+  remove_meta: () => {
+    return function() {
       // fetch details:key
       // delete meta_key data
       // create details:key={name, key, type, ...}
@@ -129,7 +132,7 @@ const API = {
   load_cores_from_storage: (core) => {
     return function(keys, callback) {
       // Make keys optional
-      if (typeof keys === "function" && !callback) {
+      if (typeof keys === 'function' && !callback) {
         callback = keys
       }
       // find all keys
@@ -143,7 +146,7 @@ const API = {
             load_core({ key: uninitd_core.key }, core.default_storage, (err, initd_core) => {
               if (err) return core_done(err)
               else if (initd_core && initd_core.key) {
-                core.add_core_reference(uninitd_core.key.toString("hex"), initd_core)
+                core.add_core_reference(uninitd_core.key.toString('hex'), initd_core)
 
                 return core_done()
               } else {
@@ -157,8 +160,8 @@ const API = {
       // return { key: core }
     }
   },
-  add_to_blocklist: (core) => {
-    return function(key) {
+  add_to_blocklist: () => {
+    return function() {
       // add block=true in key's details
       // add key to blocklist=[..., key]
     }
@@ -167,6 +170,8 @@ const API = {
     return function(callback) {
       // Get all the keys in the meta
       core.get_all_keys((err, keys) => {
+        if (err) return callback(err)
+
         // reject everything that doesn't start with "details:"
         const cores_keys = keys.filter((key) => {
           return key.match(/^details:/)
@@ -216,6 +221,8 @@ const API = {
     return function(callback) {
       // first get all the core keys
       core.get_all_core_details((err, cores) => {
+        if (err) return callback(err)
+
         const _cores = {}
         const _coreKeyToCore = {}
         cores.forEach((c) => {

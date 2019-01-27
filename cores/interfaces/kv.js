@@ -1,5 +1,5 @@
-const debug = require("../../utils/debug")(__filename)
-const async = require("async")
+const debug = require('../../utils/debug')(__filename)
+const async = require('async')
 
 module.exports = {
   set_kv: function(core) {
@@ -36,12 +36,12 @@ module.exports = {
             const content = buffer.toString()
 
             // If it's a string, try to parse it
-            if (typeof content === "string" && content.length > 0) {
+            if (typeof content === 'string' && content.length > 0) {
               // We split with | and we should get 3 values if everything's cool
-              const content_obj = content.split("|")
+              const content_obj = content.split('|')
               if (content_obj.length >= 2 && content_obj[1] === key) {
                 // If we find the key with + type, we pick that and stop the search
-                if (content_obj[0] === "+") {
+                if (content_obj[0] === '+') {
                   try {
                     let value = null
 
@@ -52,18 +52,15 @@ module.exports = {
                     deliver(null, value)
                     return
                   } catch (e) {
-                    debug("[ERROR]", "error in json parsing", e)
-                    deliver("ERROR_PARSING_JSON")
-                    return
+                    debug('[ERROR]', 'error in json parsing', e)
+                    deliver('ERROR_PARSING_JSON')
                   }
-                } else if (content_obj[0] === "-") {
+                } else if (content_obj[0] === '-') {
                   // If we find the key with - type, it's deleted and we stop the search
                   deliver()
-                  return
                 } else {
-                  debug("[ERROR]", "this state should not happen", content)
-                  deliver("BAD_CONTENT")
-                  return
+                  debug('[ERROR]', 'this state should not happen', content)
+                  deliver('BAD_CONTENT')
                 }
               }
             }
@@ -72,7 +69,6 @@ module.exports = {
       } else {
         // core is empty so there's nothing available yet
         deliver()
-        return
       }
     }
   },
@@ -96,25 +92,25 @@ module.exports = {
               const content = buffer.toString()
 
               // If it's a string, try to parse it
-              if (typeof content === "string" && content.length > 0) {
+              if (typeof content === 'string' && content.length > 0) {
                 // We split with | and we should get 3 values if everything's cool
-                const content_obj = content.split("|")
+                const content_obj = content.split('|')
                 if (content_obj.length === 3) {
                   // If we find the key with + type, add it to keys with +
-                  if (content_obj[0] === "+") {
-                    keys[content_obj[1]] = "+"
+                  if (content_obj[0] === '+') {
+                    keys[content_obj[1]] = '+'
                   }
                   // If we find the key with - type, add it to keys with +
-                  if (content_obj[0] === "-") {
-                    keys[content_obj[1]] = "-"
+                  if (content_obj[0] === '-') {
+                    keys[content_obj[1]] = '-'
                   }
                   done()
                 } else {
-                  debug("[ERROR]", "content doesn't split correctly", content)
-                  done("BAD_CONTENT")
+                  debug('[ERROR]', "content doesn't split correctly", content)
+                  done('BAD_CONTENT')
                 }
               } else {
-                done("BAD_CONTENT")
+                done('BAD_CONTENT')
               }
             })
           },
@@ -123,7 +119,7 @@ module.exports = {
             // Filter out all keys that have - as their action because they are deleted
             const existing_keys = []
             for (const key in keys) {
-              if (keys.hasOwnProperty(key) && keys[key] === "+") {
+              if (keys.hasOwnProperty(key) && keys[key] === '+') {
                 existing_keys.push(key)
               }
             }

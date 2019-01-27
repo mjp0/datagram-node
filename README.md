@@ -1,5 +1,7 @@
 # datagram base library
 
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
+
 --- this is still under heavy work, do not attempt to use ---
 
 ## Credits

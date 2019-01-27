@@ -1,19 +1,18 @@
-const raf = require("random-access-file")
-const path = require("path")
-const events = require("events")
-const inherits = require("inherits")
-const readyify = require("../utils/ready")
-const mutexify = require("mutexify")
-const debug = require("../utils/debug")(__filename)
-const hypercore = require("hypercore")
-const { readStringFromStorage } = require("../utils/storage")
-const { remove_core } = require("../cores/remove_core")
-const { _add_to_ignore_list } = require("../cores/remove_core")
-const { replicate, _replicate } = require("./replicate")
-const crypto = require("hypercore-crypto")
-const MetaCore = require("./meta-core")
-const { deriveKeyPair } = require("../utils/crypto")
-const waterfall = require("async/waterfall")
+const raf = require('random-access-file')
+const path = require('path')
+const events = require('events')
+const inherits = require('inherits')
+const readyify = require('../utils/ready')
+const mutexify = require('mutexify')
+const debug = require('../utils/debug')(__filename)
+const hypercore = require('hypercore')
+const { readStringFromStorage } = require('../utils/storage')
+const { remove_core } = require('../cores/remove_core')
+const { _add_to_ignore_list } = require('../cores/remove_core')
+const { replicate } = require('./replicate')
+const MetaCore = require('./meta-core')
+const { deriveKeyPair } = require('../utils/crypto')
+const waterfall = require('async/waterfall')
 
 module.exports = Hypervisor
 
@@ -40,44 +39,44 @@ function Hypervisor(storage, password, opts) {
   this.mux = null
   this._opts = opts || {}
   this._metacore_opts = {}
-  this._opts.valueEncoding = "binary" // Binary encoding is enforced
+  this._opts.valueEncoding = 'binary' // Binary encoding is enforced
   this.coreLock = mutexify()
   this._middleware = []
   this._storage_path = null
   this._storage = storage
 
-  if (typeof storage === "string") this._storage_path = storage
+  if (typeof storage === 'string') this._storage_path = storage
 
   // Generate keys for meta core and replication stream
-  const metacore_keypair = deriveKeyPair(Buffer.from(password + "metacore"))
-  this._metacore_opts.key = metacore_keypair.publicKey.toString("hex")
-  this._metacore_opts.secret = metacore_keypair.secretKey.toString("hex")
+  const metacore_keypair = deriveKeyPair(Buffer.from(password + 'metacore'))
+  this._metacore_opts.key = metacore_keypair.publicKey.toString('hex')
+  this._metacore_opts.secret = metacore_keypair.secretKey.toString('hex')
 
-  const replication_keypair = deriveKeyPair(Buffer.from(password + "replication"))
-  this._opts.key = replication_keypair.publicKey.toString("hex")
-  this._opts.secretKey = replication_keypair.secretKey.toString("hex")
+  const replication_keypair = deriveKeyPair(Buffer.from(password + 'replication'))
+  this._opts.key = replication_keypair.publicKey.toString('hex')
+  this._opts.secretKey = replication_keypair.secretKey.toString('hex')
 
-  this._hypervisor_key = this._opts.key.toString("hex")
+  this._hypervisor_key = this._opts.key.toString('hex')
 
   this.key = this._opts.key
 
   this._open_storage = function(dir) {
     return function(name) {
       var s = storage
-      if (typeof storage === "string") return raf(path.join(storage, dir, name))
-      else return s(dir + "/" + name)
+      if (typeof storage === 'string') return raf(path.join(storage, dir, name))
+      else return s(dir + '/' + name)
     }
   }
   // Makes sure everything necessary is executed before hypervisor is allowed to be used
 
   this._ready = readyify(function(done) {
-    debug("Creating new Hypervisor", self._hypervisor_key)
+    debug('Creating new Hypervisor', self._hypervisor_key)
 
     // First try to open the core, if it's not there, create a new one
     waterfall([
       (next) => {
         MetaCore.open(storage, self._metacore_opts, (err, MC) => {
-          if (err) return callback(err)
+          if (err) return done(err)
           // If we have a key, we exist
           if (MC && MC.key) next(null, MC)
           else next(null, null)
@@ -86,7 +85,7 @@ function Hypervisor(storage, password, opts) {
       (MC, next) => {
         if (!MC) {
           MetaCore.create(storage, self._metacore_opts, (err, MC) => {
-            if (err) return callback(err)
+            if (err) return done(err)
             // If we have a key, we exist
             if (MC && MC.key) next(null, MC)
           })
@@ -95,9 +94,9 @@ function Hypervisor(storage, password, opts) {
       (MC, next) => {
         generateAPI(MC)
         MC.load_cores_from_storage((err) => {
-          if (err) return callback(err)
+          if (err) return done(err)
           MC.export_legacy((err, cores) => {
-            if (err) return callback(err)
+            if (err) return done(err)
             self._cores = cores._cores
             self._coreKeyToCore = cores._coreKeyToCore
             done()
@@ -141,7 +140,7 @@ function Hypervisor(storage, password, opts) {
         return replicate(self, MetaCore, opts)
       }
       self.core = (key) => {
-        if (Buffer.isBuffer(key)) key = key.toString("hex")
+        if (Buffer.isBuffer(key)) key = key.toString('hex')
         return MetaCore.core_references[key]
       }
     }
@@ -154,12 +153,11 @@ function Hypervisor(storage, password, opts) {
 
 inherits(Hypervisor, events.EventEmitter)
 
-//Hypervisor.prototype.replicate = replicate
 Hypervisor.prototype._remove_core = remove_core
 Hypervisor.prototype._add_to_ignore_list = _add_to_ignore_list
 
 /**
- * Passes ready callback to internal _ready 
+ * Passes ready callback to internal _ready
  *
  * @public
  * @param {Function} cb callback()
@@ -182,10 +180,11 @@ Hypervisor.prototype.use = function(plug) {
   let self = this
 
   // If policy contains function init, run it when hypervisor is getting ready
-  if (typeof plug.init === "function")
+  if (typeof plug.init === 'function') {
     this.ready(function() {
       plug.init(self)
     })
+  }
 }
 
 /**
@@ -196,14 +195,14 @@ Hypervisor.prototype.use = function(plug) {
  */
 Hypervisor.prototype.updateIgnoreList = function(cb) {
   const self = this
-  let bl_storage = self._open_storage("IGNORELIST")
-  let ignorelist = bl_storage("ignorelist")
+  let bl_storage = self._open_storage('IGNORELIST')
+  let ignorelist = bl_storage('ignorelist')
   readStringFromStorage(ignorelist, (err, str) => {
     // Blacklist doesn't exist yet
     if (!err) {
-      self._ignoreList = str.split("|")
+      self._ignoreList = str.split('|')
     }
-    debug("[IGNORELIST UPDATED]", str)
+    debug('[IGNORELIST UPDATED]', str)
     cb()
   })
 }

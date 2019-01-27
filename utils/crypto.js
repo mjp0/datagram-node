@@ -1,5 +1,3 @@
-const debug = require("../utils/debug")(__filename)
-
 const sodium = require('sodium-universal')
 
 const CONTEXT = Buffer.from('datagramv1') // dappdb v1
@@ -14,7 +12,7 @@ exports.deriveKeyPair = function(master_key) {
   const seed = Buffer.alloc(sodium.crypto_sign_SEEDBYTES)
   const keyPair = {
     publicKey: Buffer.alloc(sodium.crypto_sign_PUBLICKEYBYTES),
-    secretKey: Buffer.alloc(sodium.crypto_sign_SECRETKEYBYTES)
+    secretKey: Buffer.alloc(sodium.crypto_sign_SECRETKEYBYTES),
   }
 
   const secretKey = exports.blake2b(master_key)
