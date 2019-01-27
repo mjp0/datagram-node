@@ -120,7 +120,7 @@ test('storage persistence', (t) => {
   let mc1 = null
   let mc1_key = null
   let core1_key = null
-  let storage = tmp()
+  const storage = tmp()
 
   async.waterfall([
     (next) => {

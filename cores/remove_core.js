@@ -17,8 +17,8 @@ exports.remove_core = function(key) {
     if (idx) {
       if (self._cores[idx].key.toString('hex') === key) {
         // Fetch the storage slot for the core
-        let storage = self._open_storage('' + idx)
-        let st = storage('key')
+        const storage = self._open_storage('' + idx)
+        const st = storage('key')
 
         // Remove files if random-access-file is used
         if (self._storage_path) {
@@ -58,10 +58,10 @@ exports.remove_core = function(key) {
 }
 
 exports._add_to_ignore_list = function(key, cb) {
-  let self = this
+  const self = this
   // Add it to IGNORELIST
-  let storage = self._open_storage('IGNORELIST')
-  let ignorelist = storage('ignorelist')
+  const storage = self._open_storage('IGNORELIST')
+  const ignorelist = storage('ignorelist')
   readStringFromStorage(ignorelist, (err, list) => {
     // Ignore list doesn't exist yet
     if (err || !list) list = `${key}|`

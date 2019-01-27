@@ -1,7 +1,7 @@
 const test = require('tape')
 
-let hypervisor = require('../hypervisor')
-let ram = require('random-access-memory')
+const hypervisor = require('../hypervisor')
+const ram = require('random-access-memory')
 
 test('no cores', function(t) {
   const hv = hypervisor(ram, 'testpassword')
@@ -43,7 +43,7 @@ test('get core by key', function(t) {
   hv.ready(() => {
     hv.add_core('test', 'text', function(err, core) {
       t.error(err, 'no errors')
-      let core_reference = hv.core(core.key)
+      const core_reference = hv.core(core.key)
       t.deepEquals(core_reference, core, 'core is the same as retrieved core (buffer key)')
       core = hv.core(core.key.toString('hex'))
       t.deepEquals(core_reference, core, 'core is the same as retrieved core (hex key)')

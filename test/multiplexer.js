@@ -1,17 +1,17 @@
-var test = require('tape')
-var hypercore = require('hypercore')
-var ram = require('random-access-memory')
-var multiplexer = require('../hypervisor/multiplexer')
-var pump = require('pump')
-var through = require('through2')
+const test = require('tape')
+const hypercore = require('hypercore')
+const ram = require('random-access-memory')
+const multiplexer = require('../hypervisor/multiplexer')
+const pump = require('pump')
+const through = require('through2')
 const debug = require('../utils/debug')(__filename, 'test')
 
 test('Key exchange API', function(t) {
   t.plan(11)
-  var encryptionKey = Buffer.from('deadbeefdeadbeefdeadbeefdeadbeef') // used to encrypt the connection
+  const encryptionKey = Buffer.from('deadbeefdeadbeefdeadbeefdeadbeef') // used to encrypt the connection
 
-  var mux1 = multiplexer(encryptionKey)
-  var mux2 = multiplexer(encryptionKey)
+  const mux1 = multiplexer(encryptionKey)
+  const mux2 = multiplexer(encryptionKey)
 
   mux1.ready(function(client) {
     mux1.haveFeeds([ 'foo', 'oof', '03', '01' ])
@@ -24,7 +24,7 @@ test('Key exchange API', function(t) {
     })
   })
 
-  var expectedKeys = [ '01', '02', '03', 'foo', 'oof' ]
+  const expectedKeys = [ '01', '02', '03', 'foo', 'oof' ]
 
   mux1.on('manifest', function(m) {
     t.ok(m.keys instanceof Array, 'Manifest contains an array of feed keys')
@@ -73,10 +73,10 @@ test('Key exchange API', function(t) {
 
 test('Actual replication', function(t) {
   t.plan(18)
-  var encryptionKey = Buffer.from('deadbeefdeadbeefdeadbeefdeadbeef')
-  var h1 = hypercore(ram)
-  var h2 = hypercore(ram)
-  var h3 = hypercore(ram)
+  const encryptionKey = Buffer.from('deadbeefdeadbeefdeadbeefdeadbeef')
+  const h1 = hypercore(ram)
+  const h2 = hypercore(ram)
+  const h3 = hypercore(ram)
 
   // Initial cores
   function setup(cb) {
@@ -98,12 +98,12 @@ test('Actual replication', function(t) {
     })
   }
 
-  var mux1 = multiplexer(encryptionKey)
-  var mux2 = multiplexer(encryptionKey)
+  const mux1 = multiplexer(encryptionKey)
+  const mux2 = multiplexer(encryptionKey)
   // replicated core placeholders
-  var h1r = null
-  var h2r = null
-  var h3r = null
+  let h1r = null
+  let h2r = null
+  let h3r = null
   mux1.on('manifest', function(m) {
     h2r = hypercore(ram, h2.key.toString('hex'))
     h2r.on('download', function(index, data) {

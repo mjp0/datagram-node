@@ -1,23 +1,23 @@
-var protocol = require('hypercore-protocol')
-var readify = require('../utils/ready')
-var inherits = require('inherits')
-var events = require('events')
+const protocol = require('hypercore-protocol')
+const readify = require('../utils/ready')
+const inherits = require('inherits')
+const events = require('events')
 const debug = require('../utils/debug')(__filename)
-var xtend = require('xtend')
+const xtend = require('xtend')
 
 // constants
-var HYPERVISOR = 'HYPERVISOR'
-var PROTOCOL_VERSION = '1.0.0'
+const HYPERVISOR = 'HYPERVISOR'
+const PROTOCOL_VERSION = '1.0.0'
 // extensions
-var MANIFEST = 'MANIFEST'
-var REQUEST_FEEDS = 'REQUEST_FEEDS'
+const MANIFEST = 'MANIFEST'
+const REQUEST_FEEDS = 'REQUEST_FEEDS'
 /*
 var ANNOUNCE_FEED = 'ANNOUNCE_FEED'
 var REQUEST_FEED_SIGNATURE = 'REQUEST_FEED_SIGNATURE'
 var FEED_SIGNATURE = 'FEED_SIGNATURE'
 */
 
-var SupportedExtensions = [
+const SupportedExtensions = [
   MANIFEST,
   REQUEST_FEEDS,
   // ANNOUNCE_FEED
@@ -39,7 +39,7 @@ var SupportedExtensions = [
 function Multiplexer(key, opts) {
   if (!(this instanceof Multiplexer)) return new Multiplexer(key, opts)
   debug('[REPLICATION] New mux initialized', key.toString('hex'), opts)
-  var self = this
+  const self = this
   self._opts = opts = opts || {}
   self.extensions = opts.extensions = SupportedExtensions || opts.extensions
 
@@ -51,7 +51,7 @@ function Multiplexer(key, opts) {
 
   // Creates a new hypercore replication protocol instance
   // and adds userData as a meta-data
-  var stream = (this.stream = protocol(
+  const stream = (this.stream = protocol(
     Object.assign(opts, {
       userData: Buffer.from(
         JSON.stringify({
@@ -73,7 +73,7 @@ function Multiplexer(key, opts) {
   // When stream delivers "handshake" packet...
   stream.on('handshake', function() {
     // Parse the received packet to JSON
-    var header = JSON.parse(this.userData.toString('utf8'))
+    const header = JSON.parse(this.userData.toString('utf8'))
     debug("[REPLICATION] recv'd header: ", JSON.stringify(header))
 
     // Check whether the sender's client and version match
@@ -107,7 +107,7 @@ function Multiplexer(key, opts) {
     switch (type) {
       // Manifest tells us what feeds the peer has
       case MANIFEST:
-        var rm = JSON.parse(message.toString('utf8'))
+        const rm = JSON.parse(message.toString('utf8'))
 
         // Store the feeds that the peer has
         self._remoteHas = rm.keys
@@ -182,7 +182,7 @@ Multiplexer.prototype._finalize = function(err) {
  */
 Multiplexer.prototype.haveFeeds = function(keys, opts) {
   // Create manifest package
-  var manifest = xtend(opts || {}, {
+  const manifest = xtend(opts || {}, {
     // Add the keys we want to share to the manifest
     keys: extractKeys(keys),
   })
@@ -233,7 +233,7 @@ Multiplexer.prototype._initRepl = function() {
   //
   // The result honors that each node only shares what it offers and does not receive feeds that it didn't ask for.
 
-  var self = this
+  const self = this
 
   // If we don't want anything or peer doesn't want anything, we are done here
   if (!this._localWant || !this._remoteWants) return
@@ -242,17 +242,17 @@ Multiplexer.prototype._initRepl = function() {
   // to share anything, and we can silently respect that.
 
   // Create a list of feeds that we will send by matching common feeds we have and peer wants
-  var sending = self._remoteWants.filter(function(k) {
+  const sending = self._remoteWants.filter(function(k) {
     return (self._localHave || []).indexOf(k) !== -1
   })
 
   // Create a list of feeds that we will be receiving by matching common feeds we want and peer has
-  var receiving = self._localWant.filter(function(k) {
+  const receiving = self._localWant.filter(function(k) {
     return (self._remoteHas || []).indexOf(k) !== -1
   })
 
   // Concat sending and receiveing; produce sorted array with no duplicates
-  var keys = sending
+  const keys = sending
     .concat(receiving)
     .reduce(function(arr, key) {
       // remove duplicates
@@ -325,8 +325,8 @@ module.exports.SupportedExtensions = SupportedExtensions
 
 // String, String -> Boolean
 function compatibleVersions(v1, v2) {
-  var major1 = v1.split('.')[0]
-  var major2 = v2.split('.')[0]
+  const major1 = v1.split('.')[0]
+  const major2 = v2.split('.')[0]
   return parseInt(major1) === parseInt(major2)
 }
 

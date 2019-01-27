@@ -1,6 +1,6 @@
 module.exports = function(work) {
-  var ready = false
-  var fns = []
+  let ready = false
+  const fns = []
   process.nextTick(function() {
     work(function() {
       ready = true

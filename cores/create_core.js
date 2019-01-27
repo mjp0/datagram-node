@@ -28,7 +28,7 @@ exports.createNewCore = function(type, storage, keys, callback) {
   debug('Creating new core', opts.key.toString('hex'), type)
 
   const store = _open_storage(opts.key.toString('hex'), storage)
-  let core = hypercore(store, opts)
+  const core = hypercore(store, opts)
   core.ready((err) => {
     if (err) return callback(err)
     return callback(err, core)

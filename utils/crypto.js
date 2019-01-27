@@ -3,7 +3,7 @@ const sodium = require('sodium-universal')
 const CONTEXT = Buffer.from('datagramv1') // dappdb v1
 
 exports.blake2b = function(str) {
-  var digest = Buffer.alloc(32)
+  const digest = Buffer.alloc(32)
   sodium.crypto_generichash(digest, Buffer.from(str))
   return digest
 }

@@ -62,7 +62,7 @@ function Hypervisor(storage, password, opts) {
 
   this._open_storage = function(dir) {
     return function(name) {
-      var s = storage
+      const s = storage
       if (typeof storage === 'string') return raf(path.join(storage, dir, name))
       else return s(dir + '/' + name)
     }
@@ -177,7 +177,7 @@ Hypervisor.prototype.use = function(plug) {
 
   // Store replication policy object to _middleware
   this._middleware.push(plug)
-  let self = this
+  const self = this
 
   // If policy contains function init, run it when hypervisor is getting ready
   if (typeof plug.init === 'function') {
@@ -195,8 +195,8 @@ Hypervisor.prototype.use = function(plug) {
  */
 Hypervisor.prototype.updateIgnoreList = function(cb) {
   const self = this
-  let bl_storage = self._open_storage('IGNORELIST')
-  let ignorelist = bl_storage('ignorelist')
+  const bl_storage = self._open_storage('IGNORELIST')
+  const ignorelist = bl_storage('ignorelist')
   readStringFromStorage(ignorelist, (err, str) => {
     // Blacklist doesn't exist yet
     if (!err) {

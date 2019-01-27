@@ -15,7 +15,7 @@ exports.replicate = function(self, metacore, opts) {
   if (!opts) opts = {}
   this.key = self._opts.key
   // Create a multiplexed replication stream from all cores in hypervisor
-  let mux = (self.mux = multiplexer(self.key, opts))
+  const mux = (self.mux = multiplexer(self.key, opts))
 
   // Listen for "manifest" packet to tell us what the peer has to offer
   mux.once('manifest', function(m) {
@@ -40,14 +40,14 @@ exports.replicate = function(self, metacore, opts) {
         if (self._middleware.length === idx) return mux.wantFeeds(ctx.keys)
 
         // Fetch the middleware
-        let plug = self._middleware[idx]
+        const plug = self._middleware[idx]
 
         // Reliquish control to next if plug does not implement callback
         if (typeof plug.want !== 'function') return callPlug(idx + 1, ctx)
 
         // give each plug a fresh reference to avoid peeking/postmodifications
         plug.want(clone(ctx), function(keys) {
-          let n = clone(m)
+          const n = clone(m)
           n.keys = keys
           callPlug(idx + 1, n)
         })
@@ -71,12 +71,12 @@ exports.replicate = function(self, metacore, opts) {
       metacore.export_legacy((err, cores) => {
         if (err) throw err
 
-        let key2core = values(cores._cores).reduce(function(h, core) {
+        const key2core = values(cores._cores).reduce(function(h, core) {
           h[core.key.toString('hex')] = core
           return h
         }, {})
 
-        let sortedFeeds = keys.map(function(k) {
+        const sortedFeeds = keys.map(function(k) {
           return key2core[k]
         })
 
@@ -97,7 +97,7 @@ exports.replicate = function(self, metacore, opts) {
       metacore.export_legacy((err, cores) => {
         if (err) throw err
 
-        let available = values(cores._cores).map(function(core) {
+        const available = values(cores._cores).map(function(core) {
           return core.key.toString('hex')
         })
 
@@ -110,7 +110,7 @@ exports.replicate = function(self, metacore, opts) {
             // and can mark the rest as shared cores
             if (idx === self._middleware.length) return mux.haveFeeds(ctx.keys, ctx)
 
-            let plug = self._middleware[idx]
+            const plug = self._middleware[idx]
 
             // Reliquish control to next if plug does not implement callback
             if (typeof plug.have !== 'function') return callPlug(idx + 1, ctx)
@@ -167,19 +167,19 @@ exports.replicate = function(self, metacore, opts) {
     debug("[REPLICATION] recv'd " + keys.length + ' keys')
 
     // Validate keys
-    let filtered = keys.filter(function(key) {
+    const filtered = keys.filter(function(key) {
       return !Number.isNaN(parseInt(key, 16)) && key.length === 64
     })
     metacore.export_legacy((err, cores) => {
       if (err) return cb(err)
 
       // Get keys hypervisor has already
-      let existingKeys = values(cores._cores).map(function(core) {
+      const existingKeys = values(cores._cores).map(function(core) {
         return core.key.toString('hex')
       })
 
       // Get keys that are previously unknown to the hypervisor
-      let missingFeeds = filtered.filter(function(key) {
+      const missingFeeds = filtered.filter(function(key) {
         return existingKeys.indexOf(key) === -1
       })
 

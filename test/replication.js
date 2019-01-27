@@ -1,13 +1,10 @@
-var test = require('tape')
-var hypervisor = require('../hypervisor')
-var ram = require('random-access-memory')
+const test = require('tape')
+const hypervisor = require('../hypervisor')
+const ram = require('random-access-memory')
 const async = require('async')
 
 test('replicate two hypervisors', function(t) {
   t.plan(22)
-
-  var m1
-  var m2
 
   function setup(m, buf, cb) {
     m.add_core('test', 'text', function(err, core) {
@@ -27,13 +24,13 @@ test('replicate two hypervisors', function(t) {
     })
   }
 
-  m1 = hypervisor(ram, 'test')
+  const m1 = hypervisor(ram, 'test')
+  const m2 = hypervisor(ram, 'test')
   m1.ready(() => {
-    m2 = hypervisor(ram, 'test')
     m2.ready(() => {
       setup(m1, 'foo', function() {
         setup(m2, 'bar', function() {
-          var r = m1.replicate()
+          const r = m1.replicate()
           r.pipe(m2.replicate()).pipe(r).once('end', check)
         })
       })
@@ -81,8 +78,8 @@ test('replicate two hypervisors', function(t) {
 test('replicate two live hypervisors', function(t) {
   t.plan(22)
 
-  var m1
-  var m2
+  let m1
+  let m2
 
   function setup(m, buf, cb) {
     m.add_core('test', 'text', function(err, core) {
@@ -108,7 +105,7 @@ test('replicate two live hypervisors', function(t) {
     m2.ready(() => {
       setup(m1, 'foo', function() {
         setup(m2, 'bar', function() {
-          var r = m1.replicate({ live: true })
+          const r = m1.replicate({ live: true })
           r.pipe(m2.replicate({ live: true })).pipe(r)
           setTimeout(check, 1000)
         })
