@@ -6,9 +6,6 @@ const readyify = require('../utils/ready')
 const mutexify = require('mutexify')
 const debug = require('../utils/debug')(__filename)
 const hypercore = require('hypercore')
-const { readStringFromStorage } = require('../utils/storage')
-const { remove_core } = require('../cores/remove_core')
-const { _add_to_ignore_list } = require('../cores/remove_core')
 const { replicate } = require('./replicate')
 const MetaCore = require('./meta-core')
 const { deriveKeyPair } = require('../utils/crypto')
@@ -136,6 +133,8 @@ function Hypervisor(storage, password, opts) {
       self.cores = MetaCore.get_all_cores
       self.get_cores = MetaCore.get_all_cores
       self.attach_core = MetaCore.attach_core
+      self.remove_core = MetaCore.remove_core
+      self.get_blocklist = MetaCore.get_blocklist
       self.replicate = function(opts) {
         return replicate(self, MetaCore, opts)
       }
@@ -152,9 +151,6 @@ function Hypervisor(storage, password, opts) {
 }
 
 inherits(Hypervisor, events.EventEmitter)
-
-Hypervisor.prototype._remove_core = remove_core
-Hypervisor.prototype._add_to_ignore_list = _add_to_ignore_list
 
 /**
  * Passes ready callback to internal _ready
@@ -185,24 +181,4 @@ Hypervisor.prototype.use = function(plug) {
       plug.init(self)
     })
   }
-}
-
-/**
- * Updates hypervisor's ignore list
- *
- * @public
- * @param {function} cb Called when ready
- */
-Hypervisor.prototype.updateIgnoreList = function(cb) {
-  const self = this
-  const bl_storage = self._open_storage('IGNORELIST')
-  const ignorelist = bl_storage('ignorelist')
-  readStringFromStorage(ignorelist, (err, str) => {
-    // Blacklist doesn't exist yet
-    if (!err) {
-      self._ignoreList = str.split('|')
-    }
-    debug('[IGNORELIST UPDATED]', str)
-    cb()
-  })
 }

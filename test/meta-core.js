@@ -39,7 +39,7 @@ test('check key/value interface', (t) => {
 })
 
 test('check meta core interface', (t) => {
-  t.plan(23)
+  t.plan(26)
   let MC = null
 
   let core1_key = ''
@@ -110,6 +110,15 @@ test('check meta core interface', (t) => {
           t.false(cores[1], 'there should be only one core left')
           next()
         })
+      })
+    },
+    (next) => {
+      // All removed cores should be found as blocked in meta-core so let's check that
+      MC.get_blocklist((err, blocklist) => {
+        t.error(err, 'no errors')
+        t.deepEquals(blocklist, [ core1_key ], 'core1 found in blocklist')
+        t.false(MC.core_references[core1_key], 'core1 removed from core_references')
+        next()
       })
     },
   ])

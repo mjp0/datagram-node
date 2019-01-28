@@ -19,45 +19,46 @@ exports.replicate = function(self, metacore, opts) {
 
   // Listen for "manifest" packet to tell us what the peer has to offer
   mux.once('manifest', function(m) {
-    // Remove ignored keys automatically
-    debug('[MANIFEST IGNORELIST]', self._ignoreList)
-    if (self._ignoreList.length > 0) {
+    // Remove blocked keys automatically
+    metacore.get_blocklist((err, blocklist) => {
+      if (err) throw err
+      debug('[MANIFEST BLOCKLIST]', blocklist)
       m.keys = m.keys.filter((key) => {
-        if (self._ignoreList.indexOf(key) === -1) return true
+        if (blocklist.indexOf(key) === -1) return true
         else {
           debug('REMOVED KEY', key)
         }
       })
-    }
 
-    // If we have added custom replication policy, execute that
-    if (self._middleware.length) {
-      // Call policy function with index and manifest
-      // eslint-disable-next-line no-inner-declarations
-      function callPlug(idx, ctx) {
-        // If this is the last middleware, we have filtered out keys we don't want
-        // and can mark the rest as wanted cores
-        if (self._middleware.length === idx) return mux.wantFeeds(ctx.keys)
+      // If we have added custom replication policy, execute that
+      if (self._middleware.length) {
+        // Call policy function with index and manifest
+        // eslint-disable-next-line no-inner-declarations
+        function callPlug(idx, ctx) {
+          // If this is the last middleware, we have filtered out keys we don't want
+          // and can mark the rest as wanted cores
+          if (self._middleware.length === idx) return mux.wantFeeds(ctx.keys)
 
-        // Fetch the middleware
-        const plug = self._middleware[idx]
+          // Fetch the middleware
+          const plug = self._middleware[idx]
 
-        // Reliquish control to next if plug does not implement callback
-        if (typeof plug.want !== 'function') return callPlug(idx + 1, ctx)
+          // Reliquish control to next if plug does not implement callback
+          if (typeof plug.want !== 'function') return callPlug(idx + 1, ctx)
 
-        // give each plug a fresh reference to avoid peeking/postmodifications
-        plug.want(clone(ctx), function(keys) {
-          const n = clone(m)
-          n.keys = keys
-          callPlug(idx + 1, n)
-        })
+          // give each plug a fresh reference to avoid peeking/postmodifications
+          plug.want(clone(ctx), function(keys) {
+            const n = clone(m)
+            n.keys = keys
+            callPlug(idx + 1, n)
+          })
+        }
+        // Start loop by calling first policy function with manifest
+        callPlug(0, m)
+      } else {
+        // If no custom replication policy used, tell peer we want every core they have
+        mux.wantFeeds(m.keys)
       }
-      // Start loop by calling first policy function with manifest
-      callPlug(0, m)
-    } else {
-      // If no custom replication policy used, tell peer we want every core they have
-      mux.wantFeeds(m.keys)
-    }
+    })
   })
 
   // Listen for "replicate" keys to start replicating
@@ -97,37 +98,50 @@ exports.replicate = function(self, metacore, opts) {
       metacore.export_legacy((err, cores) => {
         if (err) throw err
 
-        const available = values(cores._cores).map(function(core) {
-          return core.key.toString('hex')
-        })
+        // Remove blocked keys automatically
+        metacore.get_blocklist((err, blocklist) => {
+          if (err) throw err
 
-        // If middleware has been specified, run it
-        if (self._middleware.length) {
-          // Orderly iterate through all plugs
-          // eslint-disable-next-line no-inner-declarations
-          function callPlug(idx, ctx) {
-            // If this is the last middleware, we have filtered out keys we don't want to share
-            // and can mark the rest as shared cores
-            if (idx === self._middleware.length) return mux.haveFeeds(ctx.keys, ctx)
+          let available = values(cores._cores).map(function(core) {
+            return core.key.toString('hex')
+          })
 
-            const plug = self._middleware[idx]
+          debug('[MANIFEST BLOCKLIST]', blocklist)
+          available = available.filter((key) => {
+            if (blocklist.indexOf(key) === -1) return true
+            else {
+              debug('REMOVED KEY', key)
+            }
+          })
 
-            // Reliquish control to next if plug does not implement callback
-            if (typeof plug.have !== 'function') return callPlug(idx + 1, ctx)
+          // If middleware has been specified, run it
+          if (self._middleware.length) {
+            // Orderly iterate through all plugs
+            // eslint-disable-next-line no-inner-declarations
+            function callPlug(idx, ctx) {
+              // If this is the last middleware, we have filtered out keys we don't want to share
+              // and can mark the rest as shared cores
+              if (idx === self._middleware.length) return mux.haveFeeds(ctx.keys, ctx)
 
-            // give each plug a fresh reference to avoid peeking/postmodifications
-            plug.have(clone(ctx), function(keys, extras) {
-              // TODO: Can an attacker launch a spam attack with custom props?
-              extras = extras || {}
-              extras.keys = keys
-              callPlug(idx + 1, extras)
-            })
+              const plug = self._middleware[idx]
+
+              // Reliquish control to next if plug does not implement callback
+              if (typeof plug.have !== 'function') return callPlug(idx + 1, ctx)
+
+              // give each plug a fresh reference to avoid peeking/postmodifications
+              plug.have(clone(ctx), function(keys, extras) {
+                // TODO: Can an attacker launch a spam attack with custom props?
+                extras = extras || {}
+                extras.keys = keys
+                callPlug(idx + 1, extras)
+              })
+            }
+            callPlug(0, { keys: available })
+          } else {
+            // Default behaviour 'share all'
+            mux.haveFeeds(available)
           }
-          callPlug(0, { keys: available })
-        } else {
-          // Default behaviour 'share all'
-          mux.haveFeeds(available)
-        }
+        })
       })
     })
   })

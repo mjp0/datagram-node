@@ -1,5 +1,5 @@
-var test = require('tape')
-var hypervisor = require('../hypervisor')
+const test = require('tape')
+const hypervisor = require('../hypervisor')
 const debug = require('../utils/debug')(__filename, 'test')
 const fs = require('fs-extra')
 
@@ -13,37 +13,10 @@ test.onFailure = cleanup
 
 test.skip('hypervisor removal', async function(t) {
   t.plan(6)
-  t.equal(true, true)
-  // eslint-disable-next-line no-unused-vars
-  var randomReplication = {
-    init: function(hypervisor) {
-      // called on hypervisor.ready
-      // use it for initalization.
-    },
-    have: function(local, share) {
-      // called on peer connection
-      // select which cores to share
-      share(local.keys, {
-        random: local.keys.map(function() {
-          return Math.random() - 0.5
-        }),
-      })
-    },
-    want: function(remote, request) {
-      // called when remote peer's
-      // share list is available.
-      // remote.keys is always available
-      // remote contains also all custom props sent by remote.
-      var keys = remote.keys.filter(function(k, i) {
-        return remote.random[i] > 0.5
-      })
-      request(keys)
-    },
-  }
 
   // Let's create a group of friends
 
-  let friends = {}
+  const friends = {}
 
   async function create_friend_group(cb) {
     friends.Bob = {}
@@ -64,16 +37,6 @@ test.skip('hypervisor removal', async function(t) {
     friends.John.hv = await create_hypervisor_with_core('John').catch((err) => {
       throw err
     })
-    friends.John.key = friends.John.hv._cores['John'].key.toString('hex')
-    debug('John key', friends.John.key)
-
-    friends.Polly = {}
-    friends.Polly.hv = await create_hypervisor_with_core('Polly').catch((err) => {
-      throw err
-    })
-    friends.Polly.key = friends.Polly.hv._cores['Polly'].key.toString('hex')
-    debug('Polly key', friends.Polly.key)
-
     cb()
   }
 
@@ -109,7 +72,7 @@ test.skip('hypervisor removal', async function(t) {
   // Bob gets pissed off from John's whining and removes his core
   function remove_john_from_bob() {
     friends.Bob.hv._remove_core(friends.John.key)
-    //debug('bob', friends.Bob.hv)
+    // debug('bob', friends.Bob.hv)
 
     // Now we need to reconnect Bob to others so ignore list is applied
     friends.Bob.pipe.end()
