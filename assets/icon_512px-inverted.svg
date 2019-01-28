@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 117 114" xmlns="http://www.w3.org/2000/svg">
+<g fill-rule="evenodd">
+<rect width="117" height="114"/>
+<g transform="translate(13 13)" fill="#fff" fill-rule="nonzero">
+<path d="m10 0h81v81l-10 7h-81v-81l10-7zm2 2v77h77v-77h-77z"/>
+<g transform="translate(24 14)">
+<path d="m0 0h24v24h-24v-24zm3.6 3.6v16.8h16.8v-16.8h-16.8z"/>
+<rect x="8" y="8" width="8" height="8"/>
+</g>
+<g transform="translate(54 14)">
+<path d="m0 0h24v24h-24v-24zm3.6 3.6v16.8h16.8v-16.8h-16.8z"/>
+<rect x="8" y="8" width="8" height="8"/>
+</g>
+<g transform="translate(24 44)">
+<path d="m0 0h24v24h-24v-24zm3.6 3.6v16.8h16.8v-16.8h-16.8z"/>
+<rect x="8" y="8" width="8" height="8"/>
+</g>
+<g transform="translate(54 44)">
+<rect width="8" height="8"/>
+<rect x="8" y="8" width="8" height="8"/>
+<rect y="16" width="8" height="8"/>
+<rect x="16" y="16" width="8" height="8"/>
+</g>
+</g>
+</g>
+</svg>
