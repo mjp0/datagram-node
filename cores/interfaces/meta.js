@@ -67,15 +67,33 @@ const API = {
   },
   remove_core: (core) => {
     return function(key, callback) {
+      // remove details:key
       core.rem_kv(`details:${key}`, (err) => {
         if (err) return callback(err)
 
         core.remove_core_reference(key)
-        callback()
-      })
-      // remove details:key
 
-      // add_to_blocklist(key)
+        // add_to_blocklist(key)
+        core.set_kv(`blocked:${key}`, new Date().getTime(), (err) => {
+          callback(err, core)
+        })
+      })
+    }
+  },
+  get_blocklist: (core) => {
+    return function(callback) {
+      core.get_all_keys((err, keys) => {
+        if (err) return callback(err)
+
+        // reject everything that doesn't start with "blocked:"
+        const blocked_keys = keys
+          .filter((key) => {
+            return key.match(/^blocked:/)
+          })
+          .map((bkeys) => bkeys.replace('blocked:', ''))
+
+        callback(err, blocked_keys)
+      })
     }
   },
   add_meta: () => {

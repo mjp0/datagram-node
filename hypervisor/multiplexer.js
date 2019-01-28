@@ -274,7 +274,7 @@ Multiplexer.prototype._initRepl = function() {
   /**
    * Creates replication stream from all of the streams provided
    *
-   * @param {Multifeed|array[Multifeed]} feeds
+   * @param {Hypervisor|array[Hypervisor]} feeds
    */
   function startFeedReplication(feeds) {
     if (!Array.isArray(feeds)) feeds = [ feeds ]
@@ -333,7 +333,7 @@ function compatibleVersions(v1, v2) {
 /**
  * Extracts keys from objects and buffers
  *
- * @param {string|array[Multifeed|Buffer]} keys List of feed keys
+ * @param {string|array[Hypervisor|Buffer]} keys List of feed keys
  * @returns
  */
 function extractKeys(keys) {
