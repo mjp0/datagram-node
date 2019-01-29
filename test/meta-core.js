@@ -1,5 +1,5 @@
 const test = require('tape')
-const MetaCore = require('../hypervisor/meta-core')
+const MetaCore = require('../adapter/meta-core')
 const async = require('async')
 const tmp = require('tmp').tmpNameSync
 const ram = require('random-access-memory')

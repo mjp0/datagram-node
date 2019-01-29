@@ -1,10 +1,10 @@
 const test = require('tape')
-const hypervisor = require('../hypervisor')
+const adapter = require('../adapter')
 const ram = require('random-access-memory')
 
-test('regression: MF with no core replicate to MF with 1 core', function(t) {
-  const m1 = hypervisor(ram)
-  const m2 = hypervisor(ram)
+test('regression: adapter with no core replicate to adapter with 1 core', function(t) {
+  const m1 = adapter(ram)
+  const m2 = adapter(ram)
 
   function setup1(m, buf, cb) {
     m.add_core('test', 'generic', function(err, w) {

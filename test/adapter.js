@@ -1,10 +1,10 @@
 const test = require('tape')
 
-const hypervisor = require('../hypervisor')
+const adapter = require('../adapter')
 const ram = require('random-access-memory')
 
 test('no cores', function(t) {
-  const hv = hypervisor(ram, 'testpassword')
+  const hv = adapter(ram, 'testpassword')
   hv.ready(() => {
     hv.cores((err, cores) => {
       t.error(err, 'no errors')
@@ -17,7 +17,7 @@ test('no cores', function(t) {
 test('create core', function(t) {
   t.plan(6)
 
-  const hv = hypervisor(ram, 'testpassword')
+  const hv = adapter(ram, 'testpassword')
   hv.ready(() => {
     hv.add_core('test', 'text', function(err, core) {
       t.error(err, 'no errors')
@@ -39,7 +39,7 @@ test('create core', function(t) {
 test('get core by key', function(t) {
   t.plan(3)
 
-  const hv = hypervisor(ram, 'testpassword')
+  const hv = adapter(ram, 'testpassword')
   hv.ready(() => {
     hv.add_core('test', 'text', function(err, core) {
       t.error(err, 'no errors')
@@ -54,7 +54,7 @@ test('get core by key', function(t) {
 test('get localcore by name', function(t) {
   t.plan(3)
 
-  const hv = hypervisor(ram, 'testpassword')
+  const hv = adapter(ram, 'testpassword')
   hv.ready(() => {
     hv.add_core('bob', 'text', function(err, w) {
       t.error(err, 'no errors')
@@ -72,9 +72,9 @@ test('get localcore by name', function(t) {
 //   let storage = tmp()
 //   let key
 
-//   const hv = hypervisor(storage)
+//   const hv = adapter(storage)
 //   hv.ready(() => {
-//     debug("key", hv._hypervisor_key)
+//     debug("key", hv._adapter_key)
 //     hv.add_core('minuette', "text", function (err, w) {
 //       t.error(err, "no errors")
 //       t.ok(w.key)
@@ -82,7 +82,7 @@ test('get localcore by name', function(t) {
 
 //       // HACK: close its storage
 //       w._storage.close(function () {
-//         const hv2 = hypervisor(storage, hv._hypervisor_key)
+//         const hv2 = adapter(storage, hv._adapter_key)
 //         hv2.add_core('minuette', "text", function (err, w2) {
 //           t.error(err, "no errors")
 //           t.ok(w.key)

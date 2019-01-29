@@ -2,7 +2,7 @@ const debug = require('../utils/debug')(__filename)
 const hypercore = require('hypercore')
 const _open_storage = require('../utils/storage')._open_storage
 
-module.exports = function(keys, storage, callback) {
+exports.loadCore = function(keys, storage, callback) {
   // Make storage optional
   if (storage && !callback) {
     callback = storage

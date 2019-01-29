@@ -1,6 +1,5 @@
 const async = require('async')
-const { createNewCore } = require('../create_core')
-const load_core = require('../load_core')
+const { createNewCore, loadCore } = require('../')
 
 const API = {
   attach_core: (core) => {
@@ -131,7 +130,7 @@ const API = {
             },
             (key, next) => {
               // If not in references, load it
-              load_core(key, core.default_storage, (err, initd_core) => {
+              loadCore(key, core.default_storage, (err, initd_core) => {
                 if (err) return next(err)
                 else if (initd_core && initd_core.key) {
                   core.add_core_reference(key, initd_core)
@@ -161,7 +160,7 @@ const API = {
         async.forEach(
           cores,
           (uninitd_core, core_done) => {
-            load_core({ key: uninitd_core.key }, core.default_storage, (err, initd_core) => {
+            loadCore({ key: uninitd_core.key }, core.default_storage, (err, initd_core) => {
               if (err) return core_done(err)
               else if (initd_core && initd_core.key) {
                 core.add_core_reference(uninitd_core.key.toString('hex'), initd_core)

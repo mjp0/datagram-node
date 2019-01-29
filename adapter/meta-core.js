@@ -1,8 +1,7 @@
 const debug = require('../utils/debug')(__filename)
-const ikv = require('../cores/interfaces/kv')
-const imeta = require('../cores/interfaces/meta')
-const { createNewCore } = require('../cores/create_core')
-const loadCore = require('../cores/load_core')
+const ikv = require('../core/interfaces/kv')
+const imeta = require('../core/interfaces/meta')
+const { createNewCore, loadCore } = require('../core')
 
 exports.create = function (storage, keys, callback) {
   debug('[META] creating new meta core')

@@ -1,9 +1,9 @@
 const test = require('tape')
-const hypervisor = require('../hypervisor')
+const adapter = require('../adapter')
 const ram = require('random-access-memory')
 const async = require('async')
 
-test('replicate two hypervisors', function(t) {
+test('replicate two adapters', function(t) {
   t.plan(22)
 
   function setup(m, buf, cb) {
@@ -24,8 +24,8 @@ test('replicate two hypervisors', function(t) {
     })
   }
 
-  const m1 = hypervisor(ram, 'test')
-  const m2 = hypervisor(ram, 'test')
+  const m1 = adapter(ram, 'test')
+  const m2 = adapter(ram, 'test')
   m1.ready(() => {
     m2.ready(() => {
       setup(m1, 'foo', function() {
@@ -75,7 +75,7 @@ test('replicate two hypervisors', function(t) {
   }
 })
 
-test('replicate two live hypervisors', function(t) {
+test('replicate two live adapters', function(t) {
   t.plan(22)
 
   let m2
@@ -98,9 +98,9 @@ test('replicate two live hypervisors', function(t) {
     })
   }
 
-  const m1 = hypervisor(ram, 'test')
+  const m1 = adapter(ram, 'test')
   m1.ready(() => {
-    m2 = hypervisor(ram, 'test')
+    m2 = adapter(ram, 'test')
     m2.ready(() => {
       setup(m1, 'foo', function() {
         setup(m2, 'bar', function() {
@@ -150,7 +150,7 @@ test('replicate two live hypervisors', function(t) {
   }
 })
 
-test('replicate two hypervisors and remove a core', function(t) {
+test('replicate two adapters and remove a core', function(t) {
   t.plan(35)
 
   const core_keys = {}
@@ -175,8 +175,8 @@ test('replicate two hypervisors and remove a core', function(t) {
     })
   }
 
-  const m1 = hypervisor(ram, 'test')
-  const m2 = hypervisor(ram, 'test')
+  const m1 = adapter(ram, 'test')
+  const m2 = adapter(ram, 'test')
   m1.ready(() => {
     m2.ready(() => {
       setup(m1, 'foo', function() {

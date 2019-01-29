@@ -2,7 +2,7 @@ const debug = require('../utils/debug')(__filename)
 const { values, clone } = require('../utils/common')
 const multiplexer = require('./multiplexer')
 const async = require('async')
-const { createNewCore } = require('../cores/create_core')
+const { createNewCore } = require('../core')
 /**
  * Generates a two-way sync stream based on cores in hypervisor
  *

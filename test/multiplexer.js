@@ -1,7 +1,7 @@
 const test = require('tape')
 const hypercore = require('hypercore')
 const ram = require('random-access-memory')
-const multiplexer = require('../hypervisor/multiplexer')
+const multiplexer = require('../adapter/multiplexer')
 const pump = require('pump')
 const through = require('through2')
 const debug = require('../utils/debug')(__filename, 'test')
