@@ -53,6 +53,7 @@ function Multiplexer(key, opts) {
   // and adds userData as a meta-data
   const stream = (this.stream = protocol(
     Object.assign(opts, {
+      maxFeeds: 100000000, // not a problem because hypervisor controls what gets replicated
       userData: Buffer.from(
         JSON.stringify({
           // Specifies the client software and version required

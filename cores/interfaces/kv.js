@@ -25,7 +25,7 @@ module.exports = {
         const packet_count = core.length + 1
 
         // Reverse through the packets in core
-        for (var i = packet_count - 1; i >= 0; i--) {
+        for (let i = packet_count - 1; i >= 0; i--) {
           core.get(i, (err, buffer) => {
             if (err) {
               deliver(err)
