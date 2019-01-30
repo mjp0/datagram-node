@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:ControlAction","description":"The act of stopping or deactivating a device or application (e...","name":"DeactivateAction","@id":"schema:DeactivateAction","layer":"core"}

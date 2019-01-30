@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:QualitativeValue","description":"A value indicating which roadwheels will receive torque.","name":"DriveWheelConfigurationValue","@id":"schema:DriveWheelConfigurationValue","layer":"core"}

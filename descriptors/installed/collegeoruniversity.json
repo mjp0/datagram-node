@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:EducationalOrganization","description":"A college, university, or other third-level educational institution.","name":"CollegeOrUniversity","@id":"schema:CollegeOrUniversity","layer":"core"}

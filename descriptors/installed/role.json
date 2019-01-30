@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"Represents additional information about a relationship or property...","name":"Role","@id":"schema:Role","layer":"core"}

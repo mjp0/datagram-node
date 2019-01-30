@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"A photograph.","name":"Photograph","@id":"schema:Photograph","layer":"core"}

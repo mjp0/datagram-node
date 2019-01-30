@@ -1,10 +1,24 @@
 const test = require('tape')
 const adapter = require('../adapter')
 const ram = require('random-access-memory')
+const admin = require('../adapter/definitions/cores/admin')
+const messagestream = require('../adapter/definitions/cores/messages')
+
+const test_definition = {
+  id: 'basic_test',
+  name: 'Basic test definition',
+  version: 1,
+  // one-to-one = expect cores from two users, one for me and one for you
+  // one-to-non = expect cores only from me
+  // one-to-many = expect cores from anybody but allow me to choose
+  // many-to-many = everybody can add their cores freely
+  model: 'one-to-many',
+  accepted_cores: [ admin, messagestream ],
+}
 
 test('regression: adapter with no core replicate to adapter with 1 core', function(t) {
-  const m1 = adapter(ram)
-  const m2 = adapter(ram)
+  const m1 = adapter({ password: 'testpassword', definition: test_definition }, { storage: ram })
+  const m2 = adapter({ password: 'testpassword', definition: test_definition }, { storage: ram })
 
   function setup1(m, buf, cb) {
     m.add_core('test', 'generic', function(err, w) {

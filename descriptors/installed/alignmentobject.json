@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"An intangible item that describes an alignment between a learning resource and a node in an educational framework.","name":"AlignmentObject","@id":"schema:AlignmentObject","layer":"core"}

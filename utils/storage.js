@@ -31,6 +31,7 @@ exports._open_storage = function(dir, storage) {
   return function(name) {
     // If no storage was provided, use RAM
     const s = storage || ram
+    name = name || '.datagram'
     if (typeof storage === 'string') {
       const fname = path.join(storage, dir, name)
       debug('Opening FS storage', fname)

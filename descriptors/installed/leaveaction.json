@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:InteractAction","description":"An agent leaves an event / group with participants/friends at a location...","name":"LeaveAction","@id":"schema:LeaveAction","layer":"core"}

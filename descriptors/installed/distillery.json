@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:FoodEstablishment","description":"A distillery.","name":"Distillery","@id":"schema:Distillery","layer":"pending"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:HealthAndBeautyBusiness","description":"A day spa.","name":"DaySpa","@id":"schema:DaySpa","layer":"core"}

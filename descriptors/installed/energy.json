@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Quantity","description":"Properties that take Energy as values are of the form '&lt;Number&gt; &lt;Energy unit of measure&gt;'.","name":"Energy","@id":"schema:Energy","layer":"core"}

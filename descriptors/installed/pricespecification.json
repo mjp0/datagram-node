@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:StructuredValue","description":"A structured value representing a price or price range. Typically, only the subclasses of this type are used for markup...","name":"PriceSpecification","@id":"schema:PriceSpecification","layer":"core"}

@@ -2,12 +2,9 @@ const debug = require('../utils/debug')(__filename)
 const hypercore = require('hypercore')
 const _open_storage = require('../utils/storage')._open_storage
 
-exports.loadCore = function(keys, storage, callback) {
-  // Make storage optional
-  if (storage && !callback) {
-    callback = storage
-    storage = null
-  }
+exports.loadCore = function(args = { keys: { key: null, secret: null }, storage: null }, callback) {
+  const { storage, keys } = { ...args }
+
   debug('Trying to open core with key', keys.key)
 
   // Open storage for the core

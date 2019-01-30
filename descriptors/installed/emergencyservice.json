@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"An emergency service, such as a fire station or ER.","name":"EmergencyService","@id":"schema:EmergencyService","layer":"core"}

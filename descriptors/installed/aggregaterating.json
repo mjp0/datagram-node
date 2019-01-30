@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Rating","description":"The average rating based on multiple ratings or reviews.","name":"AggregateRating","@id":"schema:AggregateRating","layer":"core"}

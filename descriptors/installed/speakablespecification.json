@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A SpeakableSpecification indicates (typically via xpath or cssSelector) sections of a document that are highlighted as particularly speakable...","name":"SpeakableSpecification","@id":"schema:SpeakableSpecification","layer":"pending"}

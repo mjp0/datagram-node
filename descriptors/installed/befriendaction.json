@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:InteractAction","description":"The act of forming a personal connection with someone (object) mutually/bidirectionally/symmetrically...","name":"BefriendAction","@id":"schema:BefriendAction","layer":"core"}

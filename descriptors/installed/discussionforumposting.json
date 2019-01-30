@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:SocialMediaPosting","description":"A posting to a discussion forum.","name":"DiscussionForumPosting","@id":"schema:DiscussionForumPosting","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:InteractAction","description":"The act of marrying a person.","name":"MarryAction","@id":"schema:MarryAction","layer":"core"}

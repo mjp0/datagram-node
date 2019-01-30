@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"An list item, e.g. a step in a checklist or how-to description.","name":"ListItem","@id":"schema:ListItem","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Quantity","description":"Properties that take Distances as values are of the form '&lt;Number&gt; &lt;Length unit of measure&gt;'...","name":"Distance","@id":"schema:Distance","layer":"core"}

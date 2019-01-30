@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Enumeration","description":"A list of possible product availability options.","name":"ItemAvailability","@id":"schema:ItemAvailability","layer":"core"}

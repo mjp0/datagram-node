@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"An internet cafe.","name":"InternetCafe","@id":"schema:InternetCafe","layer":"core"}

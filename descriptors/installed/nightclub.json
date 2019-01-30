@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:EntertainmentBusiness","description":"A nightclub or discotheque.","name":"NightClub","@id":"schema:NightClub","layer":"core"}

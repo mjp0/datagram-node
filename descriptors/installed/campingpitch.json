@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Accommodation","description":"A camping pitch is an individual place for overnight stay in the outdoors, typically being part of a larger camping site...","name":"CampingPitch","@id":"schema:CampingPitch","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:PlaceOfWorship","description":"A Hindu temple.","name":"HinduTemple","@id":"schema:HinduTemple","layer":"core"}

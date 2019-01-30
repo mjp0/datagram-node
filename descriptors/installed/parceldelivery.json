@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"The delivery of a parcel either via the postal service or a commercial service.","name":"ParcelDelivery","@id":"schema:ParcelDelivery","layer":"core"}

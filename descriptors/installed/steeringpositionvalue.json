@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:QualitativeValue","description":"A value indicating a steering position.","name":"SteeringPositionValue","@id":"schema:SteeringPositionValue","layer":"core"}

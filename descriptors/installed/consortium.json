@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Organization","description":"A Consortium is a membership Organization whose members are typically Organizations.","name":"Consortium","@id":"schema:Consortium","layer":"pending"}

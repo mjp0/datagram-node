@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Service","description":"A service which provides access to media programming like TV or radio...","name":"CableOrSatelliteService","@id":"schema:CableOrSatelliteService","layer":"core"}

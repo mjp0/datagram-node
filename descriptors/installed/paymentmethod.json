@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Enumeration","description":"A payment method is a standardized procedure for transferring the monetary amount for a purchase...","name":"PaymentMethod","@id":"schema:PaymentMethod","layer":"core"}

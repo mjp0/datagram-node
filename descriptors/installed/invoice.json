@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A statement of the money due for goods or services; a bill.","name":"Invoice","@id":"schema:Invoice","layer":"core"}

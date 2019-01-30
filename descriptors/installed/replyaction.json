@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CommunicateAction","description":"The act of responding to a question/message asked/sent by the object...","name":"ReplyAction","@id":"schema:ReplyAction","layer":"core"}

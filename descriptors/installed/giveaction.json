@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:TransferAction","description":"The act of transferring ownership of an object to a destination...","name":"GiveAction","@id":"schema:GiveAction","layer":"core"}

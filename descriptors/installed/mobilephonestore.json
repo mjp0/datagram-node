@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A store that sells mobile phones and related accessories.","name":"MobilePhoneStore","@id":"schema:MobilePhoneStore","layer":"core"}

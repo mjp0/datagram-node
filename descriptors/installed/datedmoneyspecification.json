@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:StructuredValue","description":"A DatedMoneySpecification represents monetary values with optional start and end dates...","name":"DatedMoneySpecification","@id":"schema:DatedMoneySpecification","layer":"core"}

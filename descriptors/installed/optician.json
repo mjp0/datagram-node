@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"A store that sells reading glasses and similar devices for improving vision.","name":"Optician","@id":"schema:Optician","layer":"health-lifesci"}

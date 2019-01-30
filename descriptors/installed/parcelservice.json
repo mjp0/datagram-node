@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:DeliveryMethod","description":"A private parcel service as the delivery mode available for a certain offer...","name":"ParcelService","@id":"schema:ParcelService","layer":"core"}

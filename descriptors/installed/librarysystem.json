@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Organization","description":"A LibrarySystem is a collaborative system amongst several libraries.","name":"LibrarySystem","@id":"schema:LibrarySystem","layer":"pending"}

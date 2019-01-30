@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:UpdateAction","description":"The act of editing a recipient by replacing an old object with a new object.","name":"ReplaceAction","@id":"schema:ReplaceAction","layer":"core"}

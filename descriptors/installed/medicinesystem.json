@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEnumeration","description":"Systems of medical practice.","name":"MedicineSystem","@id":"schema:MedicineSystem","layer":"health-lifesci"}

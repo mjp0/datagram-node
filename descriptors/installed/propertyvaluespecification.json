@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A Property value specification.","name":"PropertyValueSpecification","@id":"schema:PropertyValueSpecification","layer":"core"}

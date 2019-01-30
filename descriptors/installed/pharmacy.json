@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"A pharmacy or drugstore.","name":"Pharmacy","@id":"schema:Pharmacy","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Trip","description":"A trip on a commercial train line.","name":"TrainTrip","@id":"schema:TrainTrip","layer":"core"}

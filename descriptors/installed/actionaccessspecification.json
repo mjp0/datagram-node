@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A set of requirements that a must be fulfilled in order to perform an Action.","name":"ActionAccessSpecification","@id":"schema:ActionAccessSpecification","layer":"pending"}

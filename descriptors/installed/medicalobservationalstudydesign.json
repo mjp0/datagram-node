@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEnumeration","description":"Design models for observational medical studies. Enumerated type.","name":"MedicalObservationalStudyDesign","@id":"schema:MedicalObservationalStudyDesign","layer":"health-lifesci"}

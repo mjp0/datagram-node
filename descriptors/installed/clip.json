@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"A short TV or radio program or a segment/part of a program.","name":"Clip","@id":"schema:Clip","layer":"core"}

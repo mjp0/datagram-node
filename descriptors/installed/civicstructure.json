@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Place","description":"A public structure, such as a town hall or concert hall.","name":"CivicStructure","@id":"schema:CivicStructure","layer":"core"}

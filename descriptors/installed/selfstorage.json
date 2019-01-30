@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"A self-storage facility.","name":"SelfStorage","@id":"schema:SelfStorage","layer":"core"}

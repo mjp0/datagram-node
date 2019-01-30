@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalRiskEstimator","description":"A simple system that adds up the number of risk factors to yield a score that is associated with prognosis, e...","name":"MedicalRiskScore","@id":"schema:MedicalRiskScore","layer":"health-lifesci"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:TradeAction","description":"The act of taking money from a buyer in exchange for goods or services rendered...","name":"SellAction","@id":"schema:SellAction","layer":"core"}

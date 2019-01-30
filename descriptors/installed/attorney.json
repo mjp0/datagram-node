@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LegalService","description":"Professional service: Attorney. \n\nThis type is deprecated - LegalService is more inclusive and less ambiguous.","name":"Attorney","@id":"schema:Attorney","layer":"core"}

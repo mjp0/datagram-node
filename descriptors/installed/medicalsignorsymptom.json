@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalCondition","description":"Any feature associated or not with a medical condition. In medicine a symptom is generally subjective while a sign is objective.","name":"MedicalSignOrSymptom","@id":"schema:MedicalSignOrSymptom","layer":"health-lifesci"}

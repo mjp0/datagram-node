@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MusicPlaylist","description":"A collection of music tracks.","name":"MusicAlbum","@id":"schema:MusicAlbum","layer":"core"}

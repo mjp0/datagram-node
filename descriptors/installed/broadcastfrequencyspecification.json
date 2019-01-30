@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"The frequency in MHz and the modulation used for a particular BroadcastService.","name":"BroadcastFrequencySpecification","@id":"schema:BroadcastFrequencySpecification","layer":"pending"}

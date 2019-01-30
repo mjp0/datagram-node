@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"A WebSite is a set of related web pages and other items typically served from a single web domain and accessible via URLs.","name":"WebSite","@id":"schema:WebSite","layer":"core"}

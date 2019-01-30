@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Thing","description":"A person (alive, dead, undead, or fictional).","name":"Person","@id":"schema:Person","layer":"core"}

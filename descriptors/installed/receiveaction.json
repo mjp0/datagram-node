@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:TransferAction","description":"The act of physically/electronically taking delivery of an object thathas been transferred from an origin to a destination...","name":"ReceiveAction","@id":"schema:ReceiveAction","layer":"core"}

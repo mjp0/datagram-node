@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Enumeration","description":"The day of the week, e.g. used to specify to which day the opening hours of an OpeningHoursSpecification refer...","name":"DayOfWeek","@id":"schema:DayOfWeek","layer":"core"}

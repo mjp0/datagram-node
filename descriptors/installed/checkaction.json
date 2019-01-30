@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:FindAction","description":"An agent inspects, determines, investigates, inquires, or examines an object's accuracy, quality, condition, or state.","name":"CheckAction","@id":"schema:CheckAction","layer":"core"}

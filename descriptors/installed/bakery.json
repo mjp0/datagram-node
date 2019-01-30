@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:FoodEstablishment","description":"A bakery.","name":"Bakery","@id":"schema:Bakery","layer":"core"}

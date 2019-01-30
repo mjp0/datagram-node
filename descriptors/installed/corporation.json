@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Organization","description":"Organization: A business corporation.","name":"Corporation","@id":"schema:Corporation","layer":"core"}

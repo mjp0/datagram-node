@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"A specific branch of medical science that pertains to therapeutic or cosmetic repair or re-formation of missing, injured or malformed tissues or body parts by manual and instrumental means.","name":"PlasticSurgery","@id":"schema:PlasticSurgery","layer":"health-lifesci"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"A place offering space for \"Recreational Vehicles\", Caravans, mobile homes and the like.","name":"RVPark","@id":"schema:RVPark","layer":"core"}

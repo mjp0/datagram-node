@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:NewsArticle","description":"An OpinionNewsArticle is a NewsArticle that primarily expresses opinions rather than journalistic reporting of news and events...","name":"OpinionNewsArticle","@id":"schema:OpinionNewsArticle","layer":"pending"}

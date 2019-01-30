@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"A Claim in Schema.org represents a specific, factually-oriented claim that could be the itemReviewed in a ClaimReview...","name":"Claim","@id":"schema:Claim","layer":"pending"}

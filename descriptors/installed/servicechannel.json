@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A means for accessing a service, e.g. a government office location, web site, or phone number.","name":"ServiceChannel","@id":"schema:ServiceChannel","layer":"core"}

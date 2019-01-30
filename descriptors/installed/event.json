@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Thing","description":"An event happening at a certain time and location, such as a concert, lecture, or festival...","name":"Event","@id":"schema:Event","layer":"core"}

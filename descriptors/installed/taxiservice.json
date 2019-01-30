@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Service","description":"A service for a vehicle for hire with a driver for local travel...","name":"TaxiService","@id":"schema:TaxiService","layer":"core"}

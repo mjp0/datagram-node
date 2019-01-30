@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Organization","description":"Represents the collection of all sports organizations, including sports teams, governing bodies, and sports associations.","name":"SportsOrganization","@id":"schema:SportsOrganization","layer":"core"}

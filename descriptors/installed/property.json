@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A property, used to indicate attributes and relationships of some Thing; equivalent to rdf:Property.","name":"Property","@id":"schema:Property","layer":"meta"}

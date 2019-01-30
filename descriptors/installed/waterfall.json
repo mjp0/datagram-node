@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:BodyOfWater","description":"A waterfall, like Niagara.","name":"Waterfall","@id":"schema:Waterfall","layer":"core"}

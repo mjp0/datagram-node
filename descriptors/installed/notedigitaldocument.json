@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:DigitalDocument","description":"A file containing a note, primarily for the author.","name":"NoteDigitalDocument","@id":"schema:NoteDigitalDocument","layer":"core"}

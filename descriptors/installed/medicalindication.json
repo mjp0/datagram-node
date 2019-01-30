@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEntity","description":"A condition or factor that indicates use of a medical therapy, including signs, symptoms, risk factors, anatomical states, etc.","name":"MedicalIndication","@id":"schema:MedicalIndication","layer":"health-lifesci"}

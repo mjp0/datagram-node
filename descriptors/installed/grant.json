@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A grant, typically financial or otherwise quantifiable, of resources...","name":"Grant","@id":"schema:Grant","layer":"pending"}

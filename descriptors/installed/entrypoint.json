@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"An entry point, within some Web-based protocol.","name":"EntryPoint","@id":"schema:EntryPoint","layer":"core"}

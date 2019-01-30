@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"A music venue.","name":"MusicVenue","@id":"schema:MusicVenue","layer":"core"}

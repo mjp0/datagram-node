@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:HomeAndConstructionBusiness","description":"A house painting service.","name":"HousePainter","@id":"schema:HousePainter","layer":"core"}

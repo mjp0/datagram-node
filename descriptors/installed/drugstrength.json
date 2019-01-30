@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalIntangible","description":"A specific strength in which a medical drug is available in a specific country.","name":"DrugStrength","@id":"schema:DrugStrength","layer":"health-lifesci"}

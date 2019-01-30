@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Thing","description":"Entities that have a somewhat fixed, physical extension.","name":"Place","@id":"schema:Place","layer":"core"}

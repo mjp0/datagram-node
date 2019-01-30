@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:StructuredValue","description":"The geographic coordinates of a place or event.","name":"GeoCoordinates","@id":"schema:GeoCoordinates","layer":"core"}

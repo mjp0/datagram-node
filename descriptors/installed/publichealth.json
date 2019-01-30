@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"Branch of medicine that pertains to the health services to improve and protect community health, especially epidemiology, sanitation, immunization, and preventive medicine.","name":"PublicHealth","@id":"schema:PublicHealth","layer":"health-lifesci"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Enumeration","description":"A delivery method is a standardized procedure for transferring the product or service to the destination of fulfillment chosen by the customer...","name":"DeliveryMethod","@id":"schema:DeliveryMethod","layer":"core"}

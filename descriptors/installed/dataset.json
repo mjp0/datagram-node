@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"A body of structured information describing some topic(s) of interest.","name":"Dataset","@id":"schema:Dataset","layer":"core"}

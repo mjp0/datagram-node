@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"A collection or bound volume of maps, charts, plates or tables, physical or in media form illustrating any subject.","name":"Atlas","@id":"schema:Atlas","layer":"bib"}

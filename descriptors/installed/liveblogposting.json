@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:BlogPosting","description":"A blog post intended to provide a rolling textual coverage of an ongoing event through continuous updates.","name":"LiveBlogPosting","@id":"schema:LiveBlogPosting","layer":"core"}

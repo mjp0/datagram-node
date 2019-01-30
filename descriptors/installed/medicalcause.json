@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEntity","description":"The causative agent(s) that are responsible for the pathophysiologic process that eventually results in a medical condition, symptom or sign...","name":"MedicalCause","@id":"schema:MedicalCause","layer":"health-lifesci"}

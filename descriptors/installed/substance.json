@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEntity","description":"Any matter of defined composition that has discrete existence, whose origin may be biological, mineral or chemical.","name":"Substance","@id":"schema:Substance","layer":"health-lifesci"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"A web page element, like a table or an image.","name":"WebPageElement","@id":"schema:WebPageElement","layer":"core"}

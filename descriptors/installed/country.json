@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:AdministrativeArea","description":"A country.","name":"Country","@id":"schema:Country","layer":"core"}

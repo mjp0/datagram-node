@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Product","description":"A single, identifiable product instance (e.g. a laptop with a particular serial number).","name":"IndividualProduct","@id":"schema:IndividualProduct","layer":"core"}

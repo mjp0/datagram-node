@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MusicPlaylist","description":"A MusicRelease is a specific release of a music album.","name":"MusicRelease","@id":"schema:MusicRelease","layer":"core"}

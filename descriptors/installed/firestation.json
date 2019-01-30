@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:EmergencyService","description":"A fire station. With firemen.","name":"FireStation","@id":"schema:FireStation","layer":"core"}

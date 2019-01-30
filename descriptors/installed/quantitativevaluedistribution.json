@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:QuantitativeValue","description":"A statistical distribution of values.","name":"QuantitativeValueDistribution","@id":"schema:QuantitativeValueDistribution","layer":"pending"}

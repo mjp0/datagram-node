@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A florist.","name":"Florist","@id":"schema:Florist","layer":"core"}

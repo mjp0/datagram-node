@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Rating","description":"An EndorsementRating is a rating that expresses some level of endorsement, for example inclusion in a \"critic's pick\" blog, a\n  \"Like\" or \"+1\" on a social network...","name":"EndorsementRating","@id":"schema:EndorsementRating","layer":"pending"}

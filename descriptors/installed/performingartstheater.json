@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"A theater or other performing art center.","name":"PerformingArtsTheater","@id":"schema:PerformingArtsTheater","layer":"core"}

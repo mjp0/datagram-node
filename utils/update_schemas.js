@@ -1,6 +1,5 @@
 const fs = require('fs')
 const request = require('superagent')
-const parseJson = require('parse-json')
 
 function fetch_schemas(callback) {
   request.get('https://schema.org/docs/tree.jsonld').end((err, body) => {
@@ -9,19 +8,25 @@ function fetch_schemas(callback) {
 }
 
 // fetch_schemas(() => {})
-const schemas = []
+const schemas = {}
 fetch_schemas((err, jsonschema) => {
   if (err) throw err
   const json = JSON.parse(jsonschema)
-  console.log(json)
-
   const p = parseNested()
   const jsonloop = new p(json, 'name', 'children')
   jsonloop.countNodes(json)
-  console.log(schemas, jsonloop.count, schemas.length)
+  console.log(schemas)
+  const path = `${__dirname}/../descriptors/installed/`
+  console.log(`Found ${Object.keys(schemas).length} schemas, storing to ${path}`)
+  for (const schema in schemas) {
+    if (schemas.hasOwnProperty(schema)) {
+      const s = schemas[schema]
+      console.log(`Storing schema ${s.name} to ${s.name.toLowerCase()}.json`)
+      fs.writeFileSync(`${path}${s.name.toLowerCase()}.json`, JSON.stringify(s))
+    }
+  }
 })
 
-// console.log(t)
 function parseNested() {
   let nodes = []
   class JSONLoop {
@@ -46,7 +51,9 @@ function parseNested() {
           return false
         } else {
           // console.log(obj)
-          schemas.push(obj)
+          const obj_clone = JSON.parse(JSON.stringify(obj))
+          delete obj_clone.children
+          schemas[obj_clone.name] = obj_clone
           if (obj[that.children]) {
             obj[that.children].forEach(function(child) {
               that.countNodes(child)

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"An entity holding detailed information about the available bed types, e...","name":"BedDetails","@id":"schema:BedDetails","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Clip","description":"A short radio program or a segment/part of a radio program.","name":"RadioClip","@id":"schema:RadioClip","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:HomeAndConstructionBusiness","description":"A business that provide Heating, Ventilation and Air Conditioning services.","name":"HVACBusiness","@id":"schema:HVACBusiness","layer":"core"}

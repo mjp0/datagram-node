@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalRiskEstimator","description":"A complex mathematical calculation requiring an online calculator, used to assess prognosis...","name":"MedicalRiskCalculator","@id":"schema:MedicalRiskCalculator","layer":"health-lifesci"}

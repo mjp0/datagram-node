@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Grant","description":"A monetary grant.","name":"MonetaryGrant","@id":"schema:MonetaryGrant","layer":"pending"}

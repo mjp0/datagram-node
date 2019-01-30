@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LoanOrCredit","description":"A loan in which property or real estate is used as collateral...","name":"MortgageLoan","@id":"schema:MortgageLoan","layer":"pending"}

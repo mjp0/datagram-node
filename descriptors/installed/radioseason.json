@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWorkSeason","description":"Season dedicated to radio broadcast and associated online delivery.","name":"RadioSeason","@id":"schema:RadioSeason","layer":"core"}

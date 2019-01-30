@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"A construction business.\n\nA HomeAndConstructionBusiness is a LocalBusiness that provides services around homes and buildings...","name":"HomeAndConstructionBusiness","@id":"schema:HomeAndConstructionBusiness","layer":"core"}

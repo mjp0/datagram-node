@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:FinancialService","description":"Accountancy business.\n\nAs a LocalBusiness it can be described as a provider of one or more Service(s).","name":"AccountingService","@id":"schema:AccountingService","layer":"core"}

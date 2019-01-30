@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A sporting goods store.","name":"SportingGoodsStore","@id":"schema:SportingGoodsStore","layer":"core"}

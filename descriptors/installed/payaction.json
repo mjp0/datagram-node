@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:TradeAction","description":"An agent pays a price to a participant.","name":"PayAction","@id":"schema:PayAction","layer":"core"}

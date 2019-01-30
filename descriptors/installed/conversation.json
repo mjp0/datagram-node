@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"One or more messages between organizations or people on a particular topic...","name":"Conversation","@id":"schema:Conversation","layer":"core"}

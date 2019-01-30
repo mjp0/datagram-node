@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:StructuredValue","description":"A structured value representing repayment.","name":"RepaymentSpecification","@id":"schema:RepaymentSpecification","layer":"pending"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Action","description":"The act of interacting with another person or organization.","name":"InteractAction","@id":"schema:InteractAction","layer":"core"}

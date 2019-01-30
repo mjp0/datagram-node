@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Article","description":"An Article whose content is primarily [satirical] in nature, i...","name":"SatiricalArticle","@id":"schema:SatiricalArticle","layer":"pending"}

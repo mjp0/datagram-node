@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalIntangible","description":"A stage of a medical condition, such as 'Stage IIIa'.","name":"MedicalConditionStage","@id":"schema:MedicalConditionStage","layer":"health-lifesci"}

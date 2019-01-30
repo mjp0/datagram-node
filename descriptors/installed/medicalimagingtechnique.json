@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEnumeration","description":"Any medical imaging modality typically used for diagnostic purposes...","name":"MedicalImagingTechnique","@id":"schema:MedicalImagingTechnique","layer":"health-lifesci"}

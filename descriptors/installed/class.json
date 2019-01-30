@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A class, also often called a 'Type'; equivalent to rdfs:Class.","name":"Class","@id":"schema:Class","layer":"meta"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Enumeration","description":"A diet restricted to certain foods or preparations for cultural, religious, health or lifestyle reasons.","name":"RestrictedDiet","@id":"schema:RestrictedDiet","layer":"core"}

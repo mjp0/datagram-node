@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEnumeration","description":"Categories that represent an assessment of the risk of fetal injury due to a drug or pharmaceutical used as directed by the mother during pregnancy.","name":"DrugPregnancyCategory","@id":"schema:DrugPregnancyCategory","layer":"health-lifesci"}

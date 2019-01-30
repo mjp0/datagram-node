@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"A park.","name":"Park","@id":"schema:Park","layer":"core"}

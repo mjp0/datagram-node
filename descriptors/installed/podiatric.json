@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"Podiatry is the care of the human foot, especially the diagnosis and treatment of foot disorders.","name":"Podiatric","@id":"schema:Podiatric","layer":"health-lifesci"}

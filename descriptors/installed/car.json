@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Vehicle","description":"A car is a wheeled, self-powered motor vehicle used for transportation.","name":"Car","@id":"schema:Car","layer":"core"}

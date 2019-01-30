@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"A sports location, such as a playing field.","name":"SportsActivityLocation","@id":"schema:SportsActivityLocation","layer":"core"}

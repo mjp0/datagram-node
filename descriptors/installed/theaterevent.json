@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Event","description":"Event type: Theater performance.","name":"TheaterEvent","@id":"schema:TheaterEvent","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:InformAction","description":"The act of notifying an event organizer as to whether you expect to attend the event.","name":"RsvpAction","@id":"schema:RsvpAction","layer":"core"}

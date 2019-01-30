@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalIntangible","description":"An alternative, closely-related condition typically considered later in the differential diagnosis process along with the signs that are used to distinguish it.","name":"DDxElement","@id":"schema:DDxElement","layer":"health-lifesci"}

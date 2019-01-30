@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"A specific branch of medical science that is concerned with the diagnosis and treatment of diseases, debilities and provision of care to the aged.","name":"Geriatric","@id":"schema:Geriatric","layer":"health-lifesci"}

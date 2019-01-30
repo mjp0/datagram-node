@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LodgingBusiness","description":"A motel.\n\nSee also the dedicated document on the use of schema...","name":"Motel","@id":"schema:Motel","layer":"core"}

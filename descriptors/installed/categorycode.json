@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:DefinedTerm","description":"A Category Code.","name":"CategoryCode","@id":"schema:CategoryCode","layer":"pending"}

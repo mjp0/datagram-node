@@ -4,6 +4,7 @@ const async = require('async')
 const tmp = require('tmp').tmpNameSync
 const ram = require('random-access-memory')
 const { deriveKeyPair } = require('../utils/crypto')
+const debug = require('../utils/debug')(__filename)
 
 const keys = {}
 const metacore_keypair = deriveKeyPair(Buffer.from('test' + 'metacore'))
@@ -12,8 +13,9 @@ keys.secret = metacore_keypair.secretKey.toString('hex')
 
 test('create new meta-core', (t) => {
   t.plan(4)
-  MetaCore.create(ram, keys, (err, MC) => {
+  MetaCore.create({ storage: ram }, { keys }, (err, MC) => {
     t.error(err, 'no errors')
+    debug(MC)
     t.equal(typeof MC, 'object', 'should be an object')
     t.equal(typeof MC.get_kv, 'function', 'should have kv interface')
     t.equal(typeof MC.add_core_details, 'function', 'should have meta core interface')
@@ -22,7 +24,7 @@ test('create new meta-core', (t) => {
 
 test('check key/value interface', (t) => {
   t.plan(6)
-  MetaCore.create(ram, keys, (err, MC) => {
+  MetaCore.create({ storage: ram }, { keys }, (err, MC) => {
     t.error(err, 'no errors')
     MC.set_kv('foo', 'bar', (err) => {
       t.error(err, 'no errors')
@@ -47,7 +49,7 @@ test('check meta core interface', (t) => {
 
   async.waterfall([
     (next) => {
-      MetaCore.create(ram, keys, (err, metacore) => {
+      MetaCore.create({ storage: ram }, { keys }, (err, metacore) => {
         t.error(err, 'no errors')
         MC = metacore
         next()
@@ -134,7 +136,7 @@ test('storage persistence', (t) => {
   async.waterfall([
     (next) => {
       // First we will need to create a brand new meta core
-      MetaCore.create(storage, keys, (err, metacore1) => {
+      MetaCore.create({ storage }, { keys }, (err, metacore1) => {
         t.error(err, 'no errors')
         t.ok(metacore1.key.toString('hex'), 'mc1 has a key')
         mc1_key = metacore1.key.toString('hex')
@@ -153,7 +155,7 @@ test('storage persistence', (t) => {
     },
     (next) => {
       // Now let's try to open that meta core again and see if it persists and loads the test core
-      MetaCore.open(storage, { key: mc1_key }, (err, mc2) => {
+      MetaCore.open({ storage, keys: { key: mc1_key } }, (err, mc2) => {
         t.error(err, 'no errors')
         t.ok(mc2.key.toString('hex'), 'mc2 has a key')
         t.equal(mc1_key, mc2.key.toString('hex'), 'mc1 and mc2 keys match')

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Enumeration","description":"The kind of release which this album is: single, EP or album.","name":"MusicAlbumReleaseType","@id":"schema:MusicAlbumReleaseType","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Thing","description":"The most generic kind of creative work, including books, movies, photographs, software programs, etc.","name":"CreativeWork","@id":"schema:CreativeWork","layer":"core"}

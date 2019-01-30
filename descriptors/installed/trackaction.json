@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:FindAction","description":"An agent tracks an object for updates.\n\nRelated actions:\n\n\nFollowAction: Unlike FollowAction, TrackAction refers to the interest on the location of innanimates objects...","name":"TrackAction","@id":"schema:TrackAction","layer":"core"}

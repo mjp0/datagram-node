@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MediaObject","description":"An image file.","name":"ImageObject","@id":"schema:ImageObject","layer":"core"}

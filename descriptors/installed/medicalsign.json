@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalSignOrSymptom","description":"Any physical manifestation of a person's medical condition discoverable by objective diagnostic tests or physical examination.","name":"MedicalSign","@id":"schema:MedicalSign","layer":"health-lifesci"}

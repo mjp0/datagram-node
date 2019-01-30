@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"A specific branch of medical science that is concerned with the ear, nose and throat and their respective disease states.","name":"Otolaryngologic","@id":"schema:Otolaryngologic","layer":"health-lifesci"}

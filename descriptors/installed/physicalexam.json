@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEnumeration","description":"A type of physical examination of a patient performed by a physician.","name":"PhysicalExam","@id":"schema:PhysicalExam","layer":"health-lifesci"}

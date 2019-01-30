@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Vessel","description":"A type of blood vessel that specifically carries blood to the heart.","name":"Vein","@id":"schema:Vein","layer":"health-lifesci"}

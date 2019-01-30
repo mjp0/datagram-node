@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Enumeration","description":"Enumerated for values for itemListOrder for indicating how an ordered ItemList is organized.","name":"ItemListOrderType","@id":"schema:ItemListOrderType","layer":"core"}

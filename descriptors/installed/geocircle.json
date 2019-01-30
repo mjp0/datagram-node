@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:GeoShape","description":"A GeoCircle is a GeoShape representing a circular geographic area...","name":"GeoCircle","@id":"schema:GeoCircle","layer":"core"}

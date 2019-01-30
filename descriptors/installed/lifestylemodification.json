@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEntity","description":"A process of care involving exercise, changes to diet, fitness routines, and other lifestyle changes aimed at improving a health condition.","name":"LifestyleModification","@id":"schema:LifestyleModification","layer":"health-lifesci"}

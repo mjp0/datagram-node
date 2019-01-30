@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:StructuredValue","description":"Nutritional information about the recipe.","name":"NutritionInformation","@id":"schema:NutritionInformation","layer":"core"}

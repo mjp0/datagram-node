@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"A health profession of a person formally educated and trained in the care of the sick or infirm person.","name":"Nursing","@id":"schema:Nursing","layer":"health-lifesci"}

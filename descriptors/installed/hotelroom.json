@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Room","description":"A hotel room is a single room in a hotel.\n\nSee also the dedicated document on the use of schema...","name":"HotelRoom","@id":"schema:HotelRoom","layer":"core"}

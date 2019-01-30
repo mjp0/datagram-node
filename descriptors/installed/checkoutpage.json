@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:WebPage","description":"Web page type: Checkout page.","name":"CheckoutPage","@id":"schema:CheckoutPage","layer":"core"}

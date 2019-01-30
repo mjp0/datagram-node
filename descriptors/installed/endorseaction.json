@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:ReactAction","description":"An agent approves/certifies/likes/supports/sanction an object.","name":"EndorseAction","@id":"schema:EndorseAction","layer":"core"}

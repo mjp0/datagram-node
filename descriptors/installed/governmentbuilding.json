@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"A government building.","name":"GovernmentBuilding","@id":"schema:GovernmentBuilding","layer":"core"}

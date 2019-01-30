@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:DigitalDocument","description":"A spreadsheet file.","name":"SpreadsheetDigitalDocument","@id":"schema:SpreadsheetDigitalDocument","layer":"core"}

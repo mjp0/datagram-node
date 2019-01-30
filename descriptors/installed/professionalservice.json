@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"Original definition: \"provider of professional services.\"\n\nThe general ProfessionalService type for local businesses was deprecated due to confusion with Service...","name":"ProfessionalService","@id":"schema:ProfessionalService","layer":"core"}

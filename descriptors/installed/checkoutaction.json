@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CommunicateAction","description":"The act of an agent communicating (service provider, social media, etc) their departure of a previously reserved service (e...","name":"CheckOutAction","@id":"schema:CheckOutAction","layer":"core"}

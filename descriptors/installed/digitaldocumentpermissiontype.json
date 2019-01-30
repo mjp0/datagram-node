@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Enumeration","description":"A type of permission which can be granted for accessing a digital document.","name":"DigitalDocumentPermissionType","@id":"schema:DigitalDocumentPermissionType","layer":"core"}

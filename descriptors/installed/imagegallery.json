@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CollectionPage","description":"Web page type: Image gallery page.","name":"ImageGallery","@id":"schema:ImageGallery","layer":"core"}

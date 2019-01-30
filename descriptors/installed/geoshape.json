@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:StructuredValue","description":"The geographic shape of a place. A GeoShape can be described using several properties whose values are based on latitude/longitude pairs...","name":"GeoShape","@id":"schema:GeoShape","layer":"core"}

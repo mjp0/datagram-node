@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEntity","description":"Any medical test, typically performed for diagnostic purposes.","name":"MedicalTest","@id":"schema:MedicalTest","layer":"health-lifesci"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A food or drink item listed in a menu or menu section.","name":"MenuItem","@id":"schema:MenuItem","layer":"core"}

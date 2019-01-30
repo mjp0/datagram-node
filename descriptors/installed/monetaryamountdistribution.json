@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:QuantitativeValue","description":"A statistical distribution of monetary amounts.","name":"MonetaryAmountDistribution","@id":"schema:MonetaryAmountDistribution","layer":"pending"}

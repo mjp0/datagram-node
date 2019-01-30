@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:NewsArticle","description":"A NewsArticle expressing an open call by a NewsMediaOrganization asking the public for input, insights, clarifications, anecdotes, documentation, etc...","name":"AskPublicNewsArticle","@id":"schema:AskPublicNewsArticle","layer":"pending"}

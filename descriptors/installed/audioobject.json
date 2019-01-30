@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MediaObject","description":"An audio file.","name":"AudioObject","@id":"schema:AudioObject","layer":"core"}

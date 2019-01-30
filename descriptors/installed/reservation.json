@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"Describes a reservation for travel, dining or an event. Some reservations require tickets...","name":"Reservation","@id":"schema:Reservation","layer":"core"}

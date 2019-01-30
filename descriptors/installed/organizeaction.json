@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Action","description":"The act of manipulating/administering/supervising/controlling one or more objects.","name":"OrganizeAction","@id":"schema:OrganizeAction","layer":"core"}

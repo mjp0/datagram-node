@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"Beach.","name":"Beach","@id":"schema:Beach","layer":"core"}

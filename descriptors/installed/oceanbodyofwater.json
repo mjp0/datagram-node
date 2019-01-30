@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:BodyOfWater","description":"An ocean (for example, the Pacific).","name":"OceanBodyOfWater","@id":"schema:OceanBodyOfWater","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Reservation","description":"A reservation for air travel.\n\nNote: This type is for information about actual reservations, e...","name":"FlightReservation","@id":"schema:FlightReservation","layer":"core"}

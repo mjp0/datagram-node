@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Audience","description":"Target audiences for medical web pages. Enumerated type.","name":"MedicalAudience","@id":"schema:MedicalAudience","layer":"health-lifesci"}

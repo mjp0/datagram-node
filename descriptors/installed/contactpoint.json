@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:StructuredValue","description":"A contact point&#x2014;for example, a Customer Complaints department.","name":"ContactPoint","@id":"schema:ContactPoint","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalOrganization","description":"A medical laboratory that offers on-site or off-site diagnostic services.","name":"DiagnosticLab","@id":"schema:DiagnosticLab","layer":"health-lifesci"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:AutomotiveBusiness","description":"A car wash business.","name":"AutoWash","@id":"schema:AutoWash","layer":"core"}

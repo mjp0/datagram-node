@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:InteractAction","description":"The act of un-registering from a service.\n\nRelated actions:\n\n\nRegisterAction: antonym of UnRegisterAction...","name":"UnRegisterAction","@id":"schema:UnRegisterAction","layer":"core"}

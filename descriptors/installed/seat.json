@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"Used to describe a seat, such as a reserved seat in an event reservation.","name":"Seat","@id":"schema:Seat","layer":"core"}

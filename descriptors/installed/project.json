@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Organization","description":"An enterprise (potentially individual but typically collaborative), planned to achieve a particular aim...","name":"Project","@id":"schema:Project","layer":"pending"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"A library.","name":"Library","@id":"schema:Library","layer":"core"}

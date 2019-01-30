@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:PublicationEvent","description":"An over the air or online broadcast event.","name":"BroadcastEvent","@id":"schema:BroadcastEvent","layer":"core"}

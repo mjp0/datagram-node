@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEntity","description":"A utility class that serves as the umbrella for a number of 'intangible' things in the medical space.","name":"MedicalIntangible","@id":"schema:MedicalIntangible","layer":"health-lifesci"}

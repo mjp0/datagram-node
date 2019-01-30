@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Product","description":"A datasheet or vendor specification of a product (in the sense of a prototypical description).","name":"ProductModel","@id":"schema:ProductModel","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:EducationalOrganization","description":"An elementary school.","name":"ElementarySchool","@id":"schema:ElementarySchool","layer":"core"}

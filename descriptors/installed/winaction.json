@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:AchieveAction","description":"The act of achieving victory in a competitive activity.","name":"WinAction","@id":"schema:WinAction","layer":"core"}

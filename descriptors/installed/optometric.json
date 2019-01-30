@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"The science or practice of testing visual acuity and prescribing corrective lenses.","name":"Optometric","@id":"schema:Optometric","layer":"health-lifesci"}

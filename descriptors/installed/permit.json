@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A permit issued by an organization, e.g. a parking pass.","name":"Permit","@id":"schema:Permit","layer":"core"}

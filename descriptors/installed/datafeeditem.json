@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A single item within a larger data feed.","name":"DataFeedItem","@id":"schema:DataFeedItem","layer":"core"}

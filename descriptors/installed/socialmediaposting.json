@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Article","description":"A post to a social media platform, including blog posts, tweets, Facebook posts, etc.","name":"SocialMediaPosting","@id":"schema:SocialMediaPosting","layer":"core"}

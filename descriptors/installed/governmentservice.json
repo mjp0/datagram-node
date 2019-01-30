@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Service","description":"A service provided by a government organization, e.g. food stamps, veterans benefits, etc.","name":"GovernmentService","@id":"schema:GovernmentService","layer":"core"}

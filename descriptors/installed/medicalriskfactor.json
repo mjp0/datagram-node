@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEntity","description":"A risk factor is anything that increases a person's likelihood of developing or contracting a disease, medical condition, or complication.","name":"MedicalRiskFactor","@id":"schema:MedicalRiskFactor","layer":"health-lifesci"}

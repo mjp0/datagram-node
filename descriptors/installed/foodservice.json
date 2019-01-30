@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Service","description":"A food service, like breakfast, lunch, or dinner.","name":"FoodService","@id":"schema:FoodService","layer":"core"}

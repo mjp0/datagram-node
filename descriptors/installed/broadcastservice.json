@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Service","description":"A delivery service through which content is provided via broadcast over the air or online.","name":"BroadcastService","@id":"schema:BroadcastService","layer":"core"}

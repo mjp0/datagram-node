@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"A specific branch of medical science that is concerned with the study, treatment, and prevention of mental illness, using both medical and psychological therapies.","name":"Psychiatric","@id":"schema:Psychiatric","layer":"health-lifesci"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalIndication","description":"An indication for treating an underlying condition, symptom, etc.","name":"TreatmentIndication","@id":"schema:TreatmentIndication","layer":"health-lifesci"}

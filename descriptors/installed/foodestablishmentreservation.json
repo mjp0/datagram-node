@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Reservation","description":"A reservation to dine at a food-related business.\n\nNote: This type is for information about actual reservations, e...","name":"FoodEstablishmentReservation","@id":"schema:FoodEstablishmentReservation","layer":"core"}

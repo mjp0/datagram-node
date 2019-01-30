@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A list of items of any sort&#x2014;for example, Top 10 Movies About Weathermen, or Top 100 Party Songs...","name":"ItemList","@id":"schema:ItemList","layer":"core"}

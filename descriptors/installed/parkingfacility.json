@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"A parking lot or other parking facility.","name":"ParkingFacility","@id":"schema:ParkingFacility","layer":"core"}

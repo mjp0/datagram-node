@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:ScholarlyArticle","description":"A scholarly article in the medical domain.","name":"MedicalScholarlyArticle","@id":"schema:MedicalScholarlyArticle","layer":"health-lifesci"}

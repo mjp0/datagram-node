@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:NewsArticle","description":"A NewsArticle providing historical context, definition and detail on a specific topic (aka \"explainer\" or \"backgrounder\")...","name":"BackgroundNewsArticle","@id":"schema:BackgroundNewsArticle","layer":"pending"}

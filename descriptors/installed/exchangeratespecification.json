@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:StructuredValue","description":"A structured value representing exchange rate.","name":"ExchangeRateSpecification","@id":"schema:ExchangeRateSpecification","layer":"pending"}

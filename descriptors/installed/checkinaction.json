@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CommunicateAction","description":"The act of an agent communicating (service provider, social media, etc) their arrival by registering/confirming for a previously reserved service (e...","name":"CheckInAction","@id":"schema:CheckInAction","layer":"core"}

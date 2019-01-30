@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:BroadcastChannel","description":"A unique instance of a television BroadcastService on a CableOrSatelliteService lineup.","name":"TelevisionChannel","@id":"schema:TelevisionChannel","layer":"core"}

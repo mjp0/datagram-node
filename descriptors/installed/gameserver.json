@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"Server that provides game interaction in a multiplayer game.","name":"GameServer","@id":"schema:GameServer","layer":"core"}

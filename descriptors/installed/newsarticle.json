@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Article","description":"A NewsArticle is an article whose content reports news, or provides background context and supporting materials for understanding the news...","name":"NewsArticle","@id":"schema:NewsArticle","layer":"core"}

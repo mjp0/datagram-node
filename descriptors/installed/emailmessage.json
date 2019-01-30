@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Message","description":"An email message.","name":"EmailMessage","@id":"schema:EmailMessage","layer":"core"}

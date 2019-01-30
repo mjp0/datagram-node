@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:InteractAction","description":"The act of conveying information to another person via a communication medium (instrument) such as speech, email, or telephone conversation.","name":"CommunicateAction","@id":"schema:CommunicateAction","layer":"core"}

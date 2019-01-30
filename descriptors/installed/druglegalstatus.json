@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalIntangible","description":"The legal availability status of a medical drug.","name":"DrugLegalStatus","@id":"schema:DrugLegalStatus","layer":"health-lifesci"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWorkSeries","description":"A video game series.","name":"VideoGameSeries","@id":"schema:VideoGameSeries","layer":"core"}

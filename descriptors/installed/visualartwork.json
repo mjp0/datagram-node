@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"A work of art that is primarily visual in character.","name":"VisualArtwork","@id":"schema:VisualArtwork","layer":"core"}

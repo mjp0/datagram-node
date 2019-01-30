@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:DeliveryMethod","description":"A DeliveryMethod in which an item is made available via locker.","name":"LockerDelivery","@id":"schema:LockerDelivery","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:BodyOfWater","description":"A lake (for example, Lake Pontrachain).","name":"LakeBodyOfWater","@id":"schema:LakeBodyOfWater","layer":"core"}

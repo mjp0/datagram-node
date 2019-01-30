@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEnumeration","description":"An enumeration that describes different types of medical procedures.","name":"MedicalProcedureType","@id":"schema:MedicalProcedureType","layer":"health-lifesci"}

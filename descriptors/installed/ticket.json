@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"Used to describe a ticket to an event, a flight, a bus ride, etc.","name":"Ticket","@id":"schema:Ticket","layer":"core"}

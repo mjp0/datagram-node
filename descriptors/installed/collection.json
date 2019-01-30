@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"A created collection of Creative Works or other artefacts.","name":"Collection","@id":"schema:Collection","layer":"bib"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"A recycling center.","name":"RecyclingCenter","@id":"schema:RecyclingCenter","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:NewsArticle","description":"The ReportageNewsArticle type is a subtype of NewsArticle representing\n news articles which are the result of journalistic news reporting conventions...","name":"ReportageNewsArticle","@id":"schema:ReportageNewsArticle","layer":"pending"}

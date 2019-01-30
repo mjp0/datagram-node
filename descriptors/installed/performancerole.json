@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Role","description":"A PerformanceRole is a Role that some entity places with regard to a theatrical performance, e...","name":"PerformanceRole","@id":"schema:PerformanceRole","layer":"core"}

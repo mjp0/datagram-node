@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"A part of a successively published publication such as a periodical or multi-volume work, often numbered...","name":"PublicationVolume","@id":"schema:PublicationVolume","layer":"core"}

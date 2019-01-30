@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Thing","description":"An action performed by a direct agent and indirect participants upon a direct object...","name":"Action","@id":"schema:Action","layer":"core"}

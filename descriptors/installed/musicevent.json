@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Event","description":"Event type: Music event.","name":"MusicEvent","@id":"schema:MusicEvent","layer":"core"}

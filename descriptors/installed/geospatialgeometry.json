@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"(Eventually to be defined as) a supertype of GeoShape designed to accommodate definitions from Geo-Spatial best practices.","name":"GeospatialGeometry","@id":"schema:GeospatialGeometry","layer":"pending"}

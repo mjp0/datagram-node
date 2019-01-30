@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"An airport.","name":"Airport","@id":"schema:Airport","layer":"core"}

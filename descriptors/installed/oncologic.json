@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"A specific branch of medical science that deals with benign and malignant tumors, including the study of their development, diagnosis, treatment and prevention.","name":"Oncologic","@id":"schema:Oncologic","layer":"health-lifesci"}

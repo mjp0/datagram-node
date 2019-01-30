@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"A set of defined terms for example a set of categories or a classification scheme, a glossary, dictionary or enumeration.","name":"DefinedTermSet","@id":"schema:DefinedTermSet","layer":"pending"}

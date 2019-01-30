@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:WebPage","description":"A web page that provides medical information.","name":"MedicalWebPage","@id":"schema:MedicalWebPage","layer":"health-lifesci"}

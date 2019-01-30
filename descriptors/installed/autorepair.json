@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:AutomotiveBusiness","description":"Car repair business.","name":"AutoRepair","@id":"schema:AutoRepair","layer":"core"}

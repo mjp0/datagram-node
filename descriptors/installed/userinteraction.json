@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Event","description":"UserInteraction and its subtypes is an old way of talking about users interacting with pages...","name":"UserInteraction","@id":"schema:UserInteraction","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Substance","description":"A chemical or biologic substance, used as a medical therapy, that has a physiological effect on an organism...","name":"Drug","@id":"schema:Drug","layer":"health-lifesci"}

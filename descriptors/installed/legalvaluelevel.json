@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Enumeration","description":"A list of possible levels for the legal validity of a legislation.","name":"LegalValueLevel","@id":"schema:LegalValueLevel","layer":"pending"}

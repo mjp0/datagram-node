@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Event","description":"Event type: Sports event.","name":"SportsEvent","@id":"schema:SportsEvent","layer":"core"}

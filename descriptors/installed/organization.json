@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Thing","description":"An organization such as a school, NGO, corporation, club, etc.","name":"Organization","@id":"schema:Organization","layer":"core"}

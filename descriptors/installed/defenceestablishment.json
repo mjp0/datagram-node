@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:GovernmentBuilding","description":"A defence establishment, such as an army or navy base.","name":"DefenceEstablishment","@id":"schema:DefenceEstablishment","layer":"core"}

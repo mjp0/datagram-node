@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Dataset","description":"A single feed providing structured information about one or more entities or topics.","name":"DataFeed","@id":"schema:DataFeed","layer":"core"}

@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"A lodging business, such as a motel, hotel, or inn.","name":"LodgingBusiness","@id":"schema:LodgingBusiness","layer":"core"}

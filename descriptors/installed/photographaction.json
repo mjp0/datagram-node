@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreateAction","description":"The act of capturing still images of objects using a camera.","name":"PhotographAction","@id":"schema:PhotographAction","layer":"core"}

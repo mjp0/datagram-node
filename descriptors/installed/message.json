@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"A single message from a sender to one or more organizations or people.","name":"Message","@id":"schema:Message","layer":"core"}

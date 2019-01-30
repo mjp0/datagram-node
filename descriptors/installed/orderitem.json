@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"An order item is a line of an order. It includes the quantity and shipping details of a bought offer.","name":"OrderItem","@id":"schema:OrderItem","layer":"core"}

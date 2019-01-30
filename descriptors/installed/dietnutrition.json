@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"Dietetic and nutrition as a medical speciality.","name":"DietNutrition","@id":"schema:DietNutrition","layer":"health-lifesci"}

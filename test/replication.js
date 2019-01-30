@@ -2,6 +2,20 @@ const test = require('tape')
 const adapter = require('../adapter')
 const ram = require('random-access-memory')
 const async = require('async')
+const admin = require('../adapter/definitions/cores/admin')
+const messagestream = require('../adapter/definitions/cores/messages')
+
+const test_definition = {
+  id: 'basic_test',
+  name: 'Basic test definition',
+  version: 1,
+  // one-to-one = expect cores from two users, one for me and one for you
+  // one-to-non = expect cores only from me
+  // one-to-many = expect cores from anybody but allow me to choose
+  // many-to-many = everybody can add their cores freely
+  model: 'one-to-many',
+  accepted_cores: [admin, messagestream],
+}
 
 test('replicate two adapters', function(t) {
   t.plan(22)
@@ -24,8 +38,8 @@ test('replicate two adapters', function(t) {
     })
   }
 
-  const m1 = adapter(ram, 'test')
-  const m2 = adapter(ram, 'test')
+  const m1 = adapter({ password: 'testpassword', definition: test_definition }, { storage: ram })
+  const m2 = adapter({ password: 'testpassword', definition: test_definition }, { storage: ram })
   m1.ready(() => {
     m2.ready(() => {
       setup(m1, 'foo', function() {
@@ -98,9 +112,9 @@ test('replicate two live adapters', function(t) {
     })
   }
 
-  const m1 = adapter(ram, 'test')
+  const m1 = adapter({ password: 'testpassword', definition: test_definition }, { storage: ram })
   m1.ready(() => {
-    m2 = adapter(ram, 'test')
+    m2 = adapter({ password: 'testpassword', definition: test_definition }, { storage: ram })
     m2.ready(() => {
       setup(m1, 'foo', function() {
         setup(m2, 'bar', function() {
@@ -175,8 +189,8 @@ test('replicate two adapters and remove a core', function(t) {
     })
   }
 
-  const m1 = adapter(ram, 'test')
-  const m2 = adapter(ram, 'test')
+  const m1 = adapter({ password: 'testpassword', definition: test_definition }, { storage: ram })
+  const m2 = adapter({ password: 'testpassword', definition: test_definition }, { storage: ram })
   m1.ready(() => {
     m2.ready(() => {
       setup(m1, 'foo', function() {

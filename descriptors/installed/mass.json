@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Quantity","description":"Properties that take Mass as values are of the form '&lt;Number&gt; &lt;Mass unit of measure&gt;'...","name":"Mass","@id":"schema:Mass","layer":"core"}

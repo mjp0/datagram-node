@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"Instructions that explain how to achieve a result by performing a sequence of steps.","name":"HowTo","@id":"schema:HowTo","layer":"core"}

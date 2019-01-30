@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Event","description":"A screening of a movie or other video.","name":"ScreeningEvent","@id":"schema:ScreeningEvent","layer":"core"}

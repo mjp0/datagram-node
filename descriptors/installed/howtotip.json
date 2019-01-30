@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"An explanation in the instructions for how to achieve a result...","name":"HowToTip","@id":"schema:HowToTip","layer":"core"}

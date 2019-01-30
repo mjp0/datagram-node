@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:SportsActivityLocation","description":"A ski resort.","name":"SkiResort","@id":"schema:SkiResort","layer":"core"}

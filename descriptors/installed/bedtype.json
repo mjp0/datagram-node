@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:QualitativeValue","description":"A type of bed. This is used for indicating the bed or beds available in an accommodation.","name":"BedType","@id":"schema:BedType","layer":"pending"}

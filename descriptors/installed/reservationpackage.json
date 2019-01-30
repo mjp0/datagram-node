@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Reservation","description":"A group of multiple reservations with common values for all sub-reservations.","name":"ReservationPackage","@id":"schema:ReservationPackage","layer":"core"}

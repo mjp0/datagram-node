@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Landform","description":"A volcano, like Fuji san.","name":"Volcano","@id":"schema:Volcano","layer":"core"}

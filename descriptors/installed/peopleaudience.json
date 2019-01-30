@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Audience","description":"A set of characteristics belonging to people, e.g. who compose an item's target audience.","name":"PeopleAudience","@id":"schema:PeopleAudience","layer":"core"}

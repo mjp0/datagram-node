@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:PerformingGroup","description":"A dance group&#x2014;for example, the Alvin Ailey Dance Theater or Riverdance.","name":"DanceGroup","@id":"schema:DanceGroup","layer":"core"}

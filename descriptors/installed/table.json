@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:WebPageElement","description":"A table on a Web page.","name":"Table","@id":"schema:Table","layer":"core"}

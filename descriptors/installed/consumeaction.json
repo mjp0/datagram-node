@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Action","description":"The act of ingesting information/resources/food.","name":"ConsumeAction","@id":"schema:ConsumeAction","layer":"core"}

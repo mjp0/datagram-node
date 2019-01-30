@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:SportsOrganization","description":"Organization: Sports team.","name":"SportsTeam","@id":"schema:SportsTeam","layer":"core"}

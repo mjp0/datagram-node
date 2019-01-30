@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:FinancialProduct","description":"A service to convert funds from one currency to another currency.","name":"CurrencyConversionService","@id":"schema:CurrencyConversionService","layer":"core"}

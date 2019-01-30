@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:PriceSpecification","description":"The costs of settling the payment using a particular payment method.","name":"PaymentChargeSpecification","@id":"schema:PaymentChargeSpecification","layer":"core"}

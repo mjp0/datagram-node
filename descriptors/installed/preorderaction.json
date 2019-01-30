@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:TradeAction","description":"An agent orders a (not yet released) object/product/service to be delivered/sent.","name":"PreOrderAction","@id":"schema:PreOrderAction","layer":"pending"}

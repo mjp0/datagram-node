@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A store that sells materials useful or necessary for various hobbies.","name":"HobbyShop","@id":"schema:HobbyShop","layer":"core"}

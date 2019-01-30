@@ -1,0 +1,1 @@
+{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CommunicateAction","description":"The act of asking someone to attend an event. Reciprocal of RsvpAction.","name":"InviteAction","@id":"schema:InviteAction","layer":"core"}
