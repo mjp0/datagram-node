@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"A Childcare center.","name":"ChildCare","@id":"schema:ChildCare","layer":"core"}
+{"context":{"@id":"http://schema.org/ChildCare","@type":"rdfs:Class","rdfs:comment":"A Childcare center.","rdfs:label":"ChildCare","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

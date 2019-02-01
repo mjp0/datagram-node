@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:TherapeuticProcedure","description":"Any medical intervention designed to prevent, treat, and cure human diseases and medical conditions, including both curative and palliative therapies...","name":"MedicalTherapy","@id":"schema:MedicalTherapy","layer":"health-lifesci"}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A furniture store.","name":"FurnitureStore","@id":"schema:FurnitureStore","layer":"core"}
+{"context":{"@id":"http://schema.org/FurnitureStore","@type":"rdfs:Class","rdfs:comment":"A furniture store.","rdfs:label":"FurnitureStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

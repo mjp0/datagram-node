@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:QualitativeValue","description":"A value indicating a special usage of a car, e.g. commercial rental, driving school, or as a taxi.","name":"CarUsageType","@id":"schema:CarUsageType","layer":"auto"}

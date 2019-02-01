@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:AutomotiveBusiness","description":"Auto body shop.","name":"AutoBodyShop","@id":"schema:AutoBodyShop","layer":"core"}
+{"context":{"@id":"http://schema.org/AutoBodyShop","@type":"rdfs:Class","rdfs:comment":"Auto body shop.","rdfs:label":"AutoBodyShop","rdfs:subClassOf":{"@id":"http://schema.org/AutomotiveBusiness"}},"properties":[]}

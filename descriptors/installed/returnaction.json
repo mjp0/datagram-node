@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:TransferAction","description":"The act of returning to the origin that which was previously received (concrete objects) or taken (ownership).","name":"ReturnAction","@id":"schema:ReturnAction","layer":"core"}
+{"context":{"@id":"http://schema.org/ReturnAction","@type":"rdfs:Class","rdfs:comment":"The act of returning to the origin that which was previously received (concrete objects) or taken (ownership).","rdfs:label":"ReturnAction","rdfs:subClassOf":{"@id":"http://schema.org/TransferAction"}},"properties":[]}

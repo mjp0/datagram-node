@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Clip","description":"A short segment/part of a video game.","name":"VideoGameClip","@id":"schema:VideoGameClip","layer":"core"}
+{"context":{"@id":"http://schema.org/VideoGameClip","@type":"rdfs:Class","rdfs:comment":"A short segment/part of a video game.","rdfs:label":"VideoGameClip","rdfs:subClassOf":{"@id":"http://schema.org/Clip"}},"properties":[]}

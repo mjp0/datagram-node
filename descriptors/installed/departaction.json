@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MoveAction","description":"The act of  departing from a place. An agent departs from an fromLocation for a destination, optionally with participants.","name":"DepartAction","@id":"schema:DepartAction","layer":"core"}
+{"context":{"@id":"http://schema.org/DepartAction","@type":"rdfs:Class","rdfs:comment":"The act of  departing from a place. An agent departs from an fromLocation for a destination, optionally with participants.","rdfs:label":"DepartAction","rdfs:subClassOf":{"@id":"http://schema.org/MoveAction"}},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A bookstore.","name":"BookStore","@id":"schema:BookStore","layer":"core"}
+{"context":{"@id":"http://schema.org/BookStore","@type":"rdfs:Class","rdfs:comment":"A bookstore.","rdfs:label":"BookStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

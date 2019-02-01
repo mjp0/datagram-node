@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Landform","description":"One of the continents (for example, Europe or Africa).","name":"Continent","@id":"schema:Continent","layer":"core"}
+{"context":{"@id":"http://schema.org/Continent","@type":"rdfs:Class","rdfs:comment":"One of the continents (for example, Europe or Africa).","rdfs:label":"Continent","rdfs:subClassOf":{"@id":"http://schema.org/Landform"}},"properties":[]}

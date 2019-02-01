@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"A specific branch of medical science that specializes in the care of women during the prenatal and postnatal care and with the delivery of the child.","name":"Obstetric","@id":"schema:Obstetric","layer":"health-lifesci"}

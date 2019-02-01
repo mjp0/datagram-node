@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A store that sells mobile phones and related accessories.","name":"MobilePhoneStore","@id":"schema:MobilePhoneStore","layer":"core"}
+{"context":{"@id":"http://schema.org/MobilePhoneStore","@type":"rdfs:Class","rdfs:comment":"A store that sells mobile phones and related accessories.","rdfs:label":"MobilePhoneStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

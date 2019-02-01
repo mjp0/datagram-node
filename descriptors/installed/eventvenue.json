@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"An event venue.","name":"EventVenue","@id":"schema:EventVenue","layer":"core"}
+{"context":{"@id":"http://schema.org/EventVenue","@type":"rdfs:Class","rdfs:comment":"An event venue.","rdfs:label":"EventVenue","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:HomeAndConstructionBusiness","description":"A locksmith.","name":"Locksmith","@id":"schema:Locksmith","layer":"core"}
+{"context":{"@id":"http://schema.org/Locksmith","@type":"rdfs:Class","rdfs:comment":"A locksmith.","rdfs:label":"Locksmith","rdfs:subClassOf":{"@id":"http://schema.org/HomeAndConstructionBusiness"}},"properties":[]}

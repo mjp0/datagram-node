@@ -1,0 +1,75 @@
+{
+  "context": {
+    "@id": "http://schema.org/datagramCore",
+    "@type": "rdfs:Class",
+    "http://purl.org/dc/terms/source": {
+      "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms"
+    },
+    "rdfs:comment": "Any offered Datagram core. For example: a message stream; a video stream; an audio stream; an action stream; or a stream of measurements.",
+    "rdfs:label": "datagramCore",
+    "rdfs:subClassOf": { "@id": "http://schema.org/Thing" }
+  },
+  "properties": [
+    {
+      "@id": "http://schema.org/manufacturer",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/datagramCore" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/Organization" },
+      "rdfs:comment": "The manufacturer of the Datagram core.",
+      "rdfs:label": "manufacturer"
+    },
+    {
+      "@id": "http://schema.org/isConsumableFor",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms"
+      },
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/datagramCore" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/datagramCore" },
+      "rdfs:comment": "A pointer to a Datagram container (or multiple Datagram containers) for which this Datagram core is a consumable.",
+      "rdfs:label": "isConsumableFor"
+    },
+    {
+      "@id": "http://schema.org/isAccessoryOrSparePartFor",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms"
+      },
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/datagramCore" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/datagramCore" },
+      "rdfs:comment": "A pointer to another Datagram core (or multiple Datagram cores) for which this Datagram core is an accessory or spare part.",
+      "rdfs:label": "isAccessoryOrSparePartFor"
+    },
+    {
+      "@id": "http://schema.org/model",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/datagramCore" },
+      "http://schema.org/rangeIncludes": [
+        { "@id": "http://schema.org/Text" },
+        { "@id": "http://schema.org/datagramCoreModel" }
+      ],
+      "rdfs:comment": "The model of the Datagram core. Use with the URL of a DatagramCoreModel or a textual representation of the model identifier. The URL of the DatagramCoreModel can be from an external source. It is recommended to additionally provide strong Datagram core identifiers via the gtin8/gtin13/gtin14 and mpn properties.",
+      "rdfs:label": "model"
+    },
+    {
+      "@id": "http://schema.org/datagramCoreID",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/datagramCore" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/Text" },
+      "rdfs:comment": "The Datagram core identifier.",
+      "rdfs:label": "datagramCoreID",
+      "rdfs:subPropertyOf": { "@id": "http://schema.org/identifier" }
+    },
+    {
+      "@id": "http://schema.org/releaseDate",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms"
+      },
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/datagramCore" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/Date" },
+      "rdfs:comment": "The release date of a Datagram core or Datagram core model. This can be used to distinguish the exact variant of a Datagram core.",
+      "rdfs:label": "releaseDate"
+    }
+  ]
+}

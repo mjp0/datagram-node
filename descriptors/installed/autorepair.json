@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:AutomotiveBusiness","description":"Car repair business.","name":"AutoRepair","@id":"schema:AutoRepair","layer":"core"}
+{"context":{"@id":"http://schema.org/AutoRepair","@type":"rdfs:Class","rdfs:comment":"Car repair business.","rdfs:label":"AutoRepair","rdfs:subClassOf":{"@id":"http://schema.org/AutomotiveBusiness"}},"properties":[]}

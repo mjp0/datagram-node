@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Episode","description":"A TV episode which can be part of a series or season.","name":"TVEpisode","@id":"schema:TVEpisode","layer":"core"}
+{"context":{"@id":"http://schema.org/TVEpisode","@type":"rdfs:Class","rdfs:comment":"A TV episode which can be part of a series or season.","rdfs:label":"TVEpisode","rdfs:subClassOf":{"@id":"http://schema.org/Episode"}},"properties":[]}

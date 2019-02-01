@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:ConsumeAction","description":"The act of consuming dynamic/moving visual content.","name":"WatchAction","@id":"schema:WatchAction","layer":"core"}
+{"context":{"@id":"http://schema.org/WatchAction","@type":"rdfs:Class","rdfs:comment":"The act of consuming dynamic/moving visual content.","rdfs:label":"WatchAction","rdfs:subClassOf":{"@id":"http://schema.org/ConsumeAction"}},"properties":[]}

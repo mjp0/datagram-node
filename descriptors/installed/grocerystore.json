@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A grocery store.","name":"GroceryStore","@id":"schema:GroceryStore","layer":"core"}
+{"context":{"@id":"http://schema.org/GroceryStore","@type":"rdfs:Class","rdfs:comment":"A grocery store.","rdfs:label":"GroceryStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

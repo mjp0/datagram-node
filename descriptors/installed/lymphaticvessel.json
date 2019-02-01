@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Vessel","description":"A type of blood vessel that specifically carries lymph fluid unidirectionally toward the heart.","name":"LymphaticVessel","@id":"schema:LymphaticVessel","layer":"health-lifesci"}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:TradeAction","description":"An agent quotes/estimates/appraises an object/product/service with a price at a location/store.","name":"QuoteAction","@id":"schema:QuoteAction","layer":"core"}
+{"context":{"@id":"http://schema.org/QuoteAction","@type":"rdfs:Class","rdfs:comment":"An agent quotes/estimates/appraises an object/product/service with a price at a location/store.","rdfs:label":"QuoteAction","rdfs:subClassOf":{"@id":"http://schema.org/TradeAction"}},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Event","description":"Event type: A social dance.","name":"DanceEvent","@id":"schema:DanceEvent","layer":"core"}
+{"context":{"@id":"http://schema.org/DanceEvent","@type":"rdfs:Class","rdfs:comment":"Event type: A social dance.","rdfs:label":"DanceEvent","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

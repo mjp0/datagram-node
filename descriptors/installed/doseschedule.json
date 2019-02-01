@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalIntangible","description":"A specific dosing schedule for a drug or supplement.","name":"DoseSchedule","@id":"schema:DoseSchedule","layer":"health-lifesci"}

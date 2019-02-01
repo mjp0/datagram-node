@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Residence","description":"Residence type: Gated community.","name":"GatedResidenceCommunity","@id":"schema:GatedResidenceCommunity","layer":"core"}
+{"context":{"@id":"http://schema.org/GatedResidenceCommunity","@type":"rdfs:Class","rdfs:comment":"Residence type: Gated community.","rdfs:label":"GatedResidenceCommunity","rdfs:subClassOf":{"@id":"http://schema.org/Residence"}},"properties":[]}

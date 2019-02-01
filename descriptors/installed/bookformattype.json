@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Enumeration","description":"The publication format of the book.","name":"BookFormatType","@id":"schema:BookFormatType","layer":"core"}
+{"context":{"@id":"http://schema.org/BookFormatType","@type":"rdfs:Class","rdfs:comment":"The publication format of the book.","rdfs:label":"BookFormatType","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Project","description":"A Research project.","name":"ResearchProject","@id":"schema:ResearchProject","layer":"pending"}

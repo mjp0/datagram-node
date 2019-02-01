@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Role","description":"A Role that represents a Web link e.g. as expressed via the 'url' property...","name":"LinkRole","@id":"schema:LinkRole","layer":"pending"}

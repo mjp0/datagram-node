@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:TransferAction","description":"The act of transferring money from one place to another place...","name":"MoneyTransfer","@id":"schema:MoneyTransfer","layer":"pending"}

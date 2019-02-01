@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Quantity","description":"Properties that take Energy as values are of the form '&lt;Number&gt; &lt;Energy unit of measure&gt;'.","name":"Energy","@id":"schema:Energy","layer":"core"}
+{"context":{"@id":"http://schema.org/Energy","@type":"rdfs:Class","rdfs:comment":"Properties that take Energy as values are of the form '&lt;Number&gt; &lt;Energy unit of measure&gt;'.","rdfs:label":"Energy","rdfs:subClassOf":{"@id":"http://schema.org/Quantity"}},"properties":[]}

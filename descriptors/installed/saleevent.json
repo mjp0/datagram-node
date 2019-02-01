@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Event","description":"Event type: Sales event.","name":"SaleEvent","@id":"schema:SaleEvent","layer":"core"}
+{"context":{"@id":"http://schema.org/SaleEvent","@type":"rdfs:Class","rdfs:comment":"Event type: Sales event.","rdfs:label":"SaleEvent","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

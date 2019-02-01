@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/CommentPermission","@type":"http://schema.org/DigitalDocumentPermissionType","rdfs:comment":"Permission to add comments to the document.","rdfs:label":"CommentPermission"},"properties":[]}

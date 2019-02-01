@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"A doctor's office.","name":"Physician","@id":"schema:Physician","layer":"core"}
+{"context":{"@id":"http://schema.org/Physician","@type":"rdfs:Class","rdfs:comment":"A doctor's office.","rdfs:label":"Physician","rdfs:subClassOf":{"@id":"http://schema.org/MedicalOrganization"}},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A tire shop.","name":"TireShop","@id":"schema:TireShop","layer":"core"}
+{"context":{"@id":"http://schema.org/TireShop","@type":"rdfs:Class","rdfs:comment":"A tire shop.","rdfs:label":"TireShop","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

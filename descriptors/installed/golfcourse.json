@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:SportsActivityLocation","description":"A golf course.","name":"GolfCourse","@id":"schema:GolfCourse","layer":"core"}
+{"context":{"@id":"http://schema.org/GolfCourse","@type":"rdfs:Class","rdfs:comment":"A golf course.","rdfs:label":"GolfCourse","rdfs:subClassOf":{"@id":"http://schema.org/SportsActivityLocation"}},"properties":[]}

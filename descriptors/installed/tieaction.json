@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:AchieveAction","description":"The act of reaching a draw in a competitive activity.","name":"TieAction","@id":"schema:TieAction","layer":"core"}
+{"context":{"@id":"http://schema.org/TieAction","@type":"rdfs:Class","rdfs:comment":"The act of reaching a draw in a competitive activity.","rdfs:label":"TieAction","rdfs:subClassOf":{"@id":"http://schema.org/AchieveAction"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalTherapy","description":"A treatment of people with physical, emotional, or social problems, using purposeful activity to help them overcome or learn to deal with their problems.","name":"OccupationalTherapy","@id":"schema:OccupationalTherapy","layer":"health-lifesci"}

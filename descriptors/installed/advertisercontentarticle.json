@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Article","description":"An Article that an external entity has paid to place or to produce to its specifications...","name":"AdvertiserContentArticle","@id":"schema:AdvertiserContentArticle","layer":"pending"}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:GovernmentOffice","description":"A post office.","name":"PostOffice","@id":"schema:PostOffice","layer":"core"}
+{"context":{"@id":"http://schema.org/PostOffice","@type":"rdfs:Class","rdfs:comment":"A post office.","rdfs:label":"PostOffice","rdfs:subClassOf":{"@id":"http://schema.org/GovernmentOffice"}},"properties":[]}

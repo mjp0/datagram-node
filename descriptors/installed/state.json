@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:AdministrativeArea","description":"A state or province of a country.","name":"State","@id":"schema:State","layer":"core"}
+{"context":{"@id":"http://schema.org/State","@type":"rdfs:Class","rdfs:comment":"A state or province of a country.","rdfs:label":"State","rdfs:subClassOf":{"@id":"http://schema.org/AdministrativeArea"}},"properties":[]}

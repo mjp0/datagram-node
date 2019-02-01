@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalProcedure","description":"A medical procedure intended primarily for therapeutic purposes, aimed at improving a health condition.","name":"TherapeuticProcedure","@id":"schema:TherapeuticProcedure","layer":"health-lifesci"}

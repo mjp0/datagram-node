@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MediaObject","description":"An audio file.","name":"AudioObject","@id":"schema:AudioObject","layer":"core"}
+{"context":{"@id":"http://schema.org/AudioObject","@type":"rdfs:Class","http://purl.org/dc/terms/source":{"@id":"http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews"},"rdfs:comment":"An audio file.","rdfs:label":"AudioObject","rdfs:subClassOf":{"@id":"http://schema.org/MediaObject"}},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWorkSeries","description":"A video game series.","name":"VideoGameSeries","@id":"schema:VideoGameSeries","layer":"core"}
+{"context":{"@id":"http://schema.org/VideoGameSeries","@type":"rdfs:Class","rdfs:comment":"A video game series.","rdfs:label":"VideoGameSeries","rdfs:subClassOf":{"@id":"http://schema.org/CreativeWorkSeries"}},"properties":[]}

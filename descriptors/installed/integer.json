@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/Integer","@type":"rdfs:Class","rdfs:comment":"Data type: Integer.","rdfs:label":"Integer","rdfs:subClassOf":{"@id":"http://schema.org/Number"}},"properties":[]}

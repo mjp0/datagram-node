@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalStudy","description":"A medical trial is a type of medical study that uses scientific process used to compare the safety and efficacy of medical therapies or medical procedures...","name":"MedicalTrial","@id":"schema:MedicalTrial","layer":"health-lifesci"}

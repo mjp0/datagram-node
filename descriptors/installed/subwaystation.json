@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"A subway station.","name":"SubwayStation","@id":"schema:SubwayStation","layer":"core"}
+{"context":{"@id":"http://schema.org/SubwayStation","@type":"rdfs:Class","rdfs:comment":"A subway station.","rdfs:label":"SubwayStation","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

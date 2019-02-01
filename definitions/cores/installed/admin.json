@@ -1,0 +1,6 @@
+{
+  "@context": "http://schema.org/",
+  "@type": "datagramCore",
+  "name": "Admin",
+  "description": "Admin Core is a message stream of administrative actions and notifications"
+}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:EntertainmentBusiness","description":"A casino.","name":"Casino","@id":"schema:Casino","layer":"core"}
+{"context":{"@id":"http://schema.org/Casino","@type":"rdfs:Class","rdfs:comment":"A casino.","rdfs:label":"Casino","rdfs:subClassOf":{"@id":"http://schema.org/EntertainmentBusiness"}},"properties":[]}

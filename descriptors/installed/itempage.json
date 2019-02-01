@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:WebPage","description":"A page devoted to a single item, such as a particular product or hotel.","name":"ItemPage","@id":"schema:ItemPage","layer":"core"}
+{"context":{"@id":"http://schema.org/ItemPage","@type":"rdfs:Class","rdfs:comment":"A page devoted to a single item, such as a particular product or hotel.","rdfs:label":"ItemPage","rdfs:subClassOf":{"@id":"http://schema.org/WebPage"}},"properties":[]}

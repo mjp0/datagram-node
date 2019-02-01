@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/Date","@type":["http://schema.org/DataType","rdfs:Class"],"rdfs:comment":"A date value in <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO 8601 date format</a>.","rdfs:label":"Date"},"properties":[]}

@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Substance","description":"A product taken by mouth that contains a dietary ingredient intended to supplement the diet...","name":"DietarySupplement","@id":"schema:DietarySupplement","layer":"health-lifesci"}

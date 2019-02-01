@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/SingleRelease","@type":"http://schema.org/MusicAlbumReleaseType","http://purl.org/dc/terms/source":{"@id":"http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"},"rdfs:comment":"SingleRelease.","rdfs:label":"SingleRelease"},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Enumeration","description":"Indicates whether this game is multi-player, co-op or single-player.","name":"GamePlayMode","@id":"schema:GamePlayMode","layer":"core"}
+{"context":{"@id":"http://schema.org/GamePlayMode","@type":"rdfs:Class","rdfs:comment":"Indicates whether this game is multi-player, co-op or single-player.","rdfs:label":"GamePlayMode","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

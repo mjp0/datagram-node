@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalProcedure","description":"A medical procedure involving an incision with instruments; performed for diagnose, or therapeutic purposes.","name":"SurgicalProcedure","@id":"schema:SurgicalProcedure","layer":"health-lifesci"}

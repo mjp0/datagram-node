@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Organization","description":"A medical organization (physical or not), such as hospital, institution or clinic.","name":"MedicalOrganization","@id":"schema:MedicalOrganization","layer":"core"}
+{"context":{"@id":"http://schema.org/MedicalOrganization","@type":"rdfs:Class","rdfs:comment":"A medical organization (physical or not), such as hospital, institution or clinic.","rdfs:label":"MedicalOrganization","rdfs:subClassOf":{"@id":"http://schema.org/Organization"}},"properties":[]}

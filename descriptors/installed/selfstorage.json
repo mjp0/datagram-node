@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"A self-storage facility.","name":"SelfStorage","@id":"schema:SelfStorage","layer":"core"}
+{"context":{"@id":"http://schema.org/SelfStorage","@type":"rdfs:Class","rdfs:comment":"A self-storage facility.","rdfs:label":"SelfStorage","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

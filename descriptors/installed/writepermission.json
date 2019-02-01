@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/WritePermission","@type":"http://schema.org/DigitalDocumentPermissionType","rdfs:comment":"Permission to write or edit the document.","rdfs:label":"WritePermission"},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:BodyOfWater","description":"A canal, like the Panama Canal.","name":"Canal","@id":"schema:Canal","layer":"core"}
+{"context":{"@id":"http://schema.org/Canal","@type":"rdfs:Class","rdfs:comment":"A canal, like the Panama Canal.","rdfs:label":"Canal","rdfs:subClassOf":{"@id":"http://schema.org/BodyOfWater"}},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"A music venue.","name":"MusicVenue","@id":"schema:MusicVenue","layer":"core"}
+{"context":{"@id":"http://schema.org/MusicVenue","@type":"rdfs:Class","rdfs:comment":"A music venue.","rdfs:label":"MusicVenue","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

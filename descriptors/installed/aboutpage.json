@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:WebPage","description":"Web page type: About page.","name":"AboutPage","@id":"schema:AboutPage","layer":"core"}
+{"context":{"@id":"http://schema.org/AboutPage","@type":"rdfs:Class","rdfs:comment":"Web page type: About page.","rdfs:label":"AboutPage","rdfs:subClassOf":{"@id":"http://schema.org/WebPage"}},"properties":[]}

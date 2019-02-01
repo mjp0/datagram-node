@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:DefinedTermSet","description":"A set of Category Code values.","name":"CategoryCodeSet","@id":"schema:CategoryCodeSet","layer":"pending"}

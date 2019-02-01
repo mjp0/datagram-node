@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Enumeration","description":"An enumeration of several kinds of Map.","name":"MapCategoryType","@id":"schema:MapCategoryType","layer":"core"}
+{"context":{"@id":"http://schema.org/MapCategoryType","@type":"rdfs:Class","rdfs:comment":"An enumeration of several kinds of Map.","rdfs:label":"MapCategoryType","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

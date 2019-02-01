@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEnumeration","description":"Design models for medical trials. Enumerated type.","name":"MedicalTrialDesign","@id":"schema:MedicalTrialDesign","layer":"health-lifesci"}

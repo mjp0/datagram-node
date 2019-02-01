@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"A recycling center.","name":"RecyclingCenter","@id":"schema:RecyclingCenter","layer":"core"}
+{"context":{"@id":"http://schema.org/RecyclingCenter","@type":"rdfs:Class","rdfs:comment":"A recycling center.","rdfs:label":"RecyclingCenter","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Enumeration","description":"The status of an Action.","name":"ActionStatusType","@id":"schema:ActionStatusType","layer":"core"}
+{"context":{"@id":"http://schema.org/ActionStatusType","@type":"rdfs:Class","rdfs:comment":"The status of an Action.","rdfs:label":"ActionStatusType","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

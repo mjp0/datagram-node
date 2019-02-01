@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/Time","@type":["http://schema.org/DataType","rdfs:Class"],"rdfs:comment":"A point in time recurring on multiple days in the form hh:mm:ss[Z|(+|-)hh:mm] (see <a href=\"http://www.w3.org/TR/xmlschema-2/#time\">XML schema for details</a>).","rdfs:label":"Time"},"properties":[]}

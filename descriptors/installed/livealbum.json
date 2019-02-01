@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/LiveAlbum","@type":"http://schema.org/MusicAlbumProductionType","http://purl.org/dc/terms/source":{"@id":"http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"},"rdfs:comment":"LiveAlbum.","rdfs:label":"LiveAlbum"},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A shop that sells alcoholic drinks such as wine, beer, whisky and other spirits.","name":"LiquorStore","@id":"schema:LiquorStore","layer":"core"}
+{"context":{"@id":"http://schema.org/LiquorStore","@type":"rdfs:Class","rdfs:comment":"A shop that sells alcoholic drinks such as wine, beer, whisky and other spirits.","rdfs:label":"LiquorStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

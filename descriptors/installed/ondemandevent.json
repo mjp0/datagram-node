@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:PublicationEvent","description":"A publication event e.g. catch-up TV or radio podcast, during which a program is available on-demand.","name":"OnDemandEvent","@id":"schema:OnDemandEvent","layer":"core"}
+{"context":{"@id":"http://schema.org/OnDemandEvent","@type":"rdfs:Class","rdfs:comment":"A publication event e.g. catch-up TV or radio podcast, during which a program is available on-demand.","rdfs:label":"OnDemandEvent","rdfs:subClassOf":{"@id":"http://schema.org/PublicationEvent"}},"properties":[]}

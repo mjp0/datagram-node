@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"A bus station.","name":"BusStation","@id":"schema:BusStation","layer":"core"}
+{"context":{"@id":"http://schema.org/BusStation","@type":"rdfs:Class","rdfs:comment":"A bus station.","rdfs:label":"BusStation","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

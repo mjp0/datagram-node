@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEntity","description":"A condition or factor that serves as a reason to withhold a certain medical therapy...","name":"MedicalContraindication","@id":"schema:MedicalContraindication","layer":"health-lifesci"}

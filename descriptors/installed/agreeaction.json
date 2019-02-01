@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:ReactAction","description":"The act of expressing a consistency of opinion with the object...","name":"AgreeAction","@id":"schema:AgreeAction","layer":"core"}
+{"context":{"@id":"http://schema.org/AgreeAction","@type":"rdfs:Class","rdfs:comment":"The act of expressing a consistency of opinion with the object. An agent agrees to/about an object (a proposition, topic or theme) with participants.","rdfs:label":"AgreeAction","rdfs:subClassOf":{"@id":"http://schema.org/ReactAction"}},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:ConsumeAction","description":"The act of applying an object to its intended purpose.","name":"UseAction","@id":"schema:UseAction","layer":"core"}
+{"context":{"@id":"http://schema.org/UseAction","@type":"rdfs:Class","rdfs:comment":"The act of applying an object to its intended purpose.","rdfs:label":"UseAction","rdfs:subClassOf":{"@id":"http://schema.org/ConsumeAction"}},"properties":[]}

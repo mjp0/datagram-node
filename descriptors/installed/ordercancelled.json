@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/OrderCancelled","@type":"http://schema.org/OrderStatus","rdfs:comment":"OrderStatus representing cancellation of an order.","rdfs:label":"OrderCancelled"},"properties":[]}

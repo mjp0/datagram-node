@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEntity","description":"A medical study is an umbrella type covering all kinds of research studies relating to human medicine or health, including observational studies and interventional trials and registries, randomized, controlled or not...","name":"MedicalStudy","@id":"schema:MedicalStudy","layer":"health-lifesci"}

@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/ReadPermission","@type":"http://schema.org/DigitalDocumentPermissionType","rdfs:comment":"Permission to read or view the document.","rdfs:label":"ReadPermission"},"properties":[]}

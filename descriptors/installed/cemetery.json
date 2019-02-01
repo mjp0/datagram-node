@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"A graveyard.","name":"Cemetery","@id":"schema:Cemetery","layer":"core"}
+{"context":{"@id":"http://schema.org/Cemetery","@type":"rdfs:Class","rdfs:comment":"A graveyard.","rdfs:label":"Cemetery","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

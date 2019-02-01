@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"A retail good store.","name":"Store","@id":"schema:Store","layer":"core"}
+{"context":{"@id":"http://schema.org/Store","@type":"rdfs:Class","rdfs:comment":"A retail good store.","rdfs:label":"Store","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

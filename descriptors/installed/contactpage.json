@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:WebPage","description":"Web page type: Contact page.","name":"ContactPage","@id":"schema:ContactPage","layer":"core"}
+{"context":{"@id":"http://schema.org/ContactPage","@type":"rdfs:Class","rdfs:comment":"Web page type: Contact page.","rdfs:label":"ContactPage","rdfs:subClassOf":{"@id":"http://schema.org/WebPage"}},"properties":[]}

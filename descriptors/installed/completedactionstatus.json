@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/CompletedActionStatus","@type":"http://schema.org/ActionStatusType","rdfs:comment":"An action that has already taken place.","rdfs:label":"CompletedActionStatus"},"properties":[]}

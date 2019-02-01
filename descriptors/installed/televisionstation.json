@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"A television station.","name":"TelevisionStation","@id":"schema:TelevisionStation","layer":"core"}
+{"context":{"@id":"http://schema.org/TelevisionStation","@type":"rdfs:Class","rdfs:comment":"A television station.","rdfs:label":"TelevisionStation","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

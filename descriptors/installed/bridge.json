@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"A bridge.","name":"Bridge","@id":"schema:Bridge","layer":"core"}
+{"context":{"@id":"http://schema.org/Bridge","@type":"rdfs:Class","rdfs:comment":"A bridge.","rdfs:label":"Bridge","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

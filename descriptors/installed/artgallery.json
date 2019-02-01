@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:EntertainmentBusiness","description":"An art gallery.","name":"ArtGallery","@id":"schema:ArtGallery","layer":"core"}
+{"context":{"@id":"http://schema.org/ArtGallery","@type":"rdfs:Class","rdfs:comment":"An art gallery.","rdfs:label":"ArtGallery","rdfs:subClassOf":{"@id":"http://schema.org/EntertainmentBusiness"}},"properties":[]}

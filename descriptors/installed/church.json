@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:PlaceOfWorship","description":"A church.","name":"Church","@id":"schema:Church","layer":"core"}
+{"context":{"@id":"http://schema.org/Church","@type":"rdfs:Class","rdfs:comment":"A church.","rdfs:label":"Church","rdfs:subClassOf":{"@id":"http://schema.org/PlaceOfWorship"}},"properties":[]}

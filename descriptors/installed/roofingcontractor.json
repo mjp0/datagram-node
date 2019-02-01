@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:HomeAndConstructionBusiness","description":"A roofing contractor.","name":"RoofingContractor","@id":"schema:RoofingContractor","layer":"core"}
+{"context":{"@id":"http://schema.org/RoofingContractor","@type":"rdfs:Class","rdfs:comment":"A roofing contractor.","rdfs:label":"RoofingContractor","rdfs:subClassOf":{"@id":"http://schema.org/HomeAndConstructionBusiness"}},"properties":[]}

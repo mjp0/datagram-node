@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEntity","description":"Any condition of the human body that affects the normal functioning of a person, whether physically or mentally...","name":"MedicalCondition","@id":"schema:MedicalCondition","layer":"health-lifesci"}

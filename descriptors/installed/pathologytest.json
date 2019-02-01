@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalTest","description":"A medical test performed by a laboratory that typically involves examination of a tissue sample by a pathologist.","name":"PathologyTest","@id":"schema:PathologyTest","layer":"health-lifesci"}

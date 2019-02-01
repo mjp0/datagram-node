@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:ControlAction","description":"The act of momentarily pausing a device or application (e.g. pause music playback or pause a timer).","name":"SuspendAction","@id":"schema:SuspendAction","layer":"core"}
+{"context":{"@id":"http://schema.org/SuspendAction","@type":"rdfs:Class","rdfs:comment":"The act of momentarily pausing a device or application (e.g. pause music playback or pause a timer).","rdfs:label":"SuspendAction","rdfs:subClassOf":{"@id":"http://schema.org/ControlAction"}},"properties":[]}

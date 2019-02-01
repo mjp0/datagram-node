@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"Aquarium.","name":"Aquarium","@id":"schema:Aquarium","layer":"core"}
+{"context":{"@id":"http://schema.org/Aquarium","@type":"rdfs:Class","rdfs:comment":"Aquarium.","rdfs:label":"Aquarium","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

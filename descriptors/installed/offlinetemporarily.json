@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/OfflineTemporarily","@type":"http://schema.org/GameServerStatus","rdfs:comment":"Game server status: OfflineTemporarily. Server is offline now but it can be online soon.","rdfs:label":"OfflineTemporarily"},"properties":[]}

@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Event","description":"A series of Events. Included events can relate with the series using the superEvent property...","name":"EventSeries","@id":"schema:EventSeries","layer":"pending"}

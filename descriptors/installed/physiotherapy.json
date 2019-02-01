@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"The practice of treatment of disease, injury, or deformity by physical methods such as massage, heat treatment, and exercise rather than by drugs or surgery.","name":"Physiotherapy","@id":"schema:Physiotherapy","layer":"health-lifesci"}

@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:ComicStory","description":"The artwork on the cover of a comic.","name":"ComicCoverArt","@id":"schema:ComicCoverArt","layer":"bib"}

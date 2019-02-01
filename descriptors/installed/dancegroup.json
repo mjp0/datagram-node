@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:PerformingGroup","description":"A dance group&#x2014;for example, the Alvin Ailey Dance Theater or Riverdance.","name":"DanceGroup","@id":"schema:DanceGroup","layer":"core"}
+{"context":{"@id":"http://schema.org/DanceGroup","@type":"rdfs:Class","rdfs:comment":"A dance group&#x2014;for example, the Alvin Ailey Dance Theater or Riverdance.","rdfs:label":"DanceGroup","rdfs:subClassOf":{"@id":"http://schema.org/PerformingGroup"}},"properties":[]}

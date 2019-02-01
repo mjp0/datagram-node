@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A pet store.","name":"PetStore","@id":"schema:PetStore","layer":"core"}
+{"context":{"@id":"http://schema.org/PetStore","@type":"rdfs:Class","rdfs:comment":"A pet store.","rdfs:label":"PetStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

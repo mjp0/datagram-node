@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:WebPageElement","description":"A navigation element of the page.","name":"SiteNavigationElement","@id":"schema:SiteNavigationElement","layer":"core"}
+{"context":{"@id":"http://schema.org/SiteNavigationElement","@type":"rdfs:Class","rdfs:comment":"A navigation element of the page.","rdfs:label":"SiteNavigationElement","rdfs:subClassOf":{"@id":"http://schema.org/WebPageElement"}},"properties":[]}

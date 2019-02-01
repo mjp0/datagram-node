@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Action","description":"The act of accomplishing something via previous efforts. It is an instantaneous action rather than an ongoing process.","name":"AchieveAction","@id":"schema:AchieveAction","layer":"core"}
+{"context":{"@id":"http://schema.org/AchieveAction","@type":"rdfs:Class","rdfs:comment":"The act of accomplishing something via previous efforts. It is an instantaneous action rather than an ongoing process.","rdfs:label":"AchieveAction","rdfs:subClassOf":{"@id":"http://schema.org/Action"}},"properties":[]}

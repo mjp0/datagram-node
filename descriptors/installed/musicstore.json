@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A music store.","name":"MusicStore","@id":"schema:MusicStore","layer":"core"}
+{"context":{"@id":"http://schema.org/MusicStore","@type":"rdfs:Class","rdfs:comment":"A music store.","rdfs:label":"MusicStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

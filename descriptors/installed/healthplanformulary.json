@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"For a given health insurance plan, the specification for costs and coverage of prescription drugs.","name":"HealthPlanFormulary","@id":"schema:HealthPlanFormulary","layer":"pending"}

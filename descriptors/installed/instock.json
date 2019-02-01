@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/InStock","@type":"http://schema.org/ItemAvailability","rdfs:comment":"Indicates that the item is in stock.","rdfs:label":"InStock"},"properties":[]}

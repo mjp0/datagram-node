@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"One of the sections into which a book is divided. A chapter usually has a section number or a name.","name":"Chapter","@id":"schema:Chapter","layer":"bib"}

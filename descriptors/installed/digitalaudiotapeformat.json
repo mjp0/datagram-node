@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/DigitalAudioTapeFormat","@type":"http://schema.org/MusicReleaseFormatType","http://purl.org/dc/terms/source":{"@id":"http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"},"rdfs:comment":"DigitalAudioTapeFormat.","rdfs:label":"DigitalAudioTapeFormat"},"properties":[]}

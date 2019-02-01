@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Clip","description":"A short segment/part of a movie.","name":"MovieClip","@id":"schema:MovieClip","layer":"core"}
+{"context":{"@id":"http://schema.org/MovieClip","@type":"rdfs:Class","rdfs:comment":"A short segment/part of a movie.","rdfs:label":"MovieClip","rdfs:subClassOf":{"@id":"http://schema.org/Clip"}},"properties":[]}

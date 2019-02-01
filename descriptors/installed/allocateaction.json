@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:OrganizeAction","description":"The act of organizing tasks/objects/events by associating resources to it.","name":"AllocateAction","@id":"schema:AllocateAction","layer":"core"}
+{"context":{"@id":"http://schema.org/AllocateAction","@type":"rdfs:Class","rdfs:comment":"The act of organizing tasks/objects/events by associating resources to it.","rdfs:label":"AllocateAction","rdfs:subClassOf":{"@id":"http://schema.org/OrganizeAction"}},"properties":[]}

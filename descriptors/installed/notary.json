@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LegalService","description":"A notary.","name":"Notary","@id":"schema:Notary","layer":"core"}
+{"context":{"@id":"http://schema.org/Notary","@type":"rdfs:Class","rdfs:comment":"A notary.","rdfs:label":"Notary","rdfs:subClassOf":{"@id":"http://schema.org/LegalService"}},"properties":[]}

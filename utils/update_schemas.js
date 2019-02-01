@@ -2,7 +2,7 @@ const fs = require('fs')
 const request = require('superagent')
 
 function fetch_schemas(callback) {
-  request.get('https://schema.org/docs/tree.jsonld').end((err, body) => {
+  request.get('http://schema.org/version/latest/schema.jsonld').end((err, body) => {
     callback(err, body.text.trim())
   })
 }
@@ -12,17 +12,86 @@ const schemas = {}
 fetch_schemas((err, jsonschema) => {
   if (err) throw err
   const json = JSON.parse(jsonschema)
-  const p = parseNested()
-  const jsonloop = new p(json, 'name', 'children')
-  jsonloop.countNodes(json)
-  console.log(schemas)
+
+  // console.log(json['@graph'])
+  const schemas = json['@graph']
+  // const p = parseNested()
+  // const jsonloop = new p(json, 'name', 'children')
+  // jsonloop.countNodes(json)
+  // console.log(schemas)
+
+  // Get property values
+  const properties = schemas.filter((s) => {
+    // @type can be either an array or a singleton object
+    if (Array.isArray(s['@type'])) {
+      if (s['@type'].indexOf('rdf:Property') !== -1) return true
+    } else if (s['@type'] && s['@type'] === 'rdf:Property') return true
+    else return false
+  })
+
+  // Get property datatypes
+  const datatypes = schemas.filter((s) => {
+    // @type can be either an array or a singleton object
+    // console.log(s['@type'], Array.isArray(s['@type']))
+    if (Array.isArray(s['@type'])) {
+      if (s['@type'].indexOf('http://schema.org/DataType') !== -1) return true
+    } else if (s['@type'] && s['@type'] === 'http://schema.org/DataType') return true
+    else return false
+  })
+  console.log(datatypes)
+  // process.exit()
+
   const path = `${__dirname}/../descriptors/installed/`
-  console.log(`Found ${Object.keys(schemas).length} schemas, storing to ${path}`)
+  console.log(`Found ${schemas.length} schemas, storing to ${path}`)
   for (const schema in schemas) {
     if (schemas.hasOwnProperty(schema)) {
       const s = schemas[schema]
-      console.log(`Storing schema ${s.name} to ${s.name.toLowerCase()}.json`)
-      fs.writeFileSync(`${path}${s.name.toLowerCase()}.json`, JSON.stringify(s))
+      if (s['@type'] && !s['@type'].toString().match(/Property/)) {
+        const name = s['rdfs:label']
+        if (name) {
+          // Find out all properties associated with this
+          const ass_properties = properties.filter((prop) => {
+            const domainIncludes = prop['http://schema.org/domainIncludes']
+            if (domainIncludes) {
+              // @type can be either an array or a singleton object
+              if (Array.isArray(domainIncludes)) {
+                domainIncludes.forEach((di) => {
+                  if (di['@id'] === s['@id']) return true
+                })
+              } else if (domainIncludes['@id'] === s['@id']) return true
+              else return false
+            }
+          })
+
+          // Find out all properties associated with this
+
+          // what we want is a list of datatypes associated with the properties
+          // loop through each datatype and find out if any of the properties use it (more efficient than the other way)
+          // const ass_datatypes = {}
+
+          // datatypes.forEach((datatype) => {
+          //   ass_properties.forEach(ass_prop => {
+          //     const rangeIncludes = ass_prop['http://schema.org/rangeIncludes']
+          //     if (rangeIncludes) {
+          //       console.log(rangeIncludes)
+          //       // @type can be either an array or a singleton object
+          //       if (Array.isArray(rangeIncludes)) {
+          //         rangeIncludes.forEach((di) => {
+          //           if (di['@id'] === datatypes['@id']) ass_datatypes[datatype['@id']] = datatype
+          //         })
+          //       } else if (rangeIncludes['@id'] === datatype['@id']) ass_datatypes[datatype['@id']] = datatype
+          //       else return false
+          //     }
+          //   })
+          // })
+          // console.log(s, ass_properties)
+          console.log(`Storing schema ${name} to ${name.toLowerCase()}.json`)
+          fs.writeFileSync(
+            `${path}${name.toLowerCase()}.json`,
+            JSON.stringify({ context: s, properties: ass_properties }),
+          )
+        }
+      }
     }
   }
 })

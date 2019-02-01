@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:WebPage","description":"Web page type: Search results page.","name":"SearchResultsPage","@id":"schema:SearchResultsPage","layer":"core"}
+{"context":{"@id":"http://schema.org/SearchResultsPage","@type":"rdfs:Class","rdfs:comment":"Web page type: Search results page.","rdfs:label":"SearchResultsPage","rdfs:subClassOf":{"@id":"http://schema.org/WebPage"}},"properties":[]}

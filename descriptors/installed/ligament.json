@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:AnatomicalStructure","description":"A short band of tough, flexible, fibrous connective tissue that functions to connect multiple bones, cartilages, and structurally support joints.","name":"Ligament","@id":"schema:Ligament","layer":"health-lifesci"}

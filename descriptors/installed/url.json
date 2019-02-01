@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/URL","@type":"rdfs:Class","rdfs:comment":"Data type: URL.","rdfs:label":"URL","rdfs:subClassOf":{"@id":"http://schema.org/Text"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A US-style health insurance plan network.","name":"HealthPlanNetwork","@id":"schema:HealthPlanNetwork","layer":"pending"}

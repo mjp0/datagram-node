@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A hardware store.","name":"HardwareStore","@id":"schema:HardwareStore","layer":"core"}
+{"context":{"@id":"http://schema.org/HardwareStore","@type":"rdfs:Class","rdfs:comment":"A hardware store.","rdfs:label":"HardwareStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

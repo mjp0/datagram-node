@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:EducationalOrganization","description":"A preschool.","name":"Preschool","@id":"schema:Preschool","layer":"core"}
+{"context":{"@id":"http://schema.org/Preschool","@type":"rdfs:Class","rdfs:comment":"A preschool.","rdfs:label":"Preschool","rdfs:subClassOf":{"@id":"http://schema.org/EducationalOrganization"}},"properties":[]}

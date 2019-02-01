@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Event","description":"Event type: Music event.","name":"MusicEvent","@id":"schema:MusicEvent","layer":"core"}
+{"context":{"@id":"http://schema.org/MusicEvent","@type":"rdfs:Class","rdfs:comment":"Event type: Music event.","rdfs:label":"MusicEvent","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

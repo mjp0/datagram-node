@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:ControlAction","description":"The act of stopping or deactivating a device or application (e...","name":"DeactivateAction","@id":"schema:DeactivateAction","layer":"core"}
+{"context":{"@id":"http://schema.org/DeactivateAction","@type":"rdfs:Class","rdfs:comment":"The act of stopping or deactivating a device or application (e.g. stopping a timer or turning off a flashlight).","rdfs:label":"DeactivateAction","rdfs:subClassOf":{"@id":"http://schema.org/ControlAction"}},"properties":[]}

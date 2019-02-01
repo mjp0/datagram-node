@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CommunicateAction","description":"The act of notifying someone of information pertinent to them, with no expectation of a response.","name":"InformAction","@id":"schema:InformAction","layer":"core"}
+{"context":{"@id":"http://schema.org/InformAction","@type":"rdfs:Class","rdfs:comment":"The act of notifying someone of information pertinent to them, with no expectation of a response.","rdfs:label":"InformAction","rdfs:subClassOf":{"@id":"http://schema.org/CommunicateAction"}},"properties":[]}

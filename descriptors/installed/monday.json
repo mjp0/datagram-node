@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/Monday","@type":"http://schema.org/DayOfWeek","http://schema.org/sameAs":{"@id":"http://www.wikidata.org/entity/Q105"},"rdfs:comment":"The day of the week between Sunday and Tuesday.","rdfs:label":"Monday"},"properties":[]}

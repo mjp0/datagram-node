@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Store","description":"A men's clothing store.","name":"MensClothingStore","@id":"schema:MensClothingStore","layer":"core"}
+{"context":{"@id":"http://schema.org/MensClothingStore","@type":"rdfs:Class","rdfs:comment":"A men's clothing store.","rdfs:label":"MensClothingStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:HealthAndBeautyBusiness","description":"A health club.","name":"HealthClub","@id":"schema:HealthClub","layer":"core"}
+{"context":{"@id":"http://schema.org/HealthClub","@type":"rdfs:Class","rdfs:comment":"A health club.","rdfs:label":"HealthClub","rdfs:subClassOf":[{"@id":"http://schema.org/SportsActivityLocation"},{"@id":"http://schema.org/HealthAndBeautyBusiness"}]},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"A crematorium.","name":"Crematorium","@id":"schema:Crematorium","layer":"core"}
+{"context":{"@id":"http://schema.org/Crematorium","@type":"rdfs:Class","rdfs:comment":"A crematorium.","rdfs:label":"Crematorium","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

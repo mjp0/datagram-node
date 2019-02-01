@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Permit","description":"A permit issued by a government agency.","name":"GovernmentPermit","@id":"schema:GovernmentPermit","layer":"core"}
+{"context":{"@id":"http://schema.org/GovernmentPermit","@type":"rdfs:Class","rdfs:comment":"A permit issued by a government agency.","rdfs:label":"GovernmentPermit","rdfs:subClassOf":{"@id":"http://schema.org/Permit"}},"properties":[]}

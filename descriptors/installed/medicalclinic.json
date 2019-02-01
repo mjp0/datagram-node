@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalBusiness","description":"A facility, often associated with a hospital or medical school, that is devoted to the specific diagnosis and/or healthcare...","name":"MedicalClinic","@id":"schema:MedicalClinic","layer":"health-lifesci"}

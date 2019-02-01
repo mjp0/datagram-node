@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/ZoneBoardingPolicy","@type":"http://schema.org/BoardingPolicyType","rdfs:comment":"The airline boards by zones of the plane.","rdfs:label":"ZoneBoardingPolicy"},"properties":[]}

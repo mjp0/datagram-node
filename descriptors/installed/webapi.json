@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Service","description":"An application programming interface accessible over Web/Internet technologies.","name":"WebAPI","@id":"schema:WebAPI","layer":"pending"}

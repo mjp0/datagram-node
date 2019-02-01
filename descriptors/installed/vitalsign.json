@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalSign","description":"Vital signs are measures of various physiological functions in order to assess the most basic body functions.","name":"VitalSign","@id":"schema:VitalSign","layer":"health-lifesci"}

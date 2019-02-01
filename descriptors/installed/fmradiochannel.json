@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:RadioChannel","description":"A radio channel that uses FM.","name":"FMRadioChannel","@id":"schema:FMRadioChannel","layer":"pending"}

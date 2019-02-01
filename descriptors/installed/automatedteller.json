@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:FinancialService","description":"ATM/cash machine.","name":"AutomatedTeller","@id":"schema:AutomatedTeller","layer":"core"}
+{"context":{"@id":"http://schema.org/AutomatedTeller","@type":"rdfs:Class","rdfs:comment":"ATM/cash machine.","rdfs:label":"AutomatedTeller","rdfs:subClassOf":{"@id":"http://schema.org/FinancialService"}},"properties":[]}

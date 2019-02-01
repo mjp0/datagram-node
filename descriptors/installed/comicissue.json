@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:PublicationIssue","description":"Individual comic issues are serially published as\n    part of a larger series...","name":"ComicIssue","@id":"schema:ComicIssue","layer":"bib"}

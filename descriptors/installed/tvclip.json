@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Clip","description":"A short TV program or a segment/part of a TV program.","name":"TVClip","@id":"schema:TVClip","layer":"core"}
+{"context":{"@id":"http://schema.org/TVClip","@type":"rdfs:Class","rdfs:comment":"A short TV program or a segment/part of a TV program.","rdfs:label":"TVClip","rdfs:subClassOf":{"@id":"http://schema.org/Clip"}},"properties":[]}

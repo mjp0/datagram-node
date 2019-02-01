@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CommunicateAction","description":"The act of generating a comment about a subject.","name":"CommentAction","@id":"schema:CommentAction","layer":"core"}
+{"context":{"@id":"http://schema.org/CommentAction","@type":"rdfs:Class","rdfs:comment":"The act of generating a comment about a subject.","rdfs:label":"CommentAction","rdfs:subClassOf":{"@id":"http://schema.org/CommunicateAction"}},"properties":[]}

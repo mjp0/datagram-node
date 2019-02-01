@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:EducationalOrganization","description":"A school.","name":"School","@id":"schema:School","layer":"core"}
+{"context":{"@id":"http://schema.org/School","@type":"rdfs:Class","rdfs:comment":"A school.","rdfs:label":"School","rdfs:subClassOf":{"@id":"http://schema.org/EducationalOrganization"}},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"A sports location, such as a playing field.","name":"SportsActivityLocation","@id":"schema:SportsActivityLocation","layer":"core"}
+{"context":{"@id":"http://schema.org/SportsActivityLocation","@type":"rdfs:Class","rdfs:comment":"A sports location, such as a playing field.","rdfs:label":"SportsActivityLocation","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

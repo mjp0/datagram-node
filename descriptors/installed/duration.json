@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Quantity","description":"Quantity: Duration (use ISO 8601 duration format).","name":"Duration","@id":"schema:Duration","layer":"core"}
+{"context":{"@id":"http://schema.org/Duration","@type":"rdfs:Class","rdfs:comment":"Quantity: Duration (use <a href=\"http://en.wikipedia.org/wiki/ISO_8601\">ISO 8601 duration format</a>).","rdfs:label":"Duration","rdfs:subClassOf":{"@id":"http://schema.org/Quantity"}},"properties":[]}

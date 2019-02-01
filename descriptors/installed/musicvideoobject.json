@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MediaObject","description":"A music video file.","name":"MusicVideoObject","@id":"schema:MusicVideoObject","layer":"core"}
+{"context":{"@id":"http://schema.org/MusicVideoObject","@type":"rdfs:Class","rdfs:comment":"A music video file.","rdfs:label":"MusicVideoObject","rdfs:subClassOf":{"@id":"http://schema.org/MediaObject"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalTest","description":"A medical test performed on a sample of a patient's blood.","name":"BloodTest","@id":"schema:BloodTest","layer":"health-lifesci"}

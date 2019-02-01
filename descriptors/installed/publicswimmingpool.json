@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:SportsActivityLocation","description":"A public swimming pool.","name":"PublicSwimmingPool","@id":"schema:PublicSwimmingPool","layer":"core"}
+{"context":{"@id":"http://schema.org/PublicSwimmingPool","@type":"rdfs:Class","rdfs:comment":"A public swimming pool.","rdfs:label":"PublicSwimmingPool","rdfs:subClassOf":{"@id":"http://schema.org/SportsActivityLocation"}},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:HealthAndBeautyBusiness","description":"Beauty salon.","name":"BeautySalon","@id":"schema:BeautySalon","layer":"core"}
+{"context":{"@id":"http://schema.org/BeautySalon","@type":"rdfs:Class","rdfs:comment":"Beauty salon.","rdfs:label":"BeautySalon","rdfs:subClassOf":{"@id":"http://schema.org/HealthAndBeautyBusiness"}},"properties":[]}

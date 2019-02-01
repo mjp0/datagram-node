@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWork","description":"Fitness-related activity designed for a specific health-related purpose, including defined exercise routines as well as activity prescribed by a clinician.","name":"ExercisePlan","@id":"schema:ExercisePlan","layer":"health-lifesci"}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Action","description":"The act of deliberately creating/producing/generating/building a result out of the agent.","name":"CreateAction","@id":"schema:CreateAction","layer":"core"}
+{"context":{"@id":"http://schema.org/CreateAction","@type":"rdfs:Class","rdfs:comment":"The act of deliberately creating/producing/generating/building a result out of the agent.","rdfs:label":"CreateAction","rdfs:subClassOf":{"@id":"http://schema.org/Action"}},"properties":[]}

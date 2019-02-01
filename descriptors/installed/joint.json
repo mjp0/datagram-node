@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:AnatomicalStructure","description":"The anatomical location at which two or more bones make contact.","name":"Joint","@id":"schema:Joint","layer":"health-lifesci"}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:ControlAction","description":"The act of resuming a device or application which was formerly paused (e...","name":"ResumeAction","@id":"schema:ResumeAction","layer":"core"}
+{"context":{"@id":"http://schema.org/ResumeAction","@type":"rdfs:Class","rdfs:comment":"The act of resuming a device or application which was formerly paused (e.g. resume music playback or resume a timer).","rdfs:label":"ResumeAction","rdfs:subClassOf":{"@id":"http://schema.org/ControlAction"}},"properties":[]}

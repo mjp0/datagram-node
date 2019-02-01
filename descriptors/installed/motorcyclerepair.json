@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:AutomotiveBusiness","description":"A motorcycle repair shop.","name":"MotorcycleRepair","@id":"schema:MotorcycleRepair","layer":"core"}
+{"context":{"@id":"http://schema.org/MotorcycleRepair","@type":"rdfs:Class","rdfs:comment":"A motorcycle repair shop.","rdfs:label":"MotorcycleRepair","rdfs:subClassOf":{"@id":"http://schema.org/AutomotiveBusiness"}},"properties":[]}

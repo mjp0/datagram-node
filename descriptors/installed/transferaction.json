@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Action","description":"The act of transferring/moving (abstract or concrete) animate or inanimate objects from one place to another.","name":"TransferAction","@id":"schema:TransferAction","layer":"core"}
+{"context":{"@id":"http://schema.org/TransferAction","@type":"rdfs:Class","rdfs:comment":"The act of transferring/moving (abstract or concrete) animate or inanimate objects from one place to another.","rdfs:label":"TransferAction","rdfs:subClassOf":{"@id":"http://schema.org/Action"}},"properties":[]}

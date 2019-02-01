@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"A museum.","name":"Museum","@id":"schema:Museum","layer":"core"}
+{"context":{"@id":"http://schema.org/Museum","@type":"rdfs:Class","rdfs:comment":"A museum.","rdfs:label":"Museum","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

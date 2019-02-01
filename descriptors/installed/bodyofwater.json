@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Landform","description":"A body of water, such as a sea, ocean, or lake.","name":"BodyOfWater","@id":"schema:BodyOfWater","layer":"core"}
+{"context":{"@id":"http://schema.org/BodyOfWater","@type":"rdfs:Class","rdfs:comment":"A body of water, such as a sea, ocean, or lake.","rdfs:label":"BodyOfWater","rdfs:subClassOf":{"@id":"http://schema.org/Landform"}},"properties":[]}

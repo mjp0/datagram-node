@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:EmergencyService","description":"A police station.","name":"PoliceStation","@id":"schema:PoliceStation","layer":"core"}
+{"context":{"@id":"http://schema.org/PoliceStation","@type":"rdfs:Class","rdfs:comment":"A police station.","rdfs:label":"PoliceStation","rdfs:subClassOf":[{"@id":"http://schema.org/EmergencyService"},{"@id":"http://schema.org/CivicStructure"}]},"properties":[]}

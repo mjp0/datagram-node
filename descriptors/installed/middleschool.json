@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:EducationalOrganization","description":"A middle school (typically for children aged around 11-14, although this varies somewhat).","name":"MiddleSchool","@id":"schema:MiddleSchool","layer":"core"}
+{"context":{"@id":"http://schema.org/MiddleSchool","@type":"rdfs:Class","rdfs:comment":"A middle school (typically for children aged around 11-14, although this varies somewhat).","rdfs:label":"MiddleSchool","rdfs:subClassOf":{"@id":"http://schema.org/EducationalOrganization"}},"properties":[]}

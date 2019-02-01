@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:ConsumeAction","description":"The act of swallowing liquids.","name":"DrinkAction","@id":"schema:DrinkAction","layer":"core"}
+{"context":{"@id":"http://schema.org/DrinkAction","@type":"rdfs:Class","rdfs:comment":"The act of swallowing liquids.","rdfs:label":"DrinkAction","rdfs:subClassOf":{"@id":"http://schema.org/ConsumeAction"}},"properties":[]}

@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/EventScheduled","@type":"http://schema.org/EventStatusType","rdfs:comment":"The event is taking place or has taken place on the startDate as scheduled. Use of this value is optional, as it is assumed by default.","rdfs:label":"EventScheduled"},"properties":[]}

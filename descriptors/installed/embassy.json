@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:GovernmentBuilding","description":"An embassy.","name":"Embassy","@id":"schema:Embassy","layer":"core"}
+{"context":{"@id":"http://schema.org/Embassy","@type":"rdfs:Class","rdfs:comment":"An embassy.","rdfs:label":"Embassy","rdfs:subClassOf":{"@id":"http://schema.org/GovernmentBuilding"}},"properties":[]}

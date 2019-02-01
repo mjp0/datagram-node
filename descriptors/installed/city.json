@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:AdministrativeArea","description":"A city or town.","name":"City","@id":"schema:City","layer":"core"}
+{"context":{"@id":"http://schema.org/City","@type":"rdfs:Class","rdfs:comment":"A city or town.","rdfs:label":"City","rdfs:subClassOf":{"@id":"http://schema.org/AdministrativeArea"}},"properties":[]}

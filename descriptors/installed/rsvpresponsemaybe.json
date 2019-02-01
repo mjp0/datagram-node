@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/RsvpResponseMaybe","@type":"http://schema.org/RsvpResponseType","rdfs:comment":"The invitee may or may not attend.","rdfs:label":"RsvpResponseMaybe"},"properties":[]}

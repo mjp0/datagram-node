@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"Animal shelter.","name":"AnimalShelter","@id":"schema:AnimalShelter","layer":"core"}
+{"context":{"@id":"http://schema.org/AnimalShelter","@type":"rdfs:Class","rdfs:comment":"Animal shelter.","rdfs:label":"AnimalShelter","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

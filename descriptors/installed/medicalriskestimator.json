@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEntity","description":"Any rule set or interactive tool for estimating the risk of developing a complication or condition.","name":"MedicalRiskEstimator","@id":"schema:MedicalRiskEstimator","layer":"health-lifesci"}

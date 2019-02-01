@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:PlaceOfWorship","description":"A Buddhist temple.","name":"BuddhistTemple","@id":"schema:BuddhistTemple","layer":"core"}
+{"context":{"@id":"http://schema.org/BuddhistTemple","@type":"rdfs:Class","rdfs:comment":"A Buddhist temple.","rdfs:label":"BuddhistTemple","rdfs:subClassOf":{"@id":"http://schema.org/PlaceOfWorship"}},"properties":[]}

@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/ReservationCancelled","@type":"http://schema.org/ReservationStatusType","rdfs:comment":"The status for a previously confirmed reservation that is now cancelled.","rdfs:label":"ReservationCancelled"},"properties":[]}

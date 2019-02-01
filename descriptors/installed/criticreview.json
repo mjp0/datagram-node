@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Review","description":"A CriticReview is a more specialized form of Review written or published by a source that is recognized for its reviewing activities...","name":"CriticReview","@id":"schema:CriticReview","layer":"pending"}

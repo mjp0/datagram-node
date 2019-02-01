@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:FindAction","description":"The act of discovering/finding an object.","name":"DiscoverAction","@id":"schema:DiscoverAction","layer":"core"}
+{"context":{"@id":"http://schema.org/DiscoverAction","@type":"rdfs:Class","rdfs:comment":"The act of discovering/finding an object.","rdfs:label":"DiscoverAction","rdfs:subClassOf":{"@id":"http://schema.org/FindAction"}},"properties":[]}

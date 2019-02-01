@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CivicStructure","description":"Place of worship, such as a church, synagogue, or mosque.","name":"PlaceOfWorship","@id":"schema:PlaceOfWorship","layer":"core"}
+{"context":{"@id":"http://schema.org/PlaceOfWorship","@type":"rdfs:Class","rdfs:comment":"Place of worship, such as a church, synagogue, or mosque.","rdfs:label":"PlaceOfWorship","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

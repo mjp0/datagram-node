@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Organization","description":"A governmental organization or agency.","name":"GovernmentOrganization","@id":"schema:GovernmentOrganization","layer":"core"}
+{"context":{"@id":"http://schema.org/GovernmentOrganization","@type":"rdfs:Class","rdfs:comment":"A governmental organization or agency.","rdfs:label":"GovernmentOrganization","rdfs:subClassOf":{"@id":"http://schema.org/Organization"}},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:PerformingGroup","description":"A theater group or company, for example, the Royal Shakespeare Company or Druid Theatre.","name":"TheaterGroup","@id":"schema:TheaterGroup","layer":"core"}
+{"context":{"@id":"http://schema.org/TheaterGroup","@type":"rdfs:Class","rdfs:comment":"A theater group or company, for example, the Royal Shakespeare Company or Druid Theatre.","rdfs:label":"TheaterGroup","rdfs:subClassOf":{"@id":"http://schema.org/PerformingGroup"}},"properties":[]}

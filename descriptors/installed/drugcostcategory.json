@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEnumeration","description":"Enumerated categories of medical drug costs.","name":"DrugCostCategory","@id":"schema:DrugCostCategory","layer":"health-lifesci"}

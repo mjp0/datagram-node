@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Action","description":"An agent controls a device or application.","name":"ControlAction","@id":"schema:ControlAction","layer":"core"}
+{"context":{"@id":"http://schema.org/ControlAction","@type":"rdfs:Class","rdfs:comment":"An agent controls a device or application.","rdfs:label":"ControlAction","rdfs:subClassOf":{"@id":"http://schema.org/Action"}},"properties":[]}

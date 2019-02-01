@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:UseAction","description":"The act of dressing oneself in clothing.","name":"WearAction","@id":"schema:WearAction","layer":"core"}
+{"context":{"@id":"http://schema.org/WearAction","@type":"rdfs:Class","rdfs:comment":"The act of dressing oneself in clothing.","rdfs:label":"WearAction","rdfs:subClassOf":{"@id":"http://schema.org/UseAction"}},"properties":[]}

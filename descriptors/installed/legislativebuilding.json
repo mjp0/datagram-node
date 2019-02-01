@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:GovernmentBuilding","description":"A legislative building&#x2014;for example, the state capitol.","name":"LegislativeBuilding","@id":"schema:LegislativeBuilding","layer":"core"}
+{"context":{"@id":"http://schema.org/LegislativeBuilding","@type":"rdfs:Class","rdfs:comment":"A legislative building&#x2014;for example, the state capitol.","rdfs:label":"LegislativeBuilding","rdfs:subClassOf":{"@id":"http://schema.org/GovernmentBuilding"}},"properties":[]}

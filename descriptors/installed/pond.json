@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:BodyOfWater","description":"A pond.","name":"Pond","@id":"schema:Pond","layer":"core"}
+{"context":{"@id":"http://schema.org/Pond","@type":"rdfs:Class","rdfs:comment":"A pond.","rdfs:label":"Pond","rdfs:subClassOf":{"@id":"http://schema.org/BodyOfWater"}},"properties":[]}

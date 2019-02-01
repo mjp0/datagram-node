@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:FoodEstablishment","description":"A winery.","name":"Winery","@id":"schema:Winery","layer":"core"}
+{"context":{"@id":"http://schema.org/Winery","@type":"rdfs:Class","rdfs:comment":"A winery.","rdfs:label":"Winery","rdfs:subClassOf":{"@id":"http://schema.org/FoodEstablishment"}},"properties":[]}

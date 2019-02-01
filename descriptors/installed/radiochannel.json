@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:BroadcastChannel","description":"A unique instance of a radio BroadcastService on a CableOrSatelliteService lineup.","name":"RadioChannel","@id":"schema:RadioChannel","layer":"core"}
+{"context":{"@id":"http://schema.org/RadioChannel","@type":"rdfs:Class","rdfs:comment":"A unique instance of a radio BroadcastService on a CableOrSatelliteService lineup.","rdfs:label":"RadioChannel","rdfs:subClassOf":{"@id":"http://schema.org/BroadcastChannel"}},"properties":[]}

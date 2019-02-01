@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:HomeAndConstructionBusiness","description":"A moving company.","name":"MovingCompany","@id":"schema:MovingCompany","layer":"core"}
+{"context":{"@id":"http://schema.org/MovingCompany","@type":"rdfs:Class","rdfs:comment":"A moving company.","rdfs:label":"MovingCompany","rdfs:subClassOf":{"@id":"http://schema.org/HomeAndConstructionBusiness"}},"properties":[]}

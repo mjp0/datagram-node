@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalIndication","description":"An indication for preventing an underlying condition, symptom, etc.","name":"PreventionIndication","@id":"schema:PreventionIndication","layer":"health-lifesci"}

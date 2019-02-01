@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Review","description":"A review created by an end-user (e.g. consumer, purchaser, attendee etc...","name":"UserReview","@id":"schema:UserReview","layer":"pending"}

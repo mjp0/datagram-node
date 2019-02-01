@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Organization","description":"Organization: Non-governmental Organization.","name":"NGO","@id":"schema:NGO","layer":"core"}
+{"context":{"@id":"http://schema.org/NGO","@type":"rdfs:Class","rdfs:comment":"Organization: Non-governmental Organization.","rdfs:label":"NGO","rdfs:subClassOf":{"@id":"http://schema.org/Organization"}},"properties":[]}

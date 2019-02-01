@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Landform","description":"A mountain, like Mount Whitney or Mount Everest.","name":"Mountain","@id":"schema:Mountain","layer":"core"}
+{"context":{"@id":"http://schema.org/Mountain","@type":"rdfs:Class","rdfs:comment":"A mountain, like Mount Whitney or Mount Everest.","rdfs:label":"Mountain","rdfs:subClassOf":{"@id":"http://schema.org/Landform"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalStudy","description":"An observational study is a type of medical study that attempts to infer the possible effect of a treatment through observation of a cohort of subjects over a period of time...","name":"MedicalObservationalStudy","@id":"schema:MedicalObservationalStudy","layer":"health-lifesci"}

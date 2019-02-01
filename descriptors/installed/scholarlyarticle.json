@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Article","description":"A scholarly article.","name":"ScholarlyArticle","@id":"schema:ScholarlyArticle","layer":"core"}
+{"context":{"@id":"http://schema.org/ScholarlyArticle","@type":"rdfs:Class","rdfs:comment":"A scholarly article.","rdfs:label":"ScholarlyArticle","rdfs:subClassOf":{"@id":"http://schema.org/Article"}},"properties":[]}

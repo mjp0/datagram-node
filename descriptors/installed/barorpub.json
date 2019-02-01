@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:FoodEstablishment","description":"A bar or pub.","name":"BarOrPub","@id":"schema:BarOrPub","layer":"core"}
+{"context":{"@id":"http://schema.org/BarOrPub","@type":"rdfs:Class","rdfs:comment":"A bar or pub.","rdfs:label":"BarOrPub","rdfs:subClassOf":{"@id":"http://schema.org/FoodEstablishment"}},"properties":[]}

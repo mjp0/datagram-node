@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Residence","description":"Residence type: Apartment complex.","name":"ApartmentComplex","@id":"schema:ApartmentComplex","layer":"core"}
+{"context":{"@id":"http://schema.org/ApartmentComplex","@type":"rdfs:Class","rdfs:comment":"Residence type: Apartment complex.","rdfs:label":"ApartmentComplex","rdfs:subClassOf":{"@id":"http://schema.org/Residence"}},"properties":[]}

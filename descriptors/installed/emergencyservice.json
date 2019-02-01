@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"An emergency service, such as a fire station or ER.","name":"EmergencyService","@id":"schema:EmergencyService","layer":"core"}
+{"context":{"@id":"http://schema.org/EmergencyService","@type":"rdfs:Class","rdfs:comment":"An emergency service, such as a fire station or ER.","rdfs:label":"EmergencyService","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

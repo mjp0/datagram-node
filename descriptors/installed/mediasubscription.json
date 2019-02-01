@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Intangible","description":"A subscription which allows a user to access media including audio, video, books, etc.","name":"MediaSubscription","@id":"schema:MediaSubscription","layer":"pending"}

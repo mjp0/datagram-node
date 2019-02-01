@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/PreOrder","@type":"http://schema.org/ItemAvailability","rdfs:comment":"Indicates that the item is available for pre-order, but will be delivered when generally available.","rdfs:label":"PreOrder"},"properties":[]}

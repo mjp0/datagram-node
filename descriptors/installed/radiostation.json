@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:LocalBusiness","description":"A radio station.","name":"RadioStation","@id":"schema:RadioStation","layer":"core"}
+{"context":{"@id":"http://schema.org/RadioStation","@type":"rdfs:Class","rdfs:comment":"A radio station.","rdfs:label":"RadioStation","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

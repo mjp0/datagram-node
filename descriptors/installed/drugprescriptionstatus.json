@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEnumeration","description":"Indicates whether this drug is available by prescription or over-the-counter.","name":"DrugPrescriptionStatus","@id":"schema:DrugPrescriptionStatus","layer":"health-lifesci"}

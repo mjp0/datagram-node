@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEntity","description":"Any part of the human body, typically a component of an anatomical system...","name":"AnatomicalStructure","@id":"schema:AnatomicalStructure","layer":"health-lifesci"}

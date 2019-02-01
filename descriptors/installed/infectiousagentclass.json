@@ -1,1 +1,0 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:MedicalEnumeration","description":"Classes of agents or pathogens that transmit infectious diseases...","name":"InfectiousAgentClass","@id":"schema:InfectiousAgentClass","layer":"health-lifesci"}

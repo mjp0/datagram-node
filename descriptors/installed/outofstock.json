@@ -1,0 +1,1 @@
+{"context":{"@id":"http://schema.org/OutOfStock","@type":"http://schema.org/ItemAvailability","rdfs:comment":"Indicates that the item is out of stock.","rdfs:label":"OutOfStock"},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:BodyOfWater","description":"A reservoir of water, typically an artificially created lake, like the Lake Kariba reservoir.","name":"Reservoir","@id":"schema:Reservoir","layer":"core"}
+{"context":{"@id":"http://schema.org/Reservoir","@type":"rdfs:Class","rdfs:comment":"A reservoir of water, typically an artificially created lake, like the Lake Kariba reservoir.","rdfs:label":"Reservoir","rdfs:subClassOf":{"@id":"http://schema.org/BodyOfWater"}},"properties":[]}

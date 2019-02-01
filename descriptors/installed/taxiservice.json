@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Service","description":"A service for a vehicle for hire with a driver for local travel...","name":"TaxiService","@id":"schema:TaxiService","layer":"core"}
+{"context":{"@id":"http://schema.org/TaxiService","@type":"rdfs:Class","rdfs:comment":"A service for a vehicle for hire with a driver for local travel. Fares are usually calculated based on distance traveled.","rdfs:label":"TaxiService","rdfs:subClassOf":{"@id":"http://schema.org/Service"}},"properties":[]}

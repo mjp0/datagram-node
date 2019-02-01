@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:Thing","description":"A utility class that serves as the umbrella for a number of 'intangible' things such as quantities, structured values, etc.","name":"Intangible","@id":"schema:Intangible","layer":"core"}
+{"context":{"@id":"http://schema.org/Intangible","@type":"rdfs:Class","rdfs:comment":"A utility class that serves as the umbrella for a number of 'intangible' things such as quantities, structured values, etc.","rdfs:label":"Intangible","rdfs:subClassOf":{"@id":"http://schema.org/Thing"}},"properties":[]}

@@ -1,1 +1,1 @@
-{"@type":"rdfs:Class","rdfs:subClassOf":"schema:CreativeWorkSeries","description":"CreativeWorkSeries dedicated to TV broadcast and associated online delivery.","name":"TVSeries","@id":"schema:TVSeries","layer":"core"}
+{"context":{"@id":"http://schema.org/TVSeries","@type":"rdfs:Class","rdfs:comment":"CreativeWorkSeries dedicated to TV broadcast and associated online delivery.","rdfs:label":"TVSeries","rdfs:subClassOf":[{"@id":"http://schema.org/CreativeWork"},{"@id":"http://schema.org/CreativeWorkSeries"}]},"properties":[]}
