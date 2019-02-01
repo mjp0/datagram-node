@@ -1,21 +1,17 @@
 const test = require('tape')
 const ram = require('random-access-memory')
-// const { error } = require('../utils')
+const { error } = require('../utils')
 const { kv } = require('../core/interfaces')
-const { create, load, clone } = require('../core')
+const { create } = require('../core')
 const definitions = require('../definitions/cores')
 
-function error(err) {
-  console.log(err)
-  throw err
-}
 test('interface/kv', async (t) => {
-  let core = await create({ definition: definitions.Admin, storage: ram }).catch(error)
+  const core = await create({ definition: definitions.Admin, storage: ram }).catch(error)
 
   // Add key/value interface
   await core.addInterface(kv).catch(error)
   t.equal(typeof core.kv.set, 'function', 'kv.set method found')
-  
+
   // Add foo=bar
   const pos = await core.kv.set('foo', 'bar').catch(error)
   t.equal(pos, 1, 'key should be stored at position 1')

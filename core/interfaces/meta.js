@@ -1,87 +1,88 @@
 const async = require('async')
-const { createNewCore, loadCore } = require('../')
+const { create, load } = require('../')
 
-const API = {
-  attach_core: (core) => {
+module.exports = exports = {
+  '@id': 'meta',
+  attach_core: (API, stream) => {
     return function(name, hypercore, type, callback) {
       // Get a key from core
-      const key = hypercore.key.toString('hex')
+      const key = stream.key.toString('hex')
 
       // Create a reference to initialized hypercore
-      core.add_core_reference(key, hypercore)
-      core.add_core_reference(name, hypercore)
+      exports.meta.add_core_reference(key, hypercore)
+      exports.meta.add_core_reference(name, hypercore)
 
       // Add core details to the meta core
-      core.add_core_details(name, key, type, (err) => {
+      exports.meta.add_core_details(name, key, type, (err) => {
         if (err) callback(err)
         else callback(null, hypercore)
       })
     }
   },
-  add_core: (core) => {
+  add_core: (API, stream) => {
     return function(name, type, callback) {
       // Create new hypercore
-      createNewCore(type, core.default_storage || null, null, (err, hypercore) => {
+      create(type, exports.meta.default_storage || null, null, (err, hypercore) => {
         if (err) return callback(err)
 
         // Get a key from core
-        const key = hypercore.key.toString('hex')
+        const key = stream.key.toString('hex')
 
         // Create a reference to initialized hypercore
-        core.add_core_reference(key, hypercore)
-        core.add_core_reference(name, hypercore)
+        exports.meta.add_core_reference(key, hypercore)
+        exports.meta.add_core_reference(name, hypercore)
 
         // Add core details to the meta core
-        core.add_core_details(name, key, type, (err) => {
+        exports.meta.add_core_details(name, key, type, (err) => {
           if (err) callback(err)
           else callback(null, hypercore)
         })
       })
     }
   },
-  add_core_details: (core) => {
+  add_core_details: (API, stream) => {
     return function(name, key, type, callback) {
       // load blocklist and verify key is not there
       // create details:key={name, key, type}
-      core.set_kv(`details:${key}`, { name, key, type }, callback)
+      exports.meta.set_kv(`details:${key}`, { name, key, type }, callback)
     }
   },
-  add_core_reference: (core) => {
+  add_core_reference: (API, stream) => {
     return function(reference, hypercore) {
-      if (!core.core_references) core.core_references = {}
-      core.core_references[reference] = hypercore
+      if (!exports.meta.core_references) exports.meta.core_references = {}
+      exports.meta.core_references[reference] = hypercore
     }
   },
-  remove_core_reference: (core) => {
+  remove_core_reference: (API, stream) => {
     return function(reference) {
-      if (!core.core_references) return
-      delete core.core_references[reference]
+      if (!exports.meta.core_references) return
+      delete exports.meta.core_references[reference]
     }
   },
-  get_core_details: (core) => {
+  get_core_details: (API, stream) => {
     return function(key, callback) {
       // get details:key
-      core.get_kv(`details:${key}`, callback)
+      exports.meta.get_kv(`details:${key}`, callback)
     }
   },
-  remove_core: (core) => {
+  remove_core: (API, stream) => {
     return function(key, callback) {
       // remove details:key
-      core.rem_kv(`details:${key}`, (err) => {
+      exports.meta.rem_kv(`details:${key}`, (err) => {
         if (err) return callback(err)
 
-        core.remove_core_reference(key)
+        exports.meta.remove_core_reference(key)
 
         // add_to_blocklist(key)
-        core.set_kv(`blocked:${key}`, new Date().getTime(), (err) => {
+        exports.meta.set_kv(`blocked:${key}`, new Date().getTime(), (err) => {
           callback(err, core)
         })
       })
     }
   },
-  get_blocklist: (core) => {
+  get_blocklist: (API, stream) => {
     return function(callback) {
-      core.get_all_keys((err, keys) => {
+      exports.meta.get_all_keys((err, keys) => {
         if (err) return callback(err)
 
         // reject everything that doesn't start with "blocked:"
@@ -95,45 +96,31 @@ const API = {
       })
     }
   },
-  add_meta: () => {
-    return function() {
-      // fetch details:key
-      // add or replace existing meta_key data
-      // create details:key={name, key, type, meta_key, ...}
-    }
-  },
-  remove_meta: () => {
-    return function() {
-      // fetch details:key
-      // delete meta_key data
-      // create details:key={name, key, type, ...}
-    }
-  },
-  open_core: (core) => {
+  open_core: (API, stream) => {
     return function(name, callback) {
       // find all keys
-      core.get_all_core_details((err, cores) => {
+      exports.meta.get_all_core_details((err, cores) => {
         if (err) return callback(err)
 
         async.waterfall(
           [
             (next) => {
               // Find the key based on name
-              cores.forEach((core) => {
-                if (core.name === name) return next(null, core.key)
+              cores.forEach((API, stream) => {
+                if (exports.meta.name === name) return next(null, exports.meta.key)
               })
             },
             (key, next) => {
               // Check if core is already in core references aka initialized
-              if (core.core_references[key]) return callback(null, core.core_references[key])
+              if (exports.meta.core_references[key]) return callback(null, exports.meta.core_references[key])
               else next(null, key)
             },
             (key, next) => {
               // If not in references, load it
-              loadCore(key, core.default_storage, (err, initd_core) => {
+              load(key, exports.meta.default_storage, (err, initd_core) => {
                 if (err) return next(err)
-                else if (initd_core && initd_core.key) {
-                  core.add_core_reference(key, initd_core)
+                else if (initd_core && initd_exports.meta.key) {
+                  exports.meta.add_core_reference(key, initd_core)
                   return next(null, core)
                 } else {
                   return next()
@@ -146,24 +133,24 @@ const API = {
       })
     }
   },
-  load_cores_from_storage: (core) => {
+  load_cores_from_storage: (API, stream) => {
     return function(keys, callback) {
       // Make keys optional
       if (typeof keys === 'function' && !callback) {
         callback = keys
       }
       // find all keys
-      core.get_all_core_details((err, cores) => {
+      exports.meta.get_all_core_details((err, cores) => {
         if (err) return callback(err)
 
         // initialize cores
         async.forEach(
           cores,
           (uninitd_core, core_done) => {
-            loadCore({ key: uninitd_core.key }, core.default_storage, (err, initd_core) => {
+            load({ key: uninitd_exports.meta.key }, exports.meta.default_storage, (err, initd_core) => {
               if (err) return core_done(err)
-              else if (initd_core && initd_core.key) {
-                core.add_core_reference(uninitd_core.key.toString('hex'), initd_core)
+              else if (initd_core && initd_exports.meta.key) {
+                exports.meta.add_core_reference(uninitd_exports.meta.key.toString('hex'), initd_core)
 
                 return core_done()
               } else {
@@ -183,10 +170,10 @@ const API = {
       // add key to blocklist=[..., key]
     }
   },
-  get_all_core_details: (core) => {
+  get_all_core_details: (API, stream) => {
     return function(callback) {
       // Get all the keys in the meta
-      core.get_all_keys((err, keys) => {
+      exports.meta.get_all_keys((err, keys) => {
         if (err) return callback(err)
 
         // reject everything that doesn't start with "details:"
@@ -199,7 +186,7 @@ const API = {
         async.forEach(
           cores_keys,
           (core_key, key_done) => {
-            core.get_kv(core_key, (err, value) => {
+            exports.meta.get_kv(core_key, (err, value) => {
               if (err) return key_done(err)
               if (value) {
                 core_details.push(value)
@@ -214,16 +201,16 @@ const API = {
       })
     }
   },
-  get_all_cores: (core) => {
+  get_all_cores: (API, stream) => {
     return function(callback) {
-      core.get_all_core_details((err, core_details) => {
+      exports.meta.get_all_core_details((err, core_details) => {
         if (err) return callback(err)
         const cores = []
         async.forEach(
           core_details,
           (cd, done) => {
-            if (core.core_references[cd.key]) {
-              cores.push(core.core_references[cd.key])
+            if (exports.meta.core_references[cd.key]) {
+              cores.push(exports.meta.core_references[cd.key])
             }
             done()
           },
@@ -234,17 +221,17 @@ const API = {
       })
     }
   },
-  export_legacy: (core) => {
+  export_legacy: (API, stream) => {
     return function(callback) {
       // first get all the core keys
-      core.get_all_core_details((err, cores) => {
+      exports.meta.get_all_core_details((err, cores) => {
         if (err) return callback(err)
 
         const _cores = {}
         const _coreKeyToCore = {}
         cores.forEach((c) => {
-          _cores[c.name] = core.core_references[c.key]
-          _coreKeyToCore[c.key] = core.core_references[c.key]
+          _cores[c.name] = exports.meta.core_references[c.key]
+          _coreKeyToCore[c.key] = exports.meta.core_references[c.key]
         })
         callback(null, { _cores, _coreKeyToCore })
       })
@@ -252,4 +239,3 @@ const API = {
   },
 }
 
-module.exports = API

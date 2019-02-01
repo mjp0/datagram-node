@@ -6,7 +6,7 @@ const { error } = require('../utils')
 const descriptors = require('../descriptors')
 const async = require('async')
 const tmp = require('tmp').tmpNameSync
-const { kv } = require('../core/interfaces')
+const { getInterface } = require('../core/interfaces')
 
 test('core/create', async (t) => {
   const core = await create({ definition: definitions.Admin, storage: ram }).catch(error)
@@ -85,6 +85,7 @@ test('core/interfaces', async (t) => {
   const core = await create({ definition: definitions.Admin, storage: ram }).catch(error)
   t.equal(core.definition.name, 'Admin', 'core type matches')
 
+  const kv = await getInterface('kv')
   await core.addInterface(kv).catch(error)
   t.equal(typeof core.kv.set, 'function', 'kv.set method found')
 

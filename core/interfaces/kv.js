@@ -3,7 +3,7 @@ const async = require('async')
 
 exports.kv = {
   '@id': 'kv',
-  set: function(API, stream) {
+  set: (API, stream) => {
     return async (key, value) => {
       return new Promise(async (done, error) => {
         // add +|key|value to the stream
@@ -14,7 +14,7 @@ exports.kv = {
       })
     }
   },
-  get: function(API, stream) {
+  get: (API, stream) => {
     return async (key) => {
       return new Promise(async (done, error) => {
         // Super hacky way to deal with a callback race condition
@@ -77,7 +77,7 @@ exports.kv = {
       })
     }
   },
-  get_all_keys: function(API, stream) {
+  get_all_keys: (API, stream) => {
     return async () => {
       return new Promise(async (done, error) => {
         // fetch key from hyperstream
@@ -140,7 +140,7 @@ exports.kv = {
       })
     }
   },
-  rem: function(API, stream) {
+  rem: (API, stream) => {
     return async (key) => {
       return new Promise(async (done, error) => {
         // add -|key to hyperstream

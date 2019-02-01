@@ -1,7 +1,8 @@
 const debug = require('../utils/debug')(__filename)
 const hypercore = require('hypercore')
 const { _open_storage } = require('../utils')
-const { base } = require('./interfaces')
+const { getInterface } = require('./interfaces/index')
+
 
 exports.clone = async (
   args = { keys: { key: null, secret: null }, storage: null }
@@ -29,6 +30,7 @@ exports.clone = async (
       if (err) return error(err)
 
       // Generate the core around the data stream
+      const base = await getInterface('base')
       const Core = base(stream)
 
       return done(Core)

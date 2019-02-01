@@ -3,7 +3,7 @@ const hypercore = require('hypercore')
 const crypto = require('hypercore-crypto')
 const { _open_storage } = require('../utils')
 const descriptors = require('../descriptors')
-const { base } = require('./interfaces')
+const { getInterface } = require('./interfaces/index')
 
 exports.create = async (args = { definition: null, storage: null }, opts = { keys: { key: null, secret: null } }) => {
   return new Promise(async (done, error) => {
@@ -37,6 +37,8 @@ exports.create = async (args = { definition: null, storage: null }, opts = { key
       if (err) return error(err)
 
       // Generate the core around the data stream
+      const base = await getInterface('base')
+      if (!base) return error(new Error('BASE_INTERFACE_MISSING'))
       const Core = base(stream)
 
       // Add type definitions
@@ -45,6 +47,24 @@ exports.create = async (args = { definition: null, storage: null }, opts = { key
       definition.manufacturer = 'Machianists'
       Core.definition = definition
 
+      // Apply interfaces
+      if (Array.isArray(definition.interfaces)) {
+        const ifaces = []
+        console.log(definition.interfaces)
+        definition.interfaces.forEach(async (requested_iface) => {
+          if (requested_iface) {
+            ifaces.push(
+              new Promise(async (iface_done, iferror) => {
+                const iface = await getInterface(requested_iface)
+                if (!iface) return iferror(new Error('REQUESTED_INTERFACE_MISSING'), { requested_iface })
+                await Core.addInterface(iface).catch(iferror)
+                iface_done()
+              }),
+            )
+          }
+        })
+        await Promise.all(ifaces).catch(error)
+      }
       // Store definition at 0 position
       const core_descriptor = await descriptors.create('datagramCore', definition).catch(error)
       await Core.add(core_descriptor).catch(error)
