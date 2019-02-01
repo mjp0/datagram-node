@@ -1,36 +1,41 @@
 const debug = require('../../utils/debug')(__filename)
 const async = require('async')
 
-module.exports = {
-  set_kv: function(core) {
-    return function(key, value, callback) {
-      // add +|key|value to hypercore
-      // + is for action type so we can add delete later
-      core.append(Buffer.from(`+|${key.toString()}|${JSON.stringify(value)}`), callback)
+exports.kv = {
+  '@id': 'kv',
+  set: function(API, stream) {
+    return async (key, value) => {
+      return new Promise(async (done, error) => {
+        // add +|key|value to the stream
+        // + is for action type so we can add delete later
+        const val = Buffer.from(`+|${key.toString()}|${JSON.stringify(value)}`)
+        const position = await API.add(val).catch(error)
+        done(position)
+      })
     }
   },
-  get_kv: function(core) {
-    return function(key, callback) {
-      // Super hacky way to deal with a race condition
-      // I couldn't find nor fix - you are welcome to fix this...
-      let delivery_lock = false
-      function deliver(err = null, value) {
-        if (!delivery_lock) {
-          delivery_lock = true
-          callback(err, value)
+  get: function(API, stream) {
+    return async (key) => {
+      return new Promise(async (done, error) => {
+        // Super hacky way to deal with a callback race condition
+        // I couldn't find nor fix - you are welcome to fix this...
+        let delivery_lock = false
+        function deliver(err = null, value) {
+          if (!delivery_lock) {
+            delivery_lock = true
+            if (err) return error(err)
+            done(value)
+          }
         }
-      }
-      // fetch key from hypercore
-      if (core.length > 0) {
-        const packet_count = core.length + 1
+        // fetch key from hyperstream
+        if (stream.length > 0) {
+          const packet_count = stream.length
 
-        // Reverse through the packets in core
-        for (let i = packet_count - 1; i >= 0; i--) {
-          core.get(i, (err, buffer) => {
-            if (err) {
-              deliver(err)
-              return
-            }
+          // Reverse through the packets in stream
+          for (let i = packet_count - 1; i >= 1; i--) {
+            const buffer = await API.get(i).catch((err) => {
+              return deliver(err)
+            })
 
             // Turn content back to string
             const content = buffer.toString()
@@ -64,30 +69,33 @@ module.exports = {
                 }
               }
             }
-          })
+          }
+        } else {
+          // stream is empty so there's nothing available yet
+          deliver()
         }
-      } else {
-        // core is empty so there's nothing available yet
-        deliver()
-      }
+      })
     }
   },
-  get_all_keys: function(core) {
-    return function(callback) {
-      // fetch key from hypercore
-      if (core.length > 0) {
-        const keys = {}
-        const packet_count = core.length
+  get_all_keys: function(API, stream) {
+    return async () => {
+      return new Promise(async (done, error) => {
+        // fetch key from hyperstream
+        if (stream.length > 0) {
+          const keys = {}
+          const packet_count = stream.length
 
-        // Create index of all keys and the last action associated with them
-        async.times(
-          packet_count,
-          (i, done) => {
-            core.get(i, (err, buffer) => {
-              if (err) {
-                return done(err)
-              }
+          // Fetch all packages except core definition
+          const packages = []
+          for (let pos = 1; pos < packet_count; pos++) {
+            packages.push(await API.get(pos).catch(error))
+          }
+          await Promise.all(packages)
 
+          // Create index of all keys and the last action associated with them
+          async.forEach(
+            packages,
+            (buffer, packet_done) => {
               // Turn content back to string
               const content = buffer.toString()
 
@@ -104,43 +112,44 @@ module.exports = {
                   if (content_obj[0] === '-') {
                     keys[content_obj[1]] = '-'
                   }
-                  done()
+                  packet_done()
                 } else {
                   debug('[ERROR]', "content doesn't split correctly", content)
-                  done('BAD_CONTENT')
+                  packet_done('BAD_CONTENT')
                 }
               } else {
-                done('BAD_CONTENT')
+                packet_done('BAD_CONTENT')
               }
-            })
-          },
-          (err) => {
-            if (err) return callback(err)
-            // Filter out all keys that have - as their action because they are deleted
-            const existing_keys = []
-            for (const key in keys) {
-              if (keys.hasOwnProperty(key) && keys[key] === '+') {
-                existing_keys.push(key)
+            },
+            (err) => {
+              if (err) return error(err)
+              // Filter out all keys that have - as their action because they are deleted
+              const existing_keys = []
+              for (const key in keys) {
+                if (keys.hasOwnProperty(key) && keys[key] === '+') {
+                  existing_keys.push(key)
+                }
               }
-            }
-            callback(null, existing_keys)
-          },
-        )
-      } else {
-        // core is empty so there's nothing available yet
-        callback(null, [])
-      }
+              done(existing_keys)
+            },
+          )
+        } else {
+          // stream is empty so there's nothing available yet
+          done([])
+        }
+      })
     }
   },
-  rem_kv: function(core) {
-    return function(key, callback) {
-      // add -|key to hypercore
-      // - is for action type so we can add delete later
-      core.append(Buffer.from(`-|${key.toString()}|`), (err) => {
-        callback(err)
-      })
+  rem: function(API, stream) {
+    return async (key) => {
+      return new Promise(async (done, error) => {
+        // add -|key to hyperstream
+        // - is for action type so we can add delete later
+        const res = await API.add(Buffer.from(`-|${key.toString()}|`)).catch(error)
+        done(res)
 
-      // TODO: Find block ids for previous entries and delete local data for those
+        // TODO: Find block ids for previous entries and delete local data for those
+      })
     }
   },
 }

@@ -1,5 +1,5 @@
-module.exports = {
+const interfaces = {
   ...require('./base'),
   ...require('./kv'),
-  ...require('./meta'),
 }
+module.exports = interfaces

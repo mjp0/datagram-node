@@ -12,7 +12,7 @@ test('descriptors/get', async (t) => {
   t.ok(Person.keys, 'keys exists')
 })
 
-test('descriptor/create', async (t) => {
+test('descriptor/create & read', async (t) => {
   t.plan(2)
   try {
     const JohnDoe = await descriptors.create('Person', {
@@ -20,26 +20,9 @@ test('descriptor/create', async (t) => {
       familyName: 'Doe',
       gender: 'Male',
     })
-    t.equal(JohnDoe.givenName, 'John', 'givenName should match')
-    t.equal(JohnDoe.familyName, 'Doe', 'familyName should match')
-  } catch (e) {
-    t.error(e, 'no errors')
-  }
-})
-
-test('descriptors/finalize & read', async (t) => {
-  t.plan(2)
-  try {
-    const JohnDoe = await descriptors.create('Person', {
-      givenName: 'John',
-      familyName: 'Doe',
-      gender: 'Male',
-    })
-    const packed = await descriptors.finalize(JohnDoe)
-    t.ok(Buffer.isBuffer(packed), 'packed is buffer')
-
-    const JohnDoe2 = await descriptors.read(packed)
-    t.equal(JohnDoe2.familyName, 'Doe', 'should be readable')
+    const JohnDoe2 = await descriptors.read(JohnDoe)
+    t.equal(JohnDoe2.givenName, 'John', 'givenName should match')
+    t.equal(JohnDoe2.familyName, 'Doe', 'familyName should match')
   } catch (e) {
     t.error(e, 'no errors')
   }

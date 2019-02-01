@@ -1,11 +1,12 @@
 const test = require('tape')
-const { create, load } = require('../core')
+const { create, load, clone } = require('../core')
 const ram = require('random-access-memory')
 const definitions = require('../definitions/cores')
 const { error } = require('../utils')
 const descriptors = require('../descriptors')
 const async = require('async')
 const tmp = require('tmp').tmpNameSync
+const { kv } = require('../core/interfaces')
 
 test('core/create', async (t) => {
   const core = await create({ definition: definitions.Admin, storage: ram }).catch(error)
@@ -59,6 +60,33 @@ test('core/load', async (t) => {
 
   const core2 = await load({ keys: core1_keys, storage }).catch(error)
   t.equal(core2.definition.name, 'Admin', 'core2 type matches')
+
+  t.end()
+})
+
+test('core/replication', async (t) => {
+  t.plan(2)
+
+  const core = await create({ definition: definitions.Admin, storage: ram }).catch(error)
+  t.equal(core.definition.name, 'Admin', 'core type matches')
+  const keys = await core.getKeys().catch(error)
+
+  const cloned_core = await clone({ keys, storage: ram }).catch(error)
+
+  const rep_stream = await core.replicate()
+
+  rep_stream.pipe(await cloned_core.replicate()).pipe(rep_stream).once('end', async () => {
+    const definition = await cloned_core.getDefinition().catch(error)
+    t.equal(definition.name, 'Admin', 'core type matches')
+  })
+})
+
+test('core/interfaces', async (t) => {
+  const core = await create({ definition: definitions.Admin, storage: ram }).catch(error)
+  t.equal(core.definition.name, 'Admin', 'core type matches')
+
+  await core.addInterface(kv).catch(error)
+  t.equal(typeof core.kv.set, 'function', 'kv.set method found')
 
   t.end()
 })

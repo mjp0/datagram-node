@@ -5,10 +5,7 @@ const { _open_storage } = require('../utils')
 const descriptors = require('../descriptors')
 const { base } = require('./interfaces')
 
-exports.create = async (
-  args = { definition: null, storage: null },
-  opts = { keys: { key: null, secret: null }, bare: false },
-) => {
+exports.create = async (args = { definition: null, storage: null }, opts = { keys: { key: null, secret: null } }) => {
   return new Promise(async (done, error) => {
     const { definition, storage, keys } = { ...args, ...opts }
 
@@ -43,12 +40,12 @@ exports.create = async (
       const Core = base(stream)
 
       // Add type definitions
-      definition.datagramCoreID = stream.discoveryKey
-      definition.releaseDate = (new Date().toISOString())
+      definition.datagramCoreID = stream.discoveryKey.toString('hex')
+      definition.releaseDate = new Date().toISOString()
       definition.manufacturer = 'Machianists'
       Core.definition = definition
 
-      // If not bare, store definition at 0 position
+      // Store definition at 0 position
       const core_descriptor = await descriptors.create('datagramCore', definition).catch(error)
       await Core.add(core_descriptor).catch(error)
 

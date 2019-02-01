@@ -23,21 +23,7 @@ test('create new meta-core', (t) => {
 })
 
 test('check key/value interface', (t) => {
-  t.plan(6)
-  MetaCore.create({ storage: ram }, { keys }, (err, MC) => {
-    t.error(err, 'no errors')
-    MC.set_kv('foo', 'bar', (err) => {
-      t.error(err, 'no errors')
-      MC.get_kv('foo', (err, value) => {
-        t.error(err, 'no errors')
-        t.equal(value, 'bar', 'returned value should match saved value')
-        MC.get_all_keys((err, keys) => {
-          t.error(err, 'no errors')
-          t.equal(keys[0], 'foo', 'should have previous saved key')
-        })
-      })
-    })
-  })
+  
 })
 
 test('check meta core interface', (t) => {

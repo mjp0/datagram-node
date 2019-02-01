@@ -1,6 +1,7 @@
 const descriptors = require('../../descriptors')
 
-exports.base = (stream) => {
+exports.base = function(stream_reference) {
+  const stream = stream_reference
   const API = {
     get: async (package_number) => {
       return new Promise(async (done, error) => {
@@ -101,7 +102,9 @@ exports.base = (stream) => {
       return stream.createWriteStream()
     },
     replicate: async (opts) => {
-      return stream.replicate(opts)
+      return new Promise(async (done, error) => {
+        done(stream.replicate(opts))
+      })
     },
     verifyData: async () => {
       return new Promise(async (done, error) => {
@@ -137,6 +140,30 @@ exports.base = (stream) => {
         const packed_definition = await API.get(0).catch(error)
         const definition = await descriptors.read(packed_definition).catch(error)
         done(definition)
+      })
+    },
+    addInterface: async (iface) => {
+      return new Promise(async (done, error) => {
+        // Do some checking to make sure everything is as it should
+        if (typeof iface !== 'object') return error(new Error('NOT_AN_INTERFACE'))
+        if (!iface['@id']) return error(new Error('@ID_MISSING'))
+        if (API.hasOwnProperty(iface['@id'])) return error(new Error('INTERFACE_EXISTS'), { '@id': iface['@id'] })
+
+        // Reserve namespace
+        API[iface['@id']] = {}
+
+        // Apply the methods
+        for (const method in iface) {
+          if (iface.hasOwnProperty(method)) {
+            if (!method.match(/@/)) {
+              if (typeof iface[method] !== 'function') {
+                return error(new Error('INTERFACE_METHOD_MUST_BE_FUNCTION'), { method })
+              }
+              API[iface['@id']][method] = iface[method](API, stream)
+            }
+          }
+        }
+        done(API)
       })
     },
   }
