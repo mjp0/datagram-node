@@ -6,6 +6,7 @@ exports.meta = (() => {
 
   return {
     '@id': 'meta',
+    '@depends_on': ['kv'],
     attachCore: (API, stream) => {
       return async (core) => {
         return new Promise(async (done, error) => {
@@ -117,41 +118,6 @@ exports.meta = (() => {
           done(unopened_cores)
         })
       }
-      // return function(name, callback) {
-      // TODO: Move to Container
-      // find all keys
-      // exports.meta.getAllCoreDetails((err, cores) => {
-      //   if (err) return callback(err)
-      //   async.waterfall(
-      //     [
-      //       (next) => {
-      //         // Find the key based on name
-      //         cores.forEach((API, stream) => {
-      //           if (exports.meta.name === name) return next(null, exports.meta.key)
-      //         })
-      //       },
-      //       (key, next) => {
-      //         // Check if core is already in core references aka initialized
-      //         if (core_references[key]) return callback(null, core_references[key])
-      //         else next(null, key)
-      //       },
-      //       (key, next) => {
-      //         // If not in references, load it
-      //         load(key, exports.meta.default_storage, (err, initd_core) => {
-      //           if (err) return next(err)
-      //           else if (initd_core && initd_exports.meta.key) {
-      //             exports.meta.addCoreReference(key, initd_core)
-      //             return next(null, core)
-      //           } else {
-      //             return next()
-      //           }
-      //         })
-      //       },
-      //     ],
-      //     callback,
-      //   )
-      // })
-      // }
     },
     loadCoresFromStorage: (API, stream) => {
       return function(keys, callback) {
@@ -184,12 +150,6 @@ exports.meta = (() => {
           // )
         })
         // return { key: core }
-      }
-    },
-    addToBlocklist: () => {
-      return function() {
-        // add block=true in key's details
-        // add key to blocklist=[..., key]
       }
     },
     getAllCoreDetails: (API, stream) => {
