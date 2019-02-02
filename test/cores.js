@@ -1,4 +1,3 @@
-const test = require('tape')
 const { create, load, clone } = require('../core')
 const ram = require('random-access-memory')
 const definitions = require('../definitions/cores')
@@ -8,18 +7,17 @@ const async = require('async')
 const tmp = require('tmp').tmpNameSync
 const { getInterface } = require('../core/interfaces')
 
-test('core/create', async (t) => {
+test('core/create', async () => {
   const core = await create({ definition: definitions.Admin, storage: ram }).catch(error)
-  t.equal(core.definition.name, 'Admin', 'core type matches')
+  expect(core.definition.name).toBe('Admin')
   const stored_definition = await core.getDefinition().catch(error)
-  t.equal(stored_definition.name, 'Admin', 'definition name matches')
-  t.true(stored_definition.releaseDate, 'releaseDate exists')
-  t.end()
+  expect(stored_definition.name).toBe('Admin')
+  expect(stored_definition.releaseDate).toBeTruthy()
 })
 
-test('core/add & get', async (t) => {
+test('core/add & get', async () => {
   const core = await create({ definition: definitions.Admin, storage: ram }).catch(error)
-  t.equal(core.definition.name, 'Admin', 'core type matches')
+  expect(core.definition.name).toBe('Admin')
 
   // Let's create an admin authorization package for new admin
   const admin_auth = await descriptors
@@ -35,7 +33,7 @@ test('core/add & get', async (t) => {
       },
     })
     .catch(error)
-  t.true(Buffer.isBuffer(admin_auth), 'admin_auth is buffer')
+  expect(Buffer.isBuffer(admin_auth)).toBeTruthy()
 
   // Add it to the core
   await core.add(admin_auth).catch(error)
@@ -47,28 +45,26 @@ test('core/add & get', async (t) => {
   // NOTE: should this be done in core.get automatically? how common it is to pass on read
   // descriptor to another core as-is?
   const unpacked_admin_auth = await descriptors.read(stored_admin_auth).catch(error)
-  t.equal(unpacked_admin_auth.recipient['@type'], 'User', 'described data is readable')
-  t.end()
+  expect(unpacked_admin_auth.recipient['@type']).toBe('User')
 })
 
-test('core/load', async (t) => {
+test('core/load', async () => {
   const storage = tmp()
-  const core1 = await create({ definition: definitions.Admin, storage }).catch(error)
-  t.equal(core1.definition.name, 'Admin', 'core1 type matches')
+  const core1 = await create({ definition: definitions.Meta, storage }).catch(error)
+  expect(core1.definition.name).toBe('Meta')
 
   const core1_keys = await core1.getKeys().catch(error)
 
   const core2 = await load({ keys: core1_keys, storage }).catch(error)
-  t.equal(core2.definition.name, 'Admin', 'core2 type matches')
-
-  t.end()
+  expect(core2.definition.name).toBe('Meta')
+  expect(typeof core2.kv.set).toBe('function')
 })
 
-test('core/replication', async (t) => {
-  t.plan(2)
+test('core/replication', async (done) => {
+  expect.assertions(2)
 
   const core = await create({ definition: definitions.Admin, storage: ram }).catch(error)
-  t.equal(core.definition.name, 'Admin', 'core type matches')
+  expect(core.definition.name).toBe('Admin')
   const keys = await core.getKeys().catch(error)
 
   const cloned_core = await clone({ keys, storage: ram }).catch(error)
@@ -77,17 +73,16 @@ test('core/replication', async (t) => {
 
   rep_stream.pipe(await cloned_core.replicate()).pipe(rep_stream).once('end', async () => {
     const definition = await cloned_core.getDefinition().catch(error)
-    t.equal(definition.name, 'Admin', 'core type matches')
+    expect(definition.name).toBe('Admin')
+    done()
   })
 })
 
-test('core/interfaces', async (t) => {
+test('core/interfaces', async () => {
   const core = await create({ definition: definitions.Admin, storage: ram }).catch(error)
-  t.equal(core.definition.name, 'Admin', 'core type matches')
+  expect(core.definition.name).toBe('Admin')
 
   const kv = await getInterface('kv')
   await core.addInterface(kv).catch(error)
-  t.equal(typeof core.kv.set, 'function', 'kv.set method found')
-
-  t.end()
+  expect(typeof core.kv.set).toBe('function')
 })

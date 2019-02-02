@@ -45,12 +45,12 @@ exports.create = async (args = { definition: null, storage: null }, opts = { key
       definition.datagramCoreID = stream.discoveryKey.toString('hex')
       definition.releaseDate = new Date().toISOString()
       definition.manufacturer = 'Machianists'
+      definition.datagramKey = stream.key.toString('hex')
       Core.definition = definition
 
       // Apply interfaces
       if (Array.isArray(definition.interfaces)) {
         const ifaces = []
-        console.log(definition.interfaces)
         definition.interfaces.forEach(async (requested_iface) => {
           if (requested_iface) {
             ifaces.push(

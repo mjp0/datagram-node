@@ -1,19 +1,18 @@
-const test = require('tape')
 const { create } = require('../core')
 const ram = require('random-access-memory')
 const descriptors = require('../descriptors')
 const { error } = require('../utils')
 const debug = require('../utils/debug')(__filename)
 
-test('descriptors/get', async (t) => {
-  t.plan(2)
+test('descriptors/get', async () => {
+  expect.assertions(2)
   const Person = await descriptors.get('Person').catch(error)
-  t.equal(Person.context['@id'], 'http://schema.org/Person', '@id matches')
-  t.ok(Person.keys, 'keys exists')
+  expect(Person.context['@id']).toBe('http://schema.org/Person')
+  expect(Person.keys).toBeTruthy()
 })
 
-test('descriptor/create & read', async (t) => {
-  t.plan(2)
+test('descriptor/create & read', async () => {
+  expect.assertions(2)
   try {
     const JohnDoe = await descriptors.create('Person', {
       givenName: 'John',
@@ -21,9 +20,9 @@ test('descriptor/create & read', async (t) => {
       gender: 'Male',
     })
     const JohnDoe2 = await descriptors.read(JohnDoe)
-    t.equal(JohnDoe2.givenName, 'John', 'givenName should match')
-    t.equal(JohnDoe2.familyName, 'Doe', 'familyName should match')
+    expect(JohnDoe2.givenName).toBe('John')
+    expect(JohnDoe2.familyName).toBe('Doe')
   } catch (e) {
-    t.error(e, 'no errors')
+    expect(e).toBeFalsy()
   }
 })

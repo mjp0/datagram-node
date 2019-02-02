@@ -1,7 +1,7 @@
 const debug = require('../utils/debug')(__filename)
 const hypercore = require('hypercore')
 const _open_storage = require('../utils/storage')._open_storage
-const { base } = require('./interfaces/base')
+const { getInterface } = require('./interfaces')
 
 exports.load = async (args = { keys: { key: null, secret: null }, storage: null }) => {
   return new Promise(async (done, error) => {
@@ -34,11 +34,31 @@ exports.load = async (args = { keys: { key: null, secret: null }, storage: null 
       stream.ready(async (err) => {
         if (err) return error(err)
 
-        // Apply base API
+        // Generate the core around the data stream
+        const base = await getInterface('base')
+        if (!base) return error(new Error('BASE_INTERFACE_MISSING'))
         const Core = base(stream)
 
         // Get the definition
         Core.definition = await Core.getDefinition().catch(error)
+
+        // Apply interfaces
+        if (Array.isArray(Core.definition.interfaces)) {
+          const ifaces = []
+          Core.definition.interfaces.forEach(async (requested_iface) => {
+            if (requested_iface) {
+              ifaces.push(
+                new Promise(async (iface_done, iferror) => {
+                  const iface = await getInterface(requested_iface)
+                  if (!iface) return iferror(new Error('REQUESTED_INTERFACE_MISSING'), { requested_iface })
+                  await Core.addInterface(iface).catch(iferror)
+                  iface_done()
+                }),
+              )
+            }
+          })
+          await Promise.all(ifaces).catch(error)
+        }
 
         done(Core)
       })

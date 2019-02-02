@@ -70,6 +70,21 @@
       "http://schema.org/rangeIncludes": { "@id": "http://schema.org/Date" },
       "rdfs:comment": "The release date of a Datagram core or Datagram core model. This can be used to distinguish the exact variant of a Datagram core.",
       "rdfs:label": "releaseDate"
+    },
+    {
+      "@id": "http://schema.org/datagramKey",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/datagramCore"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The Datagram core public key.",
+      "rdfs:label": "datagramKey",
+      "rdfs:subPropertyOf": {
+        "@id": "http://schema.org/identifier"
+      }
     }
   ]
 }

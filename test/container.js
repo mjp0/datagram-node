@@ -1,4 +1,3 @@
-const test = require('tape')
 const container = require('../container')
 const ram = require('random-access-memory')
 const admin = require('../container/definitions/cores/admin')
@@ -17,35 +16,35 @@ const test_definition = {
   accepted_cores: [ admin, messagestream ],
 }
 
-test('no cores', function(t) {
+test('no cores', function(done) {
   const hv = container({ password: 'testpassword' }, { storage: ram, definition: test_definition })
   hv.ready((err) => {
-    t.error(err, 'no errors')
+    expect(err).toBeFalsy()
     debug(hv)
     hv.cores((err, cores) => {
-      t.error(err, 'no errors')
-      t.deepEquals(cores, [], 'hv has no cores')
-      t.end()
+      expect(err).toBeFalsy()
+      expect(cores).toEqual([])
+      done()
     })
   })
 })
 
-test('create core', function(t) {
-  t.plan(6)
+test('create core', function() {
+  expect.assertions(6)
 
   const hv = container({ password: 'testpassword' }, { storage: ram, definition: test_definition })
   hv.ready((err) => {
-    t.error(err, 'no errors')
+    expect(err).toBeFalsy()
     hv.add_core('test', 'text', function(err, core) {
-      t.error(err, 'no errors')
+      expect(err).toBeFalsy()
       core.append('foo', function(err) {
-        t.error(err, 'no errors')
+        expect(err).toBeFalsy()
         core.get(0, function(err, data) {
-          t.error(err, 'no errors')
-          t.equals(data.toString(), 'foo', 'core contains stored string')
+          expect(err).toBeFalsy()
+          expect(data.toString()).toBe('foo')
           hv.cores((err, cores) => {
-            t.error(err, 'no errors')
-            t.deepEquals(cores, [ core ], 'core is correctly found in the cores')
+            expect(err).toBeFalsy()
+            expect(cores).toEqual([ core ])
           })
         })
       })
@@ -53,33 +52,33 @@ test('create core', function(t) {
   })
 })
 
-test('get core by key', function(t) {
-  t.plan(3)
+test('get core by key', function() {
+  expect.assertions(3)
 
   const hv = container({ password: 'testpassword' }, { storage: ram, definition: test_definition })
   hv.ready((err) => {
-    t.error(err, 'no errors')
+    expect(err).toBeFalsy()
     hv.add_core('test', 'text', function(err, core) {
-      t.error(err, 'no errors')
+      expect(err).toBeFalsy()
       const core_reference = hv.core(core.key)
-      t.deepEquals(core_reference, core, 'core is the same as retrieved core (buffer key)')
+      expect(core_reference).toEqual(core)
       core = hv.core(core.key.toString('hex'))
-      t.deepEquals(core_reference, core, 'core is the same as retrieved core (hex key)')
+      expect(core_reference).toEqual(core)
     })
   })
 })
 
-test('get localcore by name', function(t) {
-  t.plan(3)
+test('get localcore by name', function() {
+  expect.assertions(3)
 
   const hv = container({ password: 'testpassword' }, { storage: ram, definition: test_definition })
   hv.ready((err) => {
-    t.error(err, 'no errors')
+    expect(err).toBeFalsy()
     hv.add_core('bob', 'text', function(err, w) {
-      t.error(err, 'no errors')
+      expect(err).toBeFalsy()
       hv.open_core('bob', function(err, w2) {
-        t.error(err, 'valid core retrieved')
-        t.deepEquals(w2, w, 'core is the same as retrieved core')
+        expect(err).toBeFalsy()
+        expect(w2).toEqual(w)
       })
     })
   })

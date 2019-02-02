@@ -3,15 +3,12 @@ const hypercore = require('hypercore')
 const { _open_storage } = require('../utils')
 const { getInterface } = require('./interfaces/index')
 
-
-exports.clone = async (
-  args = { keys: { key: null, secret: null }, storage: null }
-) => {
+exports.clone = async (args = { keys: { key: null, secret: null }, storage: null }) => {
   return new Promise(async (done, error) => {
     const { storage, keys } = { ...args }
 
     const opts = {
-      valueEncoding: 'binary' // Binary encoding is enforced
+      valueEncoding: 'binary', // Binary encoding is enforced
     }
 
     // Make sure we have the definition

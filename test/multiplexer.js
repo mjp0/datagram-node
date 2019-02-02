@@ -1,4 +1,3 @@
-const test = require('tape')
 const hypercore = require('hypercore')
 const ram = require('random-access-memory')
 const multiplexer = require('../adapter/multiplexer')
@@ -6,8 +5,8 @@ const pump = require('pump')
 const through = require('through2')
 const debug = require('../utils/debug')(__filename, 'test')
 
-test('Key exchange API', function(t) {
-  t.plan(11)
+test('Key exchange API', function() {
+  expect.assertions(11)
   const encryptionKey = Buffer.from('deadbeefdeadbeefdeadbeefdeadbeef') // used to encrypt the connection
 
   const mux1 = multiplexer(encryptionKey)
@@ -27,28 +26,28 @@ test('Key exchange API', function(t) {
   const expectedKeys = [ '01', '02', '03', 'foo', 'oof' ]
 
   mux1.on('manifest', function(m) {
-    t.ok(m.keys instanceof Array, 'Manifest contains an array of feed keys')
-    t.equal(m.keys[0], 'bar')
-    t.ok(m.signatures instanceof Array, 'Manifest contains a hash of signatures')
-    t.equal(m.signatures[0], 'sig')
-    t.equal(m.custom, 'option')
+    expect(m.keys instanceof Array).toBeTruthy()
+    expect(m.keys[0]).toBe('bar')
+    expect(m.signatures instanceof Array).toBeTruthy()
+    expect(m.signatures[0]).toBe('sig')
+    expect(m.custom).toBe('option')
 
     mux1.on('replicate', function(keys, repl) {
       // Keys should be alphabetically sorted
       // and identical on both ends.
-      t.deepEqual(keys, expectedKeys, 'Mux1 replicating same keys')
-      t.equal(typeof repl, 'function')
+      expect(keys).toEqual(expectedKeys)
+      expect(typeof repl).toBe('function')
     })
 
     mux1.wantFeeds('02', 'oof') // pick some of the remote's keys excluding 'bar'
   })
 
   mux2.on('manifest', function(m) {
-    t.equal(m.keys[0], 'foo')
-    t.equal(m.keys[1], 'oof')
+    expect(m.keys[0]).toBe('foo')
+    expect(m.keys[1]).toBe('oof')
     mux2.on('replicate', function(keys, repl) {
-      t.deepEqual(keys, expectedKeys, 'Mux2 replicating same keys')
-      t.equal(typeof repl, 'function')
+      expect(keys).toEqual(expectedKeys)
+      expect(typeof repl).toBe('function')
     })
 
     mux2.wantFeeds(m.keys) // mark all remote keys as 'want' for classical multicore behaviour
@@ -71,8 +70,8 @@ test('Key exchange API', function(t) {
   )
 })
 
-test('Actual replication', function(t) {
-  t.plan(18)
+test('Actual replication', function() {
+  expect.assertions(18)
   const encryptionKey = Buffer.from('deadbeefdeadbeefdeadbeefdeadbeef')
   const h1 = hypercore(ram)
   const h2 = hypercore(ram)
@@ -82,13 +81,13 @@ test('Actual replication', function(t) {
   function setup(cb) {
     h1.ready(function() {
       h1.append('hyper', function(err) {
-        t.error(err, 'no errors')
+        expect(err).toBeFalsy()
         h2.ready(function() {
           h2.append('sea', function(err) {
-            t.error(err, 'no errors')
+            expect(err).toBeFalsy()
             h3.ready(function() {
               h3.append('late to the party', function(err) {
-                t.error(err, 'no errors')
+                expect(err).toBeFalsy()
                 cb()
               })
             })
@@ -107,26 +106,22 @@ test('Actual replication', function(t) {
   mux1.on('manifest', function(m) {
     h2r = hypercore(ram, h2.key.toString('hex'))
     h2r.on('download', function(index, data) {
-      t.equal(data.toString('utf8'), 'sea', 'h2 repl')
-      t.equal(index, 0)
+      expect(data.toString('utf8')).toBe('sea')
+      expect(index).toBe(0)
     })
 
     h3r = hypercore(ram, h3.key.toString('hex'))
     h3r.on('download', function(index, data) {
-      t.equal(data.toString('utf8'), 'late to the party', 'h3 repl')
-      t.equal(index, 0)
+      expect(data.toString('utf8')).toBe('late to the party')
+      expect(index).toBe(0)
     })
 
     mux1.on('replicate', function(keys, repl) {
-      t.deepEqual(
-        keys,
-        [ h1, h2, h3 ]
-          .map(function(f) {
-            return f.key.toString('hex')
-          })
-          .sort(),
-        'Mux1 replicating same keys',
-      )
+      expect(keys).toEqual([ h1, h2, h3 ]
+        .map(function(f) {
+          return f.key.toString('hex')
+        })
+        .sort())
       repl([ h2r, h1, h3r ])
     })
     mux1.wantFeeds(m.keys)
@@ -135,19 +130,15 @@ test('Actual replication', function(t) {
   mux2.on('manifest', function(m) {
     h1r = hypercore(ram, m.keys[0])
     h1r.on('download', function(index, data) {
-      t.equal(data.toString('utf8'), 'hyper', 'h1 repl')
-      t.equal(index, 0)
+      expect(data.toString('utf8')).toBe('hyper')
+      expect(index).toBe(0)
     })
     mux2.on('replicate', function(keys, repl) {
-      t.deepEqual(
-        keys,
-        [ h1, h2, h3 ]
-          .map(function(f) {
-            return f.key.toString('hex')
-          })
-          .sort(),
-        'Mux2 replicating same keys',
-      )
+      expect(keys).toEqual([ h1, h2, h3 ]
+        .map(function(f) {
+          return f.key.toString('hex')
+        })
+        .sort())
       repl([ h1r, h2, h3 ])
     })
     mux2.wantFeeds(m.keys)
@@ -180,20 +171,20 @@ test('Actual replication', function(t) {
     )
     .pipe(mux1.stream)
     .once('end', function(err) {
-      t.error(err, 'no errors')
+      expect(err).toBeFalsy()
       h1r.get(0, function(err, data) {
-        t.error(err, 'no errors')
-        t.equals(data.toString('utf8'), 'hyper', 'core 1 repl success!')
+        expect(err).toBeFalsy()
+        expect(data.toString('utf8')).toBe('hyper')
       })
 
       h2r.get(0, function(err, data) {
-        t.error(err, 'no errors')
-        t.equals(data.toString('utf8'), 'sea', 'core 2 repl success!')
+        expect(err).toBeFalsy()
+        expect(data.toString('utf8')).toBe('sea')
       })
 
       h3r.get(0, function(err, data) {
-        t.error(err, 'no errors')
-        t.equals(data.toString('utf8'), 'late to the party', 'core 3 repl success!')
+        expect(err).toBeFalsy()
+        expect(data.toString('utf8')).toBe('late to the party')
       })
     })
 })

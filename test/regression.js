@@ -1,4 +1,3 @@
-const test = require('tape')
 const adapter = require('../adapter')
 const ram = require('random-access-memory')
 const admin = require('../adapter/definitions/cores/admin')
@@ -16,25 +15,25 @@ const test_definition = {
   accepted_cores: [ admin, messagestream ],
 }
 
-test('regression: adapter with no core replicate to adapter with 1 core', function(t) {
+test('regression: adapter with no core replicate to adapter with 1 core', function(done) {
   const m1 = adapter({ password: 'testpassword', definition: test_definition }, { storage: ram })
   const m2 = adapter({ password: 'testpassword', definition: test_definition }, { storage: ram })
 
   function setup1(m, buf, cb) {
     m.add_core('test', 'generic', function(err, w) {
-      t.error(err, 'no errors')
+      expect(err).toBeFalsy()
       const bufs = []
       for (let i = 0; i < 1000; i++) {
         bufs.push(buf)
       }
       w.append(bufs, function(err) {
-        t.error(err, 'no errors')
+        expect(err).toBeFalsy()
         w.get(13, function(err, data) {
-          t.error(err, 'no errors')
-          t.equals(data.toString(), buf)
+          expect(err).toBeFalsy()
+          expect(data.toString()).toBe(buf)
           m.get_cores((err, cores) => {
-            t.error(err, 'no errors')
-            t.deepEquals(cores, [ w ], 'read matches write')
+            expect(err).toBeFalsy()
+            expect(cores).toEqual([ w ])
             cb()
           })
         })
@@ -44,19 +43,19 @@ test('regression: adapter with no core replicate to adapter with 1 core', functi
 
   function setup2(m, buf, cb) {
     m.add_core('test', 'generic', function(err, w) {
-      t.error(err, 'no errors')
+      expect(err).toBeFalsy()
       const bufs = []
       for (let i = 0; i < 10; i++) {
         bufs.push(buf)
       }
       w.append(bufs, function(err) {
-        t.error(err, 'no errors')
+        expect(err).toBeFalsy()
         w.get(3, function(err, data) {
-          t.error(err, 'no errors')
-          t.equals(data.toString(), buf)
+          expect(err).toBeFalsy()
+          expect(data.toString()).toBe(buf)
           m.get_cores((err, cores) => {
-            t.error(err, 'no errors')
-            t.deepEquals(cores, [ w ], 'read matches write')
+            expect(err).toBeFalsy()
+            expect(cores).toEqual([ w ])
             cb()
           })
         })
@@ -85,22 +84,22 @@ test('regression: adapter with no core replicate to adapter with 1 core', functi
 
   function check() {
     m1.get_cores((err, cores1) => {
-      t.error(err, 'no errors')
+      expect(err).toBeFalsy()
       m2.get_cores((err, cores2) => {
-        t.error(err, 'no errors')
-        t.equals(cores1.length, 2, '2 cores')
-        t.equals(cores2.length, 2, '2 cores')
-        t.equals(cores1[0].length, 1000, 'core sees 1000 entries')
-        t.equals(cores1[1].length, 10, 'core sees 10 entries')
-        t.equals(cores2[0].length, 10, 'receiver sees 10 entries')
-        t.equals(cores2[1].length, 1000, 'receiver sees 1000 entries')
+        expect(err).toBeFalsy()
+        expect(cores1.length).toBe(2)
+        expect(cores2.length).toBe(2)
+        expect(cores1[0].length).toBe(1000)
+        expect(cores1[1].length).toBe(10)
+        expect(cores2[0].length).toBe(10)
+        expect(cores2[1].length).toBe(1000)
         cores1[1].get(0, function(err, data) {
-          t.error(err, 'no errors')
-          t.equals(data.toString(), 'bar', 'core 1 has core 2 data')
+          expect(err).toBeFalsy()
+          expect(data.toString()).toBe('bar')
           cores2[1].get(0, function(err, data) {
-            t.error(err, 'no errors')
-            t.equals(data.toString(), 'foo', 'core 2 has core 1 data')
-            t.end()
+            expect(err).toBeFalsy()
+            expect(data.toString()).toBe('foo')
+            done()
           })
         })
       })

@@ -77,7 +77,7 @@ exports.kv = {
       })
     }
   },
-  get_all_keys: (API, stream) => {
+  getAllKeys: (API, stream) => {
     return async () => {
       return new Promise(async (done, error) => {
         // fetch key from hyperstream

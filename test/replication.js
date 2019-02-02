@@ -1,4 +1,3 @@
-const test = require('tape')
 const adapter = require('../adapter')
 const ram = require('random-access-memory')
 const async = require('async')
@@ -17,20 +16,20 @@ const test_definition = {
   accepted_cores: [admin, messagestream],
 }
 
-test('replicate two adapters', function(t) {
-  t.plan(22)
+test('replicate two adapters', function() {
+  expect.assertions(22)
 
   function setup(m, buf, cb) {
     m.add_core('test', 'text', function(err, core) {
-      t.error(err, 'no errors')
+      expect(err).toBeFalsy()
       core.append(buf, function(err) {
-        t.error(err, 'no errors')
+        expect(err).toBeFalsy()
         core.get(0, function(err, data) {
-          t.error(err, 'no errors')
-          t.equals(data.toString(), buf, 'saved data should exist')
+          expect(err).toBeFalsy()
+          expect(data.toString()).toBe(buf)
           m.cores((err, cores) => {
-            t.error(err, 'no errors')
-            t.notEquals(cores.indexOf(core), -1, 'core is correctly found in the cores')
+            expect(err).toBeFalsy()
+            expect(cores.indexOf(core)).not.toBe(-1)
             cb()
           })
         })
@@ -55,32 +54,32 @@ test('replicate two adapters', function(t) {
     async.waterfall([
       (next) => {
         m1.cores((err, cores) => {
-          t.error(err, 'no errors')
-          t.equals(cores.length, 2, 'should have two cores')
+          expect(err).toBeFalsy()
+          expect(cores.length).toBe(2)
 
           m2.cores((err, cores) => {
-            t.error(err, 'no errors')
-            t.equals(cores.length, 2, 'should have two cores')
+            expect(err).toBeFalsy()
+            expect(cores.length).toBe(2)
             next()
           })
         })
       },
       (next) => {
         m1.get_cores((err, cores) => {
-          t.error(err, 'no errors')
+          expect(err).toBeFalsy()
           cores[1].get(0, function(err, data) {
-            t.error(err, 'no errors')
-            t.equals(data.toString(), 'bar', 'should have replicated content')
+            expect(err).toBeFalsy()
+            expect(data.toString()).toBe('bar')
             next()
           })
         })
       },
       (next) => {
         m2.get_cores((err, cores) => {
-          t.error(err, 'no errors')
+          expect(err).toBeFalsy()
           cores[1].get(0, function(err, data) {
-            t.error(err, 'no errors')
-            t.equals(data.toString(), 'foo', 'should have replicated content')
+            expect(err).toBeFalsy()
+            expect(data.toString()).toBe('foo')
             next()
           })
         })
@@ -89,22 +88,22 @@ test('replicate two adapters', function(t) {
   }
 })
 
-test('replicate two live adapters', function(t) {
-  t.plan(22)
+test('replicate two live adapters', function() {
+  expect.assertions(22)
 
   let m2
 
   function setup(m, buf, cb) {
     m.add_core('test', 'text', function(err, core) {
-      t.error(err, 'no errors')
+      expect(err).toBeFalsy()
       core.append(buf, function(err) {
-        t.error(err, 'no errors')
+        expect(err).toBeFalsy()
         core.get(0, function(err, data) {
-          t.error(err, 'no errors')
-          t.equals(data.toString(), buf, 'saved data should exist')
+          expect(err).toBeFalsy()
+          expect(data.toString()).toBe(buf)
           m.cores((err, cores) => {
-            t.error(err, 'no errors')
-            t.deepEquals(cores, [ core ], 'core is correctly found in the cores')
+            expect(err).toBeFalsy()
+            expect(cores).toEqual([ core ])
             cb()
           })
         })
@@ -130,32 +129,32 @@ test('replicate two live adapters', function(t) {
     async.waterfall([
       (next) => {
         m1.cores((err, cores) => {
-          t.error(err, 'no errors')
-          t.equals(cores.length, 2, 'should have two cores')
+          expect(err).toBeFalsy()
+          expect(cores.length).toBe(2)
 
           m2.cores((err, cores) => {
-            t.error(err, 'no errors')
-            t.equals(cores.length, 2, 'should have two cores')
+            expect(err).toBeFalsy()
+            expect(cores.length).toBe(2)
             next()
           })
         })
       },
       (next) => {
         m1.get_cores((err, cores) => {
-          t.error(err, 'no errors')
+          expect(err).toBeFalsy()
           cores[1].get(0, function(err, data) {
-            t.error(err, 'no errors')
-            t.equals(data.toString(), 'bar', 'should have replicated content')
+            expect(err).toBeFalsy()
+            expect(data.toString()).toBe('bar')
             next()
           })
         })
       },
       (next) => {
         m2.get_cores((err, cores) => {
-          t.error(err, 'no errors')
+          expect(err).toBeFalsy()
           cores[1].get(0, function(err, data) {
-            t.error(err, 'no errors')
-            t.equals(data.toString(), 'foo', 'should have replicated content')
+            expect(err).toBeFalsy()
+            expect(data.toString()).toBe('foo')
             next()
           })
         })
@@ -164,23 +163,23 @@ test('replicate two live adapters', function(t) {
   }
 })
 
-test('replicate two adapters and remove a core', function(t) {
-  t.plan(35)
+test('replicate two adapters and remove a core', function() {
+  expect.assertions(35)
 
   const core_keys = {}
 
   function setup(m, buf, cb) {
     m.add_core(buf.toString(), 'text', function(err, core) {
-      t.error(err, 'no errors')
+      expect(err).toBeFalsy()
       core.append(buf, function(err) {
-        t.error(err, 'no errors')
+        expect(err).toBeFalsy()
         core.get(0, function(err, data) {
-          t.error(err, 'no errors')
-          t.equals(data.toString(), buf, 'saved data should exist')
+          expect(err).toBeFalsy()
+          expect(data.toString()).toBe(buf)
           m.cores((err, cores) => {
-            t.error(err, 'no errors')
+            expect(err).toBeFalsy()
 
-            t.notEqual(cores.indexOf(core), -1, 'core is correctly found in the cores')
+            expect(cores.indexOf(core)).not.toBe(-1)
             core_keys[buf.toString()] = core.key.toString('hex')
             cb()
           })
@@ -208,29 +207,29 @@ test('replicate two adapters and remove a core', function(t) {
     async.waterfall([
       (next) => {
         m1.cores((err, cores) => {
-          t.error(err, 'no errors')
-          t.equals(cores.length, 3, 'should have three cores')
+          expect(err).toBeFalsy()
+          expect(cores.length).toBe(3)
 
           m2.cores((err, cores) => {
-            t.error(err, 'no errors')
-            t.equals(cores.length, 3, 'should have three cores')
+            expect(err).toBeFalsy()
+            expect(cores.length).toBe(3)
             next()
           })
         })
       },
       (next) => {
         m1.get_cores((err, cores) => {
-          t.error(err, 'no errors')
+          expect(err).toBeFalsy()
           cores[1].get(0, function(err, data) {
-            t.error(err, 'no errors')
+            expect(err).toBeFalsy()
             if (data.toString() === 'zzz' || data.toString() === 'bar') {
-              t.true(1, 'should have replicated content')
+              expect(1).toBeTruthy()
             }
 
             cores[2].get(0, function(err, data) {
-              t.error(err, 'no errors')
+              expect(err).toBeFalsy()
               if (data.toString() === 'zzz' || data.toString() === 'bar') {
-                t.true(1, 'should have replicated content')
+                expect(1).toBeTruthy()
               }
               next()
             })
@@ -239,11 +238,11 @@ test('replicate two adapters and remove a core', function(t) {
       },
       (next) => {
         m2.get_cores((err, cores) => {
-          t.error(err, 'no errors')
+          expect(err).toBeFalsy()
           cores[1].get(0, function(err, data) {
-            t.error(err, 'no errors')
+            expect(err).toBeFalsy()
             if (data.toString() === 'zzz' || data.toString() === 'bar' || data.toString() === 'foo') {
-              t.true(1, 'should have replicated content')
+              expect(1).toBeTruthy()
             }
             next()
           })
@@ -251,19 +250,19 @@ test('replicate two adapters and remove a core', function(t) {
       },
       (next) => {
         m1.remove_core(core_keys['zzz'], (err, core) => {
-          t.error(err, 'no errors')
+          expect(err).toBeFalsy()
           const r = m1.replicate()
           r.pipe(m2.replicate()).pipe(r).once('end', next)
         })
       },
       (next) => {
         m1.get_blocklist((err, blocklist) => {
-          t.error(err, 'no errors')
-          t.notEquals(blocklist.indexOf(core_keys['zzz']), -1, 'zzz core should be on blocklist')
+          expect(err).toBeFalsy()
+          expect(blocklist.indexOf(core_keys['zzz'])).not.toBe(-1)
 
           m1.get_cores((err, cores) => {
-            t.error(err, 'no errors')
-            t.equals(cores.indexOf(core_keys['zzz']), -1, 'zzz core should not be in meta-core anymore')
+            expect(err).toBeFalsy()
+            expect(cores.indexOf(core_keys['zzz'])).toBe(-1)
             next()
           })
         })
