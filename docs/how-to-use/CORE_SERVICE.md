@@ -9,7 +9,7 @@ const { create, load, clone } = require('./core')
 1. Core Service is for creating and accessing individual cores
 2. Core Service offers only the base API to interact with the stream, the rest is optional addon interfaces
 3. Core Service deals with individual cores (Containers deal with multiple)
-4. [Core Definition](/docs/how-to-use/CORE_DEFINTIONS.md) is always at the position 0
+4. [Core Definition](/docs/how-to-use/CORE_DEFINITIONS.md) is always at the position 0
 
 ## `create(args, opts)`
 
