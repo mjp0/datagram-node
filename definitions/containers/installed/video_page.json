@@ -1,0 +1,37 @@
+{
+  "@id": "http://schema.org",
+  "@type": "datagramContainer",
+  "name": "Video 'page'",
+  "required_cores": [
+    { 
+      // Holds all the information about where everything is
+      // in the one-to-X streams
+      "@type": "index",
+      "model": "one-to-many",
+      "indexes": [
+        "metadata",
+        "video"
+      ]
+    },
+    { 
+      // Holds metadata like title, description, category etc.
+      "@type": "metadata",
+      "model": "one-to-many"
+    },
+    { 
+      // Contains all the different video variations
+      "@type": "video",
+      "model": "one-to-many"
+    },
+    { 
+      // Stats about views, likes etc.
+      "@type": "stats",
+      "model": "many-to-many"
+    },
+    { 
+      // Comments about the video
+      "@type": "comments",
+      "model": "many-to-many"
+    }
+  ]
+}

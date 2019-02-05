@@ -3,8 +3,5 @@
   "@type": "datagramCore",
   "name": "Meta",
   "description": "Meta Core keeps track of Cores in the Container. Meant only for Container's internal use.",
-  "interfaces": [
-    "kv",
-    "meta"
-  ]
+  "interfaces": [ "kv", "meta" ]
 }

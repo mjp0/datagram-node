@@ -18,25 +18,27 @@ $ npm install datagram // install datagram locally for development
 
 
 ## What is Datagram
-Servers used to be about running code and storing backups. Now they are about facilitating connections and serving data. Yet big part of the work is spent on running and maintaining all the plumbing that goes into facilitating various data transfer needs between the users and the service.
+Servers used to be about running code and storing backups. Now they are about facilitating connections and serving data. Docker and Kubernetes have made it easy to spin up complex online services but we are still manually handling all the communication and data managing that happens between the users and the service.
 
-We all have spent too many configuring Linux, setting up databases, figuring out a good way to save your data in the database and then writing a custom backend code to serve the data. 
+Most of us share the experience of having spent too many hours configuring servers, setting up databases, figuring out a good way to save your data in the database, and then yet again writing a custom backend code to communicate with the user.
 
-Datagram solves this by offering a framework to build a "server" from the container definition you give it. You can run Datagram on any x86 or ARM based computer and it supports both client-server and peer-to-peer connection models out-of-the-box.
+Datagram solves this by offering a framework to containerize "the server" and database.
+
+You can run Datagram on any x86 or ARM based computer and it supports both client-server and peer-to-peer connection models out-of-the-box.
 
 > [Datagram is not a blockchain](docs/NOT_A_BLOCKCHAIN.md).
 
-There are currently +10 container definitions available and different +1500 data descriptors.
-
-
 ## Acknowledgements
 
-The following people have all done great work that Datagram builds upon:
+The following people have all contributed great work that Datagram builds upon:
 
 - Mathias Buus
-- ... top 5 hypercore
 - Stephen Whitmore
-- ... top 5 multifeed
+- Paul Frazee
+- Benjamin Forster
+- Martin Heidegger
+- Lars-Magnus Skog
+- Alexander Cobleigh
 - Tony Ivanov
 
 ## License
