@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ComputerStore","@type":"rdfs:Class","rdfs:comment":"A computer store.","rdfs:label":"ComputerStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

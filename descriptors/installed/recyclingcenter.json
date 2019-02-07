@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/RecyclingCenter","@type":"rdfs:Class","rdfs:comment":"A recycling center.","rdfs:label":"RecyclingCenter","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

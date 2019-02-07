@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/MusicVideoObject","@type":"rdfs:Class","rdfs:comment":"A music video file.","rdfs:label":"MusicVideoObject","rdfs:subClassOf":{"@id":"http://schema.org/MediaObject"}},"properties":[]}

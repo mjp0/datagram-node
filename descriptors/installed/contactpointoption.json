@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ContactPointOption","@type":"rdfs:Class","rdfs:comment":"Enumerated options related to a ContactPoint.","rdfs:label":"ContactPointOption","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

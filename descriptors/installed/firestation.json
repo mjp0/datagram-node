@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/FireStation","@type":"rdfs:Class","rdfs:comment":"A fire station. With firemen.","rdfs:label":"FireStation","rdfs:subClassOf":[{"@id":"http://schema.org/CivicStructure"},{"@id":"http://schema.org/EmergencyService"}]},"properties":[]}

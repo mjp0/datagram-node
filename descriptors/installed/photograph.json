@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Photograph","@type":"rdfs:Class","rdfs:comment":"A photograph.","rdfs:label":"Photograph","rdfs:subClassOf":{"@id":"http://schema.org/CreativeWork"}},"properties":[]}

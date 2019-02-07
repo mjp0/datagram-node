@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/LiteraryEvent","@type":"rdfs:Class","rdfs:comment":"Event type: Literary event.","rdfs:label":"LiteraryEvent","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

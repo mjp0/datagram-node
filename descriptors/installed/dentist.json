@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Dentist","@type":"rdfs:Class","rdfs:comment":"A dentist.","rdfs:label":"Dentist","rdfs:subClassOf":[{"@id":"http://schema.org/MedicalOrganization"},{"@id":"http://schema.org/LocalBusiness"}]},"properties":[]}

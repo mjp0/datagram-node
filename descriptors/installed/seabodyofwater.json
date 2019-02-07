@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/SeaBodyOfWater","@type":"rdfs:Class","rdfs:comment":"A sea (for example, the Caspian sea).","rdfs:label":"SeaBodyOfWater","rdfs:subClassOf":{"@id":"http://schema.org/BodyOfWater"}},"properties":[]}

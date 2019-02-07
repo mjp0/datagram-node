@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/BookmarkAction","@type":"rdfs:Class","rdfs:comment":"An agent bookmarks/flags/labels/tags/marks an object.","rdfs:label":"BookmarkAction","rdfs:subClassOf":{"@id":"http://schema.org/OrganizeAction"}},"properties":[]}

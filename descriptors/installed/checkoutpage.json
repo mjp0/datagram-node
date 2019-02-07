@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/CheckoutPage","@type":"rdfs:Class","rdfs:comment":"Web page type: Checkout page.","rdfs:label":"CheckoutPage","rdfs:subClassOf":{"@id":"http://schema.org/WebPage"}},"properties":[]}

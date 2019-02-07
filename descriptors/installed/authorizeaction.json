@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/AuthorizeAction","@type":"rdfs:Class","rdfs:comment":"The act of granting permission to an object.","rdfs:label":"AuthorizeAction","rdfs:subClassOf":{"@id":"http://schema.org/AllocateAction"}},"properties":[]}

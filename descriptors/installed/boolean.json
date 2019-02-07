@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Boolean","@type":["rdfs:Class","http://schema.org/DataType"],"rdfs:comment":"Boolean: True or False.","rdfs:label":"Boolean"},"properties":[]}

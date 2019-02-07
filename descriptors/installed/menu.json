@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Menu","@type":"rdfs:Class","rdfs:comment":"A structured representation of food or drink items available from a FoodEstablishment.","rdfs:label":"Menu","rdfs:subClassOf":{"@id":"http://schema.org/CreativeWork"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/HowToSupply","@type":"rdfs:Class","rdfs:comment":"A supply consumed when performing the instructions for how to achieve a result.","rdfs:label":"HowToSupply","rdfs:subClassOf":{"@id":"http://schema.org/HowToItem"}},"properties":[]}

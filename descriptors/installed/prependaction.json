@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/PrependAction","@type":"rdfs:Class","rdfs:comment":"The act of inserting at the beginning if an ordered collection.","rdfs:label":"PrependAction","rdfs:subClassOf":{"@id":"http://schema.org/InsertAction"}},"properties":[]}

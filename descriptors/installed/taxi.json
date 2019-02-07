@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Taxi","@type":"rdfs:Class","http://schema.org/supersededBy":{"@id":"http://schema.org/TaxiService"},"rdfs:comment":"A taxi.","rdfs:label":"Taxi","rdfs:subClassOf":{"@id":"http://schema.org/Service"}},"properties":[]}

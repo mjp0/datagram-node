@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Country","@type":"rdfs:Class","rdfs:comment":"A country.","rdfs:label":"Country","rdfs:subClassOf":{"@id":"http://schema.org/AdministrativeArea"}},"properties":[]}

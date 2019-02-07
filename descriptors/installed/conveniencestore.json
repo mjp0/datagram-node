@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ConvenienceStore","@type":"rdfs:Class","rdfs:comment":"A convenience store.","rdfs:label":"ConvenienceStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

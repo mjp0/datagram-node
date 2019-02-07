@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Enumeration","@type":"rdfs:Class","rdfs:comment":"Lists or enumerations—for example, a list of cuisines or music genres, etc.","rdfs:label":"Enumeration","rdfs:subClassOf":{"@id":"http://schema.org/Intangible"}},"properties":[]}

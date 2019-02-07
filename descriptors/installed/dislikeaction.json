@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/DislikeAction","@type":"rdfs:Class","rdfs:comment":"The act of expressing a negative sentiment about the object. An agent dislikes an object (a proposition, topic or theme) with participants.","rdfs:label":"DislikeAction","rdfs:subClassOf":{"@id":"http://schema.org/ReactAction"}},"properties":[]}

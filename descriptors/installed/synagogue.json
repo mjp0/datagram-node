@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Synagogue","@type":"rdfs:Class","rdfs:comment":"A synagogue.","rdfs:label":"Synagogue","rdfs:subClassOf":{"@id":"http://schema.org/PlaceOfWorship"}},"properties":[]}

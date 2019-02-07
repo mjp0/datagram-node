@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ToyStore","@type":"rdfs:Class","rdfs:comment":"A toy store.","rdfs:label":"ToyStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

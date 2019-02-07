@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/GeneralContractor","@type":"rdfs:Class","rdfs:comment":"A general contractor.","rdfs:label":"GeneralContractor","rdfs:subClassOf":{"@id":"http://schema.org/HomeAndConstructionBusiness"}},"properties":[]}

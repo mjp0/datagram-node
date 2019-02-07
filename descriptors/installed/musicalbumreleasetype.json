@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/MusicAlbumReleaseType","@type":"rdfs:Class","http://purl.org/dc/terms/source":{"@id":"http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ"},"rdfs:comment":"The kind of release which this album is: single, EP or album.","rdfs:label":"MusicAlbumReleaseType","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

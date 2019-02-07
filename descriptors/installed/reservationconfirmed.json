@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ReservationConfirmed","@type":"http://schema.org/ReservationStatusType","rdfs:comment":"The status of a confirmed reservation.","rdfs:label":"ReservationConfirmed"},"properties":[]}

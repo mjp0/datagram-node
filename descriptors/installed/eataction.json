@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/EatAction","@type":"rdfs:Class","rdfs:comment":"The act of swallowing solid objects.","rdfs:label":"EatAction","rdfs:subClassOf":{"@id":"http://schema.org/ConsumeAction"}},"properties":[]}

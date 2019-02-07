@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/TVSeason","@type":"rdfs:Class","rdfs:comment":"Season dedicated to TV broadcast and associated online delivery.","rdfs:label":"TVSeason","rdfs:subClassOf":[{"@id":"http://schema.org/CreativeWork"},{"@id":"http://schema.org/CreativeWorkSeason"}]},"properties":[]}

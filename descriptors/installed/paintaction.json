@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/PaintAction","@type":"rdfs:Class","rdfs:comment":"The act of producing a painting, typically with paint and canvas as instruments.","rdfs:label":"PaintAction","rdfs:subClassOf":{"@id":"http://schema.org/CreateAction"}},"properties":[]}

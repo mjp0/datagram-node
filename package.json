@@ -19,6 +19,7 @@
   "keywords": [],
   "dependencies": {
     "async": "^2.6.1",
+    "bs58check": "^2.1.2",
     "debug": "^4.1.0",
     "eslint-plugin-jest": "^22.2.2",
     "flatbuffers": "^1.10.2",
@@ -34,6 +35,7 @@
     "msgpack5": "^4.2.1",
     "mutexify": "^1.2.0",
     "parse-json": "^4.0.0",
+    "promised-callback": "^1.1.0",
     "random-access-file": "^2.1.0",
     "random-access-memory": "^2.4.0",
     "schema.org": "^3.1.1",

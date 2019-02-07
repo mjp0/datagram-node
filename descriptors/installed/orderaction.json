@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/OrderAction","@type":"rdfs:Class","rdfs:comment":"An agent orders an object/product/service to be delivered/sent.","rdfs:label":"OrderAction","rdfs:subClassOf":{"@id":"http://schema.org/TradeAction"}},"properties":[]}

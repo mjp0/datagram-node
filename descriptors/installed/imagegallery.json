@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ImageGallery","@type":"rdfs:Class","rdfs:comment":"Web page type: Image gallery page.","rdfs:label":"ImageGallery","rdfs:subClassOf":{"@id":"http://schema.org/CollectionPage"}},"properties":[]}

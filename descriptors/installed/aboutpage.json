@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/AboutPage","@type":"rdfs:Class","rdfs:comment":"Web page type: About page.","rdfs:label":"AboutPage","rdfs:subClassOf":{"@id":"http://schema.org/WebPage"}},"properties":[]}

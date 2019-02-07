@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/EntertainmentBusiness","@type":"rdfs:Class","rdfs:comment":"A business providing entertainment.","rdfs:label":"EntertainmentBusiness","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

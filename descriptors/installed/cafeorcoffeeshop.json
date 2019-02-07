@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/CafeOrCoffeeShop","@type":"rdfs:Class","rdfs:comment":"A cafe or coffee shop.","rdfs:label":"CafeOrCoffeeShop","rdfs:subClassOf":{"@id":"http://schema.org/FoodEstablishment"}},"properties":[]}

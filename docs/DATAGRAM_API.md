@@ -1,0 +1,200 @@
+# The Story of One Datagram
+
+Let me demonstrate you a system that can stream and send any data to anyone else on the internet without anybody in the middle storing and recording everything you do in the hopes of selling that information to other companies. Remember that everything you are about to see is working but still not yet officially ready to be used. I also want to emphasize that this project is ideologically neutral meaning that we are not here to attack "the centralized web" or something in those lines - we are here to build free and open-source implementations of what people like to do online. But before we get to the implementations, first we need to build a system called Datagram to facilitate a decentralized and distributed way of discovering and connecting each other over the internet.
+
+What you are about to read is an introduction to Datagram with technical examples of how it works. If you don't know what API is, or you can't understand javascript at all, this post will be challenging because I'm going to write code and I expect you to understand what it does. If that's not a problem, I suggest we begin.
+
+The biggest issue with the internet right now is that it doesn't have any free, open and decentralized discovery mechanisms. Unless you and your friend tell each other your IP addresses over the phone, you won't be able to send anything to each other over the internet because your computer won't know how to reach your friend. At the moment, humans have elected Facebook to be the one giant discovery mechanism for all the people. Humans use mostly Google to discover websites based on their search phrase. Both of those companies are essentially an enormous database that their site uses when you use their app or website. You give them data, and they make sure your friends can find and see it. One corporation deciding who can and can't be found is not what we want or what the previous generations have fought for. We have all the technologies needed to build a better one, so I did. All Datagrams use this discovery mechanism which is open and permissionless. With this discovery mechanism, nobody controls what you can publish and who & what you can discover on the internet.
+
+The next important improvement area on the Internet as of today is that the infrastructure internet sits upon is run by corporations who offer services mainly to other businesses. There is undoubtedly a need for highly secure data centers and for the services they provide, but we need an alternative way to put data available to the internet. Just like with discovery, we already have technologies to do this. So each Datagram was designed to have the capability to download, upload or host data. If you have any device ranging from an old smartphone to a home server, you can host your own data for free with one line of code. If you want, you can even rent your excess bandwidth and devices to other people who want to buy hosting from you.
+
+All this sounds great but seeing how it works is even better.
+
+> A quick word about code conventions used. The API for Datagram was designed to be super simple and fast to use but still, offer advanced features to those who need them. For this reason, all function arguments in Datagram are objects. Objects are the only way we can expand arguments if needed without having to modify the function arguments and forcing developers to rewrite their code with every update. Each function accepts required arguments, optional settings and a callback function to call when done. Even though functions have apparent callback support, all API functions also support both async/await and Promises.
+
+## Let's get started
+
+To get started we need to first get the Datagram code.
+
+```javascript
+const Datagram = require('datagram') // nodejs
+
+// or
+
+import Datagram from 'datagram' // es6
+```
+
+Everything we do with Datagram requires a Datagram instance. As a convention, we write it as datagram with lowercase so we don't mix up Datagram the js library with the datagram the instance.
+
+There's few things we need to do before we can start doing what we really want. First things first, we need a new datagram. This happens by creating a new Datagram instance and then call `ready()` to wait until your Datagram is generated. Depending on the device, cryptographic functions can sometimes be a bit CPU intensive. 
+
+```javascript
+const DG = new Datagram()
+
+// or if you are opening existing Datagram
+
+const DG = new Datagram(credentials = { user_id, password })
+
+DG.ready((err, datagram) => {
+  // datagram -> your new datagram
+  console.log(datagram) // { credentials, settings, ...api }
+})
+
+// or with async/await
+const datagram = await DG.ready()
+
+// or with Promises
+DG.ready().then(datagram => {
+  // datagram -> your new datagram
+  console.log(datagram) // { credentials, settings, ...api }
+})
+```
+
+> After you have your new datagram, remember to save your credentials in case you want to open this datagram again in the future.
+
+Now we can start to do more interesting things. Let's say we want to create a group video call datagram that works like Skype or Facetime. First we need to tell Datagram what kind of data are we talking about here. We are talking about a video chat so we choose video. Datagram needs to know if this is a private only-for-your-eyes, a private share with someone, something you want to share with many people or a group setting where everybody's equal. We call these one-to-non, one-to-one, one-to-many and many-to-many. In our case it's a group activity so we go with many-to-many.
+
+```javascript
+const template = {
+  "datatype": "video",
+  "sharemodel": "many-to-many",
+  "description": "Me and my entourage",
+  "allowed_streams": [ "video" ]
+}
+```
+
+Depending what you choose as your sharemodel, your datagram will limit others ability to be able to affect your datagram. All one-to-X sharemodels gives you the ability to choose who can post into your datagram and doesn't  allow others to invite new people. If you choose many-to-many, you effectively release the control of this datagram to any anybody who you have invited.
+
+Based on the above description, Datagram can generate a datagram that accepts video streams from anyone. Then we can share it with others.
+
+```javascript
+await DG.build(template)
+
+const sharelink = await DG.share()
+// sharelink ->  P4mzRhx1nVO4ZjDPUI3ioJ6XUlyVmJ84... (datagram_address|datagram_encryption_key|index_stream_key)
+```
+
+`share()` gives you Datagram address and the encryption key as a string. Everybody is fully aware that the sharelinks looks attrocious and they makes you want to go and over-engineer a solution to make them better but wait! I already went through that and here's some tools I came up with. You can also use all the different sharelinks styles to login into datagrams. Using image file of a QR code as credentials for the first time is rad.
+
+```javascript
+// Get it as a qr code
+const QR_code_buffer = await DG.share({ type: "qr" })
+
+// Send it over bluetooth
+const bluetooths = await DG.utils.getBluetooths()
+const pairing_is_successful = await DG.utils.pairBluetooth({ device_id: "fA52gS-dfb23gag" })
+if (pairing_is_successful) await DB.share({ type: "bluetooth", device_id: "fA52gS-dfb23gag" })
+
+// Make it a melody (so you can enjoy the sweet sound of peer-to-peer sharing)
+const melodylink_buffer = await DG.share({ type: "melody" })
+
+// Use the ubiquotus web to show the content (use datagram.link website or host your own standalone web share server)
+const weblink = await DG.share({ type: "web" })
+```
+
+Now your job is to somehow share the sharelink of choice with the people you want to participate in the datagram. We might be interested to see what's going on in the datagram to see if anybody is ready to chat... For that we can start `monitor()` that will let you know if new streams are added or there's new data in one of the streams.
+
+```javascript
+const state = await DG.monitor({ interval: 0 }) // in seconds - 0 is real-time
+// state -> { streams: [ stream ], users: [ user_details ], admin: [ admin_action ], settings: { datatype, sharemodel, ...others } }
+
+// datagram includes a lightweight "terminal" interface which you can bring up when monitoring
+await DG.monitor({ internal: 0, ui: true })
+```
+
+At some point it might be polite for you to join the group. You can do that by creating a stream of data out of the source of your choosing, and adding it to the datagram. As long as its binary stream and you have a proper data descriptor for it, you can use it. You can use it even without the data descriptor but then nobody except you can read the data right. If a data descriptor is missing for your use case, you can write one for yourself for community verification or make a request for somebody else to write it for you. As long as your data descriptors adheres to the common defined syntax and it is not a duplicate of another data descriptor, it will be community verified. 
+
+Integrating with the browser's camera API is easy so let's go with that.
+
+```javascript
+const { user_id } = await DG.getCredentials()
+const video_stream = navigator.mediaDevices.getUserMedia()
+await DG.add_stream({ "@type": "video", user_id: user_id, stream: video_stream)
+// and now you are streaming from your webcam/phone to the group
+```
+
+Now your webcam or phone's camera is streaming whatever it sees to your stream in the datagram and everybody else in the group is notified of your stream. To get some value out of all this work, I would like to see the actual videos and talk with the group. At this point we give control to you. You can interact with the individual streams and each has a standard set of things you can do to cover the basics and more apis can be added as an addon. Since we are using a browser, it makes sense to render our streams as a webpage with multiple video streams.
+
+```javascript
+const video_streams = await DG.getStreams()
+const rendering = await DG.render({ streams: video_streams, view: "html5_video_wall" })
+// rendering -> '<html><head><script src="lib/datagram.js"></script></head><body><datagram>{$rendering}</datagram>'
+
+```
+
+If we had chosen to create a datagram with one-to-X sharemodel, we would have to deal with admin side of things. The most important challenge with decentralized network-based systems is to add basic administrative and discussion moderation tools without violating decentralization. Datagram includes a bunch of different ways to create admin and moderation functionality in a way that's compatible with decentralization. They are a set of rules that all Datagrams are default set to follow. Because Datagram is open-source, it's possible to disable any of the rules but this will not affect other users in the network.
+
+Let's go over the tools...
+
+```javascript
+// get all admins
+const admins = await DG.getAdmins()
+// admins -> [ admin ]
+
+// remove an admin
+const is_done = await DG.removeAdmin(admin)
+// is_done -> true|false
+
+// get all known users in the datagram
+const users = await DG.getUsers()
+// users -> [ user ]
+
+// add an admin
+const is_done = await DG.addAdmin(user)
+// is_done -> true|false
+
+// block user
+const is_done = await DG.blockUser(user)
+// is_done -> true|false
+
+// invite user
+const is_done = await DG.inviteUser(user)
+// is_done -> true|false
+
+// destroy datagram (this will also send a request to all participators to delete their copies of the data)
+const is_done = await DG.destroy() // as soon as all the copies are deleted, datagram ceases to exist
+```
+
+So what if we would like to share our datagram to the whole world. You can do it with one-to-many and many-to-many sharemodels. When you `publish()` your datagram, it's address, encryption key and description is sent to a decentralized and open discovery index. Anybody can add their datagrams into the discovery index and search it for free. You can also run your own discovery index service.
+
+```javascript
+const sharelink = await DG.publish()
+// returns a sharelink because often the next step is to share the link with others
+```
+
+As mentioned, you can also search and monitor the discovery index for things you are interested in. Discovery index returns sharelinks that you will then proceed to open with Datagram.
+
+```javascript
+const cyberpunk_2077_posts = await DG.searchIndex({ phrase: "cyperpunk 2077" })
+// cyberpunk_2077_posts -> [ sharelink ]
+```
+
+You can open any sharelink you receive by created a new Datagram and then using `open()`. Depending on the sharemodel the datagram creator chose, you may or may not be able to add your own stream into the datagram.
+
+```javascript
+const cyberpunk_2077_post = await DG.open({ sharelink })
+// cyberpunk_2077_post -> { type: "post",  }
+```
+
+## Have something to say?
+
+I designed Datagram because I wanted to show that it's possible but the way I figured out how to do it might not be the best. So if you have an idea how to make something better, or you want to help me do it, please come to machian.com/discussion to have a voice. You can also find me on Twitter under the imagitive username @markopolojarvi.
+
+Seriously, if you know programming, design, user interfaces, hardware, or you have any other skill that you can think could bring something to the datagram project, come and join the discussion!
+
+## Acknowledgements
+
+First acknowledgements has to go to van Neumann and Turing. Without those guys non of the tech we have non would exist.
+
+Then acknowledgements goes to all the people working on innovative, ideology agnostic tech projects that make decentralizated software like Datagram possible. The following people have open-sourced a lot of code over the years that have been super helpful in making Datagram:
+- Mathias Buus
+- Stephen Whitmore
+- Paul Frazee
+- Benjamin Forster
+- Martin Heidegger
+- Lars-Magnus Skog
+- Alexander Cobleigh
+- Tony Ivanov
+
+## Contact details
+www: datagramjs.com | twitter: @machianists | repo: github.com/machinists/datagram-node

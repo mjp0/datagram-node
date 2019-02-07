@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/MapCategoryType","@type":"rdfs:Class","rdfs:comment":"An enumeration of several kinds of Map.","rdfs:label":"MapCategoryType","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

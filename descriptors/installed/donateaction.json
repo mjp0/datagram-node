@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/DonateAction","@type":"rdfs:Class","rdfs:comment":"The act of providing goods, services, or money without compensation, often for philanthropic reasons.","rdfs:label":"DonateAction","rdfs:subClassOf":{"@id":"http://schema.org/TradeAction"}},"properties":[]}

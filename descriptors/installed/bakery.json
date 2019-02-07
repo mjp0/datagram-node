@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Bakery","@type":"rdfs:Class","rdfs:comment":"A bakery.","rdfs:label":"Bakery","rdfs:subClassOf":{"@id":"http://schema.org/FoodEstablishment"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/NailSalon","@type":"rdfs:Class","rdfs:comment":"A nail salon.","rdfs:label":"NailSalon","rdfs:subClassOf":{"@id":"http://schema.org/HealthAndBeautyBusiness"}},"properties":[]}

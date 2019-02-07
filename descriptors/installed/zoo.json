@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Zoo","@type":"rdfs:Class","rdfs:comment":"A zoo.","rdfs:label":"Zoo","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

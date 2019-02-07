@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Car","@type":"rdfs:Class","http://purl.org/dc/terms/source":{"@id":"http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group"},"rdfs:comment":"A car is a wheeled, self-powered motor vehicle used for transportation.","rdfs:label":"Car","rdfs:subClassOf":{"@id":"http://schema.org/Vehicle"}},"properties":[]}

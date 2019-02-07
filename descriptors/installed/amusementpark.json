@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/AmusementPark","@type":"rdfs:Class","rdfs:comment":"An amusement park.","rdfs:label":"AmusementPark","rdfs:subClassOf":{"@id":"http://schema.org/EntertainmentBusiness"}},"properties":[]}

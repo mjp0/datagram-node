@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Volcano","@type":"rdfs:Class","rdfs:comment":"A volcano, like Fuji san.","rdfs:label":"Volcano","rdfs:subClassOf":{"@id":"http://schema.org/Landform"}},"properties":[]}

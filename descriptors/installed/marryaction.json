@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/MarryAction","@type":"rdfs:Class","rdfs:comment":"The act of marrying a person.","rdfs:label":"MarryAction","rdfs:subClassOf":{"@id":"http://schema.org/InteractAction"}},"properties":[]}

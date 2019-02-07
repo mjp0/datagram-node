@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Barcode","@type":"rdfs:Class","rdfs:comment":"An image of a visual machine-readable code such as a barcode or QR code.","rdfs:label":"Barcode","rdfs:subClassOf":{"@id":"http://schema.org/ImageObject"}},"properties":[]}

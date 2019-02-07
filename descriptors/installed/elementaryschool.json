@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ElementarySchool","@type":"rdfs:Class","rdfs:comment":"An elementary school.","rdfs:label":"ElementarySchool","rdfs:subClassOf":{"@id":"http://schema.org/EducationalOrganization"}},"properties":[]}

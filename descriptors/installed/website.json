@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/WebSite","@type":"rdfs:Class","rdfs:comment":"A WebSite is a set of related web pages and other items typically served from a single web domain and accessible via URLs.","rdfs:label":"WebSite","rdfs:subClassOf":{"@id":"http://schema.org/CreativeWork"}},"properties":[]}

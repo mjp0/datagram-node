@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/RoofingContractor","@type":"rdfs:Class","rdfs:comment":"A roofing contractor.","rdfs:label":"RoofingContractor","rdfs:subClassOf":{"@id":"http://schema.org/HomeAndConstructionBusiness"}},"properties":[]}

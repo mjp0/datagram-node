@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/GroceryStore","@type":"rdfs:Class","rdfs:comment":"A grocery store.","rdfs:label":"GroceryStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

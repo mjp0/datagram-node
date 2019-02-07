@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/AdministrativeArea","@type":"rdfs:Class","rdfs:comment":"A geographical region, typically under the jurisdiction of a particular government.","rdfs:label":"AdministrativeArea","rdfs:subClassOf":{"@id":"http://schema.org/Place"}},"properties":[]}

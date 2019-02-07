@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/IgnoreAction","@type":"rdfs:Class","rdfs:comment":"The act of intentionally disregarding the object. An agent ignores an object.","rdfs:label":"IgnoreAction","rdfs:subClassOf":{"@id":"http://schema.org/AssessAction"}},"properties":[]}

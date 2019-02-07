@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/BlogPosting","@type":"rdfs:Class","rdfs:comment":"A blog post.","rdfs:label":"BlogPosting","rdfs:subClassOf":{"@id":"http://schema.org/SocialMediaPosting"}},"properties":[]}

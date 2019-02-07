@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Painting","@type":"rdfs:Class","rdfs:comment":"A painting.","rdfs:label":"Painting","rdfs:subClassOf":{"@id":"http://schema.org/CreativeWork"}},"properties":[]}

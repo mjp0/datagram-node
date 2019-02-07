@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Brewery","@type":"rdfs:Class","rdfs:comment":"Brewery.","rdfs:label":"Brewery","rdfs:subClassOf":{"@id":"http://schema.org/FoodEstablishment"}},"properties":[]}

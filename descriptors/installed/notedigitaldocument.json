@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/NoteDigitalDocument","@type":"rdfs:Class","rdfs:comment":"A file containing a note, primarily for the author.","rdfs:label":"NoteDigitalDocument","rdfs:subClassOf":{"@id":"http://schema.org/DigitalDocument"}},"properties":[]}

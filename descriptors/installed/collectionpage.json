@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/CollectionPage","@type":"rdfs:Class","rdfs:comment":"Web page type: Collection page.","rdfs:label":"CollectionPage","rdfs:subClassOf":{"@id":"http://schema.org/WebPage"}},"properties":[]}

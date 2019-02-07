@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ViewAction","@type":"rdfs:Class","rdfs:comment":"The act of consuming static visual content.","rdfs:label":"ViewAction","rdfs:subClassOf":{"@id":"http://schema.org/ConsumeAction"}},"properties":[]}

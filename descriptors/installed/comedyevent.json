@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ComedyEvent","@type":"rdfs:Class","rdfs:comment":"Event type: Comedy event.","rdfs:label":"ComedyEvent","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/PostOffice","@type":"rdfs:Class","rdfs:comment":"A post office.","rdfs:label":"PostOffice","rdfs:subClassOf":{"@id":"http://schema.org/GovernmentOffice"}},"properties":[]}

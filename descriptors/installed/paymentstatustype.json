@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/PaymentStatusType","@type":"rdfs:Class","rdfs:comment":"A specific payment status. For example, PaymentDue, PaymentComplete, etc.","rdfs:label":"PaymentStatusType","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ElectronicsStore","@type":"rdfs:Class","rdfs:comment":"An electronics store.","rdfs:label":"ElectronicsStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

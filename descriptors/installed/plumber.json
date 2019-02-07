@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Plumber","@type":"rdfs:Class","rdfs:comment":"A plumbing service.","rdfs:label":"Plumber","rdfs:subClassOf":{"@id":"http://schema.org/HomeAndConstructionBusiness"}},"properties":[]}

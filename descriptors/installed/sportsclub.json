@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/SportsClub","@type":"rdfs:Class","rdfs:comment":"A sports club.","rdfs:label":"SportsClub","rdfs:subClassOf":{"@id":"http://schema.org/SportsActivityLocation"}},"properties":[]}

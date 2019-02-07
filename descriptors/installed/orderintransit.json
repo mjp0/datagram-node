@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/OrderInTransit","@type":"http://schema.org/OrderStatus","rdfs:comment":"OrderStatus representing that an order is in transit.","rdfs:label":"OrderInTransit"},"properties":[]}

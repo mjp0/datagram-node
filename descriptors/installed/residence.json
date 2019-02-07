@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Residence","@type":"rdfs:Class","rdfs:comment":"The place where a person lives.","rdfs:label":"Residence","rdfs:subClassOf":{"@id":"http://schema.org/Place"}},"properties":[]}

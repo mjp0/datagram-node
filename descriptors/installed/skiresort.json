@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/SkiResort","@type":"rdfs:Class","rdfs:comment":"A ski resort.","rdfs:label":"SkiResort","rdfs:subClassOf":{"@id":"http://schema.org/SportsActivityLocation"}},"properties":[]}

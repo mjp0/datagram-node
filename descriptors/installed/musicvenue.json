@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/MusicVenue","@type":"rdfs:Class","rdfs:comment":"A music venue.","rdfs:label":"MusicVenue","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

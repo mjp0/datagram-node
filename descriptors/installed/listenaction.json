@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ListenAction","@type":"rdfs:Class","rdfs:comment":"The act of consuming audio content.","rdfs:label":"ListenAction","rdfs:subClassOf":{"@id":"http://schema.org/ConsumeAction"}},"properties":[]}

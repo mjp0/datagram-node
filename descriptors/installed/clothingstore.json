@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ClothingStore","@type":"rdfs:Class","rdfs:comment":"A clothing store.","rdfs:label":"ClothingStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

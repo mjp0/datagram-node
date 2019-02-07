@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/TaxiStand","@type":"rdfs:Class","rdfs:comment":"A taxi stand.","rdfs:label":"TaxiStand","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

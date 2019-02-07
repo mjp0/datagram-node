@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/FinancialService","@type":"rdfs:Class","rdfs:comment":"Financial services business.","rdfs:label":"FinancialService","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

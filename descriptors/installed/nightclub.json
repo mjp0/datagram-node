@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/NightClub","@type":"rdfs:Class","rdfs:comment":"A nightclub or discotheque.","rdfs:label":"NightClub","rdfs:subClassOf":{"@id":"http://schema.org/EntertainmentBusiness"}},"properties":[]}

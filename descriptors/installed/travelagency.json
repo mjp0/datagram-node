@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/TravelAgency","@type":"rdfs:Class","rdfs:comment":"A travel agency.","rdfs:label":"TravelAgency","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

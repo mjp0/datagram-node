@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/AutoRental","@type":"rdfs:Class","rdfs:comment":"A car rental business.","rdfs:label":"AutoRental","rdfs:subClassOf":{"@id":"http://schema.org/AutomotiveBusiness"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/SpreadsheetDigitalDocument","@type":"rdfs:Class","rdfs:comment":"A spreadsheet file.","rdfs:label":"SpreadsheetDigitalDocument","rdfs:subClassOf":{"@id":"http://schema.org/DigitalDocument"}},"properties":[]}

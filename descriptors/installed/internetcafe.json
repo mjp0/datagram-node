@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/InternetCafe","@type":"rdfs:Class","rdfs:comment":"An internet cafe.","rdfs:label":"InternetCafe","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

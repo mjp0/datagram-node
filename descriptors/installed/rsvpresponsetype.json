@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/RsvpResponseType","@type":"rdfs:Class","rdfs:comment":"RsvpResponseType is an enumeration type whose instances represent responding to an RSVP request.","rdfs:label":"RsvpResponseType","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

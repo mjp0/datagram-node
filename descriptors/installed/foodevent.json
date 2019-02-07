@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/FoodEvent","@type":"rdfs:Class","rdfs:comment":"Event type: Food event.","rdfs:label":"FoodEvent","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

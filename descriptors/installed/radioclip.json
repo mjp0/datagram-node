@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/RadioClip","@type":"rdfs:Class","rdfs:comment":"A short radio program or a segment/part of a radio program.","rdfs:label":"RadioClip","rdfs:subClassOf":{"@id":"http://schema.org/Clip"}},"properties":[]}

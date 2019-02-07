@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/OrderDelivered","@type":"http://schema.org/OrderStatus","rdfs:comment":"OrderStatus representing successful delivery of an order.","rdfs:label":"OrderDelivered"},"properties":[]}

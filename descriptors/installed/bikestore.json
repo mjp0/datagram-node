@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/BikeStore","@type":"rdfs:Class","rdfs:comment":"A bike store.","rdfs:label":"BikeStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

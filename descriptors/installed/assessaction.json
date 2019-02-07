@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/AssessAction","@type":"rdfs:Class","rdfs:comment":"The act of forming one's opinion, reaction or sentiment.","rdfs:label":"AssessAction","rdfs:subClassOf":{"@id":"http://schema.org/Action"}},"properties":[]}

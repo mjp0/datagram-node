@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ProfilePage","@type":"rdfs:Class","rdfs:comment":"Web page type: Profile page.","rdfs:label":"ProfilePage","rdfs:subClassOf":{"@id":"http://schema.org/WebPage"}},"properties":[]}

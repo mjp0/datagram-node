@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/HomeGoodsStore","@type":"rdfs:Class","rdfs:comment":"A home goods store.","rdfs:label":"HomeGoodsStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

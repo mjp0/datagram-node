@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/PlaceOfWorship","@type":"rdfs:Class","rdfs:comment":"Place of worship, such as a church, synagogue, or mosque.","rdfs:label":"PlaceOfWorship","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/PerformingGroup","@type":"rdfs:Class","rdfs:comment":"A performance group, such as a band, an orchestra, or a circus.","rdfs:label":"PerformingGroup","rdfs:subClassOf":{"@id":"http://schema.org/Organization"}},"properties":[]}

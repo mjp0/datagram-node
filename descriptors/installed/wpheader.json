@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/WPHeader","@type":"rdfs:Class","rdfs:comment":"The header section of the page.","rdfs:label":"WPHeader","rdfs:subClassOf":{"@id":"http://schema.org/WebPageElement"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/OfficeEquipmentStore","@type":"rdfs:Class","rdfs:comment":"An office equipment store.","rdfs:label":"OfficeEquipmentStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/StadiumOrArena","@type":"rdfs:Class","rdfs:comment":"A stadium.","rdfs:label":"StadiumOrArena","rdfs:subClassOf":[{"@id":"http://schema.org/CivicStructure"},{"@id":"http://schema.org/SportsActivityLocation"}]},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ExerciseGym","@type":"rdfs:Class","rdfs:comment":"A gym.","rdfs:label":"ExerciseGym","rdfs:subClassOf":{"@id":"http://schema.org/SportsActivityLocation"}},"properties":[]}

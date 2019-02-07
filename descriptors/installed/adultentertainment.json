@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/AdultEntertainment","@type":"rdfs:Class","rdfs:comment":"An adult entertainment establishment.","rdfs:label":"AdultEntertainment","rdfs:subClassOf":{"@id":"http://schema.org/EntertainmentBusiness"}},"properties":[]}

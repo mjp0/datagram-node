@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/DiscussionForumPosting","@type":"rdfs:Class","rdfs:comment":"A posting to a discussion forum.","rdfs:label":"DiscussionForumPosting","rdfs:subClassOf":{"@id":"http://schema.org/SocialMediaPosting"}},"properties":[]}

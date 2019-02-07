@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Festival","@type":"rdfs:Class","rdfs:comment":"Event type: Festival.","rdfs:label":"Festival","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

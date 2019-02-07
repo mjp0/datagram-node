@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/TravelAction","@type":"rdfs:Class","rdfs:comment":"The act of traveling from an fromLocation to a destination by a specified mode of transport, optionally with participants.","rdfs:label":"TravelAction","rdfs:subClassOf":{"@id":"http://schema.org/MoveAction"}},"properties":[]}

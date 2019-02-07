@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/HinduTemple","@type":"rdfs:Class","rdfs:comment":"A Hindu temple.","rdfs:label":"HinduTemple","rdfs:subClassOf":{"@id":"http://schema.org/PlaceOfWorship"}},"properties":[]}

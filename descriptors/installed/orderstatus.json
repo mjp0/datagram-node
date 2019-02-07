@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/OrderStatus","@type":"rdfs:Class","rdfs:comment":"Enumerated status values for Order.","rdfs:label":"OrderStatus","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

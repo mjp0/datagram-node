@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Park","@type":"rdfs:Class","rdfs:comment":"A park.","rdfs:label":"Park","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

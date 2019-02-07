@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/LandmarksOrHistoricalBuildings","@type":"rdfs:Class","rdfs:comment":"An historical landmark or building.","rdfs:label":"LandmarksOrHistoricalBuildings","rdfs:subClassOf":{"@id":"http://schema.org/Place"}},"properties":[]}

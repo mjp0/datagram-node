@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/DownloadAction","@type":"rdfs:Class","rdfs:comment":"The act of downloading an object.","rdfs:label":"DownloadAction","rdfs:subClassOf":{"@id":"http://schema.org/TransferAction"}},"properties":[]}

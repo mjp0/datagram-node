@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/EventStatusType","@type":"rdfs:Class","rdfs:comment":"EventStatusType is an enumeration type whose instances represent several states that an Event may be in.","rdfs:label":"EventStatusType","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

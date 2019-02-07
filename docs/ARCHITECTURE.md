@@ -4,7 +4,7 @@ Datagram consists of three parts:
 
 - Datagram API layer
 - Hypervisor
-- Cores
+- Streams
 
 ## Datagram API layer
 
@@ -14,9 +14,9 @@ The API layer is a set of easy-to-use functions to help with common tasks like c
 
 Hypervisor is a variable-type core management engine that keeps track of all cores and provides tools to replicate all attached cores with others over peer-to-peer connections.
 
-## Cores
+## Streams
 
-Cores are essentially one or more data objects. These data objects are collected into a data array that you can read and replicate between computers. To make the data array so secure that it can be replicated, the data array is append-only. This means that you can add but you can't delete. Instead of deleting, Datagram can forget and update data. If all parties who have replicated a specific datagram deletes the same local data, that data becomes forgotten and can't be retrieved again. Updates are issued by adding updated version of the data to the array. Old version can be either forgotten or kept for potential revisions.
+Streams are essentially one or more data objects. These data objects are collected into a data array that you can read and replicate between computers. To make the data array so secure that it can be replicated, the data array is append-only. This means that you can add but you can't delete. Instead of deleting, Datagram can forget and update data. If all parties who have replicated a specific datagram deletes the same local data, that data becomes forgotten and can't be retrieved again. Updates are issued by adding updated version of the data to the array. Old version can be either forgotten or kept for potential revisions.
 
 Working with a construct like append-only data array can be challenging. For example, when you store a big data file, it should be stored in small chunks so it can be streamed or downloaded in parallel. Chunking up the data is not particulary challenging but when you append it to a data array that already has a bunch of other binary chunks you will have trouble knowing where one file ends and the next one starts. To make data array usable, we need a way to create an index of the data array that tells us what data objects are in the array and where exactly do we find them.
 

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/GatedResidenceCommunity","@type":"rdfs:Class","rdfs:comment":"Residence type: Gated community.","rdfs:label":"GatedResidenceCommunity","rdfs:subClassOf":{"@id":"http://schema.org/Residence"}},"properties":[]}

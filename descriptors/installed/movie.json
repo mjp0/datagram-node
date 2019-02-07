@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Movie","@type":"rdfs:Class","rdfs:comment":"A movie.","rdfs:label":"Movie","rdfs:subClassOf":{"@id":"http://schema.org/CreativeWork"}},"properties":[]}

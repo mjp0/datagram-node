@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/SingleFamilyResidence","@type":"rdfs:Class","rdfs:comment":"Residence type: Single-family home.","rdfs:label":"SingleFamilyResidence","rdfs:subClassOf":{"@id":"http://schema.org/House"}},"properties":[]}

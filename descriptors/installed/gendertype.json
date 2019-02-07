@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/GenderType","@type":"rdfs:Class","rdfs:comment":"An enumeration of genders.","rdfs:label":"GenderType","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

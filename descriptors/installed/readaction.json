@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ReadAction","@type":"rdfs:Class","rdfs:comment":"The act of consuming written content.","rdfs:label":"ReadAction","rdfs:subClassOf":{"@id":"http://schema.org/ConsumeAction"}},"properties":[]}

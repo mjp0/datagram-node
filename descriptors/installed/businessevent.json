@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/BusinessEvent","@type":"rdfs:Class","rdfs:comment":"Event type: Business event.","rdfs:label":"BusinessEvent","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

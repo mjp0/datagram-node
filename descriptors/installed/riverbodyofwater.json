@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/RiverBodyOfWater","@type":"rdfs:Class","rdfs:comment":"A river (for example, the broad majestic Shannon).","rdfs:label":"RiverBodyOfWater","rdfs:subClassOf":{"@id":"http://schema.org/BodyOfWater"}},"properties":[]}

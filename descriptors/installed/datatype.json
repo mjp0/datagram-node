@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/DataType","@type":"rdfs:Class","rdfs:comment":"The basic data types such as Integers, Strings, etc.","rdfs:label":"DataType","rdfs:subClassOf":{"@id":"rdfs:Class"}},"properties":[]}

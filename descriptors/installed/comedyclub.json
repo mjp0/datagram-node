@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ComedyClub","@type":"rdfs:Class","rdfs:comment":"A comedy club.","rdfs:label":"ComedyClub","rdfs:subClassOf":{"@id":"http://schema.org/EntertainmentBusiness"}},"properties":[]}

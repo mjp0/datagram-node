@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/SocialEvent","@type":"rdfs:Class","rdfs:comment":"Event type: Social event.","rdfs:label":"SocialEvent","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

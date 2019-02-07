@@ -1,7 +1,8 @@
-const debug = require('./debug')(__filename)
+const { log } = require('./debug')(__filename)
 const raf = require('random-access-file')
 const ram = require('random-access-memory')
 const path = require('path')
+const home = require('home')
 
 // TODO: what if the new data is shorter than the old data? things will break!
 exports.writeStringToStorage = function(string, storage, cb) {
@@ -13,7 +14,7 @@ exports.readStringFromStorage = function(storage, cb) {
   // This is here due some weird API inconsistences with raf and ram
   if (!storage.stat) {
     storage.stat = function(callback) {
-      callback(callback, null, { size: this.length })
+      callback(null, { size: this.length })
     }
   }
   storage.stat(function(err, stat) {
@@ -34,11 +35,17 @@ exports._open_storage = function(dir, storage) {
     name = name || '.datagram'
     if (typeof storage === 'string') {
       const fname = path.join(storage, dir, name)
-      debug('Opening FS storage', fname)
+      log('Opening FS storage', fname)
       return raf(fname)
     } else {
-      debug('Opening RAM storage', name)
+      log('Opening RAM storage', name)
       return s(dir + '/' + name)
     }
   }
+}
+
+exports.defaultStorage = (path, dir) => {
+  const base = path || `${home()}/.datagram/}`
+  const d = Buffer.isBuffer(dir) ? dir.toString('hex') : dir
+  return exports._open_storage(d, base)
 }

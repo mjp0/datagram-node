@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/HairSalon","@type":"rdfs:Class","rdfs:comment":"A hair salon.","rdfs:label":"HairSalon","rdfs:subClassOf":{"@id":"http://schema.org/HealthAndBeautyBusiness"}},"properties":[]}

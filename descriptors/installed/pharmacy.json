@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Pharmacy","@type":"rdfs:Class","rdfs:comment":"A pharmacy or drugstore.","rdfs:label":"Pharmacy","rdfs:subClassOf":{"@id":"http://schema.org/MedicalOrganization"}},"properties":[]}

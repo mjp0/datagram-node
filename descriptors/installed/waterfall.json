@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Waterfall","@type":"rdfs:Class","rdfs:comment":"A waterfall, like Niagara.","rdfs:label":"Waterfall","rdfs:subClassOf":{"@id":"http://schema.org/BodyOfWater"}},"properties":[]}

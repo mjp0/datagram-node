@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ShoppingCenter","@type":"rdfs:Class","rdfs:comment":"A shopping center or mall.","rdfs:label":"ShoppingCenter","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

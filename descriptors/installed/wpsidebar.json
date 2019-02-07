@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/WPSideBar","@type":"rdfs:Class","rdfs:comment":"A sidebar section of the page.","rdfs:label":"WPSideBar","rdfs:subClassOf":{"@id":"http://schema.org/WebPageElement"}},"properties":[]}

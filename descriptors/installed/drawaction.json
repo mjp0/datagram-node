@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/DrawAction","@type":"rdfs:Class","rdfs:comment":"The act of producing a visual/graphical representation of an object, typically with a pen/pencil and paper as instruments.","rdfs:label":"DrawAction","rdfs:subClassOf":{"@id":"http://schema.org/CreateAction"}},"properties":[]}

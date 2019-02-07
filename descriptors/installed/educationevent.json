@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/EducationEvent","@type":"rdfs:Class","rdfs:comment":"Event type: Education event.","rdfs:label":"EducationEvent","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

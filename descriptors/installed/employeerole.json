@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/EmployeeRole","@type":"rdfs:Class","rdfs:comment":"A subclass of OrganizationRole used to describe employee relationships.","rdfs:label":"EmployeeRole","rdfs:subClassOf":{"@id":"http://schema.org/OrganizationRole"}},"properties":[]}

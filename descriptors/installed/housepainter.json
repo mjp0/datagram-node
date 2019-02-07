@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/HousePainter","@type":"rdfs:Class","rdfs:comment":"A house painting service.","rdfs:label":"HousePainter","rdfs:subClassOf":{"@id":"http://schema.org/HomeAndConstructionBusiness"}},"properties":[]}

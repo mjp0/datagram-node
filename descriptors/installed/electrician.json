@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Electrician","@type":"rdfs:Class","rdfs:comment":"An electrician.","rdfs:label":"Electrician","rdfs:subClassOf":{"@id":"http://schema.org/HomeAndConstructionBusiness"}},"properties":[]}

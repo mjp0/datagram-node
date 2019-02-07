@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/FoodService","@type":"rdfs:Class","http://purl.org/dc/terms/source":{"@id":"https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology"},"rdfs:comment":"A food service, like breakfast, lunch, or dinner.","rdfs:label":"FoodService","rdfs:subClassOf":{"@id":"http://schema.org/Service"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/FastFoodRestaurant","@type":"rdfs:Class","rdfs:comment":"A fast-food restaurant.","rdfs:label":"FastFoodRestaurant","rdfs:subClassOf":{"@id":"http://schema.org/FoodEstablishment"}},"properties":[]}

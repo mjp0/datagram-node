@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/SearchResultsPage","@type":"rdfs:Class","rdfs:comment":"Web page type: Search results page.","rdfs:label":"SearchResultsPage","rdfs:subClassOf":{"@id":"http://schema.org/WebPage"}},"properties":[]}

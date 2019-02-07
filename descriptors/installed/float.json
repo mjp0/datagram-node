@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Float","@type":"rdfs:Class","rdfs:comment":"Data type: Floating number.","rdfs:label":"Float","rdfs:subClassOf":{"@id":"http://schema.org/Number"}},"properties":[]}

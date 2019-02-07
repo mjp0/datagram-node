@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Courthouse","@type":"rdfs:Class","rdfs:comment":"A courthouse.","rdfs:label":"Courthouse","rdfs:subClassOf":{"@id":"http://schema.org/GovernmentBuilding"}},"properties":[]}

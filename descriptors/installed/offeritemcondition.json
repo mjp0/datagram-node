@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/OfferItemCondition","@type":"rdfs:Class","rdfs:comment":"A list of possible conditions for the item.","rdfs:label":"OfferItemCondition","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

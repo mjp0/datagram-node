@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/AutoPartsStore","@type":"rdfs:Class","rdfs:comment":"An auto parts store.","rdfs:label":"AutoPartsStore","rdfs:subClassOf":[{"@id":"http://schema.org/AutomotiveBusiness"},{"@id":"http://schema.org/Store"}]},"properties":[]}

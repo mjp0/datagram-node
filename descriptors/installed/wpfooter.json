@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/WPFooter","@type":"rdfs:Class","rdfs:comment":"The footer section of the page.","rdfs:label":"WPFooter","rdfs:subClassOf":{"@id":"http://schema.org/WebPageElement"}},"properties":[]}

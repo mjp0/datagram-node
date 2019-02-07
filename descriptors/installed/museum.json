@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Museum","@type":"rdfs:Class","rdfs:comment":"A museum.","rdfs:label":"Museum","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

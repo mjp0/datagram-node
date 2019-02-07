@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/GovernmentBuilding","@type":"rdfs:Class","rdfs:comment":"A government building.","rdfs:label":"GovernmentBuilding","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

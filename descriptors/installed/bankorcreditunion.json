@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/BankOrCreditUnion","@type":"rdfs:Class","rdfs:comment":"Bank or credit union.","rdfs:label":"BankOrCreditUnion","rdfs:subClassOf":{"@id":"http://schema.org/FinancialService"}},"properties":[]}

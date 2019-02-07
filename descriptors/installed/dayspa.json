@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/DaySpa","@type":"rdfs:Class","rdfs:comment":"A day spa.","rdfs:label":"DaySpa","rdfs:subClassOf":{"@id":"http://schema.org/HealthAndBeautyBusiness"}},"properties":[]}

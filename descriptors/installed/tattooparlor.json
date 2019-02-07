@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/TattooParlor","@type":"rdfs:Class","rdfs:comment":"A tattoo parlor.","rdfs:label":"TattooParlor","rdfs:subClassOf":{"@id":"http://schema.org/HealthAndBeautyBusiness"}},"properties":[]}

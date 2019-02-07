@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/GameServerStatus","@type":"rdfs:Class","rdfs:comment":"Status of a game server.","rdfs:label":"GameServerStatus","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

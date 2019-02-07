@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/TennisComplex","@type":"rdfs:Class","rdfs:comment":"A tennis complex.","rdfs:label":"TennisComplex","rdfs:subClassOf":{"@id":"http://schema.org/SportsActivityLocation"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/TipAction","@type":"rdfs:Class","rdfs:comment":"The act of giving money voluntarily to a beneficiary in recognition of services rendered.","rdfs:label":"TipAction","rdfs:subClassOf":{"@id":"http://schema.org/TradeAction"}},"properties":[]}

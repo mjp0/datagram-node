@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/AssignAction","@type":"rdfs:Class","rdfs:comment":"The act of allocating an action/event/task to some destination (someone or something).","rdfs:label":"AssignAction","rdfs:subClassOf":{"@id":"http://schema.org/AllocateAction"}},"properties":[]}

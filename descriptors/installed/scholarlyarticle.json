@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ScholarlyArticle","@type":"rdfs:Class","rdfs:comment":"A scholarly article.","rdfs:label":"ScholarlyArticle","rdfs:subClassOf":{"@id":"http://schema.org/Article"}},"properties":[]}

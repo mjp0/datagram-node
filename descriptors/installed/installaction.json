@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/InstallAction","@type":"rdfs:Class","rdfs:comment":"The act of installing an application.","rdfs:label":"InstallAction","rdfs:subClassOf":{"@id":"http://schema.org/ConsumeAction"}},"properties":[]}

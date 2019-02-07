@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/WebPageElement","@type":"rdfs:Class","rdfs:comment":"A web page element, like a table or an image.","rdfs:label":"WebPageElement","rdfs:subClassOf":{"@id":"http://schema.org/CreativeWork"}},"properties":[]}

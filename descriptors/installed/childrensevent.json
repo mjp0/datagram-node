@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ChildrensEvent","@type":"rdfs:Class","rdfs:comment":"Event type: Children's event.","rdfs:label":"ChildrensEvent","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

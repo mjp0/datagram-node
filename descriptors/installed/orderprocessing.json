@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/OrderProcessing","@type":"http://schema.org/OrderStatus","rdfs:comment":"OrderStatus representing that an order is being processed.","rdfs:label":"OrderProcessing"},"properties":[]}

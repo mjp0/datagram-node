@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Florist","@type":"rdfs:Class","rdfs:comment":"A florist.","rdfs:label":"Florist","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

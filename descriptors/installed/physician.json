@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Physician","@type":"rdfs:Class","rdfs:comment":"A doctor's office.","rdfs:label":"Physician","rdfs:subClassOf":{"@id":"http://schema.org/MedicalOrganization"}},"properties":[]}

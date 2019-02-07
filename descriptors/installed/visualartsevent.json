@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/VisualArtsEvent","@type":"rdfs:Class","rdfs:comment":"Event type: Visual arts event.","rdfs:label":"VisualArtsEvent","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/NGO","@type":"rdfs:Class","rdfs:comment":"Organization: Non-governmental Organization.","rdfs:label":"NGO","rdfs:subClassOf":{"@id":"http://schema.org/Organization"}},"properties":[]}

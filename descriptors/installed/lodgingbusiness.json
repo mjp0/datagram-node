@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/LodgingBusiness","@type":"rdfs:Class","rdfs:comment":"A lodging business, such as a motel, hotel, or inn.","rdfs:label":"LodgingBusiness","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

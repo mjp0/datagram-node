@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/TheaterEvent","@type":"rdfs:Class","rdfs:comment":"Event type: Theater performance.","rdfs:label":"TheaterEvent","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

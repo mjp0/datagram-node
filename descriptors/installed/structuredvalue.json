@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/StructuredValue","@type":"rdfs:Class","rdfs:comment":"Structured values are used when the value of a property has a more complex structure than simply being a textual value or a reference to another thing.","rdfs:label":"StructuredValue","rdfs:subClassOf":{"@id":"http://schema.org/Intangible"}},"properties":[]}

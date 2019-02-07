@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/MovieSeries","@type":"rdfs:Class","rdfs:comment":"A series of movies. Included movies can be indicated with the hasPart property.","rdfs:label":"MovieSeries","rdfs:subClassOf":{"@id":"http://schema.org/CreativeWorkSeries"}},"properties":[]}

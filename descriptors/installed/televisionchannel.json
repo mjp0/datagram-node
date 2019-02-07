@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/TelevisionChannel","@type":"rdfs:Class","rdfs:comment":"A unique instance of a television BroadcastService on a CableOrSatelliteService lineup.","rdfs:label":"TelevisionChannel","rdfs:subClassOf":{"@id":"http://schema.org/BroadcastChannel"}},"properties":[]}

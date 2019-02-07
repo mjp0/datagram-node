@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/GovernmentOffice","@type":"rdfs:Class","rdfs:comment":"A government office&#x2014;for example, an IRS or DMV office.","rdfs:label":"GovernmentOffice","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

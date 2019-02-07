@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Library","@type":"rdfs:Class","rdfs:comment":"A library.","rdfs:label":"Library","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

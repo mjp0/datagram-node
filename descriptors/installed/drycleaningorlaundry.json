@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/DryCleaningOrLaundry","@type":"rdfs:Class","rdfs:comment":"A dry-cleaning business.","rdfs:label":"DryCleaningOrLaundry","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

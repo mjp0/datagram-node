@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Season","@type":"rdfs:Class","http://schema.org/supersededBy":{"@id":"http://schema.org/CreativeWorkSeason"},"rdfs:comment":"A media season e.g. tv, radio, video game etc.","rdfs:label":"Season","rdfs:subClassOf":{"@id":"http://schema.org/CreativeWork"}},"properties":[]}

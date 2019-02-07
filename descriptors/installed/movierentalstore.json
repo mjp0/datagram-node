@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/MovieRentalStore","@type":"rdfs:Class","rdfs:comment":"A movie rental store.","rdfs:label":"MovieRentalStore","rdfs:subClassOf":{"@id":"http://schema.org/Store"}},"properties":[]}

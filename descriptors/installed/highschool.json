@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/HighSchool","@type":"rdfs:Class","rdfs:comment":"A high school.","rdfs:label":"HighSchool","rdfs:subClassOf":{"@id":"http://schema.org/EducationalOrganization"}},"properties":[]}

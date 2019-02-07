@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/InStoreOnly","@type":"http://schema.org/ItemAvailability","rdfs:comment":"Indicates that the item is available only at physical locations.","rdfs:label":"InStoreOnly"},"properties":[]}

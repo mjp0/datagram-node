@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/HVACBusiness","@type":"rdfs:Class","rdfs:comment":"A business that provide Heating, Ventilation and Air Conditioning services.","rdfs:label":"HVACBusiness","rdfs:subClassOf":{"@id":"http://schema.org/HomeAndConstructionBusiness"}},"properties":[]}

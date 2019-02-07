@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/DeleteAction","@type":"rdfs:Class","rdfs:comment":"The act of editing a recipient by removing one of its objects.","rdfs:label":"DeleteAction","rdfs:subClassOf":{"@id":"http://schema.org/UpdateAction"}},"properties":[]}

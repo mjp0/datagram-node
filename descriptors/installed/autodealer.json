@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/AutoDealer","@type":"rdfs:Class","rdfs:comment":"An car dealership.","rdfs:label":"AutoDealer","rdfs:subClassOf":{"@id":"http://schema.org/AutomotiveBusiness"}},"properties":[]}

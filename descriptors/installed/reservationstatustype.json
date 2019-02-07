@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ReservationStatusType","@type":"rdfs:Class","rdfs:comment":"Enumerated status values for Reservation.","rdfs:label":"ReservationStatusType","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

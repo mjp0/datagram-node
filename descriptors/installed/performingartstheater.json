@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/PerformingArtsTheater","@type":"rdfs:Class","rdfs:comment":"A theater or other performing art center.","rdfs:label":"PerformingArtsTheater","rdfs:subClassOf":{"@id":"http://schema.org/CivicStructure"}},"properties":[]}

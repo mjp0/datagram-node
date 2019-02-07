@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ExhibitionEvent","@type":"rdfs:Class","rdfs:comment":"Event type: Exhibition event, e.g. at a museum, library, archive, tradeshow, ...","rdfs:label":"ExhibitionEvent","rdfs:subClassOf":{"@id":"http://schema.org/Event"}},"properties":[]}

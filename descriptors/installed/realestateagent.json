@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/RealEstateAgent","@type":"rdfs:Class","rdfs:comment":"A real-estate agent.","rdfs:label":"RealEstateAgent","rdfs:subClassOf":{"@id":"http://schema.org/LocalBusiness"}},"properties":[]}

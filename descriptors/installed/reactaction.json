@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/ReactAction","@type":"rdfs:Class","rdfs:comment":"The act of responding instinctively and emotionally to an object, expressing a sentiment.","rdfs:label":"ReactAction","rdfs:subClassOf":{"@id":"http://schema.org/AssessAction"}},"properties":[]}

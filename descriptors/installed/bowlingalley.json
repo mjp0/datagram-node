@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/BowlingAlley","@type":"rdfs:Class","rdfs:comment":"A bowling alley.","rdfs:label":"BowlingAlley","rdfs:subClassOf":{"@id":"http://schema.org/SportsActivityLocation"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/BoardingPolicyType","@type":"rdfs:Class","rdfs:comment":"A type of boarding policy used by an airline.","rdfs:label":"BoardingPolicyType","rdfs:subClassOf":{"@id":"http://schema.org/Enumeration"}},"properties":[]}

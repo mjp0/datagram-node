@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Quantity","@type":"rdfs:Class","rdfs:comment":"Quantities such as distance, time, mass, weight, etc. Particular instances of say Mass are entities like '3 Kg' or '4 milligrams'.","rdfs:label":"Quantity","rdfs:subClassOf":{"@id":"http://schema.org/Intangible"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/TextDigitalDocument","@type":"rdfs:Class","rdfs:comment":"A file composed primarily of text.","rdfs:label":"TextDigitalDocument","rdfs:subClassOf":{"@id":"http://schema.org/DigitalDocument"}},"properties":[]}

@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/Hospital","@type":"rdfs:Class","rdfs:comment":"A hospital.","rdfs:label":"Hospital","rdfs:subClassOf":[{"@id":"http://schema.org/EmergencyService"},{"@id":"http://schema.org/MedicalOrganization"},{"@id":"http://schema.org/CivicStructure"}]},"properties":[]}

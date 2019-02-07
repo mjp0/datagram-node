@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/MenuItem","@type":"rdfs:Class","rdfs:comment":"A food or drink item listed in a menu or menu section.","rdfs:label":"MenuItem","rdfs:subClassOf":{"@id":"http://schema.org/Intangible"}},"properties":[]}

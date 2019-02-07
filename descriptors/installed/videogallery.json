@@ -1,1 +1,0 @@
-{"context":{"@id":"http://schema.org/VideoGallery","@type":"rdfs:Class","rdfs:comment":"Web page type: Video gallery page.","rdfs:label":"VideoGallery","rdfs:subClassOf":{"@id":"http://schema.org/CollectionPage"}},"properties":[]}
