@@ -1,16 +1,14 @@
-# The Story of One Datagram
+# Datagram API tutorial
 
-Let me demonstrate you a system that can stream and send any data to anyone else on the internet without anybody in the middle storing and recording everything you do in the hopes of selling that information to other companies. Remember that everything you are about to see is working but still not yet officially ready to be used. I also want to emphasize that this project is ideologically neutral meaning that we are not here to attack "the centralized web" or something in those lines - we are here to build free and open-source implementations of what people like to do online. But before we get to the implementations, first we need to build a system called Datagram to facilitate a decentralized and distributed way of discovering and connecting each other over the internet.
+> Note that until we reach 1.0 this is work-in-progress
 
-What you are about to read is an introduction to Datagram with technical examples of how it works. If you don't know what API is, or you can't understand javascript at all, this post will be challenging because I'm going to write code and I expect you to understand what it does. If that's not a problem, I suggest we begin.
+A quick word about code conventions used. The API for Datagram was designed to be super simple and fast to use but still, offer advanced features to those who need them.
 
-The biggest issue with the internet right now is that it doesn't have any free, open and decentralized discovery mechanisms. Unless you and your friend tell each other your IP addresses over the phone, you won't be able to send anything to each other over the internet because your computer won't know how to reach your friend. At the moment, humans have elected Facebook to be the one giant discovery mechanism for all the people. Humans use mostly Google to discover websites based on their search phrase. Both of those companies are essentially an enormous database that their site uses when you use their app or website. You give them data, and they make sure your friends can find and see it. One corporation deciding who can and can't be found is not what we want or what the previous generations have fought for. We have all the technologies needed to build a better one, so I did. All Datagrams use this discovery mechanism which is open and permissionless. With this discovery mechanism, nobody controls what you can publish and who & what you can discover on the internet.
+For this reason, all function arguments in Datagram are objects. Objects are the only way we can expand arguments if needed without having to modify the function arguments and forcing developers to rewrite their code with every update.
 
-The next important improvement area on the Internet as of today is that the infrastructure internet sits upon is run by corporations who offer services mainly to other businesses. There is undoubtedly a need for highly secure data centers and for the services they provide, but we need an alternative way to put data available to the internet. Just like with discovery, we already have technologies to do this. So each Datagram was designed to have the capability to download, upload or host data. If you have any device ranging from an old smartphone to a home server, you can host your own data for free with one line of code. If you want, you can even rent your excess bandwidth and devices to other people who want to buy hosting from you.
+Each function accepts required arguments, optional settings and a callback function to call when done. Each function looks like this: `function(arguments, [options], callback)`.
 
-All this sounds great but seeing how it works is even better.
-
-> A quick word about code conventions used. The API for Datagram was designed to be super simple and fast to use but still, offer advanced features to those who need them. For this reason, all function arguments in Datagram are objects. Objects are the only way we can expand arguments if needed without having to modify the function arguments and forcing developers to rewrite their code with every update. Each function accepts required arguments, optional settings and a callback function to call when done. Even though functions have apparent callback support, all API functions also support both async/await and Promises.
+> Even though functions have apparent callback support, **all API functions also support both async/await and Promises**.
 
 ## Let's get started
 

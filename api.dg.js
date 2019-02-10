@@ -21,6 +21,14 @@ const API = {
       })
     }
   },
+  getCredentials: (DG) => {
+    return async (callback) => {
+      return new Promise(async (resolve, reject) => {
+        const { done } = promcall(resolve, reject, callback)
+        done(DG.credentials)
+      })
+    }
+  },
   build: (template) => {
     // uses template to build container and stream set
   },

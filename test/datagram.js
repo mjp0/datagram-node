@@ -23,3 +23,10 @@ test('datagram/storage', async (test_done) => {
 
   test_done()
 })
+
+test('datagram/utility methods', async () => {
+  const DG = new Datagram()
+  await DG.ready()
+  const credentials = await DG.getCredentials()
+  expect(credentials).toEqual(DG.credentials)
+})
