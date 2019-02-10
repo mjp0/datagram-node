@@ -174,25 +174,6 @@ const cyberpunk_2077_post = await DG.open({ sharelink })
 // cyberpunk_2077_post -> { type: "post",  }
 ```
 
-## Have something to say?
+## Questions or comments?
 
-I designed Datagram because I wanted to show that it's possible but the way I figured out how to do it might not be the best. So if you have an idea how to make something better, or you want to help me do it, please come to machian.com/discussion to have a voice. You can also find me on Twitter under the imagitive username @markopolojarvi.
-
-Seriously, if you know programming, design, user interfaces, hardware, or you have any other skill that you can think could bring something to the datagram project, come and join the discussion!
-
-## Acknowledgements
-
-First acknowledgements has to go to van Neumann and Turing. Without those guys non of the tech we have non would exist.
-
-Then acknowledgements goes to all the people working on innovative, ideology agnostic tech projects that make decentralizated software like Datagram possible. The following people have open-sourced a lot of code over the years that have been super helpful in making Datagram:
-- Mathias Buus
-- Stephen Whitmore
-- Paul Frazee
-- Benjamin Forster
-- Martin Heidegger
-- Lars-Magnus Skog
-- Alexander Cobleigh
-- Tony Ivanov
-
-## Contact details
-www: datagramjs.com | twitter: @machianists | repo: github.com/machinists/datagram-node
+If you have any questions regarding API, don't hesitate to [raise an issue](https://github.com/machianists/datagram-node/issues) or ask [Marko Polojärvi](https://twitter.com/markopolojarvi).
