@@ -1,51 +1,85 @@
-const sodium = require('sodium-universal')
+const promcall = require('promised-callback').default
+const CDR = require('cryptodoneright').default
 
-const CONTEXT = Buffer.from('datagramv1') // dappdb v1
-
-exports.blake2b = function(str) {
-  const digest = Buffer.alloc(32)
-  sodium.crypto_generichash(digest, Buffer.from(str))
-  return digest
+exports.deriveKeyPair = async (args = { master_key: null }, callback) => {
+  return new Promise(async (resolve, reject) => {
+    const { done, error } = promcall(resolve, reject, callback)
+    try {
+      const secret_key = await CDR.hash(args.master_key)
+      const key_pair = await CDR.generate_keys(secret_key)
+      const keys = {
+        key: key_pair.public,
+        secret: key_pair.private,
+      }
+      done(keys)
+    } catch (e) {
+      error(e)
+    }
+  })
 }
 
-exports.deriveKeyPairSync = (master_key) => {
-  const seed = Buffer.alloc(sodium.crypto_sign_SEEDBYTES)
-  const key_pair = {
-    publicKey: Buffer.alloc(sodium.crypto_sign_PUBLICKEYBYTES),
-    secretKey: Buffer.alloc(sodium.crypto_sign_SECRETKEYBYTES),
-  }
+exports.createKeyPair = async (callback) => {
+  return new Promise(async (resolve, reject) => {
+    const { done, error } = promcall(resolve, reject, callback)
+    try {
+      const key_pair = await CDR.generate_keys().catch(error)
 
-  const secret_key = exports.blake2b(master_key)
-  sodium.crypto_kdf_derive_from_key(seed, 1, CONTEXT, secret_key)
-  sodium.crypto_sign_seed_keypair(key_pair.publicKey, key_pair.secretKey, seed)
-  seed.fill(0)
+      const keys = {
+        key: key_pair.public,
+        secret: key_pair.private,
+      }
 
-  const keys = {
-    key: key_pair.publicKey,
-    secret: key_pair.secretKey,
-  }
-
-  return keys
+      done(keys)
+    } catch (e) {
+      error(e)
+    }
+  })
 }
 
-exports.createKeyPairSync = () => {
-  const key_pair = {
-    publicKey: Buffer.alloc(sodium.crypto_sign_PUBLICKEYBYTES),
-    secretKey: Buffer.alloc(sodium.crypto_sign_SECRETKEYBYTES),
-  }
+exports.generatePassword = async (args = { len: 32 }, callback) => {
+  return new Promise(async (resolve, reject) => {
+    const { done, error } = promcall(resolve, reject, callback)
 
-  sodium.crypto_sign_keypair(key_pair.publicKey, key_pair.secretKey)
-
-  const keys = {
-    key: key_pair.publicKey,
-    secret: key_pair.secretKey,
-  }
-
-  return keys
+    try {
+      const password = await CDR.generate_random_string(args.len)
+      done(password.slice(0, args.len))
+    } catch (e) {
+      error(e)
+    }
+  })
 }
 
-exports.generatePasswordSync = (len = 32) => {
-  const password = Buffer.alloc(len + 10)
-  sodium.randombytes_buf(password)
-  return password.slice(0, len)
+exports.encryptData = async (args = { data: null, key: null }, callback) => {
+  return new Promise(async (resolve, reject) => {
+    const { done, error } = promcall(resolve, reject, callback)
+    args.key = await CDR.hash(args.key).catch(error)
+    const edata = await CDR.encrypt_data_with_key(args.key, args.data).catch(error)
+    done(edata)
+  })
+}
+
+exports.decryptData = async (args = { data: null, key: null, nonce: null }, callback) => {
+  return new Promise(async (resolve, reject) => {
+    const { done, error } = promcall(resolve, reject, callback)
+    args.key = await CDR.hash(args.key).catch(error)
+    args.key += `|${args.nonce}`
+    const edata = await CDR.decrypt_data(args.data, args.key).catch(error)
+    done(edata)
+  })
+}
+
+exports.securePassword = async (args = { password: null }, callback) => {
+  return new Promise(async (resolve, reject) => {
+    const { done, error } = promcall(resolve, reject, callback)
+    const hashed_pass = await CDR.secure_password(args.password).catch(error)
+    done(hashed_pass)
+  })
+}
+
+exports.hash = async (args = { str: null }, callback) => {
+  return new Promise(async (resolve, reject) => {
+    const { done, error } = promcall(resolve, reject, callback)
+    const hash = await CDR.hash(args.str).catch(error)
+    done(hash)
+  })
 }

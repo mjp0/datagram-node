@@ -28,6 +28,23 @@ exports.readStringFromStorage = function(storage, cb) {
   })
 }
 
+exports.readFromStorage = (storage, cb) => {
+  // This is here due some weird API inconsistences with raf and ram
+  if (!storage.stat) {
+    storage.stat = function (callback) {
+      callback(null, { size: this.length })
+    }
+  }
+  storage.stat(function (err, stat) {
+    if (err) return cb(err)
+    const len = stat.size
+    storage.read(0, len, function (err, buf) {
+      if (err) return cb(err)
+      cb(null, buf)
+    })
+  })
+}
+
 exports._open_storage = function(dir, storage) {
   return function(name) {
     // If no storage was provided, use RAM

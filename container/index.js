@@ -1,18 +1,16 @@
 const raf = require('random-access-file')
 const path = require('path')
-const events = require('events')
-const inherits = require('inherits')
 const readyify = require('../utils/ready')
 const mutexify = require('mutexify')
-const debug = require('../utils/debug')(__filename)
+const { log } = require('../utils/debug')(__filename)
 const hypercore = require('hypercore')
 const { replicate } = require('./replicate')
-const { deriveKeyPair } = require('../utils/crypto')
+const { deriveKeyPairSync } = require('../utils/crypto')
 const waterfall = require('async/waterfall')
 const home = require('home')
 const core_definitions = require('../definitions/cores')
 const container_definitions = require('../definitions/containers')
-const { create, load, clone } = require('../core')
+const { create, load } = require('../streams')
 
 module.exports = container
 
@@ -42,10 +40,10 @@ async function container(args = { password: null }, opts = { definition: null, s
     this._storage = opts.storage || `${home()}/.datagram/`
 
     // Generate keys for meta core and replication stream
-    const metacore_keypair = await deriveKeyPair(Buffer.from(this._container_password + 'metacore'))
+    const metacore_keypair = deriveKeyPairSync(Buffer.from(this._container_password + 'metacore'))
 
     // Generate container replication feed keys
-    const replication_keypair = await deriveKeyPair(Buffer.from(this._container_password + 'replication'))
+    const replication_keypair = deriveKeyPairSync(Buffer.from(this._container_password + 'replication'))
 
     // Used by replication, should be replaced with utils/storage/_open_storage at some point
     this._open_storage = function(dir) {
@@ -66,7 +64,7 @@ async function container(args = { password: null }, opts = { definition: null, s
 
     if (!meta_core) {
       meta_core = await create(
-        { definition: core_definitions.Meta, storage: self._storage },
+        { definition: core_definitions.meta, storage: self._storage },
         { keys: metacore_keypair },
       ).catch(error)
     }
@@ -105,7 +103,7 @@ async function container(args = { password: null }, opts = { definition: null, s
 
     // Makes sure everything necessary is executed before container is allowed to be used
     this._ready = readyify(function(done) {
-      debug('Creating new container', self.key)
+      log('Creating new container', self.key)
 
       // If definition is null, this is likely an existing container
 
@@ -139,7 +137,7 @@ async function container(args = { password: null }, opts = { definition: null, s
         //   } else next(null, MC)
         // },
         (MC, next) => {
-          debug(MC)
+          log(MC)
           generateAPI(MC)
           MC.load_cores_from_storage((err) => {
             if (err) return done(err)
@@ -202,25 +200,23 @@ async function container(args = { password: null }, opts = { definition: null, s
   })
 }
 
-inherits(container, events.EventEmitter)
-
 /**
  * Add replication policy functions
  *
  * @param {Object} plug Replication policy object
  * @param {Function} plug.init init(container) Called with container.ready, useful for initialization if needed
  */
-container.prototype.use = function(plug) {
-  if (this._middleware === null) this._middleware = []
+// container.prototype.use = function(plug) {
+//   if (this._middleware === null) this._middleware = []
 
-  // Store replication policy object to _middleware
-  this._middleware.push(plug)
-  const self = this
+//   // Store replication policy object to _middleware
+//   this._middleware.push(plug)
+//   const self = this
 
-  // If policy contains function init, run it when container is getting ready
-  if (typeof plug.init === 'function') {
-    this.ready(function() {
-      plug.init(self)
-    })
-  }
-}
+//   // If policy contains function init, run it when container is getting ready
+//   if (typeof plug.init === 'function') {
+//     this.ready(function() {
+//       plug.init(self)
+//     })
+//   }
+// }

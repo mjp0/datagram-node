@@ -6,14 +6,12 @@ const definition_registry = {}
 const definitions = fs.readdirSync(path.join(__dirname, 'installed'))
 
 definitions.forEach((s) => {
-  const file = fs.readFileSync(path.join(__dirname, 'installed', s), 'UTF-8')
-
-  try {
-    const definition = JSON.parse(file)
-    definition_registry[definition['name']] = definition
-  } catch (e) {
-    throw new Error(e)
+  const fpath = path.join(__dirname, 'installed', s)
+  if (fpath.match(/\.json/)) {
+    const definition = require(fpath)
+    definition_registry[definition['@id']] = definition
   }
+  console.log(definition_registry)
 })
 
 module.exports = definition_registry

@@ -1,4 +1,4 @@
-const debug = require('../utils/debug')(__filename)
+const { log } = require('../utils/debug')(__filename)
 const hypercore = require('hypercore')
 const crypto = require('hypercore-crypto')
 const { _open_storage } = require('../utils')
@@ -28,7 +28,7 @@ exports.create = async (args = { definition: null, storage: null }, opts = { key
       opts.secretKey = keyPair.secretKey
     }
 
-    debug('Creating new stream', opts.key.toString('hex'), definition['@type'])
+    log('Creating new stream', opts.key.toString('hex'), definition['@type'])
 
     const store = _open_storage(opts.key.toString('hex'), storage)
 

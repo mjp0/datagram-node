@@ -1,4 +1,4 @@
-const { create, load, clone } = require('../core')
+const { create, load, clone } = require('../streams')
 const ram = require('random-access-memory')
 const definitions = require('../definitions/containers')
 const { error } = require('../utils')

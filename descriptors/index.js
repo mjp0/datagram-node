@@ -8,8 +8,11 @@ const descriptor_registry = {}
 const descriptors = fs.readdirSync(path.join(__dirname, 'installed'))
 
 descriptors.forEach((s) => {
-  const descriptor = require(path.join(__dirname, 'installed', s))
-  descriptor_registry[descriptor.context['@id']] = descriptor
+  const fpath = path.join(__dirname, 'installed', s)
+  if (fpath.match('.json')) {
+    const descriptor = require(fpath)
+    descriptor_registry[descriptor.context['@id']] = descriptor
+  }
 })
 
 const _get = async (name) => {

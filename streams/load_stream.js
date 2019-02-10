@@ -1,4 +1,4 @@
-const debug = require('../utils/debug')(__filename)
+const { log } = require('../utils/debug')(__filename)
 const hypercore = require('hypercore')
 const _open_storage = require('../utils/storage')._open_storage
 const { getInterface } = require('./interfaces')
@@ -9,7 +9,7 @@ exports.load = async (args = { keys: { key: null, secret: null }, storage: null 
 
     const hex_key = Buffer.isBuffer(keys.key) ? keys.key.toString('hex') : keys.key
 
-    debug('Trying to open core with key', hex_key)
+    log('Trying to open core with key', hex_key)
 
     // Open storage for the core
     const store = _open_storage(hex_key, storage)
@@ -21,7 +21,7 @@ exports.load = async (args = { keys: { key: null, secret: null }, storage: null 
     store_key.read(0, 4, (err, bytes) => {
       // If there's an error, it's empty which means that it does not exist
       if (err) {
-        debug('No core found with key', hex_key)
+        log('No core found with key', hex_key)
         return done()
       }
 
