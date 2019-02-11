@@ -12,6 +12,7 @@ const MOTD = `
 
 // DEPENDENCIES
 const utils = require('./utils')
+const { error, err } = utils
 const promcall = require('promised-callback').default
 const { log } = require('./utils/debug')(__filename)
 const home = require('home')
@@ -26,14 +27,16 @@ module.exports = class {
     credentials = { user_id: null, password: null },
     settings = { action: null, realtime: false, storage: null, path: null },
   ) {
-    const { error, err } = utils
-
     log('Initializing state...')
     const state = {
       ...this,
       credentials: { ...credentials },
       settings: { ...settings },
       _: { container_checked: false },
+    }
+
+    state.debug = () => {
+      state._.debug = true
     }
 
     log('Executing initialization sequence...')
@@ -220,26 +223,38 @@ module.exports = class {
             // Make sure that action exists if one was requested
             if (state.settings.action) {
               log(`Executing the requested action ${state.settings.action}`)
-              const action = state.settings.action
+              // const action = utils.getNested(state, state.settings.action)
+              state.settings.action = state.settings.action
                 .split('.')
                 .reduce((obj, key) => (obj && obj[key] !== 'undefined' ? obj[key] : undefined), state)
-              if (!action) return error(err.UNKNOWN_ACTION)
-              state.action = state.settings.action
+              if (!state.settings.action) return error(err.UNKNOWN_ACTION)
 
               // Run the action
               state
                 .compute(state)
                 .then((result) => {
                   // Cleaning up
-                  delete state.ready
-                  delete state.action
-                  delete state.settings.action
+                  if (!state._.debug) {
+                    delete state.ready
+                    delete state.settings.action
+                    delete state._
 
-                  console.log(state)
+                    for (const key in state) {
+                      if (state.hasOwnProperty(key)) {
+                        if (utils.getNested(state[key], 'test_ok')) {
+                          delete state[key].test_ok
+                          if (state[key].test_fail) {
+                            delete state[key].test_fail
+                          }
+                        }
+                      }
+                    }
+                  }
+                  if (state._.debug) console.log(state)
                   return done(result)
                 })
                 .catch((err) => {
-                  error(err)
+                  return error(err)
                 })
             }
           } else if (state._.container_checked && !state.settings.action) return done(state)

@@ -1,12 +1,19 @@
 const promcall = require('promised-callback').default
 
 const API = {
-  build: (DG) => {
+  test_ok: (DG) => {
     return async (args, callback) => {
       return new Promise(async (resolve, reject) => {
-        const { done, error } = promcall(resolve, reject, callback) //
-        // builds a stream based on the template
-        done('build')
+        const { done } = promcall(resolve, reject, callback) //
+        done('OK')
+      })
+    }
+  },
+  test_fail: (DG) => {
+    return async (args, callback) => {
+      return new Promise(async (resolve, reject) => {
+        const { error } = promcall(resolve, reject, callback) //
+        error('ERROR')
       })
     }
   },

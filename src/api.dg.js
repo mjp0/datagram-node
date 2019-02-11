@@ -1,23 +1,29 @@
 const promcall = require('promised-callback').default
+const { err, getNested } = require('./utils')
 
 const API = {
-  compute: (DG) => {
-    return (DG) => {
-      return new Promise(async (done, error) => {
-        const action = DG.action
-          .split('.')
-          .reduce((obj, key) => (obj && obj[key] !== 'undefined' ? obj[key] : undefined), DG)
+  build: (DG) => {
+    return async (args = { template: null }, callback) => {
+      return new Promise(async (resolve, reject) => {
+        const { done, error } = promcall(resolve, reject, callback)
+        if (!getNested(args, 'template')) return error(new Error(err.TEMPLATE_MISSING))
 
-        const result = await action(DG).catch(error)
-        done(result)
+        done(DG)
       })
     }
   },
-  create: (DG) => {
-    return async function(args, callback) {
-      return new Promise(async (resolve, reject) => {
-        const { done, error } = promcall(resolve, reject, callback)
-        done('create')
+  compute: (DG) => {
+    return (DG) => {
+      return new Promise(async (done, error) => {
+        if (!getNested(DG, 'settings.action')) return error(new Error(err.ACTION_REQUIRED))
+
+        // Run the action and return the result
+        try {
+          const result = await DG.settings.action(DG)
+          done(result)
+        } catch (e) {
+          error(e)
+        }
       })
     }
   },
@@ -29,11 +35,21 @@ const API = {
       })
     }
   },
-  build: (template) => {
-    // uses template to build container and stream set
+  test_ok: (DG) => {
+    return async (args, callback) => {
+      return new Promise(async (resolve, reject) => {
+        const { done } = promcall(resolve, reject, callback) //
+        done('OK')
+      })
+    }
   },
-  share: () => {
-    // creates a share link to container
+  test_fail: (DG) => {
+    return async (args, callback) => {
+      return new Promise(async (resolve, reject) => {
+        const { error } = promcall(resolve, reject, callback) //
+        error('ERROR')
+      })
+    }
   },
 }
 

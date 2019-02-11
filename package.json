@@ -33,6 +33,7 @@
     "jest": "^24.0.0",
     "jest-codemods": "^0.19.1",
     "jsonld": "^1.5.0",
+    "lodash": "^4.17.11",
     "msgpack5": "^4.2.1",
     "mutexify": "^1.2.0",
     "parse-json": "^4.0.0",

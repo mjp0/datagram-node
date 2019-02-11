@@ -1,9 +1,12 @@
 const promcall = require('promised-callback').default
 const CDR = require('cryptodoneright').default
+const { getNested } = require('./common')
+const { err } = require('./errors')
 
 exports.deriveKeyPair = async (args = { master_key: null }, callback) => {
   return new Promise(async (resolve, reject) => {
     const { done, error } = promcall(resolve, reject, callback)
+    if (!getNested(args, 'master_key')) return error(new Error(err.MASTER_KEY_REQUIRED))
     try {
       const secret_key = await CDR.hash(args.master_key)
       const key_pair = await CDR.generate_keys(secret_key)
@@ -13,7 +16,7 @@ exports.deriveKeyPair = async (args = { master_key: null }, callback) => {
       }
       done(keys)
     } catch (e) {
-      error(e)
+      error(new Error(e))
     }
   })
 }
