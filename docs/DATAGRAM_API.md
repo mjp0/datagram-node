@@ -111,15 +111,6 @@ await DG.add_stream({ "@type": "video", user_id: user_id, stream: video_stream)
 // and now you are streaming from your webcam/phone to the group
 ```
 
-Now your webcam or phone's camera is streaming whatever it sees to your stream in the datagram and everybody else in the group is notified of your stream. To get some value out of all this work, I would like to see the actual videos and talk with the group. At this point we give control to you. You can interact with the individual streams and each has a standard set of things you can do to cover the basics and more apis can be added as an addon. Since we are using a browser, it makes sense to render our streams as a webpage with multiple video streams.
-
-```javascript
-const video_streams = await DG.getStreams()
-const rendering = await DG.render({ streams: video_streams, view: "html5_video_wall" })
-// rendering -> '<html><head><script src="lib/datagram.js"></script></head><body><datagram>{$rendering}</datagram>'
-
-```
-
 If we had chosen to create a datagram with one-to-X sharemodel, we would have to deal with admin side of things. The most important challenge with decentralized network-based systems is to add basic administrative and discussion moderation tools without violating decentralization. Datagram includes a bunch of different ways to create admin and moderation functionality in a way that's compatible with decentralization. They are a set of rules that all Datagrams are default set to follow. Because Datagram is open-source, it's possible to disable any of the rules but this will not affect other users in the network.
 
 Let's go over the tools...
