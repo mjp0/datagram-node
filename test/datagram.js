@@ -1,4 +1,4 @@
-const Datagram = require('../')
+const Datagram = require('../src')
 const tmp = require('tmp').tmpNameSync
 
 test('datagram/basics', async (test_done) => {
