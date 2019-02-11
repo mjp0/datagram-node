@@ -66,7 +66,7 @@ Depending what you choose as your sharemodel, your datagram will limit others ab
 Based on the above description, Datagram can generate a datagram that accepts video streams from anyone. Then we can share it with others.
 
 ```javascript
-await DG.build(template)
+await DG.build({ template })
 
 const sharelink = await DG.share()
 // sharelink ->  P4mzRhx1nVO4ZjDPUI3ioJ6XUlyVmJ84... (datagram_address|datagram_encryption_key|index_stream_key)
@@ -121,7 +121,7 @@ const admins = await DG.getAdmins()
 // admins -> [ admin ]
 
 // remove an admin
-const is_done = await DG.removeAdmin(admin)
+const is_done = await DG.removeAdmin({ admin })
 // is_done -> true|false
 
 // get all known users in the datagram
@@ -129,15 +129,15 @@ const users = await DG.getUsers()
 // users -> [ user ]
 
 // add an admin
-const is_done = await DG.addAdmin(user)
+const is_done = await DG.addAdmin({ user })
 // is_done -> true|false
 
 // block user
-const is_done = await DG.blockUser(user)
+const is_done = await DG.blockUser({ user })
 // is_done -> true|false
 
 // invite user
-const is_done = await DG.inviteUser(user)
+const is_done = await DG.inviteUser({ user })
 // is_done -> true|false
 
 // destroy datagram (this will also send a request to all participators to delete their copies of the data)
