@@ -8,15 +8,15 @@ const tmp = require('tmp').tmpNameSync
 const { getInterface } = require('../src/streams/interfaces')
 
 test('stream/create', async () => {
-  const stream = await create({ template: templates.admin, storage: ram }).catch(error)
+  const stream = await create({ user_id: 'f00', template: templates.admin, storage: ram }).catch(error)
   expect(stream.template.name).toBe('Admin')
   const stored_template = await stream.getTemplate().catch(error)
   expect(stored_template.name).toBe('Admin')
-  expect(stored_template.releaseDate).toBeTruthy()
+  expect(stored_template.ReleaseDate).toBeTruthy()
 })
 
 test('stream/add & get', async () => {
-  const stream = await create({ template: templates.admin, storage: ram }).catch(error)
+  const stream = await create({ user_id: 'f00', template: templates.admin, storage: ram }).catch(error)
   expect(stream.template.name).toBe('Admin')
 
   // Let's create an admin authorization package for new admin
@@ -50,12 +50,16 @@ test('stream/add & get', async () => {
 
 test('stream/load', async () => {
   const storage = tmp()
-  const stream1 = await create({ template: templates.meta, storage }).catch(error)
+  const stream1 = await create({ user_id: 'f00', template: templates.meta, storage }).catch(error)
   expect(stream1.template.name).toBe('Meta')
 
   const stream1_keys = await stream1.getKeys().catch(error)
 
-  const stream2 = await load({ keys: stream1_keys, storage }).catch(error)
+  const stream2 = await load({
+    keys: stream1_keys,
+    storage,
+    password: await stream1.getPassword().catch(error),
+  }).catch(error)
   expect(stream2.template.name).toBe('Meta')
   expect(typeof stream2.redis.set).toBe('function')
 })
@@ -63,11 +67,13 @@ test('stream/load', async () => {
 test('stream/replication', async (done) => {
   expect.assertions(2)
 
-  const stream = await create({ template: templates.admin, storage: ram }).catch(error)
+  const stream = await create({ user_id: 'f00', template: templates.admin, storage: ram }).catch(error)
   expect(stream.template.name).toBe('Admin')
   const keys = await stream.getKeys().catch(error)
 
-  const cloned_stream = await clone({ keys, storage: ram }).catch(error)
+  const cloned_stream = await clone({ keys, storage: ram, password: await stream.getPassword().catch(error) }).catch(
+    error,
+  )
 
   const rep_stream = await stream.replicate()
 
@@ -79,7 +85,7 @@ test('stream/replication', async (done) => {
 })
 
 test('stream/interfaces', async () => {
-  const stream = await create({ template: templates.admin, storage: ram }).catch(error)
+  const stream = await create({ user_id: 'f00', template: templates.admin, storage: ram }).catch(error)
   expect(stream.template.name).toBe('Admin')
 
   const meta = await getInterface('meta')
@@ -88,7 +94,7 @@ test('stream/interfaces', async () => {
 })
 
 test('stream/indexer', async () => {
-  const stream = await create({ template: templates.admin, storage: ram }).catch(error)
+  const stream = await create({ user_id: 'f00', template: templates.admin, storage: ram }).catch(error)
   expect(stream.template.name).toBe('Admin')
 
   // Let's create an admin authorization package for new admin
@@ -111,8 +117,8 @@ test('stream/indexer', async () => {
   await stream.redis.set('test', admin_auth).catch(error)
 
   const stored_index_package = await stream.index.redis.get('test').catch(error)
-  const unpacked_index_package = await descriptors.read(stored_index_package).catch(error)
-  expect(unpacked_index_package.defaultValue).toEqual({ position: 1, size: 810 })
+  // const unpacked_index_package = await descriptors.read(stored_index_package).catch(error)
+  expect(stored_index_package.arguments).toEqual({ key: 'test', action: '+' })
 
   const is_removed = await stream.index.indexer.removeRow({ key: 'test' })
   expect(is_removed).toBeTruthy()

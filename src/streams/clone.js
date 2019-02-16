@@ -3,9 +3,9 @@ const hypercore = require('hypercore')
 const { _open_storage } = require('../utils')
 const { getInterface } = require('./interfaces/index')
 
-exports.clone = async (args = { keys: { key: null, secret: null }, storage: null }) => {
+exports.clone = async (args = { keys: { key: null, secret: null }, storage: null, password: null }) => {
   return new Promise(async (done, error) => {
-    const { storage, keys } = { ...args }
+    const { storage, keys, password } = { ...args }
 
     const opts = {
       valueEncoding: 'binary', // Binary encoding is enforced
@@ -25,6 +25,9 @@ exports.clone = async (args = { keys: { key: null, secret: null }, storage: null
     const stream = hypercore(store, opts)
     stream.ready(async (err) => {
       if (err) return error(err)
+
+      // Set stream password
+      stream.password = password
 
       // Generate the core around the data stream
       const base = await getInterface('base')

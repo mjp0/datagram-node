@@ -5,34 +5,17 @@ exports.meta = (() => {
   let stream_references = {}
 
   return {
+    '@depends_on': [ 'redis' ],
     '@id': 'meta',
-    '@depends_on': ['redis'],
-    attachStream: (API, stream) => {
-      return async (stream) => {
-        return new Promise(async (done, error) => {
-          // Get template from the stream to-be-added
-          
-          const template = await stream.getTemplate().catch(error)
-
-          // Create a reference to initialized hyperstream
-          await API.meta.addStreamReference(template.DatagramKey, stream)
-
-          done()
-        })
-      }
-    },
     addStream: (API, stream) => {
       return async (stream) => {
         return new Promise(async (done, error) => {
           // Get template from the stream to-be-added
-          const template = await stream.getTemplate().catch(error)
+          const template = await stream.getTemplate().catch(error) // Create a reference to initialized hyperstream
 
-          // Create a reference to initialized hyperstream
-          await API.meta.addStreamReference(template.DatagramKey, stream).catch(error)
+          await API.meta.addStreamReference(template.DatagramKey, stream).catch(error) // Add stream details to the meta stream
 
-          // Add stream details to the meta stream
           await API.meta.addStreamDetails(template.DatagramKey, template).catch(error)
-
           done()
         })
       }
@@ -55,102 +38,43 @@ exports.meta = (() => {
         })
       }
     },
-    removeStreamReference: (API, stream) => {
-      return async (reference) => {
+    attachStream: (API, stream) => {
+      return async (stream) => {
         return new Promise(async (done, error) => {
-          if (!stream_references) return done()
-          delete stream_references[reference]
+          // Get template from the stream to-be-added
+          const template = await stream.getTemplate().catch(error) // Create a reference to initialized hyperstream
+
+          await API.meta.addStreamReference(template.DatagramKey, stream).catch(error)
           done()
         })
       }
     },
-    getStreamDetails: (API, stream) => {
-      return function(key, callback) {
-        // get details:key
-        exports.meta.get_kv(`details:${key}`, callback)
-      }
-    },
-    removeStream: (API, stream) => {
-      return async (key) => {
+    close: (API, stream) => {
+      return async () => {
         return new Promise(async (done, error) => {
-          // remove details:key
-          await API.redis.rem(`details:${key}`).catch(error)
-
-          await API.meta.removeStreamReference(key).catch(error)
-
-          // addToBlocklist(key)
-          await API.redis.set(`blocked:${key}`, new Date().getTime()).catch(error)
-
+          stream_references = {}
+          stream.close()
+          API = null
           done()
         })
       }
     },
-    getStreamReferences: (API, stream) => {
-      return async () => {
-        return new Promise(async (done, error) => {
-          done(stream_references)
-        })
-      }
-    },
-    getBlocklist: (API, stream) => {
-      return async () => {
-        return new Promise(async (done, error) => {
-          const keys = await API.redis.getAllKeys().catch(error)
-
-          // reject everything that doesn't start with "blocked:"
-          const blocked_keys = keys
-            .filter((key) => {
-              return key.match(/^blocked:/)
-            })
-            .map((bkeys) => bkeys.replace('blocked:', ''))
-
-          done(blocked_keys)
-        })
-      }
-    },
-    getAllUnopenedStreams: (API, stream) => {
-      return async () => {
-        return new Promise(async (done, error) => {
-          const all_stream_details = await API.meta.getAllStreamDetails().catch(error)
-
-          const unopened_streams = all_stream_details.filter((c) => {
-            if (typeof stream_references[c.DatagramKey] === 'undefined') return true
-          })
-          done(unopened_streams)
-        })
-      }
-    },
-    loadStreamsFromStorage: (API, stream) => {
-      return function(keys, callback) {
-        // Make keys optional
-        if (typeof keys === 'function' && !callback) {
-          callback = keys
-        }
-        // find all keys
+    exportLegacy: (API, stream) => {
+      return function(callback) {
+        // first get all the stream keys
         exports.meta.getAllStreamDetails((err, streams) => {
           if (err) return callback(err)
-
-          // TODO: Move initialization to Container
-
-          // initialize streams
-          // async.forEach(
-          //   streams,
-          //   (uninitd_stream, stream_done) => {
-          //     load({ key: uninitd_stream.meta.key }, exports.meta.default_storage, (err, initd_stream) => {
-          //       if (err) return stream_done(err)
-          //       else if (initd_stream && initd_stream.meta.key) {
-          //         exports.meta.addStreamReference(uninitd_stream.meta.key.toString('hex'), initd_stream)
-
-          //         return stream_done()
-          //       } else {
-          //         return stream_done()
-          //       }
-          //     })
-          //   },
-          //   callback,
-          // )
+          const _streams = {}
+          const _streamKeyToStream = {}
+          streams.forEach((c) => {
+            _streams[c.name] = stream_references[c.DatagramKey]
+            _streamKeyToStream[c.DatagramKey] = stream_references[c.DatagramKey]
+          })
+          callback(null, {
+            _streams,
+            _streamKeyToStream,
+          })
         })
-        // return { key: stream }
       }
     },
     getAllStreamDetails: (API, stream) => {
@@ -162,24 +86,24 @@ exports.meta = (() => {
           // reject everything that doesn't start with "details:"
           const streams_keys = keys.filter((key) => {
             return key.match(/^details:/)
-          })
+          }) // Let's expand each stream key
 
-          // Let's expand each stream key
           const stream_details = []
           const kv_fetches = []
           streams_keys.forEach((stream_key) => {
             kv_fetches.push(
               new Promise(async (key_done, key_error) => {
                 const value = await API.redis.get(stream_key).catch(key_error)
+
                 if (value) {
                   stream_details.push(value)
                 }
+
                 key_done()
               }),
             )
           })
           await Promise.all(kv_fetches)
-
           done(stream_details)
         })
       }
@@ -195,6 +119,7 @@ exports.meta = (() => {
               if (stream_references[cd.DatagramKey]) {
                 streams.push(stream_references[cd.DatagramKey])
               }
+
               stream_done()
             },
             (err) => {
@@ -205,28 +130,83 @@ exports.meta = (() => {
         })
       }
     },
-    exportLegacy: (API, stream) => {
-      return function(callback) {
-        // first get all the stream keys
-        exports.meta.getAllStreamDetails((err, streams) => {
-          if (err) return callback(err)
-
-          const _streams = {}
-          const _streamKeyToStream = {}
-          streams.forEach((c) => {
-            _streams[c.name] = stream_references[c.DatagramKey]
-            _streamKeyToStream[c.DatagramKey] = stream_references[c.DatagramKey]
+    getAllUnopenedStreams: (API, stream) => {
+      return async () => {
+        return new Promise(async (done, error) => {
+          const all_stream_details = await API.meta.getAllStreamDetails().catch(error)
+          const unopened_streams = all_stream_details.filter((c) => {
+            if (typeof stream_references[c.DatagramKey] === 'undefined') return true
           })
-          callback(null, { _streams, _streamKeyToStream })
+          done(unopened_streams)
         })
       }
     },
-    close: (API, stream) => {
+    getBlocklist: (API, stream) => {
       return async () => {
         return new Promise(async (done, error) => {
-          stream_references = {}
-          stream.close()
-          API = null
+          const keys = await API.redis.getAllKeys().catch(error) // reject everything that doesn't start with "blocked:"
+
+          const blocked_keys = keys
+            .filter((key) => {
+              return key.match(/^blocked:/)
+            })
+            .map((bkeys) => bkeys.replace('blocked:', ''))
+          done(blocked_keys)
+        })
+      }
+    },
+    getStreamReferences: (API, stream) => {
+      return async () => {
+        return new Promise(async (done, error) => {
+          done(stream_references)
+        })
+      }
+    },
+    loadStreamsFromStorage: (API, stream) => {
+      return function(keys, callback) {
+        // Make keys optional
+        if (typeof keys === 'function' && !callback) {
+          callback = keys
+        } // find all keys
+
+        exports.meta.getAllStreamDetails((err, streams) => {
+          if (err) return callback(err) // TODO: Move initialization to Container
+          // initialize streams
+          // async.forEach(
+          //   streams,
+          //   (uninitd_stream, stream_done) => {
+          //     load({ key: uninitd_stream.meta.key }, exports.meta.default_storage, (err, initd_stream) => {
+          //       if (err) return stream_done(err)
+          //       else if (initd_stream && initd_stream.meta.key) {
+          //         exports.meta.addStreamReference(uninitd_stream.meta.key.toString('hex'), initd_stream)
+          //         return stream_done()
+          //       } else {
+          //         return stream_done()
+          //       }
+          //     })
+          //   },
+          //   callback,
+          // )
+        }) // return { key: stream }
+      }
+    },
+    removeStream: (API, stream) => {
+      return async (key) => {
+        return new Promise(async (done, error) => {
+          // remove details:key
+          await API.redis.rem(`details:${key}`).catch(error)
+          await API.meta.removeStreamReference(key).catch(error) // addToBlocklist(key)
+
+          await API.redis.set(`blocked:${key}`, new Date().getTime()).catch(error)
+          done()
+        })
+      }
+    },
+    removeStreamReference: (API, stream) => {
+      return async (reference) => {
+        return new Promise(async (done, error) => {
+          if (!stream_references) return done()
+          delete stream_references[reference]
           done()
         })
       }

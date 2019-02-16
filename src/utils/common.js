@@ -72,7 +72,7 @@ exports.getDataType = async (data = null) => {
       case 'object':
         // check if it's a buffer
         if (Buffer.isBuffer(data)) {
-          type = 'bytes'
+          type = 'buffer'
         } else {
           type = 'object'
         }

@@ -9,7 +9,7 @@ I want to have same awesome redis API to work with stream databases.
 That's why the name redis.
 */
 
-exports.redis = {
+const redis = {
   '@id': 'redis',
   set: (API, stream) => {
     return async (key, value) => {
@@ -76,14 +76,14 @@ exports.redis = {
               // If we find the key with + type, we pick that and stop the search
               if (args.action === '+') {
                 try {
-                  let value = null
-
-                  // Make sure that it's not empty
-                  if (content[content.datatype]) {
-                    value = content[content.datatype]
+                  if (args.key === key) {
+                    // Make sure that it's not empty
+                    if (content[content.datatype]) {
+                      return deliver(null, content[content.datatype])
+                    } else {
+                      return deliver(null, content)
+                    }
                   }
-                  deliver(null, value)
-                  return
                 } catch (e) {
                   log('[ERROR]', 'error in json parsing', e)
                   deliver('ERROR_PARSING_JSON')
@@ -221,3 +221,5 @@ exports.redis = {
     }
   },
 }
+
+exports.redis = redis

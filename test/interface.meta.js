@@ -20,7 +20,7 @@ test('interface/meta', async () => {
 
   // Get all streams in meta and check that admin stream is there
   let all_streams = await stream.meta.getAllStreams().catch(error)
-  expect(all_streams[0].template.datagramKey).toEqual(admin_keys.key.toString('hex'))
+  expect(all_streams[0].template.DatagramKey).toEqual(admin_keys.key.toString('hex'))
 
   // Let's add another stream so that we can remove it and see if that works
   const to_be_removed_stream = await create({ user_id: 'f00', template: templates.admin, storage: ram }).catch(error)
@@ -30,7 +30,7 @@ test('interface/meta', async () => {
 
   // Check that the stream is added
   all_streams = await stream.meta.getAllStreams().catch(error)
-  expect(all_streams[1].template.datagramKey).toEqual(to_be_removed_stream_keys.key.toString('hex'))
+  expect(all_streams[0].template.DatagramKey).toEqual(to_be_removed_stream_keys.key.toString('hex'))
 
   // ... and remove the stream
   await stream.meta.removeStream(to_be_removed_stream_keys.key.toString('hex')).catch(error)
@@ -54,7 +54,7 @@ test('interface/meta/persistence', async () => {
   const stream1 = await create({ user_id: 'f00', template: templates.admin, storage }).catch(error)
   const stream1_keys = await stream1.getKeys().catch(error)
   await metastream.meta.addStream(stream1).catch(error)
-  const stream2 = await create({ user_id: 'f00', template: templates.admin, storage }).catch(error)
+  const stream2 = await create({ user_id: 'f00', template: templates.meta, storage }).catch(error)
   const stream2_keys = await stream2.getKeys().catch(error)
   await metastream.meta.addStream(stream2).catch(error)
 
@@ -101,6 +101,6 @@ test('interface/meta/persistence', async () => {
 
   // All streams should be in stream references now
   const metastream2_streams = await metastream2.meta.getStreamReferences().catch(error)
-  expect(metastream2_streams[stream1_keys.DatagramKey]).toBeTruthy()
-  expect(metastream2_streams[stream2_keys.DatagramKey]).toBeTruthy()
+  expect(metastream2_streams[stream1_keys.key.toString('hex')]).toBeTruthy()
+  expect(metastream2_streams[stream2_keys.key.toString('hex')]).toBeTruthy()
 })

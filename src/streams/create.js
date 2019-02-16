@@ -89,7 +89,7 @@ const create = async (
       template.DatagramKey = stream.key.toString('hex')
       template.EncryptionKey = stream.password
 
-      if (index) template.IndexKey = created_index.toString('hex')
+      if (index) template.IndexKey = await created_index.getKeys().key
       Stream.template = template
 
       // Apply interfaces
