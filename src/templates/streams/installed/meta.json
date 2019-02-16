@@ -4,5 +4,5 @@
   "@id": "meta",
   "name": "Meta",
   "description": "Meta Stream keeps track of Streams in the Container. Meant only for Container's internal use.",
-  "interfaces": [ "kv", "meta" ]
+  "interfaces": [ "redis", "meta" ]
 }

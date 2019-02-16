@@ -1,13 +1,25 @@
 const descriptors = require('../../descriptors')
+const { errors, encryptData, decryptData } = require('../../utils')
 
 exports.base = function(stream_reference) {
   const stream = stream_reference
   const API = {
+    '@id': 'base',
     get: async (package_number) => {
       return new Promise(async (done, error) => {
         if (!stream.readable) return error(new Error('STREAM_NOT_READABLE'))
-        stream.get(package_number, { wait: true }, (err, pkg) => {
+        if (!stream.password) return error(new Error('STREAM_PASSWORD_NOT_AVAILABLE'))
+
+        stream.get(package_number, { wait: true }, async (err, stored_pkg) => {
           if (err) return error(err)
+
+          // extract the nonce
+          const nonce = stored_pkg.slice(0, 24).toString('hex')
+          const encrypted_pkg = stored_pkg.slice(24)
+
+          // decrypt pkg
+          const pkg = await decryptData({ data: encrypted_pkg, key: stream.password, nonce }).catch(error)
+
           return done(pkg)
         })
       })
@@ -21,13 +33,31 @@ exports.base = function(stream_reference) {
         })
       })
     },
-    add: async (pkg) => {
+    add: async (pkg, descriptor) => {
       return new Promise(async (done, error) => {
+        // if (!descriptor) return error(new Error('DESCRIPTOR_NOT_PROVIDED'))
         if (!stream.writable) return error(new Error('STREAM_NOT_WRITABLE'))
         if (!Buffer.isBuffer(pkg)) return error(new Error('PACKAGE_NOT_BUFFER'))
-        stream.append(pkg, (err, ok) => {
+        if (!stream.password) return error(new Error('STREAM_PASSWORD_NOT_AVAILABLE'))
+
+        // encrypt pkg
+        const encrypted_pkg = await encryptData({ data: pkg, key: stream.password }).catch(error)
+        if (!encrypted_pkg) return error(new Error('ENCRYPTED_PKG_MISSING'))
+
+        // Combine nonce and encrypted_data
+        const nonce = Buffer.from(encrypted_pkg.password.split('|')[1], 'hex')
+        const finalized_pkg = Buffer.concat([ nonce, encrypted_pkg.encrypted_data ])
+
+        stream.append(finalized_pkg, async (err, position) => {
           if (err) return error(err)
-          return done(ok)
+          if (typeof API.index === 'object' && descriptor) {
+            if (typeof API.index.indexer.addRow === 'function') {
+              await API.index.indexer.addRow(descriptor).catch(error)
+            } else {
+              return error(new Error(errors.BAD_INDEX), { index: API.index })
+            }
+          }
+          return done(position)
         })
       })
     },
@@ -135,17 +165,20 @@ exports.base = function(stream_reference) {
         discovery: stream.discoveryKey,
       }
     },
-    getDefinition: async () => {
+    getTemplate: async () => {
       return new Promise(async (done, error) => {
-        const packed_definition = await API.get(0).catch(error)
-        const definition = await descriptors.read(packed_definition).catch(error)
-        done(definition)
+        const packed_template = await API.get(0).catch(error)
+        const template = await descriptors.read(packed_template).catch(error)
+        done(template)
       })
     },
     addInterface: async (iface) => {
       return new Promise(async (done, error) => {
         // Do some checking to make sure everything is as it should
-        if (typeof iface !== 'object') return error(new Error('NOT_AN_INTERFACE'))
+        if (typeof iface !== 'object') {
+          console.log(iface)
+          return error(new Error('NOT_AN_INTERFACE'), { iface })
+        }
         if (!iface['@id']) return error(new Error('@ID_MISSING'))
         if (API.hasOwnProperty(iface['@id'])) return error(new Error('INTERFACE_EXISTS'), { '@id': iface['@id'] })
 
@@ -164,6 +197,16 @@ exports.base = function(stream_reference) {
           }
         }
         done(API)
+      })
+    },
+    getOwner: async () => {
+      return new Promise(async (done, error) => {
+        done(stream_reference.user_id || null)
+      })
+    },
+    getPassword: async () => {
+      return new Promise(async (done, error) => {
+        done(stream_reference.password || null)
       })
     },
   }

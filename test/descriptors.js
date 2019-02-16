@@ -1,8 +1,8 @@
-const { create } = require('../core')
+const { create } = require('../src/streams')
 const ram = require('random-access-memory')
-const descriptors = require('../descriptors')
-const { error } = require('../utils')
-const debug = require('../utils/debug')(__filename)
+const descriptors = require('../src/descriptors')
+const { error } = require('../src/utils')
+const debug = require('../src/utils/debug')(__filename)
 
 test('descriptors/get', async () => {
   expect.assertions(2)

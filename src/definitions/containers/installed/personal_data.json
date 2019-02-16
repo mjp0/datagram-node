@@ -1,9 +1,0 @@
-{
-  "@context": "http://schema.org/",
-  "@type": "datagramContainer",
-  "@id": "personal_data",
-  "name": "Personal data",
-  "version": 1,
-  "model": "one-to-non",
-  "accepted_cores": [ "*" ]
-}

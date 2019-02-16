@@ -1,4 +1,4 @@
-const debug = require('../utils/debug')(__filename)
+const { log } = require('../utils/debug')(__filename)
 const hypercore = require('hypercore')
 const { _open_storage } = require('../utils')
 const { getInterface } = require('./interfaces/index')
@@ -18,7 +18,7 @@ exports.clone = async (args = { keys: { key: null, secret: null }, storage: null
       opts.key = Buffer.from(keys.key, 'hex')
     }
 
-    debug('Cloning core', opts.key.toString('hex'))
+    log('Cloning core', opts.key.toString('hex'))
 
     const store = _open_storage(opts.key.toString('hex'), storage)
 

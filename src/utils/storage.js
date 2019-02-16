@@ -52,10 +52,10 @@ exports._open_storage = function(dir, storage) {
     name = name || '.datagram'
     if (typeof storage === 'string') {
       const fname = path.join(storage, dir, name)
-      log('Opening FS storage', fname)
+      if (process.env['VERBOSE']) log('Opening FS storage', fname)
       return raf(fname)
     } else {
-      log('Opening RAM storage', name)
+      if (process.env['VERBOSE']) log('Opening RAM storage', name)
       return s(dir + '/' + name)
     }
   }

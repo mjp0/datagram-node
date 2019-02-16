@@ -1,7 +1,0 @@
-{
-  "@context": "http://schema.org/",
-  "@type": "datagramStream",
-  "@id": "admin",
-  "name": "Admin",
-  "description": "Admin Stream is a message stream of administrative actions and notifications"
-}

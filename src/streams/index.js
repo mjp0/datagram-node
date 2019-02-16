@@ -1,5 +1,5 @@
 module.exports = {
-  ...require('./create_stream'),
-  ...require('./load_stream'),
-  ...require('./clone_stream'),
+  ...require('./create'),
+  ...require('./load'),
+  ...require('./clone'),
 }

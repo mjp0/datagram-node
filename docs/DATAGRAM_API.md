@@ -107,7 +107,7 @@ Integrating with the browser's camera API is easy so let's go with that.
 ```javascript
 const { user_id } = await DG.getCredentials()
 const video_stream = navigator.mediaDevices.getUserMedia()
-await DG.add_stream({ "@type": "video", user_id: user_id, stream: video_stream)
+await DG.addStream({ type: "video", user_id, stream: video_stream)
 // and now you are streaming from your webcam/phone to the group
 ```
 

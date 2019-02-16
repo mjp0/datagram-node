@@ -1,9 +1,11 @@
+jest.useFakeTimers()
+
 const hypercore = require('hypercore')
 const ram = require('random-access-memory')
-const multiplexer = require('../adapter/multiplexer')
+const multiplexer = require('../src/container/multiplexer')
 const pump = require('pump')
 const through = require('through2')
-const debug = require('../utils/debug')(__filename, 'test')
+const { log } = require('../src/utils/debug')(__filename, 'test')
 
 test('Key exchange API', function() {
   expect.assertions(11)
@@ -22,7 +24,8 @@ test('Key exchange API', function() {
       custom: 'option',
     })
   })
-
+  expect(1).toBeTruthy()
+  
   const expectedKeys = [ '01', '02', '03', 'foo', 'oof' ]
 
   mux1.on('manifest', function(m) {
@@ -56,13 +59,13 @@ test('Key exchange API', function() {
   pump(
     mux1.stream,
     through(function(chunk, _, next) {
-      debug('MUX1->MUX2', chunk.toString('utf8'))
+      log('MUX1->MUX2', chunk.toString('utf8'))
       this.push(chunk)
       next()
     }),
     mux2.stream,
     through(function(chunk, _, next) {
-      debug('MUX2->MUX1', chunk.toString('utf8'))
+      log('MUX2->MUX1', chunk.toString('utf8'))
       this.push(chunk)
       next()
     }),
@@ -156,7 +159,7 @@ test('Actual replication', function() {
   mux1.stream
     .pipe(
       through(function(chunk, _, next) {
-        debug('MUX1->MUX2', chunk.toString('utf8'))
+        log('MUX1->MUX2', chunk.toString('utf8'))
         this.push(chunk)
         next()
       }),
@@ -164,7 +167,7 @@ test('Actual replication', function() {
     .pipe(mux2.stream)
     .pipe(
       through(function(chunk, _, next) {
-        debug('MUX2->MUX1', chunk.toString('utf8'))
+        log('MUX2->MUX1', chunk.toString('utf8'))
         this.push(chunk)
         next()
       }),

@@ -2,7 +2,7 @@ const debug = require('../utils/debug')(__filename)
 const { values, clone } = require('../utils/common')
 const multiplexer = require('./multiplexer')
 const async = require('async')
-const { createNewCore } = require('../streams')
+const { create } = require('../streams')
 /**
  * Generates a two-way sync stream based on cores in hypervisor
  *
@@ -202,7 +202,7 @@ exports.replicate = function(self, metacore, opts) {
         missingFeeds,
         (key, key_done) => {
           debug('[REPLICATION] trying to create new local hypercore, key=' + key.toString('hex'))
-          createNewCore('generic', metacore._default_storage, { key }, (err, new_core) => {
+          create('generic', metacore._default_storage, { key }, (err, new_core) => {
             if (err) return key_done(err)
             metacore.attach_core(key, new_core, 'generic', (err) => {
               key_done(err)

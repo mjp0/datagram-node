@@ -1,7 +1,8 @@
 const interfaces = {
   ...require('./base'),
-  ...require('./kv'),
+  ...require('./redis'),
   ...require('./meta'),
+  ...require('./indexer'),
 }
 module.exports = {
   getInterface: async (name) => {

@@ -43,6 +43,7 @@ fetch_schemas((err, jsonschema) => {
 
   const path = `${__dirname}/../descriptors/installed/`
   console.log(`Found ${schemas.length} schemas, storing to ${path}`)
+  const jsons = []
   for (const schema in schemas) {
     if (schemas.hasOwnProperty(schema)) {
       const s = schemas[schema]
@@ -86,14 +87,16 @@ fetch_schemas((err, jsonschema) => {
           // })
           // console.log(s, ass_properties)
           console.log(`Storing schema ${name} to ${name.toLowerCase()}.json`)
-          fs.writeFileSync(
-            `${path}${name.toLowerCase()}.json`,
-            JSON.stringify({ context: s, properties: ass_properties }),
-          )
+          jsons.push({ context: s, properties: ass_properties })
         }
       }
     }
   }
+
+  fs.writeFileSync(
+    `${path}schema_org.json`,
+    JSON.stringify(jsons),
+  )
 })
 
 function parseNested() {

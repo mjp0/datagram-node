@@ -1,0 +1,10 @@
+{
+  "@context": "http://schema.org/",
+  "@type": "datagramStream",
+  "@id": "replication",
+  "name": "Replication",
+  "description": "Replication Stream is a protocol stream for messaging necessary information for replication.",
+  "interfaces": [
+    "redis"
+  ]
+}

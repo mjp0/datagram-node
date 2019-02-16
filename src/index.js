@@ -12,13 +12,15 @@ const MOTD = `
 
 // DEPENDENCIES
 const utils = require('./utils')
-const { error, err } = utils
+const { error, err, installAPI } = utils
 const promcall = require('promised-callback').default
 const { log } = require('./utils/debug')(__filename)
 const home = require('home')
-const DGAPI = require('./api.dg')
-const STREAMSAPI = require('./api.streams')
 const waterfall = require('async/waterfall')
+
+const DG_API = require('./api.dg')
+const STREAMS_API = require('./api.streams')
+const CONTAINER_API = require('./api.container')
 
 // LET'S GET STARTED
 // comments in log() statements
@@ -34,6 +36,38 @@ module.exports = class {
       settings: { ...settings },
       _: { container_checked: false },
     }
+
+    let installed_container = null
+
+    state.getContainer = async (callback) => {
+      return new Promise(async (resolve, reject) => {
+        const { done, error } = promcall(resolve, reject, callback)
+        if (!installed_container) return error(err.NO_CONTAINER_INSTALLED)
+        // -- Add more security measures here --
+        done(installed_container)
+      })
+    }
+
+    state.installContainer = async (args = { container: null }, callback) => {
+      return new Promise(async (resolve, reject) => {
+        const { done, error } = promcall(resolve, reject, callback)
+        if (!utils.getNested(args, 'container')) return error(new Error(err.CONTAINER_MISSING))
+
+        // TODO: More security should be put here.
+
+        // Install container to DG
+        installed_container = args.container
+
+        // Install ContainerService API with installed container
+        state.addAPI({ namespace: 'container', ref: installed_container, API: CONTAINER_API })
+
+        // Delete this function so container can't be
+        delete state.installContainer
+        done(state)
+      })
+    }
+
+    state.addApi = installAPI
 
     state.debug = () => {
       state._.debug = true
@@ -107,24 +141,9 @@ module.exports = class {
         },
         (next) => {
           log('Adding APIs...')
-          function addApi(namespace, api) {
-            for (const action in api) {
-              if (api.hasOwnProperty(action)) {
-                if (typeof api[action] === 'function') {
-                  if (!namespace) {
-                    state[action] = api[action](state)
-                  } else {
-                    if (!state[namespace]) state[namespace] = {}
-                    state[namespace][action] = api[action](state)
-                  }
-                } else {
-                  return next({ err: err.UNKNOWN_ACTION, meta: { action, api } })
-                }
-              }
-            }
-          }
-          addApi(null, DGAPI)
-          addApi('stream', STREAMSAPI)
+
+          state.addApi({ API: DG_API, ref: state })
+          state.addApi({ namespace: 'stream', API: STREAMS_API, ref: state })
           next()
         },
         (next) => {

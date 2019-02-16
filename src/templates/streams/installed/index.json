@@ -1,0 +1,11 @@
+{
+  "@context": "http://schema.org/",
+  "@type": "datagramStream",
+  "@id": "index",
+  "name": "Index",
+  "description": "Index provides a searchable database of datagram's contents.",
+  "interfaces": [
+    "redis",
+    "indexer"
+  ]
+}

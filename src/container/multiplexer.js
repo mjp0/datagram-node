@@ -2,7 +2,7 @@ const protocol = require('hypercore-protocol')
 const readify = require('../utils/ready')
 const inherits = require('inherits')
 const events = require('events')
-const debug = require('../utils/debug')(__filename)
+const { log } = require('../utils/debug')(__filename)
 const xtend = require('xtend')
 
 // constants
@@ -38,7 +38,7 @@ const SupportedExtensions = [
  */
 function Multiplexer(key, opts) {
   if (!(this instanceof Multiplexer)) return new Multiplexer(key, opts)
-  debug('[REPLICATION] New mux initialized', key.toString('hex'), opts)
+  log('[REPLICATION] New mux initialized', key.toString('hex'), opts)
   const self = this
   self._opts = opts = opts || {}
   self.extensions = opts.extensions = SupportedExtensions || opts.extensions
@@ -75,20 +75,20 @@ function Multiplexer(key, opts) {
   stream.on('handshake', function() {
     // Parse the received packet to JSON
     const header = JSON.parse(this.userData.toString('utf8'))
-    debug("[REPLICATION] recv'd header: ", JSON.stringify(header))
+    log("[REPLICATION] recv'd header: ", JSON.stringify(header))
 
     // Check whether the sender's client and version match
 
     // If version is not compatible, terminate the stream and send error message
     if (!compatibleVersions(header.version, PROTOCOL_VERSION)) {
-      debug('[REPLICATION] aborting; version mismatch (us=' + PROTOCOL_VERSION + ')')
+      log('[REPLICATION] aborting; version mismatch (us=' + PROTOCOL_VERSION + ')')
       self._finalize(new Error('protocol version mismatch! us=' + PROTOCOL_VERSION + ' them=' + header.version))
       return
     }
 
     // If client is not compatible, terminate the stream and send error message
     if (header.client !== DATAGRAM) {
-      debug('[REPLICATION] aborting; Client mismatch! expected ', DATAGRAM, 'but got', header.client)
+      log('[REPLICATION] aborting; Client mismatch! expected ', DATAGRAM, 'but got', header.client)
       self._finalize(new Error('Client mismatch! expected ' + DATAGRAM + ' but got ' + header.client))
       return
     }
@@ -102,7 +102,7 @@ function Multiplexer(key, opts) {
 
   // When stream delivers "extension" packet...
   feed.on('extension', function(type, message) {
-    debug('Extension:', type, message.toString('utf8'))
+    log('Extension:', type, message.toString('utf8'))
 
     // List of all known extensions
     switch (type) {
@@ -131,7 +131,7 @@ function Multiplexer(key, opts) {
   // If this is not a continous live replication, create a listener for "prefinalize" packet
   if (!self._opts.live) {
     self.stream.on('prefinalize', function(cb) {
-      debug('[REPLICATION] feed finish/prefinalize', self.stream.expectedFeeds)
+      log('[REPLICATION] feed finish/prefinalize', self.stream.expectedFeeds)
 
       // Call the callback to mark replication feed closed
       cb()
@@ -141,7 +141,7 @@ function Multiplexer(key, opts) {
   // Uses readify to make sure everything is executed in an orderly fashion
   this._ready = readify(function(done) {
     self.on('ready', function(remote) {
-      debug('[REPLICATION] remote connected and ready')
+      log('[REPLICATION] remote connected and ready')
       done(remote)
     })
   })
@@ -166,11 +166,11 @@ Multiplexer.prototype.ready = function(cb) {
  */
 Multiplexer.prototype._finalize = function(err) {
   if (err) {
-    debug('[REPLICATION] destroyed due to', err)
+    log('[REPLICATION] destroyed due to', err)
     this.emit('error', err)
     this.stream.destroy(err)
   } else {
-    debug('[REPLICATION] finalized', err)
+    log('[REPLICATION] finalized', err)
     this.stream.finalize()
   }
 }
@@ -188,7 +188,7 @@ Multiplexer.prototype.haveFeeds = function(keys, opts) {
     keys: extractKeys(keys),
   })
 
-  debug('[REPLICATON] sending manifest: ', manifest, opts)
+  log('[REPLICATON] sending manifest: ', manifest, opts)
 
   // Store keys we want to share to _localHave
   this._localHave = manifest.keys
@@ -207,7 +207,7 @@ Multiplexer.prototype.haveFeeds = function(keys, opts) {
  */
 Multiplexer.prototype.wantFeeds = function(keys) {
   keys = extractKeys(keys)
-  debug('[REPLICATION] Sending feeds request', keys)
+  log('[REPLICATION] Sending feeds request', keys)
 
   // Send request for feeds as an extension
   this._feed.extension(REQUEST_FEEDS, Buffer.from(JSON.stringify(keys)))
@@ -262,7 +262,7 @@ Multiplexer.prototype._initRepl = function() {
     }, [])
     .sort() // sort
 
-  debug('[REPLICATION] _initRepl', keys.length, keys)
+  log('[REPLICATION] _initRepl', keys.length, keys)
 
   // End immedietly if there's nothing to replicate.
   if (!this._opts.live && keys.length === 0) return this._finalize()
@@ -285,7 +285,7 @@ Multiplexer.prototype._initRepl = function() {
       if (feed) {
         feed.ready(function() {
           // wait for each to be ready before replicating.
-          debug('[REPLICATION] replicating feed:', feed.key.toString('hex'))
+          log('[REPLICATION] replicating feed:', feed.key.toString('hex'))
           feed.replicate(
             xtend(
               {},

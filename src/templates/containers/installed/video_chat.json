@@ -1,0 +1,31 @@
+{
+  "@context": "http://schema.org",
+  "@type": "datagramContainer",
+  "@id": "video_chat",
+  "name": "Video chat",
+  "streams": [
+    {
+      "@type": "index",
+      "sharemodel": "one-to-many",
+      "settings": {
+        "indexes": [ "metadata", "video" ]
+      }
+    },
+    {
+      "@type": "metadata",
+      "sharemodel": "one-to-many"
+    },
+    {
+      "@type": "video",
+      "sharemodel": "one-to-many"
+    },
+    {
+      "@type": "stats",
+      "sharemodel": "many-to-many"
+    },
+    {
+      "@type": "comments",
+      "sharemodel": "many-to-many"
+    }
+  ]
+}
