@@ -31,7 +31,7 @@ const DG = new Datagram()
 
 // or if you are opening existing Datagram
 
-const DG = new Datagram(credentials = { user_id, password })
+const DG = new Datagram(credentials = { user_password, password })
 
 DG.ready((err, datagram) => {
   // datagram -> your new datagram
@@ -105,9 +105,9 @@ At some point it might be polite for you to join the group. You can do that by c
 Integrating with the browser's camera API is easy so let's go with that.
 
 ```javascript
-const { user_id } = await DG.getCredentials()
+const { user_password } = await DG.getCredentials()
 const video_stream = navigator.mediaDevices.getUserMedia()
-await DG.addStream({ type: "video", user_id, stream: video_stream)
+await DG.addStream({ type: "video", user_password, stream: video_stream)
 // and now you are streaming from your webcam/phone to the group
 ```
 

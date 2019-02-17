@@ -1,5 +1,6 @@
 const descriptors = require('../../descriptors')
-const { errors, encryptData, decryptData } = require('../../utils')
+const { errors, encryptData, decryptData, signData, verifySignature } = require('../../utils')
+const msgpack = require('msgpack5')()
 
 exports.base = function(stream_reference) {
   const stream = stream_reference
@@ -8,14 +9,28 @@ exports.base = function(stream_reference) {
     get: async (package_number) => {
       return new Promise(async (done, error) => {
         if (!stream.readable) return error(new Error('STREAM_NOT_READABLE'))
-        if (!stream.password) return error(new Error('STREAM_PASSWORD_NOT_AVAILABLE'))
+        if (!stream.password) return error(new Error('STREAM_PASSWORD_MISSING'))
+        if (!stream.owner_public_key) return error(new Error('STREAM_OWNER_PUBLIC_KEY_MISSING'))
 
         stream.get(package_number, { wait: true }, async (err, stored_pkg) => {
           if (err) return error(err)
 
+          // open the package
+          const opened_pkg = msgpack.decode(stored_pkg)
+
+          // verify the signature if present
+          if (opened_pkg.signature && opened_pkg.owner_public_key) {
+            const is_valid = await verifySignature({
+              signature: opened_pkg.signature,
+              data: opened_pkg.data,
+              key: stream.owner_public_key
+            }).catch(error)
+            if (!is_valid) return error(new Error('SIGNATURE_VERIFICATION_FAIL'), { opened_pkg })
+          }
+
           // extract the nonce
-          const nonce = stored_pkg.slice(0, 24).toString('hex')
-          const encrypted_pkg = stored_pkg.slice(24)
+          const nonce = opened_pkg.data.slice(0, 24).toString('hex')
+          const encrypted_pkg = opened_pkg.data.slice(24)
 
           // decrypt pkg
           const pkg = await decryptData({ data: encrypted_pkg, key: stream.password, nonce }).catch(error)
@@ -38,7 +53,7 @@ exports.base = function(stream_reference) {
         // if (!descriptor) return error(new Error('DESCRIPTOR_NOT_PROVIDED'))
         if (!stream.writable) return error(new Error('STREAM_NOT_WRITABLE'))
         if (!Buffer.isBuffer(pkg)) return error(new Error('PACKAGE_NOT_BUFFER'))
-        if (!stream.password) return error(new Error('STREAM_PASSWORD_NOT_AVAILABLE'))
+        if (!stream.password) return error(new Error('STREAM_PASSWORD_MISSING'))
 
         // encrypt pkg
         const encrypted_pkg = await encryptData({ data: pkg, key: stream.password }).catch(error)
@@ -46,7 +61,17 @@ exports.base = function(stream_reference) {
 
         // Combine nonce and encrypted_data
         const nonce = Buffer.from(encrypted_pkg.password.split('|')[1], 'hex')
-        const finalized_pkg = Buffer.concat([ nonce, encrypted_pkg.encrypted_data ])
+
+        // Create final package and sign
+        let finalized_pkg = {
+          data: Buffer.concat([ nonce, encrypted_pkg.encrypted_data ]),
+          owner_public_key: stream.owner_public_key,
+          signature: null,
+        }
+
+        finalized_pkg.signature = await signData({ data: finalized_pkg.data, key: stream.user_password }).catch(error)
+
+        finalized_pkg = msgpack.encode(finalized_pkg)
 
         stream.append(finalized_pkg, async (err, position) => {
           if (err) return error(err)
@@ -201,7 +226,7 @@ exports.base = function(stream_reference) {
     },
     getOwner: async () => {
       return new Promise(async (done, error) => {
-        done(stream_reference.user_id || null)
+        done(stream_reference.user_password || null)
       })
     },
     getPassword: async () => {

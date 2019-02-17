@@ -4,13 +4,13 @@ const hypercore = require('hypercore')
 const _open_storage = require('../utils/storage')._open_storage
 const { getInterface } = require('./interfaces')
 
-exports.load = async (args = { keys: { key: null, secret: null }, storage: null, password: null, user_id: null }) => {
+exports.load = async (args = { keys: { key: null, secret: null }, storage: null, password: null, user_password: null }, opts = { owner_public_key: null }) => {
   return new Promise(async (done, error) => {
     // Check that key & action exists
     const missing = checkVariables(args, [ 'keys.key', 'storage', 'password' ])
     if (missing) return error(errors.MISSING_VARIABLES, { missing, args })
 
-    const { storage, keys, password, user_id } = { ...args }
+    const { storage, keys, password, user_password, owner_public_key } = { ...args, ...opts }
 
     const hex_key = Buffer.isBuffer(keys.key) ? keys.key.toString('hex') : keys.key
 
@@ -39,11 +39,17 @@ exports.load = async (args = { keys: { key: null, secret: null }, storage: null,
       stream.ready(async (err) => {
         if (err) return error(err)
 
-        // Add user_id
-        stream.user_id = user_id
+        // Add user_password
+        stream.user_password = user_password
 
         // Add password
         stream.password = password
+
+        // If owner_public_key was provided, put that as owner_public_key, else generate from user_id
+        stream.owner_public_key = owner_public_key
+
+        // TODO: Support generating key from user_password (update CDR)
+        if (!stream.owner_public_key) return error(new Error('OWNER_PUBLIC_KEY_MISSING'))
 
         // Generate the stream around the data stream
         const base = await getInterface('base')

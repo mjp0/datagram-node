@@ -19,10 +19,10 @@ module.exports = container
 /**
  * Creates a container instance based on provided hypercore
  */
-async function container(args = { password: null, user_id: null }, opts = { template: null, storage: null }) {
+async function container(args = { password: null, user_password: null }, opts = { template: null, storage: null }) {
   return new Promise(async (done, error) => {
     // Check variables
-    const missing = checkVariables(args, [ 'password', 'user_id' ])
+    const missing = checkVariables(args, [ 'password', 'user_password' ])
     if (missing) return error(errors.MISSING_VARIABLES, { missing, args })
 
     this._container_password = args.password
@@ -43,7 +43,7 @@ async function container(args = { password: null, user_id: null }, opts = { temp
     const USERS = [
       {
         you: true,
-        user_id: args.user_id,
+        user_password: args.user_password,
         streams: [],
       },
     ]
@@ -211,24 +211,24 @@ async function container(args = { password: null, user_id: null }, opts = { temp
           done(STREAMS)
         })
       },
-      addStream: async (args = { type: null, user_id: null, stream_source: null }) => {
+      addStream: async (args = { type: null, user_password: null, stream_source: null }) => {
         return new Promise(async (done, error) => {
-          const err = checkVariables(args, [ 'type', 'user_id', 'stream_source' ])
+          const err = checkVariables(args, [ 'type', 'user_password', 'stream_source' ])
           if (err) return error(new Error(err))
 
           const stream_keys = await args.stream_source.getKeys().catch(error)
           if (!stream_keys.key) return error(new Error(errors.KEYS_MISSING))
 
-          // Check if user_id exists
-          const known_user = _.find(USERS, (u) => u.user_id === args.user_id)
+          // Check if user_password exists
+          const known_user = _.find(USERS, (u) => u.user_password === args.user_password)
           if (known_user.length > 0) {
             log(`User is know. Associating user with this stream...`)
-            const known_user_index = _.findIndex(USERS, (u) => u.user_id === args.user_id)
+            const known_user_index = _.findIndex(USERS, (u) => u.user_password === args.user_password)
             USERS[known_user_index].streams.push(stream_keys.key)
           } else {
             log(`User is not known. Creating a new user and associating with this stream...`)
             const new_user = {
-              user_id: args.user_id,
+              user_password: args.user_password,
               streams: [ stream_keys.key ],
             }
             USERS.push(new_user)

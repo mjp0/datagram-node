@@ -37,7 +37,7 @@ Initialize your Datagram instance.
 ```javascript
 const Datagram = require('datagram')
 
-const DG = new Datagram() // datagram will generate user_id and password for you
+const DG = new Datagram() // datagram will generate user_password and password for you
 
 await DG.ready() // standby until everything is ready
 
@@ -79,9 +79,9 @@ DG.build({ template }).then(dg => {
 Attach any compatible streams you want and read others.
 ```javascript
 // Attach your webcam's video stream into the datagram
-const { user_id } = await DG.getCredentials()
+const { user_password } = await DG.getCredentials()
 const video_stream = navigator.mediaDevices.getUserMedia()
-await DG.add_stream({ "@type": "video", user_id: user_id, stream: video_stream)
+await DG.add_stream({ "@type": "video", user_password: user_password, stream: video_stream)
 
 // Render HTML view of your datagram
 const video_streams = await DG.getStreams()

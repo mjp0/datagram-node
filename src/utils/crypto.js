@@ -68,7 +68,7 @@ exports.decryptData = async (args = { data: null, key: null, nonce: null }, call
   return new Promise(async (resolve, reject) => {
     const { done, error } = promcall(resolve, reject, callback)
     // Check that key & action exists
-    const missing = checkVariables(args, ['data', 'key', 'nonce'])
+    const missing = checkVariables(args, [ 'data', 'key', 'nonce' ])
     if (missing) return error(errors.MISSING_VARIABLES, { missing, args })
 
     args.key = await CDR.hash(args.key).catch(error)
@@ -91,5 +91,37 @@ exports.hash = async (args = { str: null }, callback) => {
     const { done, error } = promcall(resolve, reject, callback)
     const hash = await CDR.hash(args.str).catch(error)
     done(hash)
+  })
+}
+
+exports.signData = async (args = { data: null, key: null }, callback) => {
+  return new Promise(async (resolve, reject) => {
+    const { done, error } = promcall(resolve, reject, callback)
+    // Check that key & action exists
+    const missing = checkVariables(args, [ 'data', 'key' ])
+    if (missing) return error(errors.MISSING_VARIABLES, { missing, args })
+
+    const signature = await CDR.sign_data(args.key, args.data).catch(error)
+    done(signature)
+  })
+}
+
+exports.verifySignature = async (args = { data: null, signature: null, key: null }, callback) => {
+  return new Promise(async (resolve, reject) => {
+    const { done, error } = promcall(resolve, reject, callback)
+    // Check that key & action exists
+    const missing = checkVariables(args, ['data', 'signature', 'key'])
+    if (missing) return error(errors.MISSING_VARIABLES, { missing, args })
+
+    const is_valid = await CDR.verify_data(args.signature, args.data, args.key).catch(error)
+    done(is_valid)
+  })
+}
+
+exports.generateUser = async (callback) => {
+  return new Promise(async (resolve, reject) => {
+    const { done, error } = promcall(resolve, reject, callback)
+    const user_keys = await exports.createKeyPair().catch(error)
+    done(user_keys)
   })
 }

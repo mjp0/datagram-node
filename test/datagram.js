@@ -6,7 +6,7 @@ test('datagram/basics', async (test_done) => {
   const DG = new Datagram()
   await DG.ready()
   expect(DG.credentials.password.length >= 49).toBeTruthy()
-  expect(DG.credentials.user_id.length >= 92).toBeTruthy()
+  expect(DG.credentials.user_password.length >= 92).toBeTruthy()
   test_done()
 })
 
@@ -39,10 +39,10 @@ test('datagram/storage', async (test_done) => {
   const DG = new Datagram({}, { storage })
   await DG.ready()
   expect(DG.credentials.password.length >= 49).toBeTruthy()
-  expect(DG.credentials.user_id.length >= 92).toBeTruthy()
-  const DG2 = new Datagram({ user_id: DG.credentials.user_id, password: DG.credentials.password }, { storage })
+  expect(DG.credentials.user_password.length >= 92).toBeTruthy()
+  const DG2 = new Datagram({ user_password: DG.credentials.user_password, password: DG.credentials.password }, { storage })
   await DG2.ready()
-  expect(DG2.credentials.user_id).toEqual(DG.credentials.user_id)
+  expect(DG2.credentials.user_password).toEqual(DG.credentials.user_password)
 
   test_done()
 })

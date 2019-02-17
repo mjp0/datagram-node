@@ -26,7 +26,7 @@ const CONTAINER_API = require('./api.container')
 // comments in log() statements
 module.exports = class {
   constructor(
-    credentials = { user_id: null, password: null },
+    credentials = { user_password: null, password: null },
     settings = { action: null, realtime: false, storage: null, path: null },
   ) {
     log('Initializing state...')
@@ -93,13 +93,13 @@ module.exports = class {
           }
         },
         (next) => {
-          if (!state.credentials || !state.credentials.user_id) {
-            log('No user_id, generating a new one...')
+          if (!state.credentials || !state.credentials.user_password) {
+            log('No user_password, generating a new one...')
             utils.createKeyPair((err, key_pair) => {
               if (err) return next(err)
-              state.credentials.user_id = utils.toB58(key_pair.secret)
-              state._.new_user_id_generated = true
-              if (!state.credentials.user_id) return next(err.USER_ID_REQUIRED)
+              state.credentials.user_password = utils.toB58(key_pair.secret)
+              state._.new_user_password_generated = true
+              if (!state.credentials.user_password) return next(err.USER_ID_REQUIRED)
               else next()
             })
           } else {
@@ -109,14 +109,14 @@ module.exports = class {
         },
         (next) => {
           log('Generating id for the Datagram...')
-          utils.hash({ str: state.credentials.user_id + state.credentials.password }, (err, hash) => {
+          utils.hash({ str: state.credentials.user_password + state.credentials.password }, (err, hash) => {
             if (err) return next(err)
             state.id = hash
             next()
           })
         },
         (next) => {
-          if (state._.new_password_generated || state._.new_user_id_generated) {
+          if (state._.new_password_generated || state._.new_user_password_generated) {
             log('Generating keys for the Datagram...')
             if (!state.credentials.password) return next(err.PASSWORD_REQUIRED)
             utils.deriveKeyPair({ master_key: state.credentials.password }, (err, keys) => {
@@ -129,7 +129,7 @@ module.exports = class {
                 log('Removing password from credentials to improve security')
                 delete state.credentials.password
               } else {
-                log('> "Remember to backup your user_id and password"')
+                log('> "Remember to backup your user_password and password"')
               }
 
               next()
@@ -149,7 +149,7 @@ module.exports = class {
         (next) => {
           const storage_path = state.path || `${home()}/.datagram/`
           if (!state.settings.storage) state.settings.storage = storage_path
-          if (state._.new_password_generated || state._.new_user_id_generated) {
+          if (state._.new_password_generated || state._.new_user_password_generated) {
             log('Creating new Datagram...')
 
             const storage = utils._open_storage(state.id, state.settings.storage || storage_path)
@@ -161,7 +161,7 @@ module.exports = class {
                   )}...`,
                 )
 
-                // encrypt credentials with user_id+password and store them to "keys"
+                // encrypt credentials with user_password+password and store them to "keys"
                 log('Encrypting keys...')
                 utils.encryptData(
                   {
@@ -293,7 +293,7 @@ module.exports = class {
 if (process.argv[2] && !process.argv[2].match('.js')) {
   console.log(MOTD)
 
-  // Let's check we have both user_id and password
+  // Let's check we have both user_password and password
   if (!process.argv[3] && !process.env['DB_USER_ID']) {
     error(err.USER_ID_REQUIRED)
     process.exit()
@@ -305,7 +305,7 @@ if (process.argv[2] && !process.argv[2].match('.js')) {
 
   const DG = new exports.Datagram(
     {
-      user_id: process.argv[3] || process.env['DB_USER_ID'],
+      user_password: process.argv[3] || process.env['DB_USER_ID'],
       password: process.argv[4] || process.env['DB_PASSWORD'],
     },
     {

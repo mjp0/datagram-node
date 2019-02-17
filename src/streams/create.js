@@ -8,21 +8,22 @@ const stream_templates = require('../templates/streams')
 const { getInterface } = require('./interfaces/index')
 
 const create = async (
-  args = { template: null, storage: null, user_id: null },
+  args = { template: null, storage: null, user_password: null },
   opts = {
     keys: { key: null, secret: null },
-    index: true,
+    no_index: false,
     meta_stream: null,
+    owner_public_key: null,
   },
   callback,
 ) => {
   return new Promise(async (resolve, reject) => {
     const { done, error } = promcall(resolve, reject, callback)
     // Check that key & action exists
-    const missing = checkVariables(args, [ 'template', 'storage', 'user_id' ])
+    const missing = checkVariables(args, [ 'template', 'storage', 'user_password' ])
     if (missing) return error(errors.MISSING_VARIABLES, { missing, args })
 
-    const { template, storage, keys, index, user_id } = { ...args, ...opts }
+    const { template, storage, keys, no_index, user_password, owner_public_key } = { ...args, ...opts }
     opts.valueEncoding = 'binary' // Binary encoding is enforced
 
     // Make sure we have the template
@@ -51,8 +52,14 @@ const create = async (
     stream.ready(async (err) => {
       if (err) return error(err)
 
-      // Add user_id directly to the stream
-      stream.user_id = user_id
+      // Add user_password directly to the stream
+      stream.user_password = user_password
+
+      // If owner_public_key was provided, put that as owner_public_key, else generate from user_id
+      stream.owner_public_key = owner_public_key
+
+      // TODO: Support generating key from user_password (update CDR)
+      if (!stream.owner_public_key) return error(new Error('OWNER_PUBLIC_KEY_MISSING'))
 
       // Generate encryption password and add it directly to the stream
       stream.password = await generatePassword({ len: 64 }).catch(error)
@@ -60,15 +67,15 @@ const create = async (
 
       // Create and add indexer if requested
       let created_index = null
-      if (index) {
+      if (!no_index) {
         log('Generating keys for indexer stream...')
         const indexer_keys = await deriveKeyPair({
           master_key: Buffer.from(this._container_password + 'indexer'),
         }).catch(error)
         created_index = await create(
-          { template: stream_templates.index, storage, user_id },
-          { index: false, keys: indexer_keys },
-        )
+          { template: stream_templates.index, storage, user_password },
+          { no_index: true, keys: indexer_keys, owner_public_key },
+        ).catch(error)
         if (!created_index) return error(new Error(errors.INDEX_CREATION_FAILED))
       }
 
@@ -80,6 +87,7 @@ const create = async (
       // Add index
       if (created_index) {
         Stream.index = created_index
+        template.IndexKey = await created_index.getKeys().key
       }
 
       // Add type templates
@@ -89,7 +97,6 @@ const create = async (
       template.DatagramKey = stream.key.toString('hex')
       template.EncryptionKey = stream.password
 
-      if (index) template.IndexKey = await created_index.getKeys().key
       Stream.template = template
 
       // Apply interfaces

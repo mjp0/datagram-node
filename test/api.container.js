@@ -15,7 +15,7 @@ test('lib.build/createContainer', async (test_done) => {
   const _ = {}
   installAPI({ API: CONTAINER_API, ref: _ })
 
-  const container = await _.createFromTemplate({ template: container_templates.video_chat, password: 'test', user_id: '123456' }).catch(
+  const container = await _.createFromTemplate({ template: container_templates.video_chat, password: 'test', user_password: '123456' }).catch(
     err,
   )
 
