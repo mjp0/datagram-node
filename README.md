@@ -10,40 +10,45 @@
 ---
 
 - [Datagram, the free data platform](#datagram-the-free-data-platform)
-  - [The purpose why Datagram was created](#the-purpose-why-datagram-was-created)
-  - [What data can you send with Datagram?](#what-data-can-you-send-with-datagram)
-  - [Pricing ;)](#pricing-)
-  - [Get started](#get-started)
-  - [Running tests](#running-tests)
-  - [The team](#the-team)
-  - [License](#license)
+  - [💡 The purpose why Datagram was created](#-the-purpose-why-datagram-was-created)
+  - [📻 What data can you send with Datagram?](#-what-data-can-you-send-with-datagram)
+  - [😆 Pricing](#-pricing)
+  - [🎁 Get started](#-get-started)
+  - [🔬 Running tests](#-running-tests)
+  - [🛠 The team](#-the-team)
+  - [📝 License](#-license)
 
-## The purpose why Datagram was created
+## 💡 The purpose why Datagram was created
 Servers used to be about running code and storing backups. Now they are about facilitating connections and serving data. Docker and Kubernetes have made it easy to spin up complex server infrastructures. Despite advances in server orchestration we are still manually handling all the communication and data managing that happens between the users and the service.
 
 Datagram is an easy-to-use library to build any sort of database or data structure on top of truly private and secure peer-to-peer internet.
 
-## What data can you send with Datagram?
+## 🔌 The types of data can you send
 
 - any type of file
 - text and numbers
 - lists
 - spreadsheets
 - streaming video and audio
+- streaming binary
 
 You can send as much data as you want in one datagram.
 
-## Pricing ;)
+## 🔒 Everything encrypted from A to Z
+
+Everything you send is automatically encrypted. Everything you receive is automatically verified. Everything from your data to internet connections Datagram makes is secured with the cryptographic best practices.
+
+## 😆 Pricing
 
 There is no pricing. Everything is free. This is peer-to-peer which means that your data goes directly to the receiver. If there's nobody in the middle, why would there be fees?
 
-## Get started
+## 🎁 Get started
 
 ```bash
 TO BE WRITTEN
 ```
 
-## Running tests
+## 🔬 Running tests
 
 
 ```bash
@@ -60,7 +65,7 @@ DEBUG=*datagram* npm test
 
 
 
-## The team
+## 🛠 The team
 
 Datagram is a user-driven project maintained by an equal-fair open-source collective called [Machian](https://machian.com).
 
@@ -69,7 +74,7 @@ Current primary maintainer is [Marko Polojärvi](https://twitter.com/markopoloja
 > **If you are interested in working with peer-to-peer technologies and solving the hardest & most fascinating issues with digital privacy and security, contact [Marko Polojärvi](https://twitter.com/markopolojarvi) right now.**
 
 
-## License
+## 📝 License
 
 We consider Datagram as a public utility and public utilities should be available to all regardless of their status, skills or resources. Therefore we set no restrictions on the usage of this code. The only restriction Datagram as a project sets is the use of the name Datagram for commercial purposes without asking us first.
 
