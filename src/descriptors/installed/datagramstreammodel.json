@@ -1,0 +1,47 @@
+{
+  "context": {
+    "@id": "http://schema.org/datagramStreamModel",
+    "@type": "rdfs:Class",
+    "http://purl.org/dc/terms/source": {
+      "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass"
+    },
+    "rdfs:comment": "A datasheet or vendor specification of a Datagram stream (in the sense of a prototypical description).",
+    "rdfs:label": "DatagramStreamModel",
+    "rdfs:subClassOf": { "@id": "http://schema.org/datagramStream" }
+  },
+  "properties": [
+    {
+      "@id": "http://schema.org/predecessorOf",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms"
+      },
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/datagramStreamModel" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/datagramStreamModel" },
+      "rdfs:comment": "A pointer from a previous, often discontinued variant of the Datagram stream to its newer variant.",
+      "rdfs:label": "predecessorOf"
+    },
+    {
+      "@id": "http://schema.org/successorOf",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms"
+      },
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/datagramStreamModel" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/datagramStreamModel" },
+      "rdfs:comment": "A pointer from a newer variant of a Datagram stream to its previous, often discontinued predecessor.",
+      "rdfs:label": "successorOf"
+    },
+    {
+      "@id": "http://schema.org/isVariantOf",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms"
+      },
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/datagramStreamModel" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/datagramStreamModel" },
+      "rdfs:comment": "A pointer to a base Datagram stream from which this Datagram stream is a variant. It is safe to infer that the variant inherits all Datagram stream features from the base model, unless defined locally. This is not transitive.",
+      "rdfs:label": "isVariantOf"
+    }
+  ]
+}

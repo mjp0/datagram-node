@@ -1,0 +1,10 @@
+{
+  "@context": "http://schema.org/",
+  "@type": "datagramStream",
+  "@id": "video",
+  "name": "Video",
+  "description": "Video Stream is a stream for video data. Any type of video can be transmitted.",
+  "interfaces": [
+    "redis"
+  ]
+}

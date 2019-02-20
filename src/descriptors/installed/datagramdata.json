@@ -1,0 +1,62 @@
+{
+  "context": {
+    "@id": "http://schema.org/DatagramData",
+    "@type": "rdfs:Class",
+    "http://purl.org/dc/terms/source": {
+      "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms"
+    },
+    "rdfs:comment": "Datagram Data is the base context for all data in Datagram.",
+    "rdfs:label": "DatagramData",
+    "rdfs:subClassOf": { "@id": "http://schema.org/Thing" }
+  },
+  "properties": [
+    {
+      "@id": "http://schema.org/Arguments",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/ItemList" },
+      "http://schema.org/itemListElement": [
+        { "@id": "http://schema.org/Text" },
+        { "@id": "http://schema.org/DatagramData" }
+      ],
+      "rdfs:comment": ".",
+      "rdfs:label": "Arguments passed with the data."
+    },
+    {
+      "@id": "http://schema.org/DataListPosition",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/DatagramData"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Integer"
+        }
+      ],
+      "rdfs:comment": "The position of the data in the stream.",
+      "rdfs:label": "dataListPosition"
+    },
+    {
+      "@id": "http://schema.org/DataSizeBytes",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/DatagramData"
+      },
+      "http://schema.org/rangeIncludes": [
+        {
+          "@id": "http://schema.org/Integer"
+        }
+      ],
+      "rdfs:comment": "Size of the data stored in bytes",
+      "rdfs:label": "dataSizeBytes"
+    },
+    {
+      "@id": "http://schema.org/DatagramDataID",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/DatagramData" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/Text" },
+      "rdfs:comment": "The Datagram stream identifier.",
+      "rdfs:label": "DatagramDataID",
+      "rdfs:subPropertyOf": { "@id": "http://schema.org/identifier" }
+    }
+  ]
+}

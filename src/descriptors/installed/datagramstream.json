@@ -1,0 +1,120 @@
+{
+  "context": {
+    "@id": "http://schema.org/DatagramStream",
+    "@type": "rdfs:Class",
+    "http://purl.org/dc/terms/source": {
+      "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms"
+    },
+    "rdfs:comment": "Any offered Datagram stream. For example: a message stream; a video stream; an audio stream; an action stream; or a stream of measurements.",
+    "rdfs:label": "DatagramStream",
+    "rdfs:subClassOf": { "@id": "http://schema.org/Thing" }
+  },
+  "properties": [
+    {
+      "@id": "http://schema.org/Manufacturer",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/DatagramStream" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/Organization" },
+      "rdfs:comment": "The manufacturer of the Datagram stream.",
+      "rdfs:label": "Manufacturer"
+    },
+    {
+      "@id": "http://schema.org/IsConsumableFor",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms"
+      },
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/DatagramStream" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/DatagramStream" },
+      "rdfs:comment": "A pointer to a Datagram container (or multiple Datagram containers) for which this Datagram stream is a consumable.",
+      "rdfs:label": "IsConsumableFor"
+    },
+    {
+      "@id": "http://schema.org/isAccessoryOrSparePartFor",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms"
+      },
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/DatagramStream" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/DatagramStream" },
+      "rdfs:comment": "A pointer to another Datagram stream (or multiple Datagram streams) for which this Datagram stream is an accessory or spare part.",
+      "rdfs:label": "isAccessoryOrSparePartFor"
+    },
+    {
+      "@id": "http://schema.org/Model",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/DatagramStream" },
+      "http://schema.org/rangeIncludes": [
+        { "@id": "http://schema.org/Text" },
+        { "@id": "http://schema.org/DatagramStreamModel" }
+      ],
+      "rdfs:comment": "The model of the Datagram stream. Use with the URL of a DatagramStreamModel or a textual representation of the model identifier. The URL of the DatagramStreamModel can be from an external source. It is recommended to additionally provide strong Datagram stream identifiers via the gtin8/gtin13/gtin14 and mpn properties.",
+      "rdfs:label": "Model"
+    },
+    {
+      "@id": "http://schema.org/DatagramStreamID",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/DatagramStream" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/Text" },
+      "rdfs:comment": "The Datagram stream identifier.",
+      "rdfs:label": "DatagramStreamID",
+      "rdfs:subPropertyOf": { "@id": "http://schema.org/Identifier" }
+    },
+    {
+      "@id": "http://schema.org/ReleaseDate",
+      "@type": "rdf:Property",
+      "http://purl.org/dc/terms/source": {
+        "@id": "http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms"
+      },
+      "http://schema.org/domainIncludes": { "@id": "http://schema.org/DatagramStream" },
+      "http://schema.org/rangeIncludes": { "@id": "http://schema.org/Date" },
+      "rdfs:comment": "The release date of a Datagram stream or Datagram stream model. This can be used to distinguish the exact variant of a Datagram stream.",
+      "rdfs:label": "ReleaseDate"
+    },
+    {
+      "@id": "http://schema.org/DatagramKey",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/DatagramStream"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The Datagram stream public key.",
+      "rdfs:label": "DatagramKey",
+      "rdfs:subPropertyOf": {
+        "@id": "http://schema.org/Identifier"
+      }
+    },
+    {
+      "@id": "http://schema.org/IndexKey",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/DatagramStream"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The Datagram stream's indexer's public key.",
+      "rdfs:label": "IndexKey",
+      "rdfs:subPropertyOf": {
+        "@id": "http://schema.org/Identifier"
+      }
+    },
+    {
+      "@id": "http://schema.org/EncryptionKey",
+      "@type": "rdf:Property",
+      "http://schema.org/domainIncludes": {
+        "@id": "http://schema.org/DatagramStream"
+      },
+      "http://schema.org/rangeIncludes": {
+        "@id": "http://schema.org/Text"
+      },
+      "rdfs:comment": "The Datagram stream's indexer's public key.",
+      "rdfs:label": "EncryptionKey",
+      "rdfs:subPropertyOf": {
+        "@id": "http://schema.org/Identifier"
+      }
+    }
+  ]
+}
