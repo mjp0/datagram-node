@@ -11,7 +11,8 @@
 
 - [Datagram, the free data platform](#datagram-the-free-data-platform)
   - [💡 The purpose why Datagram was created](#-the-purpose-why-datagram-was-created)
-  - [📻 What data can you send with Datagram?](#-what-data-can-you-send-with-datagram)
+  - [� The types of data can you send](#-the-types-of-data-can-you-send)
+  - [🔒 Everything encrypted from A to Z](#-everything-encrypted-from-a-to-z)
   - [😆 Pricing](#-pricing)
   - [🎁 Get started](#-get-started)
   - [🔬 Running tests](#-running-tests)
