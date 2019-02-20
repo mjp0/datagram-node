@@ -1,5 +1,6 @@
 const { log } = require('../utils/debug')(__filename)
 const hypercore = require('hypercore')
+const hyperdb = require('hyperdb')
 const { _open_storage } = require('../utils')
 const { getInterface } = require('./interfaces/index')
 
@@ -18,11 +19,11 @@ exports.clone = async (args = { keys: { key: null, secret: null }, storage: null
       opts.key = Buffer.from(keys.key, 'hex')
     }
 
-    log('Cloning core', opts.key.toString('hex'))
+    log('Cloning stream', opts.key.toString('hex'))
 
     const store = _open_storage(opts.key.toString('hex'), storage)
 
-    const stream = hypercore(store, opts)
+    const stream = hyperdb(store, opts.key.toString('hex'), opts)
     stream.ready(async (err) => {
       if (err) return error(err)
 
@@ -35,7 +36,7 @@ exports.clone = async (args = { keys: { key: null, secret: null }, storage: null
       // TODO: Support generating key from user_password (update CDR)
       if (!stream.owner_public_key) return error(new Error('OWNER_PUBLIC_KEY_MISSING'))
 
-      // Generate the core around the data stream
+      // Generate the stream around the data stream
       const base = await getInterface('base')
       const Stream = base(stream)
 

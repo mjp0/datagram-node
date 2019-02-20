@@ -48,10 +48,10 @@ describe('stream', async () => {
     expect(Buffer.isBuffer(admin_auth)).toBeTruthy()
 
     // Add it to the stream
-    await stream.add(admin_auth).catch(error)
+    const position = await stream.add(admin_auth).catch(error)
 
-    // Admin auth package is the second after stream template so should be at position #1
-    const stored_admin_auth = await stream.get(1).catch(error)
+    // Admin auth package is the second after stream template so should be at position
+    const stored_admin_auth = await stream.get(position).catch(error)
 
     // Read package
     // NOTE: should this be done in stream.get automatically? how common it is to pass on read
@@ -108,6 +108,18 @@ describe('stream', async () => {
     })
   })
 
+  test('stream/authorization', async () => {
+    const stream = await create(
+      { user_password: user.secret, template: templates.admin, storage: ram },
+      { owner_public_key: user.key },
+    ).catch(error)
+
+    const new_device = await generateUser().catch(error)
+
+    await stream.authorize({ key: new_device.key }).catch(error)
+
+    expect(await stream.isAuthorized({ key: new_device.key }).catch(error)).toBeTruthy()
+  })
   test('stream/interfaces', async () => {
     const stream = await create(
       { user_password: user.secret, template: templates.admin, storage: ram },
@@ -120,7 +132,7 @@ describe('stream', async () => {
     expect(typeof stream.meta.close).toBe('function')
   })
 
-  test('stream/indexer', async () => {
+  test.skip('stream/indexer', async () => {
     const stream = await create(
       { user_password: user.secret, template: templates.admin, storage: ram },
       { owner_public_key: user.key },
@@ -144,13 +156,14 @@ describe('stream', async () => {
 
     expect(Buffer.isBuffer(admin_auth)).toBeTruthy()
 
-    await stream.redis.set('test', admin_auth).catch(error)
-
-    const stored_index_package = await stream.index.redis.get('test').catch(error)
+    const key = '_test'
+    const position = await stream.redis.set(key, admin_auth).catch(error)
+    expect(position).toEqual(key)
+    const stored_index_package = await stream.index.redis.get(key).catch(error)
     // const unpacked_index_package = await descriptors.read(stored_index_package).catch(error)
-    expect(stored_index_package.arguments).toEqual({ key: 'test', action: '+' })
+    expect(stored_index_package.arguments).toEqual({ key: key, action: '+' })
 
-    const is_removed = await stream.index.indexer.removeRow({ key: 'test' })
+    const is_removed = await stream.index.indexer.removeRow({ key: key })
     expect(is_removed).toBeTruthy()
 
     const removal_package = await stream.index.get(2).catch(error)

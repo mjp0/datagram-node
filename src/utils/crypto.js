@@ -1,5 +1,5 @@
 const promcall = require('promised-callback').default
-const CDR = require('cryptodoneright').default
+const CDR = require('cryptodoneright')
 const { getNested, checkVariables } = require('./common')
 const { err, errors } = require('./errors')
 
@@ -86,10 +86,10 @@ exports.securePassword = async (args = { password: null }, callback) => {
   })
 }
 
-exports.hash = async (args = { str: null }, callback) => {
+exports.hash = async (args = { data: null }, callback) => {
   return new Promise(async (resolve, reject) => {
     const { done, error } = promcall(resolve, reject, callback)
-    const hash = await CDR.hash(args.str).catch(error)
+    const hash = await CDR.hash(args.data).catch(error)
     done(hash)
   })
 }

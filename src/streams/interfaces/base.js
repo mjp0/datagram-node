@@ -1,5 +1,5 @@
 const descriptors = require('../../descriptors')
-const { errors, encryptData, decryptData, signData, verifySignature } = require('../../utils')
+const { getNested, hash, errors, encryptData, decryptData, signData, verifySignature } = require('../../utils')
 const msgpack = require('msgpack5')()
 
 exports.base = function(stream_reference) {
@@ -8,22 +8,25 @@ exports.base = function(stream_reference) {
     '@id': 'base',
     get: async (package_number) => {
       return new Promise(async (done, error) => {
-        if (!stream.readable) return error(new Error('STREAM_NOT_READABLE'))
+        // if (!stream.readable) return error(new Error('STREAM_NOT_READABLE'))
         if (!stream.password) return error(new Error('STREAM_PASSWORD_MISSING'))
         if (!stream.owner_public_key) return error(new Error('STREAM_OWNER_PUBLIC_KEY_MISSING'))
 
-        stream.get(package_number, { wait: true }, async (err, stored_pkg) => {
+        stream.get(package_number, async (err, stored_pkgs) => {
           if (err) return error(err)
 
+          if (!stored_pkgs || stored_pkgs.length === 0 || !stored_pkgs[0].value) {
+            return done(null)
+          }
           // open the package
-          const opened_pkg = msgpack.decode(stored_pkg)
+          const opened_pkg = msgpack.decode(stored_pkgs[0].value)
 
           // verify the signature if present
           if (opened_pkg.signature && opened_pkg.owner_public_key) {
             const is_valid = await verifySignature({
               signature: opened_pkg.signature,
               data: opened_pkg.data,
-              key: stream.owner_public_key
+              key: stream.owner_public_key,
             }).catch(error)
             if (!is_valid) return error(new Error('SIGNATURE_VERIFICATION_FAIL'), { opened_pkg })
           }
@@ -42,7 +45,7 @@ exports.base = function(stream_reference) {
     getBatch: async (package_number1, package_number2) => {
       return new Promise(async (done, error) => {
         if (!stream.readable) return error(new Error('STREAM_NOT_READABLE'))
-        stream.get(package_number1, package_number2, { wait: true }, (err, pkgs) => {
+        stream.get(package_number1, package_number2, (err, pkgs) => {
           if (err) return error(err)
           return done(pkgs)
         })
@@ -51,7 +54,7 @@ exports.base = function(stream_reference) {
     add: async (pkg, descriptor) => {
       return new Promise(async (done, error) => {
         // if (!descriptor) return error(new Error('DESCRIPTOR_NOT_PROVIDED'))
-        if (!stream.writable) return error(new Error('STREAM_NOT_WRITABLE'))
+        // if (!stream.writable) return error(new Error('STREAM_NOT_WRITABLE'))
         if (!Buffer.isBuffer(pkg)) return error(new Error('PACKAGE_NOT_BUFFER'))
         if (!stream.password) return error(new Error('STREAM_PASSWORD_MISSING'))
 
@@ -73,16 +76,33 @@ exports.base = function(stream_reference) {
 
         finalized_pkg = msgpack.encode(finalized_pkg)
 
-        stream.append(finalized_pkg, async (err, position) => {
+        let position = null
+        if (getNested(descriptor, 'arguments.key')) {
+          position = descriptor.arguments.key
+        } else {
+          position = await hash({ data: finalized_pkg }).catch(error)
+        }
+        stream.put(position, finalized_pkg, async (err, saved_position) => {
           if (err) return error(err)
-          if (typeof API.index === 'object' && descriptor) {
-            if (typeof API.index.indexer.addRow === 'function') {
-              await API.index.indexer.addRow(descriptor).catch(error)
+
+          // Check that value was indeed saved
+          stream.get(saved_position.key, async (err, stored_finalized_pkgs) => {
+            if (err) return error(err)
+            if (!stored_finalized_pkgs || stored_finalized_pkgs.length === 0 || !stored_finalized_pkgs[0].value) {
+              return error(new Error('STORED_DATA_MISSING'))
+            } else if (finalized_pkg.compare(stored_finalized_pkgs[0].value) === 0) {
+              if (typeof API.index === 'object' && descriptor) {
+                if (typeof API.index.indexer.addRow === 'function') {
+                  await API.index.indexer.addRow(descriptor).catch(error)
+                } else {
+                  return error(new Error(errors.BAD_INDEX), { index: API.index })
+                }
+              }
+              return done(saved_position.key)
             } else {
-              return error(new Error(errors.BAD_INDEX), { index: API.index })
+              return error(new Error('STORED_DATA_MISSING'))
             }
-          }
-          return done(position)
+          })
         })
       })
     },
@@ -161,6 +181,25 @@ exports.base = function(stream_reference) {
         done(stream.replicate(opts))
       })
     },
+    authorize: async (opts = { key: null }) => {
+      const key = Buffer.isBuffer(opts.key) ? opts.key : Buffer.from(opts.key, 'hex')
+      return new Promise(async (done, error) => {
+        stream.authorize(key, (err) => {
+          if (err) return error(err)
+          done()
+        })
+      })
+    },
+    isAuthorized: async (opts = { key: null }) => {
+      const key = Buffer.isBuffer(opts.key) ? opts.key : Buffer.from(opts.key, 'hex')
+      return new Promise(async (done, error) => {
+        stream.authorized(key, (err, is_valid) => {
+          if (err) return error(err)
+          else if (is_valid === true) done(true)
+          else done(false)
+        })
+      })
+    },
     verifyData: async () => {
       return new Promise(async (done, error) => {
         return stream.audit((err, ok) => {
@@ -192,7 +231,7 @@ exports.base = function(stream_reference) {
     },
     getTemplate: async () => {
       return new Promise(async (done, error) => {
-        const packed_template = await API.get(0).catch(error)
+        const packed_template = await API.get('_template').catch(error)
         const template = await descriptors.read(packed_template).catch(error)
         done(template)
       })

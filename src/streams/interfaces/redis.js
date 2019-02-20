@@ -44,62 +44,94 @@ const redis = {
       return new Promise(async (done, error) => {
         // Super hacky way to deal with a callback race condition
         // I couldn't find nor fix - you are welcome to fix this...
-        let delivery_lock = false
-        function deliver(err = null, value) {
-          if (!delivery_lock) {
-            delivery_lock = true
-            if (err) return error(err)
-            done(value)
-          }
-        }
-        // fetch key from hyperstream
-        if (stream.length > 0) {
-          const packet_count = stream.length
+        // let delivery_lock = false
+        // function deliver(err = null, value) {
+        //   if (!delivery_lock) {
+        //     delivery_lock = true
+        //     if (err) return error(err)
+        //     done(value)
+        //   }
+        // }
+        // // fetch key from hyperstream
+        // if (stream.length > 0) {
+        //   const packet_count = stream.length
 
-          // Reverse through the packets in stream
-          for (let i = packet_count - 1; i >= 1; i--) {
-            const buffer = await API.get(i).catch((err) => {
-              return deliver(err)
-            })
+        //   // Reverse through the packets in stream
+        //   for (let i = packet_count - 1; i >= 1; i--) {
+        //     const buffer = await API.get(i).catch((err) => {
+        //       return deliver(err)
+        //     })
 
-            // Turn content back to readable
-            const content = await descriptors.read(buffer).catch(error)
+        //     // Turn content back to readable
+        //     const content = await descriptors.read(buffer).catch(error)
 
-            // Check that key & action exists
-            const missing = checkVariables(content, [ 'datatype', 'arguments', 'arguments.key', 'arguments.action' ])
-            if (missing) return error(errors.MISSING_VARIABLES, { missing, content })
+        //     // Check that key & action exists
+        //     const missing = checkVariables(content, [ 'datatype', 'arguments', 'arguments.key', 'arguments.action' ])
+        //     if (missing) return error(errors.MISSING_VARIABLES, { missing, content })
 
-            const args = { ...content.arguments }
+        //     const args = { ...content.arguments }
 
-            // If it's an object, it's probably descriptor
-            if (typeof content === 'object') {
-              // If we find the key with + type, we pick that and stop the search
-              if (args.action === '+') {
-                try {
-                  if (args.key === key) {
-                    // Make sure that it's not empty
-                    if (content[content.datatype]) {
-                      return deliver(null, content[content.datatype])
-                    } else {
-                      return deliver(null, content)
-                    }
-                  }
-                } catch (e) {
-                  log('[ERROR]', 'error in json parsing', e)
-                  deliver('ERROR_PARSING_JSON')
+        //     // If it's an object, it's probably descriptor
+        //     if (typeof content === 'object') {
+        //       // If we find the key with + type, we pick that and stop the search
+        //       if (args.action === '+') {
+        //         try {
+        //           if (args.key === key) {
+        //             // Make sure that it's not empty
+        //             if (content[content.datatype]) {
+        //               return deliver(null, content[content.datatype])
+        //             } else {
+        //               return deliver(null, content)
+        //             }
+        //           }
+        //         } catch (e) {
+        //           log('[ERROR]', 'error in json parsing', e)
+        //           deliver('ERROR_PARSING_JSON')
+        //         }
+        //       } else if (args.action === '-') {
+        //         // If we find the key with - type, it's deleted and we stop the search
+        //         deliver()
+        //       } else {
+        //         log('[ERROR]', 'this state should not happen', content)
+        //         deliver('BAD_CONTENT')
+        //       }
+        //     } else deliver('BAD_CONTENT')
+        //   }
+        // } else {
+        //   // stream is empty so there's nothing available yet
+        //   deliver()
+        // }
+        const buffer = await API.get(key).catch(error)
+
+        if (!buffer) return done()
+        
+        // Turn content back to readable
+        const content = await descriptors.read(buffer).catch(error)
+
+        // Check that key & action exists
+        const missing = checkVariables(content, [ 'datatype', 'arguments', 'arguments.key', 'arguments.action' ])
+        if (missing) return error(errors.MISSING_VARIABLES, { missing, content })
+
+        const args = { ...content.arguments }
+
+        // If it's an object, it's probably descriptor
+        if (typeof content === 'object') {
+          // If we find the key with + type, we pick that and stop the search
+          if (args.action === '+') {
+            try {
+              if (args.key === key) {
+                // Make sure that it's not empty
+                if (content[content.datatype]) {
+                  return done(content[content.datatype])
+                } else {
+                  return done(content)
                 }
-              } else if (args.action === '-') {
-                // If we find the key with - type, it's deleted and we stop the search
-                deliver()
-              } else {
-                log('[ERROR]', 'this state should not happen', content)
-                deliver('BAD_CONTENT')
               }
-            } else deliver('BAD_CONTENT')
-          }
-        } else {
-          // stream is empty so there's nothing available yet
-          deliver()
+            } catch (e) {
+              log('[ERROR]', 'error in json parsing', e)
+              error(new Error('ERROR_PARSING_JSON'))
+            }
+          } else error(new Error('BAD_CONTENT'))
         }
       })
     }
@@ -108,68 +140,74 @@ const redis = {
     return async () => {
       return new Promise(async (done, error) => {
         // fetch key from hyperstream
-        if (stream.length > 0) {
-          const keys = {}
-          const packet_count = stream.length
+        // if (stream.length > 0) {
+        //   const keys = {}
+        //   const packet_count = stream.length
 
-          // Fetch all packages except core definition
-          const packages = []
-          for (let pos = 1; pos < packet_count; pos++) {
-            packages.push(await API.get(pos).catch(error))
-          }
-          await Promise.all(packages)
+        //   // Fetch all packages except core definition
+        //   const packages = []
+        //   for (let pos = 1; pos < packet_count; pos++) {
+        //     packages.push(await API.get(pos).catch(error))
+        //   }
+        //   await Promise.all(packages)
 
-          // Create index of all keys and the last action associated with them
-          if (Array.isArray(packages)) {
-            const pkgs = []
-            packages.forEach(async (pkg) => {
-              if (pkg) {
-                pkgs.push(
-                  new Promise(async (pkg_done, iferror) => {
-                    // Turn content back to readable
-                    const content = await descriptors.read(pkg).catch(error)
+        //   // Create index of all keys and the last action associated with them
+        //   if (Array.isArray(packages)) {
+        //     const pkgs = []
+        //     packages.forEach(async (pkg) => {
+        //       if (pkg) {
+        //         pkgs.push(
+        //           new Promise(async (pkg_done, iferror) => {
+        //             // Turn content back to readable
+        //             const content = await descriptors.read(pkg).catch(error)
 
-                    // Check that key & action exists
-                    const missing = checkVariables(content, [
-                      'datatype',
-                      'arguments',
-                      'arguments.key',
-                      'arguments.action',
-                    ])
-                    if (missing) return error(errors.MISSING_VARIABLES, { missing, content })
+        //             // Check that key & action exists
+        //             const missing = checkVariables(content, [
+        //               'datatype',
+        //               'arguments',
+        //               'arguments.key',
+        //               'arguments.action',
+        //             ])
+        //             if (missing) return error(errors.MISSING_VARIABLES, { missing, content })
 
-                    const args = { ...content.arguments }
+        //             const args = { ...content.arguments }
 
-                    // If we find the key with + type, add it to keys with +
-                    if (args.action === '+') {
-                      keys[args.key] = '+'
-                    }
-                    // If we find the key with - type, add it to keys with +
-                    if (args.action === '-') {
-                      keys[args.key] = '-'
-                    }
+        //             // If we find the key with + type, add it to keys with +
+        //             if (args.action === '+') {
+        //               keys[args.key] = '+'
+        //             }
+        //             // If we find the key with - type, add it to keys with +
+        //             if (args.action === '-') {
+        //               keys[args.key] = '-'
+        //             }
 
-                    pkg_done()
-                  }),
-                )
-              }
-            })
-            await Promise.all(pkgs).catch(error)
-            // Filter out all keys that have - as their action because they are deleted
-            const existing_keys = []
-            for (const key in keys) {
-              if (keys.hasOwnProperty(key) && keys[key] === '+') {
-                existing_keys.push(key)
-              }
-            }
-            done(existing_keys)
-          } else {
-            return error(new Error(errors.PACKAGES_MISSING))
-          }
-        } else {
-          // stream is empty so there's nothing available yet
-          done([])
-        }
+        //             pkg_done()
+        //           }),
+        //         )
+        //       }
+        //     })
+        //     await Promise.all(pkgs).catch(error)
+        //     // Filter out all keys that have - as their action because they are deleted
+        //     const existing_keys = []
+        //     for (const key in keys) {
+        //       if (keys.hasOwnProperty(key) && keys[key] === '+') {
+        //         existing_keys.push(key)
+        //       }
+        //     }
+        //     done(existing_keys)
+        //   } else {
+        //     return error(new Error(errors.PACKAGES_MISSING))
+        //   }
+        // } else {
+        //   // stream is empty so there's nothing available yet
+        //   done([])
+        // }
+
+        stream.list('', (err, keys) => {
+          if (err) return error(err)
+          if (!keys || keys.length === 0) return done([])
+          else return done(keys.map((k) => k[0].key))
+        })
       })
     }
   },
@@ -180,29 +218,33 @@ const redis = {
         // - is for action type so we can add delete later
         // const res = await API.add(Buffer.from(`-|${key.toString()}|`)).catch(error)
 
-        const descriptor = {
-          agent: {
-            '@type': 'Owner',
-            key: await API.getOwner().catch(error),
-          },
-          arguments: { key, action: '-' },
-          datatype: 'null',
-        }
+        // const descriptor = {
+        //   agent: {
+        //     '@type': 'Owner',
+        //     key: await API.getOwner().catch(error),
+        //   },
+        //   arguments: { key, action: '-' },
+        //   datatype: 'null',
+        // }
 
-        const pkg = await descriptors.create('DatagramData', descriptor).catch(error)
+        // const pkg = await descriptors.create('DatagramData', descriptor).catch(error)
 
-        const position = await API.add(pkg, pkg).catch(error)
+        // const position = await API.add(pkg, pkg).catch(error)
 
-        if (typeof API.index === 'object') {
-          if (typeof API.index.indexer.addRow === 'function') {
-            await API.index.indexer.removeRow({ key }).catch(error)
-          } else {
-            return error(new Error(errors.BAD_INDEX), { index: API.index })
-          }
-        }
-        done(position)
-
+        // if (typeof API.index === 'object') {
+        //   if (typeof API.index.indexer.addRow === 'function') {
+        //     await API.index.indexer.removeRow({ key }).catch(error)
+        //   } else {
+        //     return error(new Error(errors.BAD_INDEX), { index: API.index })
+        //   }
+        // }
+        // done(position)
         // TODO: Find block ids for previous entries and delete local data for those
+
+        stream.del(key, (err, result) => {
+          if (err) return error(err)
+          else return done(result)
+        })
       })
     }
   },

@@ -22,7 +22,7 @@ describe('stream', async () => {
 
     // Add foo=bar
     const pos = await stream.redis.set('foo', 'bar').catch(error)
-    expect(pos).toBe(1)
+    expect(pos).toBe('foo')
 
     // Verify foo === bar
     const foo = await stream.redis.get('foo').catch(error)
@@ -41,6 +41,6 @@ describe('stream', async () => {
 
     // Verify all keys is empty
     const empty_all_keys = await stream.redis.getAllKeys().catch(error)
-    expect(empty_all_keys).toHaveLength(0)
+    expect(empty_all_keys).toHaveLength(1) // _template is still there
   })
 })

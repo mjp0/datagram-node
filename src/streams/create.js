@@ -1,6 +1,7 @@
 const promcall = require('promised-callback').default
 const { log } = require('../utils/debug')(__filename)
 const hypercore = require('hypercore')
+const hyperdb = require('hyperdb')
 const crypto = require('hypercore-crypto')
 const { _open_storage, errors, deriveKeyPair, generatePassword, checkVariables } = require('../utils')
 const descriptors = require('../descriptors')
@@ -25,6 +26,7 @@ const create = async (
 
     const { template, storage, keys, no_index, user_password, owner_public_key } = { ...args, ...opts }
     opts.valueEncoding = 'binary' // Binary encoding is enforced
+    opts.storeSecretKey = false
 
     // Make sure we have the template
     if (!template) return error(new Error(errors.TEMPLATE_MISSING), { args })
@@ -47,9 +49,9 @@ const create = async (
 
     const store = _open_storage(opts.key.toString('hex'), storage)
 
-    const stream = hypercore(store, opts)
+    const stream = hyperdb(store, opts.key.toString('hex'), opts)
 
-    stream.ready(async (err) => {
+    stream.on('ready', async (err) => {
       if (err) return error(err)
 
       // Add user_password directly to the stream
@@ -123,7 +125,7 @@ const create = async (
 
       // Store template at 0 position
       const stream_descriptor = await descriptors.create('DatagramStream', template).catch(error)
-      await Stream.add(stream_descriptor).catch(error)
+      await Stream.add(stream_descriptor, { arguments: { key: '_template' } }).catch(error)
 
       done(Stream)
     })
