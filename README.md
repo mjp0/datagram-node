@@ -9,15 +9,15 @@
 
 ---
 
-- [Datagram, the free data platform](#datagram-the-free-data-platform)
-  - [💡 The purpose why Datagram was created](#-the-purpose-why-datagram-was-created)
-  - [🔌 The types of data can you send](#-the-types-of-data-can-you-send)
-  - [🔒 Everything encrypted from A to Z](#-everything-encrypted-from-a-to-z)
-  - [😆 Pricing](#-pricing)
-  - [🎁 Get started](#-get-started)
-  - [🔬 Running tests](#-running-tests)
-  - [🛠 The team](#-the-team)
-  - [📝 License](#-license)
+- [💡 The purpose why Datagram was created](#-the-purpose-why-datagram-was-created)
+- [🔌 The types of data can you send](#-the-types-of-data-can-you-send)
+- [🔒 Everything encrypted from A to Z](#-everything-encrypted-from-a-to-z)
+- [😆 Pricing](#-pricing)
+- [🎁 Get started](#-get-started)
+- [🏎 Performance](#-performance)
+- [🔬 Running tests](#-running-tests)
+- [🛠 The team](#-the-team)
+- [📝 License](#-license)
 
 ## 💡 The purpose why Datagram was created
 Servers used to be about running code and storing backups. Now they are about facilitating connections and serving data. Docker and Kubernetes have made it easy to spin up complex server infrastructures. Despite advances in server orchestration we are still manually handling all the communication and data managing that happens between the users and the service.
@@ -48,6 +48,10 @@ There is no pricing. Everything is free. This is peer-to-peer which means that y
 ```bash
 TO BE WRITTEN
 ```
+## 🏎 Performance
+
+Performance is good enough to power any modern consumer javascript application.
+If you need to store, analyze and serve "big data", Datagram might not be your choice.
 
 ## 🔬 Running tests
 
