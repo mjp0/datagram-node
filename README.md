@@ -1,4 +1,4 @@
-# Datagram, the free data platform
+![Datagram, the free data platform](media/header.png)
 > Datagram is an open-source data platform that you can use to build secure shared databases and data structures with anyone. Datagram helps you to organize, share and download your data in a decentralized and peer-to-peer manner.
 
 [![license](https://img.shields.io/badge/license-apache--2.0-brightgreen.svg)](LICENSE) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmachianists%2Fdatagram-node.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmachianists%2Fdatagram-node?ref=badge_shield) [![js-standardx-style](https://img.shields.io/badge/code%20style-standardx-brightgreen.svg)](http://standardjs.com) [![web-datagram](https://img.shields.io/badge/web-datagramjs.com-blue.svg)](https://datagramjs.com) [![twitter-machianists](https://img.shields.io/badge/twitter-@machianists-blue.svg)](https://twitter.com/machianists)
