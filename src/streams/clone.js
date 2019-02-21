@@ -10,6 +10,7 @@ exports.clone = async (args = { keys: { key: null, secret: null }, storage: null
 
     opts = {
       valueEncoding: 'binary', // Binary encoding is enforced
+      sparse: true
     }
 
     // Make sure we have the definition

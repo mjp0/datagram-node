@@ -101,11 +101,14 @@ describe('stream', async () => {
 
     const rep_stream = await stream.replicate()
 
-    rep_stream.pipe(await cloned_stream.replicate()).pipe(rep_stream).once('end', async () => {
+    rep_stream.pipe(await cloned_stream.replicate()).pipe(rep_stream)
+    setTimeout(checkToResult, 500)
+
+    async function checkToResult() {
       const template = await cloned_stream.getTemplate().catch(error)
       expect(template.name).toBe('Admin')
       done()
-    })
+    }
   })
 
   test('stream/authorization', async () => {

@@ -37,6 +37,7 @@ exports.load = async (
     // Everything seems to be cool so let's try to initialize it
     const stream = hyperdb(store, hex_key, {
       secretKey: keys.secret ? (Buffer.isBuffer(keys.secret) ? keys.secret : Buffer.from(keys.secret, 'hex')) : null,
+      sparse: true
     })
     // Wait until everything is loaded and then deliver stream forward
     stream.on('ready', async (err) => {

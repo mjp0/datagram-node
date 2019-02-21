@@ -27,6 +27,7 @@ const create = async (
     const { template, storage, keys, no_index, user_password, owner_public_key } = { ...args, ...opts }
     opts.valueEncoding = 'binary' // Binary encoding is enforced
     opts.storeSecretKey = false
+    opts.sparse = true
 
     // Make sure we have the template
     if (!template) return error(new Error(errors.TEMPLATE_MISSING), { args })
