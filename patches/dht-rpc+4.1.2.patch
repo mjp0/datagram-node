@@ -1,0 +1,13 @@
+diff --git a/node_modules/dht-rpc/index.js b/node_modules/dht-rpc/index.js
+index 4033bef..68a78a2 100644
+--- a/node_modules/dht-rpc/index.js
++++ b/node_modules/dht-rpc/index.js
+@@ -26,7 +26,7 @@ class DHT extends EventEmitter {
+     this.destroyed = false
+     this.concurrency = 16
+     this.socket = opts.socket || dgram.createSocket('udp4')
+-    this.id = randomBytes(32)
++    this.id = new Uint8Array(randomBytes(32))
+     this.inflightQueries = 0
+     this.ephemeral = !!opts.ephemeral
+ 
