@@ -13,7 +13,7 @@ describe('stream', async () => {
   test('interface/redis', async () => {
     const templ = templates.replication
     templ.interfaces = [ 'meta' ]
-    const stream = await create({ template: templates.replication, storage: ram, user_password: user.secret }, { owner_public_key: user.key }).catch(error)
+    const stream = await create({ template: templates.replication, storage: ram, user_password: user.secret }, { user_id: user.key }).catch(error)
 
     // Add key/value interface
     const redis = await getInterface('redis')

@@ -6,37 +6,26 @@ const _open_storage = require('../utils/storage')._open_storage
 const { getInterface } = require('./interfaces')
 
 exports.load = async (
-  args = { keys: { key: null, secret: null }, storage: null, password: null, user_password: null },
-  opts = { owner_public_key: null },
+  args = { keys: { read: null, write: null }, storage: null, encryption_password: null, user_password: null },
+  opts = { user_id: null },
 ) => {
   return new Promise(async (done, error) => {
     // Check that key & action exists
-    const missing = checkVariables(args, [ 'keys.key', 'storage', 'password' ])
+    const missing = checkVariables(args, ['keys.read', 'storage', 'encryption_password', 'user_password' ])
     if (missing) return error(errors.MISSING_VARIABLES, { missing, args })
 
-    const { storage, keys, password, user_password, owner_public_key } = { ...args, ...opts }
+    const { storage, keys, encryption_password, user_password, user_id } = { ...args, ...opts }
 
-    const hex_key = Buffer.isBuffer(keys.key) ? keys.key.toString('hex') : keys.key
+    const hex_key = Buffer.isBuffer(keys.read) ? keys.read.toString('hex') : keys.read
 
     log('Trying to open stream with key', hex_key)
 
     // Open storage for the stream
     const store = _open_storage(hex_key, storage)
 
-    // Open key
-    // const store_key = store('key')
-
-    // Let's check whether the key exists
-    // store_key.read(0, 4, (err, bytes) => {
-    //   // If there's an error, it's empty which means that it does not exist
-    //   if (err) {
-    //     log('No stream found with key', hex_key)
-    //     return done()
-    //   }
-
     // Everything seems to be cool so let's try to initialize it
     const stream = hyperdb(store, hex_key, {
-      secretKey: keys.secret ? (Buffer.isBuffer(keys.secret) ? keys.secret : Buffer.from(keys.secret, 'hex')) : null,
+      secretKey: keys.write ? (Buffer.isBuffer(keys.write) ? keys.write : Buffer.from(keys.write, 'hex')) : null,
       sparse: true
     })
     // Wait until everything is loaded and then deliver stream forward
@@ -46,14 +35,14 @@ exports.load = async (
       // Add user_password
       stream.user_password = user_password
 
-      // Add password
-      stream.password = password
+      // Add encryption password
+      stream.encryption_password = encryption_password
 
-      // If owner_public_key was provided, put that as owner_public_key, else generate from user_id
-      stream.owner_public_key = owner_public_key
+      // If user_id was provided, put that as user_id
+      stream.user_id = user_id
 
       // TODO: Support generating key from user_password (update CDR)
-      if (!stream.owner_public_key) return error(new Error('OWNER_PUBLIC_KEY_MISSING'))
+      if (!stream.user_id) return error(new Error('USER_ID_MISSING'))
 
       // Generate the stream around the data stream
       const base = await getInterface('base')

@@ -1,45 +1,49 @@
 const { log } = require('../utils/debug')(__filename)
-const hypercore = require('hypercore')
 const hyperdb = require('hyperdb')
 const { _open_storage } = require('../utils')
 const { getInterface } = require('./interfaces/index')
 
-exports.clone = async (args = { keys: { key: null, secret: null }, storage: null, password: null }, opts = { owner_public_key: null }) => {
+exports.clone = async (args = { keys: { read: null }, storage: null, encryption_password: null }, opts = { user_id: null, remote: false, peer: false }) => {
   return new Promise(async (done, error) => {
-    const { storage, keys, password, owner_public_key } = { ...args, ...opts }
+    const { storage, keys, encryption_password, user_id, remote, peer } = { ...args, ...opts }
 
     opts = {
       valueEncoding: 'binary', // Binary encoding is enforced
       sparse: true
     }
 
-    // Make sure we have the definition
-    if (!keys.key) throw new Error('DEFINITION_REQUIRED')
+    // Make sure we have the key
+    if (!keys.read) throw new Error('KEY_REQUIRED')
 
-    if (keys && keys.key) {
-      opts.key = Buffer.from(keys.key, 'hex')
+    if (keys && keys.read) {
+      opts.key = Buffer.from(keys.read, 'hex')
     }
 
     log('Cloning stream', opts.key.toString('hex'))
 
     const store = _open_storage(opts.key.toString('hex'), storage)
 
-    const stream = hyperdb(store, opts.key.toString('hex'), opts)
-    stream.ready(async (err) => {
+    const stream = hyperdb(store, opts.key, opts)
+    stream.on('ready', async (err) => {
       if (err) return error(err)
 
       // Set stream password
-      stream.password = password
+      stream.encryption_password = encryption_password
 
-      // If owner_public_key was provided, put that as owner_public_key, else generate from user_id
-      stream.owner_public_key = owner_public_key
+      // If user_id was provided, put that as user_id, else generate from user_id
+      stream.user_id = user_id
 
       // TODO: Support generating key from user_password (update CDR)
-      if (!stream.owner_public_key) return error(new Error('OWNER_PUBLIC_KEY_MISSING'))
+      if (!stream.user_id) return error(new Error('USER_ID_MISSING'))
 
       // Generate the stream around the data stream
       const base = await getInterface('base')
       const Stream = base(stream)
+
+      // Start listening for the updates
+      if (remote) {
+        await Stream.connect({ address: await Stream.getAddress().catch(error) })
+      }
 
       return done(Stream)
     })

@@ -53,7 +53,7 @@ exports.meta = (() => {
       return async () => {
         return new Promise(async (done, error) => {
           stream_references = {}
-          stream.close()
+          // stream.close()
           API = null
           done()
         })

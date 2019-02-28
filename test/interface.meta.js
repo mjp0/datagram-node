@@ -13,7 +13,7 @@ describe('stream', async () => {
   test('interface/meta', async () => {
     const stream = await create(
       { user_password: user.secret, template: templates.meta, storage: ram },
-      { owner_public_key: user.key },
+      { user_id: user.key },
     ).catch(error)
 
     // Check that both expected interfaces for Meta stream exist
@@ -23,7 +23,7 @@ describe('stream', async () => {
     // Create admin stream so we have something to store
     const admin = await create(
       { user_password: user.secret, template: templates.admin, storage: ram },
-      { owner_public_key: user.key },
+      { user_id: user.key },
     ).catch(error)
     const admin_keys = await admin.getKeys().catch(error)
 
@@ -37,7 +37,7 @@ describe('stream', async () => {
     // Let's add another stream so that we can remove it and see if that works
     const to_be_removed_stream = await create(
       { user_password: user.secret, template: templates.admin, storage: ram },
-      { owner_public_key: user.key },
+      { user_id: user.key },
     ).catch(error)
     const to_be_removed_stream_keys = await to_be_removed_stream.getKeys().catch(error)
 
@@ -63,7 +63,7 @@ describe('stream', async () => {
     const storage = tmp()
     const metastream = await create(
       { user_password: user.secret, template: templates.meta, storage },
-      { owner_public_key: user.key },
+      { user_id: user.key },
     ).catch(error)
     const metastream_keys = await metastream.getKeys().catch(error)
     const metastream_password = await metastream.getPassword().catch(error)
@@ -71,13 +71,13 @@ describe('stream', async () => {
     // Let's create two streams and store them into meta
     const stream1 = await create(
       { user_password: user.secret, template: templates.admin, storage },
-      { owner_public_key: user.key },
+      { user_id: user.key },
     ).catch(error)
     const stream1_keys = await stream1.getKeys().catch(error)
     await metastream.meta.addStream(stream1).catch(error)
     const stream2 = await create(
       { user_password: user.secret, template: templates.meta, storage },
-      { owner_public_key: user.key },
+      { user_id: user.key },
     ).catch(error)
     const stream2_keys = await stream2.getKeys().catch(error)
     await metastream.meta.addStream(stream2).catch(error)
@@ -93,9 +93,9 @@ describe('stream', async () => {
         keys: metastream_keys,
         storage,
         user_password: user.secret,
-        password: metastream_password,
+        encryption_password: metastream_password,
       },
-      { owner_public_key: user.key },
+      { user_id: user.key },
     ).catch(error)
     const all_unopened_streams = await metastream2.meta.getAllUnopenedStreams().catch(error)
 
@@ -114,12 +114,12 @@ describe('stream', async () => {
           }
           const loaded_c = await load(
             {
-              keys: { key: Buffer.from(stream.DatagramKey, 'hex') },
+              keys: { read: Buffer.from(stream.DatagramKey, 'hex') },
               storage,
               user_password: user.secret,
-              password,
+              encryption_password: password,
             },
-            { owner_public_key: user.key },
+            { user_id: user.key },
           ).catch(c_error)
           if (!loaded_c) c_error(new Error('UNABLE_TO_LOAD_STREAM'))
           await metastream2.meta.attachStream(loaded_c).catch(c_error)

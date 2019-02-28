@@ -1,6 +1,7 @@
 const descriptors = require('../../descriptors')
 const { getNested, hash, errors, encryptData, decryptData, signData, verifySignature } = require('../../utils')
 const msgpack = require('msgpack5')()
+const network = require('@hyperswarm/network')
 
 exports.base = function(stream_reference) {
   const stream = stream_reference
@@ -9,8 +10,8 @@ exports.base = function(stream_reference) {
     get: async (package_number) => {
       return new Promise(async (done, error) => {
         // if (!stream.readable) return error(new Error('STREAM_NOT_READABLE'))
-        if (!stream.password) return error(new Error('STREAM_PASSWORD_MISSING'))
-        if (!stream.owner_public_key) return error(new Error('STREAM_OWNER_PUBLIC_KEY_MISSING'))
+        if (!stream.encryption_password) return error(new Error('ENCRYPTION_PASSWORD_MISSING'))
+        if (!stream.user_id) return error(new Error('STREAM_USER_ID_MISSING'))
 
         stream.get(package_number, async (err, stored_pkgs) => {
           if (err) return error(err)
@@ -22,11 +23,11 @@ exports.base = function(stream_reference) {
           const opened_pkg = msgpack.decode(stored_pkgs[0].value)
 
           // verify the signature if present
-          if (opened_pkg.signature && opened_pkg.owner_public_key) {
+          if (opened_pkg.signature && opened_pkg.user_id) {
             const is_valid = await verifySignature({
               signature: opened_pkg.signature,
               data: opened_pkg.data,
-              key: stream.owner_public_key,
+              key: stream.user_id,
             }).catch(error)
             if (!is_valid) return error(new Error('SIGNATURE_VERIFICATION_FAIL'), { opened_pkg })
           }
@@ -34,9 +35,8 @@ exports.base = function(stream_reference) {
           // extract the nonce
           const nonce = opened_pkg.data.slice(0, 24).toString('hex')
           const encrypted_pkg = opened_pkg.data.slice(24)
-
           // decrypt pkg
-          const pkg = await decryptData({ data: encrypted_pkg, key: stream.password, nonce }).catch(error)
+          const pkg = await decryptData({ data: encrypted_pkg, key: stream.encryption_password, nonce }).catch(error)
 
           return done(pkg)
         })
@@ -56,19 +56,19 @@ exports.base = function(stream_reference) {
         // if (!descriptor) return error(new Error('DESCRIPTOR_NOT_PROVIDED'))
         // if (!stream.writable) return error(new Error('STREAM_NOT_WRITABLE'))
         if (!Buffer.isBuffer(pkg)) return error(new Error('PACKAGE_NOT_BUFFER'))
-        if (!stream.password) return error(new Error('STREAM_PASSWORD_MISSING'))
+        if (!stream.encryption_password) return error(new Error('ENCRYPTION_PASSWORD_MISSING'))
 
         // encrypt pkg
-        const encrypted_pkg = await encryptData({ data: pkg, key: stream.password }).catch(error)
+        const encrypted_pkg = await encryptData({ data: pkg, key: stream.encryption_password }).catch(error)
         if (!encrypted_pkg) return error(new Error('ENCRYPTED_PKG_MISSING'))
-
-        // Combine nonce and encrypted_data
+        // Separate nonce
         const nonce = Buffer.from(encrypted_pkg.password.split('|')[1], 'hex')
+        if (nonce.length !== 24) return error(new Error('BAD_NONCE'), { nonce })
 
         // Create final package and sign
         let finalized_pkg = {
           data: Buffer.concat([ nonce, encrypted_pkg.encrypted_data ]),
-          owner_public_key: stream.owner_public_key,
+          user_id: stream.user_id,
           signature: null,
         }
 
@@ -223,11 +223,23 @@ exports.base = function(stream_reference) {
       }
     },
     getKeys: async () => {
-      return {
-        key: stream.key,
-        secret: stream.secretKey,
-        discovery: stream.discoveryKey,
-      }
+      return new Promise(async (done, error) => {
+        const address = await API.getAddress().catch(error)
+        done({
+          read: stream.key,
+          write: stream.secretKey,
+          address,
+        })
+      })
+    },
+    getAddress: async (callback) => {
+      return new Promise(async (done, error) => {
+        done(
+          await hash({
+            data: stream.key.toString('hex'),
+          }).catch(error),
+        )
+      })
     },
     getTemplate: async () => {
       return new Promise(async (done, error) => {
@@ -240,7 +252,6 @@ exports.base = function(stream_reference) {
       return new Promise(async (done, error) => {
         // Do some checking to make sure everything is as it should
         if (typeof iface !== 'object') {
-          console.log(iface)
           return error(new Error('NOT_AN_INTERFACE'), { iface })
         }
         if (!iface['@id']) return error(new Error('@ID_MISSING'))
@@ -263,14 +274,51 @@ exports.base = function(stream_reference) {
         done(API)
       })
     },
-    getOwner: async () => {
+    getUserId: async () => {
+      return new Promise(async (done, error) => {
+        done(stream_reference.user_id || null)
+      })
+    },
+    getUserPassword: async () => {
       return new Promise(async (done, error) => {
         done(stream_reference.user_password || null)
       })
     },
-    getPassword: async () => {
+    publish: async (callback) => {
       return new Promise(async (done, error) => {
-        done(stream_reference.password || null)
+        const net = network()
+        // look for peers listed under this topic
+        const topic = Buffer.from(await API.getAddress().catch(error), 'hex')
+
+        net.join(topic, {
+          lookup: true, // find & connect to peers
+          announce: true, // optional- announce self as a connection target
+        })
+
+        net.on('connection', async (socket, details) => {
+          // console.log('got connection (publish)', socket)
+          const rep_stream = await stream.replicate({ live: true })
+          rep_stream.pipe(socket).pipe(rep_stream)
+        })
+        done()
+      })
+    },
+    connect: async (args, callback) => {
+      return new Promise(async (done, error) => {
+        const net = network()
+        // look for peers listed under this topic
+        const topic = Buffer.from(args.address, 'hex')
+        net.join(topic, {
+          lookup: true, // find & connect to peers
+          announce: true, // optional- announce self as a connection target
+        })
+
+        net.on('connection', async (socket, details) => {
+          // console.log('connection (connect)', socket)
+          const rep_stream = await stream.replicate({ live: true })
+          rep_stream.pipe(socket).pipe(rep_stream)
+        })
+        done()
       })
     },
   }

@@ -11,8 +11,8 @@ exports.deriveKeyPair = async (args = { master_key: null }, callback) => {
       const secret_key = await CDR.hash(args.master_key)
       const key_pair = await CDR.generate_keys(secret_key)
       const keys = {
-        key: key_pair.public,
-        secret: key_pair.private,
+        read: key_pair.public,
+        write: key_pair.private,
       }
       done(keys)
     } catch (e) {
@@ -28,8 +28,8 @@ exports.createKeyPair = async (callback) => {
       const key_pair = await CDR.generate_keys().catch(error)
 
       const keys = {
-        key: key_pair.public,
-        secret: key_pair.private,
+        read: key_pair.public,
+        write: key_pair.private,
       }
 
       done(keys)
@@ -58,8 +58,8 @@ exports.generatePassword = async (args = { len: 32 }, callback) => {
 exports.encryptData = async (args = { data: null, key: null }, callback) => {
   return new Promise(async (resolve, reject) => {
     const { done, error } = promcall(resolve, reject, callback)
-    args.key = await CDR.hash(args.key).catch(error)
-    const edata = await CDR.encrypt_data_with_key(args.key, args.data).catch(error)
+    // args.key = await CDR.hash(args.key).catch(error)
+    const edata = await CDR.encrypt_data_with_key(args.key.slice(0, 64), args.data).catch(error)
     done(edata)
   })
 }
@@ -71,8 +71,8 @@ exports.decryptData = async (args = { data: null, key: null, nonce: null }, call
     const missing = checkVariables(args, [ 'data', 'key', 'nonce' ])
     if (missing) return error(errors.MISSING_VARIABLES, { missing, args })
 
-    args.key = await CDR.hash(args.key).catch(error)
-    args.key += `|${args.nonce}`
+    // args.key = await CDR.hash(args.key).catch(error)
+    args.key = `${args.key.slice(0, 64)}|${args.nonce}`
     const edata = await CDR.decrypt_data(args.data, args.key).catch(error)
     done(edata)
   })
@@ -110,7 +110,7 @@ exports.verifySignature = async (args = { data: null, signature: null, key: null
   return new Promise(async (resolve, reject) => {
     const { done, error } = promcall(resolve, reject, callback)
     // Check that key & action exists
-    const missing = checkVariables(args, ['data', 'signature', 'key'])
+    const missing = checkVariables(args, [ 'data', 'signature', 'key' ])
     if (missing) return error(errors.MISSING_VARIABLES, { missing, args })
 
     const is_valid = await CDR.verify_data(args.signature, args.data, args.key).catch(error)
@@ -122,6 +122,6 @@ exports.generateUser = async (callback) => {
   return new Promise(async (resolve, reject) => {
     const { done, error } = promcall(resolve, reject, callback)
     const user_keys = await exports.createKeyPair().catch(error)
-    done(user_keys)
+    done({ id: user_keys.read, password: user_keys.write })
   })
 }
