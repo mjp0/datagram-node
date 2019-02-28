@@ -1,0 +1,8 @@
+{
+  "@context": "http://schema.org/",
+  "@type": "datagramStream",
+  "@id": "blank",
+  "name": "Blank",
+  "description": "Blank Stream is blank :D",
+  "interfaces": []
+}

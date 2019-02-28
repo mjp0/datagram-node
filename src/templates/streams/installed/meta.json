@@ -1,8 +1,0 @@
-{
-  "@context": "http://schema.org/",
-  "@type": "datagramStream",
-  "@id": "meta",
-  "name": "Meta",
-  "description": "Meta Stream keeps track of Streams in the Container. Meant only for Container's internal use.",
-  "interfaces": [ "redis", "meta" ]
-}

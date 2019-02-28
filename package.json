@@ -12,7 +12,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "jest --env=aegir",
+    "test": "mocha",
     "lint": "eslint"
   },
   "keywords": [],

@@ -72,7 +72,7 @@ exports.decryptData = async (args = { data: null, key: null, nonce: null }, call
     if (missing) return error(errors.MISSING_VARIABLES, { missing, args })
 
     // args.key = await CDR.hash(args.key).catch(error)
-    args.key = `${args.key.slice(0, 64)}|${args.nonce}`
+    args.key = `${args.key}|${args.nonce}`
     const edata = await CDR.decrypt_data(args.data, args.key).catch(error)
     done(edata)
   })

@@ -21,8 +21,8 @@ const redis = {
 
         const descriptor = {
           agent: {
-            '@type': 'Owner',
-            key: await API.getOwner().catch(error),
+            '@type': 'User',
+            key: await API.getUserId().catch(error),
           },
           datatype,
           arguments: { key, action: '+' },

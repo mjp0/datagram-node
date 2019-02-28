@@ -73,10 +73,10 @@ describe('stream', async () => {
     const stream1 = await create({
       user_id: user.id,
       user_password: user.password,
-      template: templates.meta,
+      template: templates.admin,
       storage,
     }).catch(error)
-    expect(stream1.template.name).equal('Meta')
+    expect(stream1.template.name).equal('Admin')
 
     const stream1_keys = await stream1.getKeys().catch(error)
 
@@ -94,7 +94,7 @@ describe('stream', async () => {
         user_id: user.id,
       },
     ).catch(error)
-    expect(stream2.template.name).equal('Meta')
+    expect(stream2.template.name).equal('Admin')
     expect(typeof stream2.redis.set).equal('function')
   })
 
@@ -198,9 +198,9 @@ describe('stream', async () => {
     ).catch(error)
     expect(stream.template.name).equal('Admin')
 
-    const meta = await getInterface('meta')
-    await stream.addInterface(meta).catch(error)
-    expect(typeof stream.meta.close).equal('function')
+    const blank = await getInterface('blank')
+    await stream.addInterface(blank).catch(error)
+    expect(typeof stream.blank._test).equal('function')
   })
 
   // it('stream/indexer', async () => {
