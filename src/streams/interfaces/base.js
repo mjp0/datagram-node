@@ -4,7 +4,7 @@ const msgpack = require('msgpack5')()
 const network = require('@hyperswarm/network')
 
 exports.base = function(stream_reference) {
-  const stream = stream_reference
+  let stream = stream_reference
   const API = {
     '@id': 'base',
     get: async (package_number) => {
@@ -210,10 +210,8 @@ exports.base = function(stream_reference) {
     },
     close: async () => {
       return new Promise(async (done, error) => {
-        return stream.close((err, ok) => {
-          if (err) return error(err)
-          return done(ok)
-        })
+        stream = null
+        return done(true)
       })
     },
     getStats: async () => {
@@ -286,38 +284,62 @@ exports.base = function(stream_reference) {
     },
     publish: async (callback) => {
       return new Promise(async (done, error) => {
-        const net = network()
-        // look for peers listed under this topic
-        const topic = Buffer.from(await API.getAddress().catch(error), 'hex')
+        stream.net = network()
+        stream.net.discovery.holepunchable(async (err, is_valid) => {
+          if (err || !is_valid) return error(new Error('NO_CONNECTIVITY'))
 
-        net.join(topic, {
-          lookup: true, // find & connect to peers
-          announce: true, // optional- announce self as a connection target
-        })
+          const topic = Buffer.from(await API.getAddress().catch(error), 'hex')
 
-        net.on('connection', async (socket, details) => {
-          // console.log('got connection (publish)', socket)
-          const rep_stream = await stream.replicate({ live: true })
-          rep_stream.pipe(socket).pipe(rep_stream)
+          stream.net.join(topic, {
+            lookup: true, // find & connect to peers
+            announce: true, // optional- announce self as a connection target
+          })
+
+          stream.net.on('connection', async (socket, details) => {
+            // console.log('got connection (publish)', socket)
+            const _replication_stream = await stream.replicate({ live: true })
+            _replication_stream.pipe(socket).pipe(_replication_stream)
+            stream._replication_stream = _replication_stream
+          })
+          done()
         })
-        done()
       })
     },
     connect: async (args, callback) => {
       return new Promise(async (done, error) => {
-        const net = network()
-        // look for peers listed under this topic
-        const topic = Buffer.from(args.address, 'hex')
-        net.join(topic, {
-          lookup: true, // find & connect to peers
-          announce: true, // optional- announce self as a connection target
-        })
+        stream.net = network()
+        stream.net.discovery.holepunchable(async (err, is_valid) => {
+          if (err || !is_valid) return error(new Error('NO_CONNECTIVITY'))
 
-        net.on('connection', async (socket, details) => {
-          // console.log('connection (connect)', socket)
-          const rep_stream = await stream.replicate({ live: true })
-          rep_stream.pipe(socket).pipe(rep_stream)
+          const topic = Buffer.from(args.address, 'hex')
+
+          stream.net.join(topic, {
+            lookup: true, // find & connect to peers
+            announce: false, // optional- announce self as a connection target
+          })
+
+          stream.net.on('connection', async (socket, details) => {
+            // console.log('connection (connect)', socket)
+            const _replication_stream = await stream.replicate({ live: true })
+            _replication_stream.pipe(socket).pipe(_replication_stream)
+            stream._replication_stream = _replication_stream
+          })
+          done()
         })
+      })
+    },
+    disconnect: async (callback) => {
+      return new Promise(async (done, error) => {
+        if (stream.net && stream.net._topics.size > 0) {
+          stream.net._topics.forEach((topic) => {
+            if (topic.key) {
+              stream.net.leave(topic.key)
+            }
+          })
+        }
+        if (stream._replication_stream) {
+          stream._replication_stream.end()
+        }
         done()
       })
     },

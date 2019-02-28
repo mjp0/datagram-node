@@ -142,7 +142,7 @@ describe('stream', async () => {
 
   it('stream/remote replication', async () => {
     return new Promise(async (resolve, reject) => {
-      const stream = await create({
+      let stream = await create({
         user_id: user.id,
         user_password: user.password,
         template: templates.admin,
@@ -155,7 +155,7 @@ describe('stream', async () => {
 
       await stream.publish().catch(error)
 
-      const cloned_stream = await clone(
+      let cloned_stream = await clone(
         {
           keys,
           storage: ram,
@@ -164,7 +164,7 @@ describe('stream', async () => {
         { user_id: user.id, remote: true },
       ).catch(error)
 
-      setTimeout(checkToResult, 2000)
+      setTimeout(checkToResult, 1000)
 
       async function checkToResult() {
         try {
@@ -172,14 +172,21 @@ describe('stream', async () => {
           expect(template.name).equal('Admin')
           const foo = await cloned_stream.get('foo').catch(error)
           expect(foo.toString()).equal('bar')
-          resolve()
+          
+          cloned_stream.disconnect().catch(error)
+          cloned_stream.close().catch(error)
+          cloned_stream = null
+          stream.disconnect().catch(error)
+          stream.close().catch(error)
+          stream = null
+          resolve()          
         } catch (e) {
           console.error(e)
           expect(e).equal(null)
         }
       }
     })
-  }).timeout(3000)
+  }).timeout(10000)
 
   it('stream/authorization', async () => {
     const stream = await create(

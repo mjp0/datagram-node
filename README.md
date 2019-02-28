@@ -72,7 +72,7 @@ DEBUG=*datagram* npm test
 
 ## 🛠 The team
 
-Datagram is a user-driven project maintained by an open-source [Machian Collective](https://machian.com).
+Datagram is a user-driven project maintained by [Machian Collective](https://machian.com), an open-source collective focused on solving human digitalization.
 
 Current primary maintainer is [Marko Polojärvi](https://twitter.com/markopolojarvi). Major direct and indirect contributions have come from Mathias Buus, Stephen Whitmore, Paul Frazee, Benjamin Forster, Martin Heidegger, Lars-Magnus Skog, Alexander Cobleigh and Tony Ivanov.
 
