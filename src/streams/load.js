@@ -11,14 +11,14 @@ exports.load = async (
 ) => {
   return new Promise(async (done, error) => {
     // Check that key & action exists
-    const missing = checkVariables(args, ['keys.read', 'storage', 'encryption_password', 'user_password' ])
+    const missing = checkVariables(args, [ 'keys.read', 'storage', 'encryption_password', 'user_password' ])
     if (missing) return error(errors.MISSING_VARIABLES, { missing, args })
 
     const { storage, keys, encryption_password, user_password, user_id } = { ...args, ...opts }
 
     const hex_key = Buffer.isBuffer(keys.read) ? keys.read.toString('hex') : keys.read
 
-    log('Trying to open stream with key', hex_key)
+    log('Trying to open stream with key')
 
     // Open storage for the stream
     const store = _open_storage(hex_key, storage)
@@ -26,51 +26,57 @@ exports.load = async (
     // Everything seems to be cool so let's try to initialize it
     const stream = hyperdb(store, hex_key, {
       secretKey: keys.write ? (Buffer.isBuffer(keys.write) ? keys.write : Buffer.from(keys.write, 'hex')) : null,
-      sparse: true
+      sparse: true,
     })
     // Wait until everything is loaded and then deliver stream forward
     stream.on('ready', async (err) => {
       if (err) return error(err)
 
-      // Add user_password
-      stream.user_password = user_password
+      // Check if you can find _template, if not, this is empty
+      stream.get('_template', async (err, tmpl) => {
+        if (err) return error(err)
+        if (!tmpl || tmpl.length === 0) return done('NO_STREAM_FOUND_WITH_KEY')
 
-      // Add encryption password
-      stream.encryption_password = encryption_password
+        // Add user_password
+        stream.user_password = user_password
 
-      // If user_id was provided, put that as user_id
-      stream.user_id = user_id
+        // Add encryption password
+        stream.encryption_password = encryption_password
 
-      // TODO: Support generating key from user_password (update CDR)
-      if (!stream.user_id) return error(new Error('USER_ID_MISSING'))
+        // If user_id was provided, put that as user_id
+        stream.user_id = user_id
 
-      // Generate the stream around the data stream
-      const base = await getInterface('base')
-      if (!base) return error(new Error(errors.BASE_INTERFACE_MISSING))
-      const Stream = base(stream)
+        // TODO: Support generating key from user_password (update CDR)
+        if (!stream.user_id) return error(new Error('USER_ID_MISSING'))
 
-      // Get the template
-      Stream.template = await Stream.getTemplate().catch(error)
+        // Generate the stream around the data stream
+        const base = await getInterface('base')
+        if (!base) return error(new Error(errors.BASE_INTERFACE_MISSING))
+        const Stream = base(stream)
 
-      // Apply interfaces
-      if (Array.isArray(Stream.template.interfaces)) {
-        const ifaces = []
-        Stream.template.interfaces.forEach(async (requested_iface) => {
-          if (requested_iface) {
-            ifaces.push(
-              new Promise(async (iface_done, iferror) => {
-                const iface = await getInterface(requested_iface)
-                if (!iface) return iferror(new Error(errors.REQUESTED_INTERFACE_MISSING), { requested_iface })
-                await Stream.addInterface(iface).catch(iferror)
-                iface_done()
-              }),
-            )
-          } else error(new Error('REQUESTED_INTERFACE_MISSING'))
-        })
-        await Promise.all(ifaces).catch(error)
-      }
+        // Get the template
+        Stream.template = await Stream.getTemplate().catch(error)
 
-      done(Stream)
+        // Apply interfaces
+        if (Array.isArray(Stream.template.interfaces)) {
+          const ifaces = []
+          Stream.template.interfaces.forEach(async (requested_iface) => {
+            if (requested_iface) {
+              ifaces.push(
+                new Promise(async (iface_done, iferror) => {
+                  const iface = await getInterface(requested_iface)
+                  if (!iface) return iferror(new Error(errors.REQUESTED_INTERFACE_MISSING), { requested_iface })
+                  await Stream.addInterface(iface).catch(iferror)
+                  iface_done()
+                }),
+              )
+            } else error(new Error('REQUESTED_INTERFACE_MISSING'))
+          })
+          await Promise.all(ifaces).catch(error)
+        }
+
+        done(Stream)
+      })
     })
     // })
   })

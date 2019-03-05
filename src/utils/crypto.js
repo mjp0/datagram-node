@@ -1,7 +1,8 @@
-const promcall = require('promised-callback').default
-const CDR = require('cryptodoneright')
+const promcall = require('promised-callback')
+const CDR = require('/Users/zero/Development/Machian/CryptoDoneRight/dist')
 const { getNested, checkVariables } = require('./common')
 const { err, errors } = require('./errors')
+const { toB58 } = require('./b58')
 
 exports.deriveKeyPair = async (args = { master_key: null }, callback) => {
   return new Promise(async (resolve, reject) => {
@@ -9,7 +10,7 @@ exports.deriveKeyPair = async (args = { master_key: null }, callback) => {
     if (!getNested(args, 'master_key')) return error(new Error(err.MASTER_KEY_REQUIRED))
     try {
       const secret_key = await CDR.hash(args.master_key)
-      const key_pair = await CDR.generate_keys(secret_key)
+      const key_pair = await CDR.generate_keys(Buffer.from(secret_key, 'hex'))
       const keys = {
         read: key_pair.public,
         write: key_pair.private,
@@ -122,6 +123,6 @@ exports.generateUser = async (callback) => {
   return new Promise(async (resolve, reject) => {
     const { done, error } = promcall(resolve, reject, callback)
     const user_keys = await exports.createKeyPair().catch(error)
-    done({ id: user_keys.read, password: user_keys.write })
+    done({ id: toB58(user_keys.read), password: toB58(user_keys.write) })
   })
 }

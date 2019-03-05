@@ -3,6 +3,18 @@ const { getNested, hash, errors, encryptData, decryptData, signData, verifySigna
 const msgpack = require('msgpack5')()
 const network = require('@hyperswarm/network')
 
+async function getNetwork(args) {
+  return new Promise(async (done, error) => {
+    const bootstrap = getNested(args, 'odi') || [
+      'server1.datagram.network:10000',
+      'server1.datagram.network:10001',
+      'server1.datagram.network:10002',
+    ]
+    const nwrk = network({ bootstrap })
+    done(nwrk)
+  })
+}
+
 exports.base = function(stream_reference) {
   let stream = stream_reference
   const API = {
@@ -242,6 +254,8 @@ exports.base = function(stream_reference) {
     getTemplate: async () => {
       return new Promise(async (done, error) => {
         const packed_template = await API.get('_template').catch(error)
+        if (!packed_template) return error(new Error('NO_TEMPLATE_FOUND'))
+
         const template = await descriptors.read(packed_template).catch(error)
         done(template)
       })
@@ -282,14 +296,14 @@ exports.base = function(stream_reference) {
         done(stream_reference.user_password || null)
       })
     },
-    publish: async (callback) => {
+    publish: async (args = { realtime: false, odi: false }, callback) => {
       return new Promise(async (done, error) => {
-        stream.net = network()
+        stream.net = await getNetwork(args)
         stream.net.discovery.holepunchable(async (err, is_valid) => {
           if (err || !is_valid) return error(new Error('NO_CONNECTIVITY'))
 
           const topic = Buffer.from(await API.getAddress().catch(error), 'hex')
-
+          // console.log('p', topic)
           stream.net.join(topic, {
             lookup: true, // find & connect to peers
             announce: true, // optional- announce self as a connection target
@@ -297,7 +311,7 @@ exports.base = function(stream_reference) {
 
           stream.net.on('connection', async (socket, details) => {
             // console.log('got connection (publish)', socket)
-            const _replication_stream = await stream.replicate({ live: true })
+            const _replication_stream = await stream.replicate({ live: getNested(args, 'realtime') || false })
             _replication_stream.pipe(socket).pipe(_replication_stream)
             stream._replication_stream = _replication_stream
           })
@@ -305,14 +319,14 @@ exports.base = function(stream_reference) {
         })
       })
     },
-    connect: async (args, callback) => {
+    connect: async (args = { address: null, realtime: false, odi: false}, callback) => {
       return new Promise(async (done, error) => {
-        stream.net = network()
+        stream.net = await getNetwork(args)
         stream.net.discovery.holepunchable(async (err, is_valid) => {
           if (err || !is_valid) return error(new Error('NO_CONNECTIVITY'))
 
           const topic = Buffer.from(args.address, 'hex')
-
+          // console.log('c', topic)
           stream.net.join(topic, {
             lookup: true, // find & connect to peers
             announce: false, // optional- announce self as a connection target
@@ -320,7 +334,7 @@ exports.base = function(stream_reference) {
 
           stream.net.on('connection', async (socket, details) => {
             // console.log('connection (connect)', socket)
-            const _replication_stream = await stream.replicate({ live: true })
+            const _replication_stream = await stream.replicate({ live: getNested(args, 'realtime') || false })
             _replication_stream.pipe(socket).pipe(_replication_stream)
             stream._replication_stream = _replication_stream
           })

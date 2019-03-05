@@ -19,10 +19,12 @@
 - [🛠 The team](#-the-team)
 - [📝 License](#-license)
 
+
 ## 💡 The purpose why Datagram was created
 Servers used to be about running code and storing backups. Now they are about facilitating connections and serving data. Docker and Kubernetes have made it easy to spin up complex server infrastructures. Despite advances in server orchestration we are still manually handling all the communication and data managing that happens between the users and the service.
 
 Datagram is an easy-to-use library to build any sort of database or data structure on top of truly private and secure peer-to-peer internet.
+
 
 ## 🔌 The types of data can you send
 
@@ -35,26 +37,31 @@ Datagram is an easy-to-use library to build any sort of database or data structu
 
 You can send as much data as you want in one datagram.
 
+
 ## 🔒 Everything encrypted from A to Z
 
 Everything you send is automatically encrypted. Everything you receive is automatically verified. Everything from your data to internet connections Datagram makes is secured with the cryptographic best practices.
 
+
 ## 😆 Pricing
 
 There is no pricing. Everything is free. This is peer-to-peer which means that your data goes directly to the receiver. If there's nobody in the middle, why would there be fees?
+
 
 ## 🎁 Get started
 
 ```bash
 TO BE WRITTEN
 ```
+
+
 ## 🏎 Performance
 
 Performance is good enough to power any modern consumer javascript application.
 If you need to store, analyze and serve "big data", Datagram might not be your choice.
 
-## 🔬 Running tests
 
+## 🔬 Running tests
 
 ```bash
 # Install dependencies and test tooling
@@ -66,9 +73,6 @@ npm test
 # or run tests with debug logging
 DEBUG=*datagram* npm test
 ```
-
-
-
 
 ## 🛠 The team
 

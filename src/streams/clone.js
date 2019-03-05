@@ -45,6 +45,27 @@ exports.clone = async (args = { keys: { read: null }, storage: null, encryption_
         await Stream.connect({ address: await Stream.getAddress().catch(error) })
       }
 
+      // Get the template
+      Stream.template = await Stream.getTemplate().catch(error)
+
+      // Apply interfaces
+      if (Array.isArray(Stream.template.interfaces)) {
+        const ifaces = []
+        Stream.template.interfaces.forEach(async (requested_iface) => {
+          if (requested_iface) {
+            ifaces.push(
+              new Promise(async (iface_done, iferror) => {
+                const iface = await getInterface(requested_iface)
+                if (!iface) return iferror(new Error(errors.REQUESTED_INTERFACE_MISSING), { requested_iface })
+                await Stream.addInterface(iface).catch(iferror)
+                iface_done()
+              }),
+            )
+          } else error(new Error('REQUESTED_INTERFACE_MISSING'))
+        })
+        await Promise.all(ifaces).catch(error)
+      }
+      
       return done(Stream)
     })
   })

@@ -1,7 +1,7 @@
 const { create, load, clone } = require('../src/streams')
 const ram = require('random-access-memory')
 const templates = require('../src/templates/streams')
-const { generateUser } = require('../src/utils')
+const { generateUser, fromB58 } = require('../src/utils')
 const descriptors = require('../src/descriptors')
 const async = require('async')
 const tmp = require('tmp').tmpNameSync
@@ -10,6 +10,8 @@ const expect = require('chai').expect
 let user
 ;(async () => {
   user = await generateUser().catch(error)
+  user.id = fromB58(user.id).toString('hex')
+  user.password = fromB58(user.password).toString('hex')
 })()
 
 function error(err) {
@@ -83,6 +85,9 @@ describe('stream', async () => {
     expect(await stream1.getUserId()).equal(user.id)
     expect(await stream1.getUserPassword()).equal(user.password)
 
+    const tmpl = await stream1.getTemplate()
+    expect(tmpl['@id']).equal('admin')
+
     const stream2 = await load(
       {
         keys: stream1_keys,
@@ -94,17 +99,20 @@ describe('stream', async () => {
         user_id: user.id,
       },
     ).catch(error)
+    expect(stream2).not.equal('NO_STREAM_FOUND_WITH_KEY')
     expect(stream2.template.name).equal('Admin')
     expect(typeof stream2.redis.set).equal('function')
   })
 
   it('stream/local replication', async () => {
     return new Promise(async (resolve, reject) => {
+      const storage = tmp()
+
       const stream = await create({
         user_id: user.id,
         user_password: user.password,
         template: templates.admin,
-        storage: ram,
+        storage,
       }).catch(error)
       expect(stream.template.name).equal('Admin')
       const keys = await stream.getKeys().catch(error)
@@ -114,7 +122,7 @@ describe('stream', async () => {
       const cloned_stream = await clone(
         {
           keys,
-          storage: ram,
+          storage,
           encryption_password: await stream.getUserId().catch(error),
         },
         { user_id: user.id },
@@ -194,7 +202,8 @@ describe('stream', async () => {
     ).catch(error)
 
     const new_user = await generateUser().catch(error)
-
+    new_user.id = fromB58(new_user.id).toString('hex')
+    
     await stream.authorize({ key: new_user.id }).catch(error)
 
     expect(await stream.isAuthorized({ key: new_user.id }).catch(error)).equal(true)

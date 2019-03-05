@@ -1,4 +1,4 @@
-const promcall = require('promised-callback').default
+const promcall = require('promised-callback')
 const _get = require('lodash/get')
 const { error, err } = require('./errors')
 
@@ -17,22 +17,23 @@ exports.clone = function(obj) {
   return JSON.parse(JSON.stringify(obj))
 }
 
-exports.installAPI = (args = { namespace: null, API: null, ref: null }) => {
+exports.installAPI = (args = { namespace: null, API: null, ref: null, _: null }) => {
   for (const action in args.API) {
     if (args.API.hasOwnProperty(action)) {
       if (typeof args.API[action] === 'function') {
         if (!args.ref) ref = args.ref
         if (!args.namespace) {
-          args.ref[action] = args.API[action](args.ref)
+          args.ref[action] = args.API[action](args.ref, args._)
         } else {
           if (!args.ref[args.namespace]) args.ref[args.namespace] = {}
-          args.ref[args.namespace][action] = args.API[action](args.ref)
+          args.ref[args.namespace][action] = args.API[action](args.ref, args._)
         }
       } else {
         return error({ err: err.UNKNOWN_ACTION, args })
       }
     }
   }
+  return args.ref
 }
 
 exports.checkVariables = (args, required) => {

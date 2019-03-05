@@ -1,4 +1,4 @@
-const promcall = require('promised-callback').default
+const promcall = require('promised-callback')
 const { log } = require('../utils/debug')(__filename)
 const hyperdb = require('hyperdb')
 const { _open_storage, errors, deriveKeyPair, generatePassword, checkVariables, generateUser } = require('../utils')
@@ -34,12 +34,14 @@ const create = async (
 
       // Either use the provided keys or generate new ones
       if (keys && keys.read) {
+        log('Stream keys provided')
         opts.key = Buffer.from(keys.read, 'hex')
         opts.secretKey = keys.write ? Buffer.from(keys.write, 'hex') : null // secret is not required
       } else {
         const key_pair = await deriveKeyPair({ master_key: user_password }).catch(error)
         opts.key = key_pair.read
         opts.secretKey = key_pair.write
+        log('Stream keys not provided, generating new ones...')
       }
 
       // Make sure keys are in hex

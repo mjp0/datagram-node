@@ -1,0 +1,10 @@
+{
+  "@context": "http://schema.org/",
+  "@type": "datagramStream",
+  "@id": "redis",
+  "name": "Redis",
+  "description": "Redis Stream is a key/value database modeled after awesome Redis",
+  "interfaces": [
+    "redis"
+  ]
+}
