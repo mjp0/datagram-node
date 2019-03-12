@@ -1,7 +1,7 @@
 const promcall = require('promised-callback')
 const { log } = require('../utils/debug')(__filename)
 const hyperdb = require('hyperdb')
-const { _open_storage, errors, deriveKeyPair, generatePassword, checkVariables, generateUser } = require('../utils')
+const { _open_storage, errors, deriveKeyPair, checkVariables, toB58 } = require('../utils')
 const descriptors = require('../descriptors')
 const stream_templates = require('../templates/streams')
 const { getInterface } = require('./interfaces/index')
@@ -36,7 +36,7 @@ const create = async (
       if (keys && keys.read) {
         log('Stream keys provided')
         opts.key = Buffer.from(keys.read, 'hex')
-        if(keys.write) {
+        if (keys.write) {
           opts.secretKey = keys.write ? Buffer.from(keys.write, 'hex') : null // secret is not required
         }
       } else {
@@ -88,7 +88,7 @@ const create = async (
         const base = await getInterface('base')
         if (!base) return error(new Error(errors.BASE_INTERFACE_MISSING))
         const Stream = {
-          base: base(stream)
+          base: base(stream),
         }
 
         // Add index
@@ -98,11 +98,11 @@ const create = async (
         }
 
         // Add type templates
-        template.DatagramStreamID = stream.discoveryKey.toString('hex')
+        template.DatagramStreamID = toB58(stream.discoveryKey.toString('hex'))
         template.ReleaseDate = new Date().toISOString()
         template.Manufacturer = 'Machian Collective'
-        template.DatagramKey = stream.key.toString('hex')
-        template.EncryptionKey = stream.encryption_password
+        template.DatagramKey = toB58(stream.key.toString('hex'))
+        template.EncryptionKey = toB58(stream.encryption_password)
 
         Stream.template = template
 

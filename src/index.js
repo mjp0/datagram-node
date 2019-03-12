@@ -11,9 +11,11 @@ const MOTD = `
 
 // DEPENDENCIES
 const { log } = require('./utils/debug')(__filename)
-const { installAPI, getNested } = require('./utils')
+const { wrapStreamToPAPI, getNested, fromB58 } = require('./utils')
 const promcall = require('promised-callback') //TODO: fix
 const sequence = require('async/waterfall')
+const fs = require('fs-extra')
+const home = require('home')
 const init = require('./init')
 const API = require('./api')
 
@@ -34,7 +36,7 @@ const Datagram = class {
     log('Initializing your datagram...')
 
     // Internal state
-    const _ = {
+    let _ = {
       ready: false,
       debug: false,
       streams: {},
@@ -58,6 +60,26 @@ const Datagram = class {
         _.debug = true
         DG._ = _
       },
+      destroy: async (callback) => {
+          return new Promise(async (resolve, reject) => {
+            const { done, error } = promcall(resolve, reject, callback)
+
+            // Note: this works only for local filesystem storage at the moment
+            if (typeof _.settings.storage !== 'string') return error(new Error('UNSUPPORTED_STORAGE'))
+
+            const store_key = fromB58(DG.template.DatagramKey).toString('hex')
+            try {
+              await fs.remove(`${home()}/.datagram/${store_key}`)
+            } catch (err) {
+              return error(new Error('FS_REMOVE_FAILED'), { err })
+            }
+            await DG.disconnect()
+            _ = undefined
+            DG = undefined
+            done()
+          })
+        
+      },
     }
 
     log('Executing initialization sequence...')
@@ -68,7 +90,7 @@ const Datagram = class {
         (_, next) => determineStorage(_, next),
         (_, next) => openOrCreateOrConnect(DG, _, next),
         (stream, _, next) => {
-          stream = installAPI({ API, ref: stream, _ })
+          stream = wrapStreamToPAPI({ API, stream, _ })
           next(null, stream)
         },
       ],
@@ -77,6 +99,7 @@ const Datagram = class {
 
         // Apply initialized DG and mark initialization done
         DG = initialized_DG
+        delete DG.base
         _.ready = true
       },
     )

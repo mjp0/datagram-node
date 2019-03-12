@@ -101,7 +101,7 @@ exports.create = async (DG, _, callback) => {
     let stream_api = stream
     if (_.type !== 'blank') stream_api = stream[_.type]
     const API = Object.assign({}, DG, stream_api)
-    API.__ = stream
+    if (_.settings.debug) API._stream = stream
     done(API)
   })
 }
@@ -136,6 +136,7 @@ exports.open = async (DG, _, callback) => {
       let stream_api = stream
       if (template['@id'] !== 'blank') stream_api = stream[template['@id']]
       const API = Object.assign({}, DG, stream_api)
+      if (_.settings.debug) API._stream = stream
       done(API)
     } catch (e) {
       error(e)
@@ -164,10 +165,7 @@ exports.clone = async (DG, _, callback) => {
         user_password: password,
       }
 
-      const stream = await streams
-        .clone(params,
-          { remote: true, realtime: _.settings.realtime })
-        .catch(error)
+      const stream = await streams.clone(params, { remote: true, realtime: _.settings.realtime }).catch(error)
 
       _.streams[await stream.base.getAddress().catch(error)] = stream
 
@@ -175,6 +173,7 @@ exports.clone = async (DG, _, callback) => {
       let stream_api = stream
       if (template['@id'] !== 'blank') stream_api = stream[template['@id']]
       const API = Object.assign({}, DG, stream_api)
+      if (_.settings.debug) API._stream = stream
       done(API)
     } catch (e) {
       error(e)

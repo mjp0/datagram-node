@@ -1,6 +1,7 @@
 const expect = require('chai').expect
 const Datagram = require('./../src')
 const { fromB58 } = require('./../src/utils')
+const fs = require('fs-extra')
 const { generateUserIfNecessary } = require('./../src/init')
 const home = require('home')
 const ram = require('random-access-memory')
@@ -19,12 +20,7 @@ describe('datagram', async () => {
       expect(DG).to.contain.keys([ 'ready', 'debug' ])
 
       const dg = await DG.ready()
-      expect(dg).to.include.keys([
-        'share',
-        'getCredentials',
-        'destroy',
-        'authorizeDevice',
-      ])
+      expect(dg).to.include.keys([ 'share', 'getCredentials', 'destroy', 'authorizeDevice' ])
       const settings = await dg.getSettings()
       expect(settings.storage).equal(`${home()}/.datagram/`)
     } catch (e) {
@@ -76,7 +72,6 @@ describe('datagram', async () => {
       const DG2 = new Datagram(args)
       const dg2 = await DG2.ready()
       expect(await dg2.get('hello')).equal('world')
-
     } catch (e) {
       error(e)
     }
@@ -117,7 +112,6 @@ describe('datagram', async () => {
         const hello1 = await dg2.get('hello').catch(reject)
         expect(hello1.toString()).equal('world')
 
-        
         let rand = String(_.random(0, 234))
         await dg.set('h3ll0', rand).catch(reject)
         expect(await dg.get('h3ll0')).equal(rand)
@@ -129,7 +123,7 @@ describe('datagram', async () => {
         expect(stats1.connections[peer_keys[0]].type).equal('PUBLISH')
         expect(stats1.connections[peer_keys[0]].download_speed.length > 0).equal(true)
         expect(stats1.connections[peer_keys[0]].upload_speed.length > 0).equal(true)
-        
+
         await dg.disconnect()
         stats1 = await dg.monitor()
         setTimeout(() => {
@@ -141,4 +135,19 @@ describe('datagram', async () => {
       }
     })
   }).timeout(15000)
+
+  it('DESTROY!!!1', async () => {
+    try {
+      const DG = new Datagram()
+      const dg = await DG.ready()
+      const settings = await dg.getSettings()
+      expect(settings.storage).equal(`${home()}/.datagram/`)
+      const store_key = fromB58(dg.template.DatagramKey).toString('hex')
+      expect(await fs.pathExists(`${home()}/.datagram/${store_key}`)).equal(true)
+      await dg.destroy()
+      expect(await fs.pathExists(`${home()}/.datagram/${store_key}`)).equal(false)
+    } catch (e) {
+      error(e)
+    }
+  })
 })

@@ -1,6 +1,7 @@
 const promcall = require('promised-callback')
 const { checkVariables, fromB58, getNested, toB58 } = require('./utils')
 
+
 const API = {
   share: (DG, _) => {
     return async (args = { realtime: false, odi: false }, callback) => {
@@ -50,16 +51,6 @@ const API = {
         const stream_keys = Object.keys(_.streams)
         if (stream_keys.length === 0) return error(new Error('NO_STREAMS_FOUND'))
         done(await _.streams[stream_keys[0]].base.getStats())
-      })
-    }
-  },
-  destroy: (DG, _) => {
-    return async (args = { template: null }, callback) => {
-      return new Promise(async (resolve, reject) => {
-        const { done, error } = promcall(resolve, reject, callback)
-        const missing = await checkVariables(args, [ '' ])
-        if (missing) return error(new Error('MISSING_VARIABLES'), { missing })
-        done()
       })
     }
   },

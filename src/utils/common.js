@@ -17,23 +17,25 @@ exports.clone = function(obj) {
   return JSON.parse(JSON.stringify(obj))
 }
 
-exports.installAPI = (args = { namespace: null, API: null, ref: null, _: null }) => {
-  for (const action in args.API) {
-    if (args.API.hasOwnProperty(action)) {
-      if (typeof args.API[action] === 'function') {
-        if (!args.ref) ref = args.ref
-        if (!args.namespace) {
-          args.ref[action] = args.API[action](args.ref, args._)
+exports.wrapStreamToPAPI = (args = { namespace: null, API: null, stream: null, _: null }) => {
+  const { API, namespace, stream, _ } = { ...args }
+
+  for (const action in API) {
+    if (API.hasOwnProperty(action)) {
+      if (typeof API[action] === 'function') {
+        if (!stream) stream = stream
+        if (!namespace) {
+          stream[action] = API[action](stream, _)
         } else {
-          if (!args.ref[args.namespace]) args.ref[args.namespace] = {}
-          args.ref[args.namespace][action] = args.API[action](args.ref, args._)
+          if (!stream[namespace]) stream[namespace] = {}
+          stream[namespace][action] = API[action](stream, _)
         }
       } else {
         return error({ err: err.UNKNOWN_ACTION, args })
       }
     }
   }
-  return args.ref
+  return stream
 }
 
 exports.checkVariables = (args, required) => {
