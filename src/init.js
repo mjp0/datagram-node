@@ -8,15 +8,13 @@ const templates = require('./templates/streams')
 exports.generateUserIfNecessary = async (_, callback) => {
   return new Promise(async (resolve, reject) => {
     const { done, error } = promcall(resolve, reject, callback)
-    // const missing = await checkVariables(credentials, ['id, password'])
-    // if(missing) return error(new Error('MISSING_VARIABLES'), { missing })
 
     if (!_.credentials || !_.credentials.password || !_.credentials.id) {
       log('No user, generating a new one...')
       _.credentials = await generateUser().catch(error)
     } else {
       // Check that credentials have the right length
-      if (_.credentials.id.length < 49) {
+      if (_.credentials.id.length < 48) {
         return error(new Error('INVALID_USER_ID'))
       }
       if (_.credentials.password.length < 92) {
@@ -51,7 +49,6 @@ exports.openOrCreateOrConnect = async (DG, _, callback) => {
     const missing = await checkVariables(_, [ 'credentials.id', 'credentials.password' ])
     if (missing) return error(new Error('USER_MISSING'))
 
-    //TODO: this is a fucking mess, fix this...
     try {
       let API = null
 
@@ -59,7 +56,6 @@ exports.openOrCreateOrConnect = async (DG, _, callback) => {
         // Clone datagram
         API = await exports.clone(DG, _)
         return done(API, _)
-
       } else {
         // If credentials exist but sharelink doesn't,
         // we are either opening or creating new with predetermined user
@@ -100,11 +96,12 @@ exports.create = async (DG, _, callback) => {
       })
       .catch(error)
 
-    _.streams[await stream.getAddress().catch(error)] = stream
+    _.streams[await stream.base.getAddress().catch(error)] = stream
 
     let stream_api = stream
     if (_.type !== 'blank') stream_api = stream[_.type]
     const API = Object.assign({}, DG, stream_api)
+    API.__ = stream
     done(API)
   })
 }
@@ -127,12 +124,15 @@ exports.open = async (DG, _, callback) => {
         },
         {
           user_id: id,
+          user_password: password,
         },
       )
-      
+
       if (stream === 'NO_STREAM_FOUND_WITH_KEY') return done(stream)
 
-      const template = await stream.getTemplate()
+      _.streams[await stream.base.getAddress().catch(error)] = stream
+
+      const template = await stream.base.getTemplate()
       let stream_api = stream
       if (template['@id'] !== 'blank') stream_api = stream[template['@id']]
       const API = Object.assign({}, DG, stream_api)
@@ -147,8 +147,8 @@ exports.clone = async (DG, _, callback) => {
   return new Promise(async (resolve, reject) => {
     const { done, error } = promcall(resolve, reject, callback)
     try {
-
       const id = fromB58(_.credentials.id).toString('hex')
+      const password = fromB58(_.credentials.password).toString('hex')
 
       // parse sharelink
       const parsed_sharelink = getNested(_, 'settings.sharelink').split('|')
@@ -156,18 +156,22 @@ exports.clone = async (DG, _, callback) => {
       if (parsed_sharelink[0].length === 0) return error(new Error('MISSING_ADDRESS'))
       if (parsed_sharelink[1].length === 0) return error(new Error('MISSING_ENCRYPTION_PASSWORD'))
 
+      const params = {
+        keys: { read: fromB58(parsed_sharelink[0]).toString('hex') },
+        storage: getNested(_, 'settings.storage'),
+        encryption_password: fromB58(parsed_sharelink[1]).toString('hex'),
+        user_id: fromB58(parsed_sharelink[1]),
+        user_password: password,
+      }
+
       const stream = await streams
-        .clone(
-          {
-            keys: { read: fromB58(parsed_sharelink[0]).toString('hex') },
-            storage: getNested(_, 'settings.storage'),
-            encryption_password: fromB58(parsed_sharelink[1]).toString('hex'),
-          },
-          { user_id: fromB58(parsed_sharelink[1]), remote: true },
-        )
+        .clone(params,
+          { remote: true, realtime: _.settings.realtime })
         .catch(error)
 
-      const template = await stream.getTemplate()
+      _.streams[await stream.base.getAddress().catch(error)] = stream
+
+      const template = await stream.base.getTemplate()
       let stream_api = stream
       if (template['@id'] !== 'blank') stream_api = stream[template['@id']]
       const API = Object.assign({}, DG, stream_api)
@@ -176,4 +180,4 @@ exports.clone = async (DG, _, callback) => {
       error(e)
     }
   })
-} 
+}

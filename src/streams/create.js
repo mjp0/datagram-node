@@ -36,7 +36,9 @@ const create = async (
       if (keys && keys.read) {
         log('Stream keys provided')
         opts.key = Buffer.from(keys.read, 'hex')
-        opts.secretKey = keys.write ? Buffer.from(keys.write, 'hex') : null // secret is not required
+        if(keys.write) {
+          opts.secretKey = keys.write ? Buffer.from(keys.write, 'hex') : null // secret is not required
+        }
       } else {
         const key_pair = await deriveKeyPair({ master_key: user_password }).catch(error)
         opts.key = key_pair.read
@@ -52,7 +54,7 @@ const create = async (
 
       const store = _open_storage(opts.key, storage)
 
-      const stream = hyperdb(store, Buffer.from(opts.key, 'hex'), opts)
+      const stream = hyperdb(store, opts.key, opts)
 
       stream.on('ready', async (err) => {
         if (err) return error(err)
@@ -85,7 +87,9 @@ const create = async (
         // Generate the stream around the data stream
         const base = await getInterface('base')
         if (!base) return error(new Error(errors.BASE_INTERFACE_MISSING))
-        const Stream = base(stream)
+        const Stream = {
+          base: base(stream)
+        }
 
         // Add index
         if (created_index) {
@@ -114,7 +118,7 @@ const create = async (
                     if (!iface) {
                       return iferror(new Error(errors.REQUESTED_INTERFACE_MISSING), { requested_iface })
                     }
-                    await Stream.addInterface(iface).catch(iferror)
+                    await Stream.base.addInterface(iface, Stream).catch(iferror)
                     iface_done()
                   }),
                 )
@@ -128,7 +132,7 @@ const create = async (
 
         // Store template at 0 position
         const stream_descriptor = await descriptors.create('DatagramStream', template).catch(error)
-        await Stream.add(stream_descriptor, { arguments: { key: '_template' } }).catch(error)
+        await Stream.base.add(stream_descriptor, { arguments: { key: '_template' } }).catch(error)
 
         done(Stream)
       })

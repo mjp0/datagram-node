@@ -2,13 +2,15 @@ const descriptors = require('../../descriptors')
 const { getNested, hash, errors, encryptData, decryptData, signData, verifySignature } = require('../../utils')
 const msgpack = require('msgpack5')()
 const network = require('@hyperswarm/network')
+const { log } = require('../../utils/debug')(__filename)
+const pump = require('pump')
 
 async function getNetwork(args) {
   return new Promise(async (done, error) => {
     const bootstrap = getNested(args, 'odi') || [
-      'server1.datagram.network:10000',
-      'server1.datagram.network:10001',
-      'server1.datagram.network:10002',
+      'odi-1.datagram.network:10000',
+      'odi-2.datagram.network:10000',
+      'odi-3.datagram.network:10000',
     ]
     const nwrk = network({ bootstrap })
     done(nwrk)
@@ -17,20 +19,40 @@ async function getNetwork(args) {
 
 exports.base = function(stream_reference) {
   let stream = stream_reference
+
   const API = {
     '@id': 'base',
-    get: async (package_number) => {
+    _: stream,
+    get: async (key, wait = false) => {
       return new Promise(async (done, error) => {
-        // if (!stream.readable) return error(new Error('STREAM_NOT_READABLE'))
         if (!stream.encryption_password) return error(new Error('ENCRYPTION_PASSWORD_MISSING'))
         if (!stream.user_id) return error(new Error('STREAM_USER_ID_MISSING'))
 
-        stream.get(package_number, async (err, stored_pkgs) => {
-          if (err) return error(err)
+        let attempts = 0
+        async function getValue() {
+          // log(`Reading value ${key}`, key, wait)
+          stream.get(key, async (err, stored_pkgs) => {
+            if (err) return error(err)
+            attempts++
 
-          if (!stored_pkgs || stored_pkgs.length === 0 || !stored_pkgs[0].value) {
-            return done(null)
-          }
+            if (!stored_pkgs || stored_pkgs.length === 0 || !stored_pkgs[0].value) {
+              if (!wait || attempts > 20) return done(null)
+              else {
+                const timer = setTimeout(() => {
+                  getValue()
+                }, 100)
+                log('No value found, waiting for sync...')
+
+                stream.watch(key, () => {
+                  clearTimeout(timer)
+                  wait = false
+                  getValue()
+                })
+              }
+            } else processValue(stored_pkgs)
+          })
+        }
+        async function processValue(stored_pkgs) {
           // open the package
           const opened_pkg = msgpack.decode(stored_pkgs[0].value)
 
@@ -51,22 +73,12 @@ exports.base = function(stream_reference) {
           const pkg = await decryptData({ data: encrypted_pkg, key: stream.encryption_password, nonce }).catch(error)
 
           return done(pkg)
-        })
-      })
-    },
-    getBatch: async (package_number1, package_number2) => {
-      return new Promise(async (done, error) => {
-        if (!stream.readable) return error(new Error('STREAM_NOT_READABLE'))
-        stream.get(package_number1, package_number2, (err, pkgs) => {
-          if (err) return error(err)
-          return done(pkgs)
-        })
+        }
+        getValue()
       })
     },
     add: async (pkg, descriptor) => {
       return new Promise(async (done, error) => {
-        // if (!descriptor) return error(new Error('DESCRIPTOR_NOT_PROVIDED'))
-        // if (!stream.writable) return error(new Error('STREAM_NOT_WRITABLE'))
         if (!Buffer.isBuffer(pkg)) return error(new Error('PACKAGE_NOT_BUFFER'))
         if (!stream.encryption_password) return error(new Error('ENCRYPTION_PASSWORD_MISSING'))
 
@@ -118,66 +130,52 @@ exports.base = function(stream_reference) {
         })
       })
     },
-    getDownloadProgress: async (package_number1, package_number2) => {
-      return new Promise(async (done, error) => {
-        stream.downloaded(package_number1, package_number2, { wait: true }, (err, pkgs) => {
-          if (err) return error(err)
-          return done(pkgs)
-        })
-      })
-    },
-    isAvailableLocally: async (package_number1, package_number2) => {
-      return new Promise(async (done, error) => {
-        stream.has(package_number1, package_number2, (err, has) => {
-          if (err) return error(err)
-          return done(has)
-        })
-      })
-    },
-    clearLocalCache: async (package_number1, package_number2) => {
-      return new Promise(async (done, error) => {
-        stream.clear(package_number1, package_number2, (err, ok) => {
-          if (err) return error(err)
-          return done(ok)
-        })
-      })
-    },
-    runWhenUpdated: async () => {
-      return new Promise(async (done, error) => {
-        stream.update((err) => {
-          if (err) return error(err)
-          API.get(stream.length, (err, pkg) => {
-            done(err, pkg)
-          })
-        })
-      })
-    },
-    abortDownload: async (package_number1, package_number2) => {
-      return new Promise(async (done) => {
-        stream.undownload({ start: package_number1, end: package_number2 })
-        done()
-      })
-    },
+    // getDownloadProgress: async (package_number1, package_number2) => {
+    //   return new Promise(async (done, error) => {
+    //     stream.downloaded(package_number1, package_number2, { wait: true }, (err, pkgs) => {
+    //       if (err) return error(err)
+    //       return done(pkgs)
+    //     })
+    //   })
+    // },
+    // isAvailableLocally: async (package_number1, package_number2) => {
+    //   return new Promise(async (done, error) => {
+    //     stream.has(package_number1, package_number2, (err, has) => {
+    //       if (err) return error(err)
+    //       return done(has)
+    //     })
+    //   })
+    // },
+    // clearLocalCache: async (package_number1, package_number2) => {
+    //   return new Promise(async (done, error) => {
+    //     stream.clear(package_number1, package_number2, (err, ok) => {
+    //       if (err) return error(err)
+    //       return done(ok)
+    //     })
+    //   })
+    // },
+    // runWhenUpdated: async () => {
+    //   return new Promise(async (done, error) => {
+    //     stream.update((err) => {
+    //       if (err) return error(err)
+    //       API.get(stream.length, (err, pkg) => {
+    //         done(err, pkg)
+    //       })
+    //     })
+    //   })
+    // },
+    // abortDownload: async (package_number1, package_number2) => {
+    //   return new Promise(async (done) => {
+    //     stream.undownload({ start: package_number1, end: package_number2 })
+    //     done()
+    //   })
+    // },
     readStream: async (package_number1, package_number2) => {
       if (!stream.readable) return new Error('STREAM_NOT_READABLE')
       const opts = {
         start: package_number1 || 0, // read from this index
         end: package_number2 || stream.length, // read until this index
         snapshot: true, // if set to false it will update `end` to `feed.length` on every read
-        timeout: 0, // timeout for each data event (0 means no timeout)
-        wait: true, // wait for data to be downloaded
-      }
-      return stream.createReadStream(opts)
-    },
-    tail: async (start_package_number) => {
-      if (!stream.readable) return new Error('STREAM_NOT_READABLE')
-
-      const opts = {
-        start: start_package_number || 0, // read from this index
-        end: stream.length, // read until this index
-        snapshot: false, // if set to false it will update `end` to `feed.length` on every read
-        tail: true, // sets `start` to `feed.length`
-        live: true, // set to true to keep reading forever
         timeout: 0, // timeout for each data event (0 means no timeout)
         wait: true, // wait for data to be downloaded
       }
@@ -238,6 +236,7 @@ exports.base = function(stream_reference) {
         done({
           read: stream.key,
           write: stream.secretKey,
+          auth: stream.local.key,
           address,
         })
       })
@@ -260,12 +259,13 @@ exports.base = function(stream_reference) {
         done(template)
       })
     },
-    addInterface: async (iface) => {
+    addInterface: async (iface, API) => {
       return new Promise(async (done, error) => {
         // Do some checking to make sure everything is as it should
         if (typeof iface !== 'object') {
           return error(new Error('NOT_AN_INTERFACE'), { iface })
         }
+        if (!API) API = {}
         if (!iface['@id']) return error(new Error('@ID_MISSING'))
         if (API.hasOwnProperty(iface['@id'])) return error(new Error('INTERFACE_EXISTS'), { '@id': iface['@id'] })
 
@@ -301,42 +301,89 @@ exports.base = function(stream_reference) {
         stream.net = await getNetwork(args)
         stream.net.discovery.holepunchable(async (err, is_valid) => {
           if (err || !is_valid) return error(new Error('NO_CONNECTIVITY'))
+          const { realtime, odi } = { ...args }
+          const address = await API.getAddress().catch(error)
 
-          const topic = Buffer.from(await API.getAddress().catch(error), 'hex')
-          // console.log('p', topic)
+          log(`Publishing at ${address} (rl: ${realtime}, odi: ${odi})`)
+
+          stream.shared = true
+
+          const topic = Buffer.from(address, 'hex')
           stream.net.join(topic, {
-            lookup: true, // find & connect to peers
+            lookup: false, // find & connect to peers
             announce: true, // optional- announce self as a connection target
           })
 
           stream.net.on('connection', async (socket, details) => {
-            // console.log('got connection (publish)', socket)
-            const _replication_stream = await stream.replicate({ live: getNested(args, 'realtime') || false })
-            _replication_stream.pipe(socket).pipe(_replication_stream)
-            stream._replication_stream = _replication_stream
+            socket.on('data', (data) => {
+              // log('publish got data', data)
+            })
+            socket.on('error', (error) => {
+              log('publish got error', error)
+            })
+            socket.on('end', () => {
+              log('publish got end')
+            })
+            log('got connection (publish)')
+            //
+            let _replication_stream = stream.replicate({ live: getNested(args, 'realtime') || false })
+            pump(_replication_stream, socket, _replication_stream, function() {
+              log('publish pipe end')
+            })
+            _replication_stream.on('error', (err) => {
+              log(`Publish socket error`, err)
+            })
+            _replication_stream.on('end', (err) => {
+              log(`Publish socket ended`)
+            })
           })
           done()
         })
       })
     },
-    connect: async (args = { address: null, realtime: false, odi: false}, callback) => {
+
+    connect: async (
+      args = { address: null, realtime: false, odi: false, host: false, onConnection: false },
+      callback,
+    ) => {
       return new Promise(async (done, error) => {
         stream.net = await getNetwork(args)
         stream.net.discovery.holepunchable(async (err, is_valid) => {
           if (err || !is_valid) return error(new Error('NO_CONNECTIVITY'))
+          const { address, realtime, odi, host, onConnection } = { ...args }
+          log(`Connecting to ${address} (rl: ${realtime}, host: ${host}, odi: ${odi})`)
+
+          stream.shared = true
 
           const topic = Buffer.from(args.address, 'hex')
-          // console.log('c', topic)
           stream.net.join(topic, {
             lookup: true, // find & connect to peers
-            announce: false, // optional- announce self as a connection target
+            announce: args.host || false, // optional- announce self as a connection target
           })
 
           stream.net.on('connection', async (socket, details) => {
-            // console.log('connection (connect)', socket)
-            const _replication_stream = await stream.replicate({ live: getNested(args, 'realtime') || false })
-            _replication_stream.pipe(socket).pipe(_replication_stream)
-            stream._replication_stream = _replication_stream
+            socket.on('data', (data) => {
+              // log('connect got data', data)
+            })
+            socket.on('error', (error) => {
+              log('connect got error', error)
+            })
+            socket.on('end', (end) => {
+              log('connect got end', data)
+            })
+            log('connection (connect)')
+            const _replication_stream = stream.replicate({ live: getNested(args, 'realtime') || false })
+            pump(_replication_stream, socket, _replication_stream, function() {
+              log('connect pipe end')
+            })
+            _replication_stream.on('error', (err) => {
+              log(`Connect socket error`, err)
+            })
+            _replication_stream.on('end', (err) => {
+              log(`Connect socket ended`)
+            })
+
+            if (typeof onConnection === 'function') onConnection({ details })
           })
           done()
         })
@@ -355,6 +402,14 @@ exports.base = function(stream_reference) {
           stream._replication_stream.end()
         }
         done()
+      })
+    },
+    watchKey: async (key, callback) => {
+      return new Promise(async (done, error) => {
+        if (!key) return error(new Error('MISSING_VARIABLES'), { missing: [ 'key' ] })
+        stream.watch(key, function() {
+          done()
+        })
       })
     },
   }

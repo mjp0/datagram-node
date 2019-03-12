@@ -5,24 +5,24 @@ const { generateUserIfNecessary } = require('./../src/init')
 const home = require('home')
 const ram = require('random-access-memory')
 const tmp = require('tmp').tmpNameSync
+const _ = require('lodash')
 
 function error(err, meta) {
   console.error(err, meta)
   expect(err).equal(null)
 }
 
-describe('datagram/creation', async () => {
+describe('datagram', async () => {
   it('new dg without user', async () => {
     try {
       const DG = new Datagram()
       expect(DG).to.contain.keys([ 'ready', 'debug' ])
 
       const dg = await DG.ready()
-      expect(dg).to.contain.keys([
+      expect(dg).to.include.keys([
         'share',
         'getCredentials',
         'destroy',
-        'connect',
         'authorizeDevice',
       ])
       const settings = await dg.getSettings()
@@ -68,7 +68,7 @@ describe('datagram/creation', async () => {
       const DG = new Datagram(args)
       const dg = await DG.ready()
       await dg.set('hello', 'world')
-      
+
       // Just to be sure...
       delete dg
       delete DG
@@ -98,26 +98,34 @@ describe('datagram/creation', async () => {
     }
   })
 
-  it('share & connect', async() => {
-    try {
-      const user = await generateUserIfNecessary({ credentials: {} })
-      const args = Object.assign({}, user.credentials, { type: 'redis' })
-      const DG = new Datagram(args)
-      const dg = await DG.ready()
-      await dg.set('hello', 'world')
-      const sharelink = await dg.share()
-      expect(sharelink).contain(user.credentials.id.toString('hex'))
+  it('share & connect', async () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await generateUserIfNecessary({ credentials: {} })
+        const args = Object.assign({}, user.credentials, { type: 'redis' })
+        const DG = new Datagram(args)
+        const dg = await DG.ready()
+        dg.debug()
+        await dg.set('hello', 'world')
 
-      const user2 = await generateUserIfNecessary({ credentials: {} })
-      const args2 = Object.assign({}, user2.credentials, { type: 'redis', sharelink })
-      const DG2 = new Datagram(args2)
-      const dg2 = await DG2.ready()
-      
-      const hello = await dg2.get('hello')
-      expect(hello.toString()).equal('world')
+        const sharelink = await dg.share().catch(reject)
+        expect(sharelink).contain(user.credentials.id.toString('hex'))
 
-    } catch (e) {
-      error(e)
-    }
-  }).timeout(5000)
+        const DG2 = new Datagram({ sharelink, storage: ram })
+        const dg2 = await DG2.ready()
+
+        const hello1 = await dg2.get('hello').catch(reject)
+        expect(hello1.toString()).equal('world')
+
+        
+        let rand = String(_.random(0, 234))
+        await dg.set('h3ll0', rand).catch(reject)
+        expect(await dg.get('h3ll0')).equal(rand)
+        expect(await dg2.get('h3ll0')).equal(rand)
+        resolve()
+      } catch (e) {
+        error(e)
+      }
+    })
+  }).timeout(15000)
 })

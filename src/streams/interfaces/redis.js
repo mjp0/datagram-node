@@ -22,7 +22,7 @@ const redis = {
         const descriptor = {
           agent: {
             '@type': 'User',
-            key: await API.getUserId().catch(error),
+            key: await API.base.getUserId().catch(error),
           },
           datatype,
           arguments: { key, action: '+' },
@@ -32,17 +32,18 @@ const redis = {
 
         const pkg = await descriptors.create('DatagramData', descriptor).catch(error)
 
-        const position = await API.add(pkg, only_descriptor).catch(error)
+        const position = await API.base.add(pkg, only_descriptor).catch(error)
 
         done(position)
       })
     }
   },
   get: (API, stream) => {
-    return async (key) => {
+    return async (key, skip_wait = false) => {
       return new Promise(async (done, error) => {
-        const buffer = await API.get(key).catch(error)
+        if (!stream.shared) skip_wait = true
 
+        const buffer = await API.base.get(key, !skip_wait).catch(error)
         if (!buffer) return done()
 
         // Turn content back to readable
@@ -100,13 +101,13 @@ const redis = {
   lpush: (API, stream) => {
     return async (key, value) => {
       return new Promise(async (done, error) => {
-        let list = await API.get(key).catch(error)
+        let list = await API.base.get(key).catch(error)
         if (!list) {
           list = [ value ]
         } else {
           list.push(value)
         }
-        const res = await API.set(key, Buffer.from(list)).catch(error)
+        const res = await API.base.set(key, Buffer.from(list)).catch(error)
         done(res)
       })
     }

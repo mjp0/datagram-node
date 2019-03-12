@@ -52,10 +52,12 @@ exports.load = async (
         // Generate the stream around the data stream
         const base = await getInterface('base')
         if (!base) return error(new Error(errors.BASE_INTERFACE_MISSING))
-        const Stream = base(stream)
+        const Stream = {
+          base: base(stream),
+        }
 
         // Get the template
-        Stream.template = await Stream.getTemplate().catch(error)
+        Stream.template = await Stream.base.getTemplate().catch(error)
 
         // Apply interfaces
         if (Array.isArray(Stream.template.interfaces)) {
@@ -66,7 +68,7 @@ exports.load = async (
                 new Promise(async (iface_done, iferror) => {
                   const iface = await getInterface(requested_iface)
                   if (!iface) return iferror(new Error(errors.REQUESTED_INTERFACE_MISSING), { requested_iface })
-                  await Stream.addInterface(iface).catch(iferror)
+                  await Stream.base.addInterface(iface, Stream).catch(iferror)
                   iface_done()
                 }),
               )
@@ -78,6 +80,5 @@ exports.load = async (
         done(Stream)
       })
     })
-    // })
   })
 }

@@ -28,6 +28,7 @@ const Datagram = class {
       path: null,
       sharelink: null,
       odi: null,
+      realtime: null,
     },
   ) {
     log('Initializing your datagram...')
@@ -46,6 +47,7 @@ const Datagram = class {
         storage: getNested(args, 'storage') || null,
         path: getNested(args, 'path') || null,
         odi: getNested(args, 'odi') || null,
+        realtime: getNested(args, 'realtime') || null,
         sharelink: getNested(args, 'sharelink') ? getNested(args, 'sharelink') : null,
       },
     }
@@ -54,6 +56,7 @@ const Datagram = class {
     let DG = {
       debug: () => {
         _.debug = true
+        DG._ = _
       },
     }
 
