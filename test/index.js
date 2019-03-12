@@ -122,7 +122,20 @@ describe('datagram', async () => {
         await dg.set('h3ll0', rand).catch(reject)
         expect(await dg.get('h3ll0')).equal(rand)
         expect(await dg2.get('h3ll0')).equal(rand)
-        resolve()
+
+        let stats1 = await dg.monitor()
+        const peer_keys = Object.keys(stats1.connections)
+        expect(stats1.connections[peer_keys[0]].status).equal('ACTIVE')
+        expect(stats1.connections[peer_keys[0]].type).equal('PUBLISH')
+        expect(stats1.connections[peer_keys[0]].download_speed.length > 0).equal(true)
+        expect(stats1.connections[peer_keys[0]].upload_speed.length > 0).equal(true)
+        
+        await dg.disconnect()
+        stats1 = await dg.monitor()
+        setTimeout(() => {
+          expect(stats1.connections[peer_keys[0]].status).equal('ENDED')
+          resolve()
+        }, 500)
       } catch (e) {
         error(e)
       }

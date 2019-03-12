@@ -4,6 +4,7 @@ const msgpack = require('msgpack5')()
 const network = require('@hyperswarm/network')
 const { log } = require('../../utils/debug')(__filename)
 const pump = require('pump')
+const StreamSpeed = require('streamspeed')
 
 async function getNetwork(args) {
   return new Promise(async (done, error) => {
@@ -19,7 +20,10 @@ async function getNetwork(args) {
 
 exports.base = function(stream_reference) {
   let stream = stream_reference
-
+  let stream_connections = []
+  let stream_stats = {
+    connections: {},
+  }
   const API = {
     '@id': 'base',
     _: stream,
@@ -296,6 +300,11 @@ exports.base = function(stream_reference) {
         done(stream_reference.user_password || null)
       })
     },
+    getStats: async () => {
+      return new Promise(async (done, error) => {
+        done(stream_stats || null)
+      })
+    },
     publish: async (args = { realtime: false, odi: false }, callback) => {
       return new Promise(async (done, error) => {
         stream.net = await getNetwork(args)
@@ -315,26 +324,44 @@ exports.base = function(stream_reference) {
           })
 
           stream.net.on('connection', async (socket, details) => {
+            socket.key = (socket.remoteAddress || '0.0.0.0') + ':' + (socket.remotePort || '0')
+            log('Stream got connection (publish)', socket.key)
+
+            stream_connections.push(socket)
+            stream_stats.connections[socket.key] = {
+              status: 'ACTIVE',
+              type: 'PUBLISH',
+              download_speed: [],
+              upload_speed: [],
+            }
+
             socket.on('data', (data) => {
               // log('publish got data', data)
             })
             socket.on('error', (error) => {
-              log('publish got error', error)
+              log('Connection error', { error, socket_key: socket.key })
             })
-            socket.on('end', () => {
-              log('publish got end')
-            })
-            log('got connection (publish)')
-            //
+
             let _replication_stream = stream.replicate({ live: getNested(args, 'realtime') || false })
+
+            // Create stat collection
+            const socket_speed = new StreamSpeed()
+            socket_speed.add(socket)
+            socket_speed.on('speed', (speed, avgSpeed) => {
+              log('Uploading at', avgSpeed, 'bytes per second', socket.key)
+              stream_stats.connections[socket.key].upload_speed.push({ ts: new Date().getTime(), speed })
+            })
+
+            const stream_speed = new StreamSpeed()
+            stream_speed.add(_replication_stream)
+            stream_speed.on('speed', (speed, avgSpeed) => {
+              log('Downloading at', avgSpeed, 'bytes per second', socket.key)
+              stream_stats.connections[socket.key].download_speed.push({ ts: new Date().getTime(), speed })
+            })
+
             pump(_replication_stream, socket, _replication_stream, function() {
-              log('publish pipe end')
-            })
-            _replication_stream.on('error', (err) => {
-              log(`Publish socket error`, err)
-            })
-            _replication_stream.on('end', (err) => {
-              log(`Publish socket ended`)
+              log('Stream connection ended', socket.key)
+              stream_stats.connections[socket.key].status = 'ENDED'
             })
           })
           done()
@@ -362,25 +389,44 @@ exports.base = function(stream_reference) {
           })
 
           stream.net.on('connection', async (socket, details) => {
+            socket.key = (socket.remoteAddress || '0.0.0.0') + ':' + (socket.remotePort || '0')
+            log('Stream got connection (connect)', socket.key)
+
+            stream_connections.push(socket)
+            stream_stats.connections[socket.key] = {
+              status: 'ACTIVE',
+              type: 'CONNECT',
+              download_speed: [],
+              upload_speed: [],
+            }
+
             socket.on('data', (data) => {
               // log('connect got data', data)
             })
             socket.on('error', (error) => {
-              log('connect got error', error)
+              log('Connection error', { error, socket_key: socket.key })
             })
-            socket.on('end', (end) => {
-              log('connect got end', data)
-            })
-            log('connection (connect)')
+
             const _replication_stream = stream.replicate({ live: getNested(args, 'realtime') || false })
+
+            // Create stat collection
+            const socket_speed = new StreamSpeed()
+            socket_speed.add(socket)
+            socket_speed.on('speed', (speed, avgSpeed) => {
+              log('Uploading at', avgSpeed, 'bytes per second', socket.key)
+              stream_stats.connections[socket.key].upload_speed.push({ ts: new Date().getTime(), speed })
+            })
+
+            const stream_speed = new StreamSpeed()
+            stream_speed.add(_replication_stream)
+            stream_speed.on('speed', (speed, avgSpeed) => {
+              log('Downloading at', avgSpeed, 'bytes per second', socket.key)
+              stream_stats.connections[socket.key].download_speed.push({ ts: new Date().getTime(), speed })
+            })
+
             pump(_replication_stream, socket, _replication_stream, function() {
-              log('connect pipe end')
-            })
-            _replication_stream.on('error', (err) => {
-              log(`Connect socket error`, err)
-            })
-            _replication_stream.on('end', (err) => {
-              log(`Connect socket ended`)
+              log('Stream connection ended', socket.key)
+              stream_stats.connections[socket.key].status = 'ENDED'
             })
 
             if (typeof onConnection === 'function') onConnection({ details })
@@ -398,8 +444,15 @@ exports.base = function(stream_reference) {
             }
           })
         }
-        if (stream._replication_stream) {
-          stream._replication_stream.end()
+        if (stream_connections.length > 0) {
+          const shutdown = () => {
+            const conn = stream_connections.pop()
+            if (conn && !conn._readableState.ended) {
+              conn.end()
+              shutdown()
+            }
+          }
+          shutdown()
         }
         done()
       })

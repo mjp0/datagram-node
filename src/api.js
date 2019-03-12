@@ -43,6 +43,16 @@ const API = {
       })
     }
   },
+  monitor: (DG, _) => {
+    return async (callback) => {
+      return new Promise(async (resolve, reject) => {
+        const { done, error } = promcall(resolve, reject, callback)
+        const stream_keys = Object.keys(_.streams)
+        if (stream_keys.length === 0) return error(new Error('NO_STREAMS_FOUND'))
+        done(await _.streams[stream_keys[0]].base.getStats())
+      })
+    }
+  },
   destroy: (DG, _) => {
     return async (args = { template: null }, callback) => {
       return new Promise(async (resolve, reject) => {
