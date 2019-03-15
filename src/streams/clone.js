@@ -58,7 +58,7 @@ exports.clone = async (
           // Get the template
           Stream.template = await Stream.base.getTemplate().catch(error)
           if (!Stream.template) {
-            await Stream.watchKey('_template')
+            await Stream.base.watchKey('_template')
             Stream.template = await Stream.base.getTemplate().catch(error)
           }
 

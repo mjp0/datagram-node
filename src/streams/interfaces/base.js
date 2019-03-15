@@ -242,6 +242,7 @@ exports.base = function(stream_reference) {
           write: stream.secretKey,
           auth: stream.local.key,
           address,
+          encryption_password: stream.encryption_password,
         })
       })
     },

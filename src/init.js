@@ -46,8 +46,9 @@ exports.determineStorage = async (_, callback) => {
 exports.openOrCreateOrConnect = async (DG, _, callback) => {
   return new Promise(async (resolve, reject) => {
     const { done, error } = promcall(resolve, reject, callback)
-    const missing = await checkVariables(_, [ 'credentials.id', 'credentials.password' ])
-    if (missing) return error(new Error('USER_MISSING'))
+    const user_missing = await checkVariables(_, [ 'credentials.id', 'credentials.password' ])
+    if (user_missing) return error(new Error('USER_MISSING'))
+    const keys_missing = await checkVariables(_, [ 'keys.read', 'keys.encryption_password' ])
 
     try {
       let API = null
@@ -58,8 +59,8 @@ exports.openOrCreateOrConnect = async (DG, _, callback) => {
         return done(API, _)
       } else {
         // If credentials exist but sharelink doesn't,
-        // we are either opening or creating new with predetermined user
-        if (!missing) {
+        // we are either opening or creating new with predetermined keys
+        if (!keys_missing) {
           // Try to open first
           API = await exports.open(DG, _)
 
@@ -112,19 +113,20 @@ exports.open = async (DG, _, callback) => {
     try {
       const id = fromB58(_.credentials.id).toString('hex')
       const password = fromB58(_.credentials.password).toString('hex')
+      const encryption_password = fromB58(_.keys.encryption_password).toString('hex')
+      const read = fromB58(_.keys.read).toString('hex')
 
-      // generate stream keys from credentials
-      const keys = await deriveKeyPair({ master_key: password })
       const stream = await streams.load(
         {
-          keys: keys,
+          keys: {
+            read
+          },
           storage: _.settings.storage,
-          encryption_password: id,
+          encryption_password: encryption_password,
           user_password: password,
         },
         {
           user_id: id,
-          user_password: password,
         },
       )
 
@@ -161,7 +163,7 @@ exports.clone = async (DG, _, callback) => {
         keys: { read: fromB58(parsed_sharelink[0]).toString('hex') },
         storage: getNested(_, 'settings.storage'),
         encryption_password: fromB58(parsed_sharelink[1]).toString('hex'),
-        user_id: fromB58(parsed_sharelink[1]),
+        user_id: id,
         user_password: password,
       }
 

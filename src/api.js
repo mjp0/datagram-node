@@ -18,10 +18,10 @@ const API = {
             odi: getNested(args, 'odi') || false,
           })
           const keys = await _.streams[stream_keys[0]].base.getKeys()
-          if (!keys || !keys.read) return error(new Error('READ_KEY_MISSING'))
-          const encryption_key = await _.streams[stream_keys[0]].base.getUserId()
-          if (!encryption_key) return error(new Error('USER_ID_MISSING'))
-          done(`${toB58(keys.read)}|${toB58(encryption_key)}`)
+          const missing = checkVariables(keys, ['read', 'encryption_password'])
+          if (missing) return error(errors.MISSING_VARIABLES, { missing, keys })
+
+          done(`${toB58(keys.read)}|${toB58(keys.encryption_password)}`)
         } catch (e) {
           error(e)
         }
@@ -33,6 +33,24 @@ const API = {
       return new Promise(async (resolve, reject) => {
         const { done, error } = promcall(resolve, reject, callback)
         done(_.credentials)
+      })
+    }
+  },
+  getKeys: (DG, _) => {
+    return async (callback) => {
+      return new Promise(async (resolve, reject) => {
+        const { done, error } = promcall(resolve, reject, callback)
+        try {
+          const stream_keys = Object.keys(_.streams)
+          if (stream_keys.length === 0) return error(new Error('NO_STREAMS_FOUND'))
+          const keys = await _.streams[stream_keys[0]].base.getKeys()
+          keys.read = toB58(keys.read.toString('hex'))
+          keys.auth = toB58(keys.auth.toString('hex'))
+          keys.encryption_password = toB58(keys.encryption_password.toString('hex'))
+          done(keys)
+        } catch (e) {
+          error(e)
+        }
       })
     }
   },

@@ -1,17 +1,14 @@
 const promcall = require('promised-callback')
 const { log } = require('../utils/debug')(__filename)
 const hyperdb = require('hyperdb')
-const { _open_storage, errors, deriveKeyPair, checkVariables, toB58 } = require('../utils')
+const { _open_storage, errors, createKeyPair, generatePassword, checkVariables, toB58 } = require('../utils')
 const descriptors = require('../descriptors')
-const stream_templates = require('../templates/streams')
 const { getInterface } = require('./interfaces/index')
 
 const create = async (
   args = { template: null, storage: null, user_password: null, user_id: null },
   opts = {
     keys: { read: null, write: null },
-    no_index: false,
-    meta_stream: null,
   },
   callback,
 ) => {
@@ -24,7 +21,7 @@ const create = async (
 
       if (!opts) opts = {}
 
-      const { template, storage, keys, no_index, user_password, user_id } = { ...args, ...opts }
+      const { template, storage, keys, user_password, user_id } = { ...args, ...opts }
       opts.valueEncoding = 'binary' // Binary encoding is enforced
       opts.storeSecretKey = false
       opts.sparse = true
@@ -40,7 +37,7 @@ const create = async (
           opts.secretKey = keys.write ? Buffer.from(keys.write, 'hex') : null // secret is not required
         }
       } else {
-        const key_pair = await deriveKeyPair({ master_key: user_password }).catch(error)
+        const key_pair = await createKeyPair().catch(error)
         opts.key = key_pair.read
         opts.secretKey = key_pair.write
         log('Stream keys not provided, generating new ones...')
@@ -66,7 +63,7 @@ const create = async (
         stream.user_password = user_password
 
         // Encryption is the same as the user_id
-        stream.encryption_password = user_id
+        stream.encryption_password = await generatePassword({ len: 64 })
 
         if (!stream.encryption_password) return error(new Error('PASSWORD_MISSING'))
 
@@ -102,7 +99,7 @@ const create = async (
         template.ReleaseDate = new Date().toISOString()
         template.Manufacturer = 'Machian Collective'
         template.DatagramKey = toB58(stream.key.toString('hex'))
-        template.EncryptionKey = toB58(stream.encryption_password)
+        template.EncryptionPassword = toB58(stream.encryption_password)
 
         Stream.template = template
 

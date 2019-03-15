@@ -32,6 +32,10 @@ const Datagram = class {
       odi: null,
       realtime: null,
     },
+    opts = {
+      read: null,
+      encryption_password: null,
+    }
   ) {
     log('Initializing your datagram...')
 
@@ -44,6 +48,10 @@ const Datagram = class {
       credentials: {
         id: getNested(args, 'id') || null,
         password: getNested(args, 'password') || null,
+      },
+      keys: {
+        read: getNested(opts, 'read') || null,
+        encryption_password: getNested(opts, 'encryption_password') || null,
       },
       settings: {
         storage: getNested(args, 'storage') || null,

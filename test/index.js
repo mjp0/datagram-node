@@ -64,12 +64,13 @@ describe('datagram', async () => {
       const DG = new Datagram(args)
       const dg = await DG.ready()
       await dg.set('hello', 'world')
-
+      expect(await dg.get('hello')).equal('world')
+      const keys = await dg.getKeys()
       // Just to be sure...
       delete dg
       delete DG
 
-      const DG2 = new Datagram(args)
+      const DG2 = new Datagram(args, keys)
       const dg2 = await DG2.ready()
       expect(await dg2.get('hello')).equal('world')
     } catch (e) {
@@ -82,6 +83,7 @@ describe('datagram', async () => {
       const DG = new Datagram({ storage: ram })
       const dg = await DG.ready()
       const settings = await dg.getSettings()
+      const keys = await dg.getKeys()
       expect(typeof settings.storage).eql('function')
 
       const DG2 = new Datagram({ path: '/tmp/dg' })
@@ -102,11 +104,12 @@ describe('datagram', async () => {
         const dg = await DG.ready()
         dg.debug()
         await dg.set('hello', 'world')
-
+        const keys = await dg.getKeys()
         const sharelink = await dg.share().catch(reject)
-        expect(sharelink).contain(user.credentials.id.toString('hex'))
+        expect(sharelink).equal(keys.read + '|' + keys.encryption_password)
 
-        const DG2 = new Datagram({ sharelink, storage: ram })
+        const args2 = Object.assign({}, user.credentials, { sharelink, storage: ram })
+        const DG2 = new Datagram(args2)
         const dg2 = await DG2.ready()
 
         const hello1 = await dg2.get('hello').catch(reject)

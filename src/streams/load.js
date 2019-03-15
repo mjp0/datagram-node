@@ -1,6 +1,5 @@
 const { log } = require('../utils/debug')(__filename)
 const { errors, checkVariables } = require('../utils')
-const hypercore = require('hypercore')
 const hyperdb = require('hyperdb')
 const _open_storage = require('../utils/storage')._open_storage
 const { getInterface } = require('./interfaces')
@@ -18,7 +17,7 @@ exports.load = async (
 
     const hex_key = Buffer.isBuffer(keys.read) ? keys.read.toString('hex') : keys.read
 
-    log('Trying to open stream with key')
+    log('Trying to open stream with key', hex_key)
 
     // Open storage for the stream
     const store = _open_storage(hex_key, storage)
