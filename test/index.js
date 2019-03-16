@@ -139,7 +139,7 @@ describe('datagram', async () => {
     })
   }).timeout(15000)
 
-  it('DESTROY!!!1', async () => {
+  it('destroy', async () => {
     try {
       const DG = new Datagram()
       const dg = await DG.ready()
