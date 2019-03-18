@@ -68,7 +68,7 @@ cli.command('user [filename]').description('Generate new user credentials to a f
 
 // Create new
 cli
-  .command('new')
+  .command('create')
   .option('-u --userfile [credentials_file]', 'User file', openUserFile)
   .option('-i --id [id]', 'User id')
   .option('-p --pass [password]', 'User password')
