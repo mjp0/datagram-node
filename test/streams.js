@@ -80,6 +80,7 @@ describe('stream', async () => {
     expect(stream1.template.name).equal('Admin')
 
     const stream1_keys = await stream1.base.getKeys().catch(error)
+    const encryption_password = stream1_keys.encryption_password
 
     expect(await stream1.base.getUserId()).equal(user.id)
     expect(await stream1.base.getUserPassword()).equal(user.password)
@@ -91,7 +92,7 @@ describe('stream', async () => {
       {
         keys: stream1_keys,
         storage,
-        encryption_password: await stream1.base.getUserId().catch(error),
+        encryption_password,
         user_password: await stream1.base.getUserPassword().catch(error),
       },
       {
@@ -115,14 +116,14 @@ describe('stream', async () => {
       }).catch(error)
       expect(stream.template.name).equal('Admin')
       const keys = await stream.base.getKeys().catch(error)
-
+      const encryption_password = keys.encryption_password
       await stream.base.add(Buffer.from('bar'), { arguments: { key: 'foo' } }).catch(error)
 
       const cloned_stream = await clone(
         {
           keys,
           storage,
-          encryption_password: await stream.base.getUserId().catch(error),
+          encryption_password,
           user_id: user.id,
           user_password: user.password,
         },
@@ -159,6 +160,7 @@ describe('stream', async () => {
       }).catch(error)
       expect(stream.template.name).equal('Admin')
       const keys = await stream.base.getKeys().catch(error)
+      
       // console.log(stream)
       await stream.redis.set('bar', 'foo').catch(error)
 
@@ -168,7 +170,7 @@ describe('stream', async () => {
         {
           keys,
           storage: ram,
-          encryption_password: await stream.base.getUserId().catch(error),
+          encryption_password: keys.encryption_password,
           user_id: user.id,
           user_password: user.password,
         },

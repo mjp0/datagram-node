@@ -106,7 +106,7 @@ describe('datagram', async () => {
         await dg.set('hello', 'world')
         const keys = await dg.getKeys()
         const sharelink = await dg.share().catch(reject)
-        expect(sharelink).equal(keys.read + '|' + keys.encryption_password)
+        expect(sharelink).equal(keys.read + '/' + keys.encryption_password)
 
         const args2 = Object.assign({}, user.credentials, { sharelink, storage: ram })
         const DG2 = new Datagram(args2)
