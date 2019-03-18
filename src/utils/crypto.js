@@ -1,5 +1,5 @@
 const promcall = require('promised-callback')
-const CDR = require('/Users/zero/Development/Machian/CryptoDoneRight/dist')
+const CDR = require('cryptodoneright')
 const { getNested, checkVariables } = require('./common')
 const { err, errors } = require('./errors')
 const { toB58 } = require('./b58')
