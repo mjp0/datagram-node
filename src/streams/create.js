@@ -9,6 +9,7 @@ const create = async (
   args = { template: null, storage: null, user_password: null, user_id: null },
   opts = {
     keys: { read: null, write: null },
+    full_sync: false
   },
   callback,
 ) => {
@@ -21,10 +22,9 @@ const create = async (
 
       if (!opts) opts = {}
 
-      const { template, storage, keys, user_password, user_id } = { ...args, ...opts }
+      const { template, storage, keys, user_password, user_id, full_sync } = { ...args, ...opts }
       opts.valueEncoding = 'binary' // Binary encoding is enforced
-      opts.storeSecretKey = false
-      opts.sparse = true
+      opts.sparse = full_sync === true ? false : true
 
       // Make sure we have the template
       if (!template) return error(new Error(errors.TEMPLATE_MISSING), { args })

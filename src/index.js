@@ -11,13 +11,14 @@ const MOTD = `
 
 // DEPENDENCIES
 const { log } = require('./utils/debug')(__filename)
-const { wrapStreamToPAPI, getNested, fromB58 } = require('./utils')
+const { wrapStreamToPAPI, getNested, fromB58, event } = require('./utils')
 const promcall = require('promised-callback') //TODO: fix
 const sequence = require('async/waterfall')
 const fs = require('fs-extra')
 const home = require('home')
 const init = require('./init')
 const API = require('./api')
+
 
 // HERE LIES DRAGONS
 const Datagram = class {
@@ -31,6 +32,7 @@ const Datagram = class {
       sharelink: null,
       odi: null,
       realtime: null,
+      full_sync: null,
     },
     opts = {
       read: null,
@@ -58,12 +60,13 @@ const Datagram = class {
         path: getNested(args, 'path') || null,
         odi: getNested(args, 'odi') || null,
         realtime: getNested(args, 'realtime') || null,
+        full_sync: getNested(args, 'full_sync') || null,
         sharelink: getNested(args, 'sharelink') ? getNested(args, 'sharelink') : null,
       },
     }
-
     // Public API
     let DG = {
+      on: (ev, callback) => event.on(ev, callback),
       debug: () => {
         _.debug = true
         DG._ = _

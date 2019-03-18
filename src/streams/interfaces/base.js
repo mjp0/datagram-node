@@ -1,5 +1,5 @@
 const descriptors = require('../../descriptors')
-const { getNested, hash, errors, encryptData, decryptData, signData, verifySignature } = require('../../utils')
+const { getNested, hash, errors, encryptData, decryptData, signData, verifySignature, event } = require('../../utils')
 const msgpack = require('msgpack5')()
 const network = require('@hyperswarm/network')
 const { log } = require('../../utils/debug')(__filename)
@@ -328,6 +328,8 @@ exports.base = function(stream_reference) {
             socket.key = (socket.remoteAddress || '0.0.0.0') + ':' + (socket.remotePort || '0')
             log('Stream got connection (publish)', socket.key)
 
+            event.emit('connection:new', { socket_key: socket.key })
+
             stream_connections.push(socket)
             stream_stats.connections[socket.key] = {
               status: 'ACTIVE',
@@ -341,6 +343,7 @@ exports.base = function(stream_reference) {
             })
             socket.on('error', (error) => {
               log('Connection error', { error, socket_key: socket.key })
+              event.emit('connection:error', { error, socket_key: socket.key })
             })
 
             let _replication_stream = stream.replicate({ live: getNested(args, 'realtime') || false })
@@ -362,6 +365,7 @@ exports.base = function(stream_reference) {
 
             pump(_replication_stream, socket, _replication_stream, function() {
               log('Stream connection ended', socket.key)
+              event.emit('connection:end', { socket_key: socket.key })
               stream_stats.connections[socket.key].status = 'ENDED'
             })
           })
@@ -384,6 +388,7 @@ exports.base = function(stream_reference) {
           stream.shared = true
 
           const topic = Buffer.from(args.address, 'hex')
+
           stream.net.join(topic, {
             lookup: true, // find & connect to peers
             announce: args.host || false, // optional- announce self as a connection target
@@ -392,6 +397,8 @@ exports.base = function(stream_reference) {
           stream.net.on('connection', async (socket, details) => {
             socket.key = (socket.remoteAddress || '0.0.0.0') + ':' + (socket.remotePort || '0')
             log('Stream got connection (connect)', socket.key)
+            
+            event.emit('connection:new', { socket_key: socket.key })
 
             stream_connections.push(socket)
             stream_stats.connections[socket.key] = {
@@ -406,6 +413,7 @@ exports.base = function(stream_reference) {
             })
             socket.on('error', (error) => {
               log('Connection error', { error, socket_key: socket.key })
+              event.emit('connection:error', { error, socket_key: socket.key })
             })
 
             const _replication_stream = stream.replicate({ live: getNested(args, 'realtime') || false })
@@ -427,7 +435,9 @@ exports.base = function(stream_reference) {
 
             pump(_replication_stream, socket, _replication_stream, function() {
               log('Stream connection ended', socket.key)
+              event.emit('connection:end', { socket_key: socket.key })
               stream_stats.connections[socket.key].status = 'ENDED'
+
             })
 
             if (typeof onConnection === 'function') onConnection({ details })
