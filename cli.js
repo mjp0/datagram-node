@@ -18,8 +18,8 @@ function openUserFile(filename) {
     const u = ufile.split('/')
     if (u.length === 2 && u[0].length > 0 && u[1].length > 0) {
       return {
-        id: u[0],
-        password: u[1],
+        id: u[0].trim(),
+        password: u[1].trim(),
       }
     } else return error('invalid userfile')
   } else return error('no userfile found at ' + filename)
