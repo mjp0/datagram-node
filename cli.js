@@ -15,7 +15,7 @@ function error(err) {
 function openUserFile(filename) {
   const ufile = fs.readFileSync(filename, 'UTF-8')
   if (ufile) {
-    const u = ufile.split('\n')
+    const u = ufile.split('/')
     if (u.length === 2 && u[0].length > 0 && u[1].length > 0) {
       return {
         id: u[0],
@@ -62,7 +62,7 @@ cli.version(pkg.version)
 cli.command('user [filename]').description('Generate new user credentials to a file').action(async (filename) => {
   if (!filename) return error('filename missing')
   const user = await generateUser().catch(error)
-  fs.writeFileSync(filename + '.user.dg', `${user.id}\n${user.password}`)
+  fs.writeFileSync(filename + '.user.dg', `${user.id}/${user.password}`)
   console.log(`User: ${user.id}\nPassword: ${user.password}\n\nStored at ${filename}.user.dg`)
 })
 
