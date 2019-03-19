@@ -404,14 +404,6 @@ exports.base = function(stream_reference) {
 
             event.emit('connection:new', { socket_key: socket.key })
 
-            const diff = stream.createDiffStream()
-            diff.on('data', (left,right) => {
-              console.log(left, right)
-            })
-            stream.watch(() => {
-              
-            })
-
             stream_connections.push(socket)
             stream_stats.connections[socket.key] = {
               status: 'ACTIVE',
