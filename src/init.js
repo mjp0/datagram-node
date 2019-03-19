@@ -165,10 +165,10 @@ exports.clone = async (DG, _, callback) => {
         encryption_password: fromB58(parsed_sharelink[1]).toString('hex'),
         user_id: id,
         user_password: password,
-        full_sync: getNested(_, 'settings.full_sync'),
+        full_sync: getNested(_, 'settings.full_sync')
       }
 
-      const stream = await streams.clone(params, { remote: true, realtime: _.settings.realtime }).catch(error)
+      const stream = await streams.clone(params, { remote: true, realtime: _.settings.realtime, host: getNested(_, 'settings.host') }).catch(error)
 
       _.streams[await stream.base.getAddress().catch(error)] = stream
 

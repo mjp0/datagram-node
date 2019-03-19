@@ -274,19 +274,21 @@ exports.base = function(stream_reference) {
         }
         if (!API) API = {}
         if (!iface['@id']) return error(new Error('@ID_MISSING'))
-        if (API.hasOwnProperty(iface['@id'])) return error(new Error('INTERFACE_EXISTS'), { '@id': iface['@id'] })
+        if (!API.hasOwnProperty(iface['@id'])) {
+          // return error(new Error('INTERFACE_EXISTS'), { '@id': iface['@id'] })
 
-        // Reserve namespace
-        API[iface['@id']] = {}
+          // Reserve namespace
+          API[iface['@id']] = {}
 
-        // Apply the methods
-        for (const method in iface) {
-          if (iface.hasOwnProperty(method)) {
-            if (!method.match(/@/)) {
-              if (typeof iface[method] !== 'function') {
-                return error(new Error('INTERFACE_METHOD_MUST_BE_FUNCTION'), { method })
+          // Apply the methods
+          for (const method in iface) {
+            if (iface.hasOwnProperty(method)) {
+              if (!method.match(/@/)) {
+                if (typeof iface[method] !== 'function') {
+                  return error(new Error('INTERFACE_METHOD_MUST_BE_FUNCTION'), { method })
+                }
+                API[iface['@id']][method] = iface[method](API, stream)
               }
-              API[iface['@id']][method] = iface[method](API, stream)
             }
           }
         }
@@ -399,7 +401,7 @@ exports.base = function(stream_reference) {
           stream.net.on('connection', async (socket, details) => {
             socket.key = (socket.remoteAddress || '0.0.0.0') + ':' + (socket.remotePort || '0')
             log('Stream got connection (connect)', socket.key)
-            
+
             event.emit('connection:new', { socket_key: socket.key })
 
             stream_connections.push(socket)
@@ -439,7 +441,6 @@ exports.base = function(stream_reference) {
               log('Stream connection ended', socket.key)
               event.emit('connection:end', { socket_key: socket.key })
               stream_stats.connections[socket.key].status = 'ENDED'
-
             })
 
             if (typeof onConnection === 'function') onConnection({ details })

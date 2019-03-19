@@ -61,6 +61,7 @@ const Datagram = class {
         odi: getNested(args, 'odi') || null,
         realtime: getNested(args, 'realtime') || null,
         full_sync: getNested(args, 'full_sync') || null,
+        host: getNested(args, 'host') || null,
         sharelink: getNested(args, 'sharelink') ? getNested(args, 'sharelink') : null,
       },
     }

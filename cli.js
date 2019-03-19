@@ -74,7 +74,6 @@ cli
   .option('-p --pass [password]', 'User password')
   .action(async (options) => {
     const args = generateArgs(options)
-    console.log(options, args)
     const DG = new Datagram(args)
     const dg = await DG.ready()
     const keys = await dg.getKeys()
@@ -89,6 +88,7 @@ cli
   .option('-p --pass [password]', 'User password')
   .option('-l --sharelink [sharelink]', 'Sharelink')
   .option('--fullsync [boolean]', 'Syncs everything')
+  .option('--host [boolean]', 'Partipates in the hosting')
   .action(async (options) => {
     if (!options.sharelink) return error('sharelink missing')
     const args = {
@@ -96,6 +96,7 @@ cli
       sharelink: options.sharelink,
       realtime: true,
       full_sync: options.fullsync || false,
+      host: options.host || false,
     }
 
     const DG = new Datagram(args)
