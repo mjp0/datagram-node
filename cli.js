@@ -104,18 +104,22 @@ cli
       host: options.host || false,
     }
 
-    const DG = new Datagram(args)
-    // Notifications
-    DG.on('connection:new', (pkg) => {
-      console.log(`Connected to ${pkg.socket_key}`)
-    })
-    DG.on('connection:error', (pkg) => {
-      console.log(`Connection error with ${pkg.socket_key}. Error message: ${JSON.stringify(pkg.error)}`)
-    })
-    DG.on('connection:end', (pkg) => {
-      console.log(`Connection ended for ${pkg.socket_key}`)
-    })
-    const dg = await DG.ready()
+    try {
+      const DG = new Datagram(args)
+      // Notifications
+      DG.on('connection:new', (pkg) => {
+        console.log(`Connected to ${pkg.socket_key}`)
+      })
+      DG.on('connection:error', (pkg) => {
+        console.log(`Connection error with ${pkg.socket_key}. Error message: ${JSON.stringify(pkg.error)}`)
+      })
+      DG.on('connection:end', (pkg) => {
+        console.log(`Connection ended for ${pkg.socket_key}`)
+      })
+      const dg = await DG.ready()
+    } catch (e) {
+      error(e)
+    }
   })
 
 // Share
