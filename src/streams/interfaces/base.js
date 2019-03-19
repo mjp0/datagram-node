@@ -321,7 +321,7 @@ exports.base = function(stream_reference) {
           log(`Publishing at ${address} (rl: ${realtime}, odi: ${odi})`)
 
           stream.shared = true
-
+          
           const topic = Buffer.from(address, 'hex')
           stream.net.join(topic, {
             lookup: false, // find & connect to peers
@@ -356,14 +356,14 @@ exports.base = function(stream_reference) {
             const socket_speed = new StreamSpeed()
             socket_speed.add(socket)
             socket_speed.on('speed', (speed, avgSpeed) => {
-              log('Uploading at', avgSpeed, 'bytes per second', socket.key)
+              log('Downloading at', avgSpeed, 'bytes per second', socket.key)
               stream_stats.connections[socket.key].upload_speed.push({ ts: new Date().getTime(), speed })
             })
 
             const stream_speed = new StreamSpeed()
             stream_speed.add(_replication_stream)
             stream_speed.on('speed', (speed, avgSpeed) => {
-              log('Downloading at', avgSpeed, 'bytes per second', socket.key)
+              log('Uploading at', avgSpeed, 'bytes per second', socket.key)
               stream_stats.connections[socket.key].download_speed.push({ ts: new Date().getTime(), speed })
             })
 
@@ -403,6 +403,14 @@ exports.base = function(stream_reference) {
             log('Stream got connection (connect)', socket.key)
 
             event.emit('connection:new', { socket_key: socket.key })
+
+            const diff = stream.createDiffStream()
+            diff.on('data', (left,right) => {
+              console.log(left, right)
+            })
+            stream.watch(() => {
+              
+            })
 
             stream_connections.push(socket)
             stream_stats.connections[socket.key] = {

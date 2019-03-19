@@ -23,6 +23,7 @@
     "@hyperswarm/network": "0.0.4",
     "async": "^2.6.1",
     "bs58check": "^2.1.2",
+    "chokidar": "^2.1.2",
     "commander": "^2.19.0",
     "cryptodoneright": "^3.0.1",
     "fs-extra": "^7.0.1",

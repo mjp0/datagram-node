@@ -3,14 +3,19 @@
 const cli = require('commander')
 const pkg = require('./package.json')
 const Datagram = require('./src')
-const { generateUser } = require('./src/utils')
+const { generateUser, fromB58 } = require('./src/utils')
 const fs = require('fs-extra')
 const templates = require('./src/templates/streams')
+const path = require('path')
+const chokidar = require('chokidar')
 
 function error(err) {
   console.error(err)
   process.exit()
 }
+process.on('uncaughtException', function(err) {
+  error(err)
+})
 
 function openUserFile(filename) {
   const ufile = fs.readFileSync(filename, 'UTF-8')
@@ -121,44 +126,94 @@ cli
   .option('-p --pass [password]', 'User password')
   .option('-a --address [address]', "Datagram's local address")
   .option('-e --encryption [encryption_password]', "Datagram's encryption password")
-  .option('-d --datagram [dg_filename]')
+  .option('-d --datagram [dg_filename]', 'Datagram file')
   .action(async (options) => {
     const args = generateArgs(options)
     if (!args.keys) return error('datagram address is required for sharing')
 
-    const DG = new Datagram(args, args.keys)
-    // Notifications
-    DG.on('connection:new', (pkg) => {
-      console.log(`New connection from ${pkg.socket_key}`)
-    })
-    DG.on('connection:error', (pkg) => {
-      console.log(`Connection error with ${pkg.socket_key}. Error message: ${JSON.stringify(pkg.error)}`)
-    })
-    DG.on('connection:end', (pkg) => {
-      console.log(`Connection ended for ${pkg.socket_key}`)
-    })
-    const dg = await DG.ready()
+    async function createShare() {
+      return new Promise(async (done, error) => {
+        const DG = new Datagram(args, args.keys)
 
-    const sharelink = await dg.share({ realtime: true })
-    console.log(`Sharelink: ${sharelink}`)
+        // Notifications
+        DG.on('connection:new', (pkg) => {
+          console.log(`New connection from ${pkg.socket_key}`)
+        })
+        DG.on('connection:error', (pkg) => {
+          console.log(`Connection error with ${pkg.socket_key}. Error message: ${JSON.stringify(pkg.error)}`)
+        })
+        DG.on('connection:end', (pkg) => {
+          console.log(`Connection ended for ${pkg.socket_key}`)
+        })
+        const dg = await DG.ready()
 
-    // Cleaning up
-    if (process.platform === 'win32') {
-      var rl = require('readline').createInterface({
-        input: process.stdin,
-        output: process.stdout,
-      })
+        const sharelink = await dg.share({ realtime: true })
+        console.log('Share started')
 
-      rl.on('SIGINT', function() {
-        process.emit('SIGINT')
+        const settings = await dg.getSettings()
+        const keys = await dg.getKeys()
+
+        // Monitor for file adds
+        const db_path = `${settings.path}${fromB58(keys.read).toString('hex')}`
+
+        const watcher = chokidar.watch(db_path, { persistent: true }).on('change', async (event, path) => {
+          console.log('New data added, restarting the share...')
+          cleanUp()
+          await createShare()
+        })
+
+        // Cleaning up
+        async function cleanUp() {
+          watcher.close()
+          await dg.disconnect()
+        }
+
+        if (process.platform === 'win32') {
+          var rl = require('readline').createInterface({
+            input: process.stdin,
+            output: process.stdout,
+          })
+
+          rl.on('SIGINT', function() {
+            process.emit('SIGINT')
+          })
+        }
+
+        process.on('SIGINT', async () => {
+          cleanUp()
+          console.log('\nStopped sharing and disconnected all downloaders')
+          process.exit()
+        })
+        done(sharelink)
       })
     }
+    const sharelink = await createShare()
+    console.log(`Sharelink: ${sharelink}`)
+  })
 
-    process.on('SIGINT', async () => {
-      await dg.disconnect()
-      console.log('\nStopped sharing and disconnected all downloaders')
-      process.exit()
-    })
+// Add files
+cli
+  .command('add')
+  .option('-u --userfile [credentials_file]', 'User file', openUserFile)
+  .option('-i --id [id]', 'User id')
+  .option('-p --pass [password]', 'User password')
+  .option('-a --address [address]', "Datagram's local address")
+  .option('-e --encryption [encryption_password]', "Datagram's encryption password")
+  .option('-d --datagram [dg_filename]', 'Datagram file')
+  .option('-f --file [filename]', 'File you want to add')
+  .action(async (options) => {
+    if (!options.file) return error('filename missing')
+    if (!await fs.exists(options.file)) return error('non-existing file')
+    const args = generateArgs(options)
+    const DG = new Datagram(args, args.keys)
+    const dg = await DG.ready()
+    const f = path.parse(options.file)
+    const p = path.normalize(options.file)
+    console.log(`Importing ${f.base}...`)
+
+    const file = await fs.readFile(p, 'binary')
+    await dg.write(f.base, file)
+    console.log('...done')
   })
 // Search
 
