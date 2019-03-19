@@ -8,12 +8,14 @@ const StreamSpeed = require('streamspeed')
 
 async function getNetwork(args) {
   return new Promise(async (done, error) => {
-    const bootstrap = getNested(args, 'odi') || [
-      'odi-1.datagram.network:10000',
-      'odi-2.datagram.network:10000',
-      'odi-3.datagram.network:10000',
-    ]
-    const nwrk = network({ bootstrap })
+    // These will be activated once the base client is stable
+    // const bootstrap = getNested(args, 'odi') || [
+    //   'odi-1.datagram.network:10000',
+    //   'odi-2.datagram.network:10000',
+    //   'odi-3.datagram.network:10000',
+    // ]
+    // const nwrk = network({ bootstrap })
+    const nwrk = network()
     done(nwrk)
   })
 }
