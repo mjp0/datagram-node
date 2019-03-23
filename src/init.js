@@ -154,7 +154,7 @@ exports.clone = async (DG, _, callback) => {
       const password = fromB58(_.credentials.password).toString('hex')
 
       // parse sharelink
-      const parsed_sharelink = getNested(_, 'settings.sharelink').split('|')
+      const parsed_sharelink = getNested(_, 'settings.sharelink').split('/')
       if (parsed_sharelink.length !== 2) return error(new Error('INVALID_SHARELINK'))
       if (parsed_sharelink[0].length === 0) return error(new Error('MISSING_ADDRESS'))
       if (parsed_sharelink[1].length === 0) return error(new Error('MISSING_ENCRYPTION_PASSWORD'))
@@ -165,9 +165,10 @@ exports.clone = async (DG, _, callback) => {
         encryption_password: fromB58(parsed_sharelink[1]).toString('hex'),
         user_id: id,
         user_password: password,
+        full_sync: getNested(_, 'settings.full_sync')
       }
 
-      const stream = await streams.clone(params, { remote: true, realtime: _.settings.realtime }).catch(error)
+      const stream = await streams.clone(params, { remote: true, realtime: _.settings.realtime, host: getNested(_, 'settings.host') }).catch(error)
 
       _.streams[await stream.base.getAddress().catch(error)] = stream
 

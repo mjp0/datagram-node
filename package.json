@@ -10,6 +10,9 @@
   "bugs": {
     "url": "https://github.com/machianists/datagram-node/issues"
   },
+  "bin": {
+    "dg": "./cli.js"
+  },
   "main": "index.js",
   "scripts": {
     "test": "mocha --exit",
@@ -20,6 +23,8 @@
     "@hyperswarm/network": "0.0.4",
     "async": "^2.6.1",
     "bs58check": "^2.1.2",
+    "chokidar": "^2.1.2",
+    "commander": "^2.19.0",
     "cryptodoneright": "^3.0.1",
     "fs-extra": "^7.0.1",
     "home": "^1.0.1",

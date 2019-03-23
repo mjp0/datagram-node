@@ -21,7 +21,7 @@ const API = {
           const missing = checkVariables(keys, ['read', 'encryption_password'])
           if (missing) return error(errors.MISSING_VARIABLES, { missing, keys })
 
-          done(`${toB58(keys.read)}|${toB58(keys.encryption_password)}`)
+          done(`${toB58(keys.read)}/${toB58(keys.encryption_password)}`)
         } catch (e) {
           error(e)
         }

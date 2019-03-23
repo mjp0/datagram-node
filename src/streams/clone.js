@@ -5,17 +5,17 @@ const { getInterface } = require('./interfaces/index')
 
 exports.clone = async (
   args = { keys: { read: null }, storage: null, encryption_password: null, user_id: null, user_password: null },
-  opts = { remote: false, peer: false, realtime: false, host: false, odi: false },
+  opts = { remote: false, peer: false, realtime: false, host: false, odi: false, full_sync: false },
 ) => {
   return new Promise(async (done, error) => {
-    const { storage, keys, encryption_password, user_id, user_password, remote, peer, realtime, host, odi } = {
+    const { storage, keys, encryption_password, user_id, user_password, remote, realtime, host, odi, full_sync } = {
       ...args,
       ...opts,
     }
 
     opts = {
       valueEncoding: 'binary', // Binary encoding is enforced
-      sparse: true,
+      sparse: full_sync === true ? false : true,
     }
 
     // Make sure we have the key
@@ -25,7 +25,7 @@ exports.clone = async (
       opts.key = Buffer.from(keys.read, 'hex')
     }
 
-    log('Cloning stream', opts.key.toString('hex'))
+    log(`Cloning stream ${opts.key.toString('hex')} | fullsync: ${!opts.sparse}`)
 
     const store = _open_storage(opts.key.toString('hex'), storage)
 

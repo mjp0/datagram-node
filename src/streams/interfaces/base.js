@@ -1,5 +1,5 @@
 const descriptors = require('../../descriptors')
-const { getNested, hash, errors, encryptData, decryptData, signData, verifySignature } = require('../../utils')
+const { getNested, hash, errors, encryptData, decryptData, signData, verifySignature, event } = require('../../utils')
 const msgpack = require('msgpack5')()
 const network = require('@hyperswarm/network')
 const { log } = require('../../utils/debug')(__filename)
@@ -8,12 +8,14 @@ const StreamSpeed = require('streamspeed')
 
 async function getNetwork(args) {
   return new Promise(async (done, error) => {
-    const bootstrap = getNested(args, 'odi') || [
-      'odi-1.datagram.network:10000',
-      'odi-2.datagram.network:10000',
-      'odi-3.datagram.network:10000',
-    ]
-    const nwrk = network({ bootstrap })
+    // These will be activated once the base client is stable
+    // const bootstrap = getNested(args, 'odi') || [
+    //   'odi-1.datagram.network:10000',
+    //   'odi-2.datagram.network:10000',
+    //   'odi-3.datagram.network:10000',
+    // ]
+    // const nwrk = network({ bootstrap })
+    const nwrk = network()
     done(nwrk)
   })
 }
@@ -272,19 +274,21 @@ exports.base = function(stream_reference) {
         }
         if (!API) API = {}
         if (!iface['@id']) return error(new Error('@ID_MISSING'))
-        if (API.hasOwnProperty(iface['@id'])) return error(new Error('INTERFACE_EXISTS'), { '@id': iface['@id'] })
+        if (!API.hasOwnProperty(iface['@id'])) {
+          // return error(new Error('INTERFACE_EXISTS'), { '@id': iface['@id'] })
 
-        // Reserve namespace
-        API[iface['@id']] = {}
+          // Reserve namespace
+          API[iface['@id']] = {}
 
-        // Apply the methods
-        for (const method in iface) {
-          if (iface.hasOwnProperty(method)) {
-            if (!method.match(/@/)) {
-              if (typeof iface[method] !== 'function') {
-                return error(new Error('INTERFACE_METHOD_MUST_BE_FUNCTION'), { method })
+          // Apply the methods
+          for (const method in iface) {
+            if (iface.hasOwnProperty(method)) {
+              if (!method.match(/@/)) {
+                if (typeof iface[method] !== 'function') {
+                  return error(new Error('INTERFACE_METHOD_MUST_BE_FUNCTION'), { method })
+                }
+                API[iface['@id']][method] = iface[method](API, stream)
               }
-              API[iface['@id']][method] = iface[method](API, stream)
             }
           }
         }
@@ -317,7 +321,7 @@ exports.base = function(stream_reference) {
           log(`Publishing at ${address} (rl: ${realtime}, odi: ${odi})`)
 
           stream.shared = true
-
+          
           const topic = Buffer.from(address, 'hex')
           stream.net.join(topic, {
             lookup: false, // find & connect to peers
@@ -327,6 +331,8 @@ exports.base = function(stream_reference) {
           stream.net.on('connection', async (socket, details) => {
             socket.key = (socket.remoteAddress || '0.0.0.0') + ':' + (socket.remotePort || '0')
             log('Stream got connection (publish)', socket.key)
+
+            event.emit('connection:new', { socket_key: socket.key })
 
             stream_connections.push(socket)
             stream_stats.connections[socket.key] = {
@@ -341,6 +347,7 @@ exports.base = function(stream_reference) {
             })
             socket.on('error', (error) => {
               log('Connection error', { error, socket_key: socket.key })
+              event.emit('connection:error', { error, socket_key: socket.key })
             })
 
             let _replication_stream = stream.replicate({ live: getNested(args, 'realtime') || false })
@@ -349,19 +356,20 @@ exports.base = function(stream_reference) {
             const socket_speed = new StreamSpeed()
             socket_speed.add(socket)
             socket_speed.on('speed', (speed, avgSpeed) => {
-              log('Uploading at', avgSpeed, 'bytes per second', socket.key)
+              log('Downloading at', avgSpeed, 'bytes per second', socket.key)
               stream_stats.connections[socket.key].upload_speed.push({ ts: new Date().getTime(), speed })
             })
 
             const stream_speed = new StreamSpeed()
             stream_speed.add(_replication_stream)
             stream_speed.on('speed', (speed, avgSpeed) => {
-              log('Downloading at', avgSpeed, 'bytes per second', socket.key)
+              log('Uploading at', avgSpeed, 'bytes per second', socket.key)
               stream_stats.connections[socket.key].download_speed.push({ ts: new Date().getTime(), speed })
             })
 
             pump(_replication_stream, socket, _replication_stream, function() {
               log('Stream connection ended', socket.key)
+              event.emit('connection:end', { socket_key: socket.key })
               stream_stats.connections[socket.key].status = 'ENDED'
             })
           })
@@ -384,6 +392,7 @@ exports.base = function(stream_reference) {
           stream.shared = true
 
           const topic = Buffer.from(args.address, 'hex')
+
           stream.net.join(topic, {
             lookup: true, // find & connect to peers
             announce: args.host || false, // optional- announce self as a connection target
@@ -392,6 +401,8 @@ exports.base = function(stream_reference) {
           stream.net.on('connection', async (socket, details) => {
             socket.key = (socket.remoteAddress || '0.0.0.0') + ':' + (socket.remotePort || '0')
             log('Stream got connection (connect)', socket.key)
+
+            event.emit('connection:new', { socket_key: socket.key })
 
             stream_connections.push(socket)
             stream_stats.connections[socket.key] = {
@@ -406,6 +417,7 @@ exports.base = function(stream_reference) {
             })
             socket.on('error', (error) => {
               log('Connection error', { error, socket_key: socket.key })
+              event.emit('connection:error', { error, socket_key: socket.key })
             })
 
             const _replication_stream = stream.replicate({ live: getNested(args, 'realtime') || false })
@@ -427,6 +439,7 @@ exports.base = function(stream_reference) {
 
             pump(_replication_stream, socket, _replication_stream, function() {
               log('Stream connection ended', socket.key)
+              event.emit('connection:end', { socket_key: socket.key })
               stream_stats.connections[socket.key].status = 'ENDED'
             })
 
