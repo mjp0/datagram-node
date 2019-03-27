@@ -1,8 +1,8 @@
 {
   "name": "datagram",
   "description": "Datagram is an open-source data platform that you can use to build secure shared peer-to-peer databases and data structures with anyone.",
-  "author": "Machian Collective <devs@machian.com>",
-  "version": "0.8.10",
+  "author": "Machian Collective <marko@machian.com>",
+  "version": "0.8.12",
   "repository": {
     "url": "git://github.com/machianists/datagram-node.git"
   },

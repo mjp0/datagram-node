@@ -3,13 +3,8 @@
 
 [![license](https://img.shields.io/badge/license-apache--2.0-brightgreen.svg)](LICENSE) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmachianists%2Fdatagram-node.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmachianists%2Fdatagram-node?ref=badge_shield) [![js-standardx-style](https://img.shields.io/badge/code%20style-standardx-brightgreen.svg)](http://standardjs.com) [![web-datagram](https://img.shields.io/badge/web-datagramjs.com-blue.svg)](https://datagramjs.com) [![twitter-machianists](https://img.shields.io/badge/twitter-@machianists-blue.svg)](https://twitter.com/machianists)
 
----
 
-**THIS IS A WORK-IN-PROGRESS - DO NOT ATTEMPT TO USE**
-
----
-
-- [💡 The purpose why Datagram was created](#-the-purpose-why-datagram-was-created)
+- [💡 What is Datagram](#-what-is-datagram)
 - [🔌 The types of data can you send](#-the-types-of-data-can-you-send)
 - [🔒 Everything encrypted from A to Z](#-everything-encrypted-from-a-to-z)
 - [😆 Pricing](#-pricing)
@@ -20,10 +15,10 @@
 - [📝 License](#-license)
 
 
-## 💡 The purpose why Datagram was created
-Servers used to be about running code and storing backups. Now they are about facilitating connections and serving data. Docker and Kubernetes have made it easy to spin up complex server infrastructures. Despite advances in server orchestration we are still manually handling all the communication and data managing that happens between the users and the service.
-
+## 💡 What is Datagram
 Datagram is an easy-to-use library to build any sort of database or data structure on top of truly private and secure peer-to-peer internet.
+
+Whether you want to send a simple text file from computer to computer or create a peer-to-peer key/value database for whatever you are building, Datagram can help you.
 
 
 ## 🔌 The types of data can you send
@@ -50,9 +45,38 @@ There is no pricing. Everything is free. This is peer-to-peer which means that y
 
 ## 🎁 Get started
 
+Let's create a new datagram, put a file in and share it.
 ```bash
-TO BE WRITTEN
+// Generate Datagram user file
+$ npx dg user foo
+
+// Create new datagram
+$ npx dg create -u foo my_datagram
+
+// Add a file
+$ npx dg add -u foo -d my_datagram cat.jpg
+
+// Check that file is there
+$ npx dg list -u foo -d my_datagram
+
+// Share your datagram
+$ npx dg share -u foo -d my_datagram
+-> you get a sharelink
 ```
+
+Your datagram is now available only to anyone who knows the sharelink.
+
+Please note that multi-user support is underway but right now Datagram doesn't support multiple users. When you want to access your datagram on another device, you need to copy your user file to the other device.
+
+```bash
+// List the contents of remote datagram
+$ npx dg list -u foo -l [sharelink]
+
+// Export a file from remote datagram
+$ npx dg export cat.jpg exported-cat.jpg -u foo -l [sharelink]
+```
+
+> More documentation coming shortly.
 
 
 ## 🏎 Performance
