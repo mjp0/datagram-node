@@ -52,7 +52,6 @@ exports.openOrCreateOrConnect = async (DG, _, callback) => {
 
     try {
       let API = null
-
       if (getNested(_, 'settings.sharelink')) {
         // Clone datagram
         API = await exports.clone(DG, _)
@@ -101,8 +100,8 @@ exports.create = async (DG, _, callback) => {
 
     let stream_api = stream
     if (_.type !== 'blank') stream_api = stream[_.type]
-    const API = Object.assign({}, DG, stream_api)
-    if (_.settings.debug) API._stream = stream
+    const API = { ...DG, ...stream_api, template: stream.template }
+    if (_.debug) API._stream = stream
     done(API)
   })
 }
@@ -167,16 +166,16 @@ exports.clone = async (DG, _, callback) => {
         user_password: password,
         full_sync: getNested(_, 'settings.full_sync')
       }
-
+      
       const stream = await streams.clone(params, { remote: true, realtime: _.settings.realtime, host: getNested(_, 'settings.host') }).catch(error)
-
       _.streams[await stream.base.getAddress().catch(error)] = stream
-
+     
       const template = await stream.base.getTemplate()
       let stream_api = stream
       if (template['@id'] !== 'blank') stream_api = stream[template['@id']]
       const API = Object.assign({}, DG, stream_api)
       if (_.settings.debug) API._stream = stream
+      
       done(API)
     } catch (e) {
       error(e)

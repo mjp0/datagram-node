@@ -12,7 +12,6 @@ const fs = {
 
         // Do a type check
         const datatype = await getDataType(value).catch(error)
-
         const descriptor = {
           agent: {
             '@type': 'User',
@@ -44,8 +43,13 @@ const fs = {
         const content = await descriptors.read(buffer).catch(error)
 
         // Check that key & action exists
-        const missing = checkVariables(content, [ 'datatype', 'arguments', 'arguments.key', 'arguments.action' ])
-        if (missing) return error(errors.MISSING_VARIABLES, { missing, content })
+        if (content && content.type !== 'datagramStream') {
+          const missing = checkVariables(content, [ 'datatype', 'arguments', 'arguments.key', 'arguments.action' ])
+          if (missing) return error(errors.MISSING_VARIABLES, { missing, content })
+        } else {
+          // not a descriptor, return as-is
+          return done(content)
+        }
 
         const args = { ...content.arguments }
 
@@ -77,7 +81,15 @@ const fs = {
         stream.list('', (err, keys) => {
           if (err) return error(err)
           if (!keys || keys.length === 0) return done([])
-          else return done(keys.map((k) => k[0].key))
+          else {
+            const internal_keys = ['_template', '_index']
+            const results = keys.map((k) => {
+              if (internal_keys.indexOf(k[0].key) === -1) {
+                return k[0].key
+              }
+            }).filter(Boolean)
+            return done(results)
+          }
         })
       })
     }

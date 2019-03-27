@@ -69,17 +69,6 @@ const create = async (
 
         // Create and add indexer if requested
         let created_index = null
-        // if (!no_index) {
-        //   log('Generating keys for indexer stream...')
-        //   const indexer_keys = await deriveKeyPair({
-        //     master_key: Buffer.from(opts.key + 'indexer'),
-        //   }).catch(error)
-        //   created_index = await create(
-        //     { template: stream_templates.index, storage, user_password, user_id },
-        //     { no_index: true, keys: indexer_keys },
-        //   ).catch(error)
-        //   if (!created_index) return error(new Error(errors.INDEX_CREATION_FAILED))
-        // }
 
         // Generate the stream around the data stream
         const base = await getInterface('base')

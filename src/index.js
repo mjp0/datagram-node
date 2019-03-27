@@ -46,7 +46,7 @@ const Datagram = class {
       ready: false,
       debug: false,
       streams: {},
-      type: getNested(args, 'type') ? getNested(args, 'type') : 'blank',
+      type: getNested(args, 'type') ? getNested(args, 'type') : 'redis',
       credentials: {
         id: getNested(args, 'id') || null,
         password: getNested(args, 'password') || null,
@@ -137,6 +137,17 @@ const Datagram = class {
         setTimeout(isReady, 1)
       })
     }
+
+    // Notifications
+    DG.on('connection:new', (pkg) => {
+      if(_ && _.debug) console.log(`New connection from ${pkg.socket_key}`)
+    })
+    DG.on('connection:error', (pkg) => {
+      if (_ && _.debug) console.log(`Connection error with ${pkg.socket_key}. Error message: ${JSON.stringify(pkg.error)}`)
+    })
+    DG.on('connection:end', (pkg) => {
+      if (_ && _.debug) console.log(`Connection ended for ${pkg.socket_key}`)
+    })
 
     return DG
   }

@@ -25,9 +25,9 @@ exports.clone = async (
       opts.key = Buffer.from(keys.read, 'hex')
     }
 
-    log(`Cloning stream ${opts.key.toString('hex')} | fullsync: ${!opts.sparse}`)
+    log(`Cloning stream ${opts.key.toString('hex')} | fullsync: ${!opts.sparse}, rl: ${realtime}`)
 
-    const store = _open_storage(opts.key.toString('hex'), storage)
+    const store = _open_storage(opts.key.toString('hex')+'-clone', storage)
 
     const stream = hyperdb(store, opts.key, opts)
     stream.on('ready', async (err) => {
@@ -57,11 +57,21 @@ exports.clone = async (
 
           // Get the template
           Stream.template = await Stream.base.getTemplate().catch(error)
+          const failsafe = 10
           if (!Stream.template) {
-            await Stream.base.watchKey('_template')
-            Stream.template = await Stream.base.getTemplate().catch(error)
+            async function checkTemplate() {
+              Stream.template = await Stream.base.getTemplate().catch(error)
+              failsafe--
+              console.log(failsafe)
+              if(!Stream.template && failsafe > 0) setTimeout(checkTemplate, 200)
+              else {
+                return error(new Error('INITIALIZATION_FAIL_MISSING_TEMPLATE'))
+              }
+            }
+            checkTemplate()
+            // await Stream.base.watchKey('_template', checkTemplate)
           }
-
+          
           log('Template received, finishing initialization...')
 
           // Apply interfaces

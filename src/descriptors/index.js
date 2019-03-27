@@ -4,21 +4,11 @@ const debug = require('../utils/debug')(__filename)
 const { sdoValidate } = require('schemaorg-jsd')
 const msgpack = require('msgpack5')()
 
-const descriptor_registry = {}
-
-// Add installed descriptors
-const installed_descriptors = fs.readdirSync(path.join(__dirname, 'installed'))
-
-installed_descriptors.forEach((s) => {
-  const fpath = path.join(__dirname, 'installed', s)
-  if (fpath.match('.json')) {
-    const descriptor = require(fpath)
-    descriptor_registry[descriptor.context['@id']] = descriptor
-  }
-})
+const descriptor_registry = require('./descriptors.json')
+const schema_org = require('./schema_org.json')
 
 // Add schema.org descriptors
-const schema_org = JSON.parse(fs.readFileSync(path.join(__dirname, 'schema_org.json'), 'UTF-8'))
+// const schema_org = JSON.parse(schema_org_json)
 
 schema_org.forEach((descriptor) => {
   descriptor_registry[descriptor.context['@id']] = descriptor

@@ -10,9 +10,9 @@ async function getNetwork(args) {
   return new Promise(async (done, error) => {
     // These will be activated once the base client is stable
     // const bootstrap = getNested(args, 'odi') || [
-    //   'odi-1.datagram.network:10000',
-    //   'odi-2.datagram.network:10000',
-    //   'odi-3.datagram.network:10000',
+    //   'odi-1.datagram.network:49737',
+    //   'odi-2.datagram.network:49737',
+    //   'odi-3.datagram.network:49737',
     // ]
     // const nwrk = network({ bootstrap })
     const nwrk = network()
@@ -260,6 +260,7 @@ exports.base = function(stream_reference) {
     getTemplate: async () => {
       return new Promise(async (done, error) => {
         const packed_template = await API.get('_template').catch(error)
+        // console.log(packed_template)
         if (!packed_template) return error(new Error('NO_TEMPLATE_FOUND'))
 
         const template = await descriptors.read(packed_template).catch(error)
@@ -316,6 +317,9 @@ exports.base = function(stream_reference) {
         stream.net.discovery.holepunchable(async (err, is_valid) => {
           if (err || !is_valid) return error(new Error('NO_CONNECTIVITY'))
           const { realtime, odi } = { ...args }
+
+          // let keep_alive = setInterval(() => { console.log(stream_connections)}, 1000)
+
           const address = await API.getAddress().catch(error)
 
           log(`Publishing at ${address} (rl: ${realtime}, odi: ${odi})`)
@@ -324,7 +328,7 @@ exports.base = function(stream_reference) {
           
           const topic = Buffer.from(address, 'hex')
           stream.net.join(topic, {
-            lookup: false, // find & connect to peers
+            lookup: true, // find & connect to peers
             announce: true, // optional- announce self as a connection target
           })
 
@@ -348,6 +352,7 @@ exports.base = function(stream_reference) {
             socket.on('error', (error) => {
               log('Connection error', { error, socket_key: socket.key })
               event.emit('connection:error', { error, socket_key: socket.key })
+              // clearInterval(keep_alive)
             })
 
             let _replication_stream = stream.replicate({ live: getNested(args, 'realtime') || false })
@@ -375,6 +380,7 @@ exports.base = function(stream_reference) {
           })
           done()
         })
+        
       })
     },
 

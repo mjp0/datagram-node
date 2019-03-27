@@ -2,7 +2,7 @@
   "name": "datagram",
   "description": "Datagram is an open-source data platform that you can use to build secure shared peer-to-peer databases and data structures with anyone.",
   "author": "Machian Collective <devs@machian.com>",
-  "version": "0.9.0",
+  "version": "0.8.10",
   "repository": {
     "url": "git://github.com/machianists/datagram-node.git"
   },
@@ -20,6 +20,8 @@
   },
   "keywords": [],
   "dependencies": {
+    "@babel/runtime": "^7.4.2",
+    "@babel/runtime-corejs2": "^7.4.2",
     "@hyperswarm/network": "0.0.4",
     "async": "^2.6.1",
     "bs58check": "^2.1.2",
@@ -33,16 +35,21 @@
     "lodash": "^4.17.11",
     "msgpack5": "^4.2.1",
     "mutexify": "^1.2.0",
+    "node-gyp-build": "^3.8.0",
     "parse-json": "^4.0.0",
     "promised-callback": "^1.2.3",
     "pump": "^3.0.0",
     "random-access-memory": "^2.4.0",
+    "readline-sync": "^1.4.9",
     "schema.org": "^3.1.1",
     "schemaorg-jsd": "^0.13.1",
     "streamspeed": "^1.1.1",
     "superagent": "^4.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0-0",
+    "@babel/plugin-transform-runtime": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
     "chai": "^4.2.0",
     "debug": "^4.1.0",
     "eslint": "^5.15.0",

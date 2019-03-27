@@ -5,3 +5,6 @@ node_modules/
 .datagram
 _test*
 **/*.dg
+.DS_Store
+dist
+.cache
