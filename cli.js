@@ -154,7 +154,6 @@ const clone = async (options) => {
     }
   })
 }
-
 cli
   .command('clone')
   .option('-u --userfile [credentials_file]', 'User file', openUserFile)
@@ -209,6 +208,20 @@ cli
   .action(share)
 
 // Add files
+const add = async (filename, options) => {
+  if (!filename) return error('filename missing')
+  if (!await fs.exists(filename)) return error('non-existing file')
+  const args = generateArgs(options)
+  const DG = new Datagram(args, args.keys)
+  dg = await DG.ready()
+  const f = path.parse(filename)
+  const p = path.normalize(filename)
+  console.log(`Importing ${f.base}...`)
+
+  const file = await fs.readFile(p)
+  await dg.write(f.base, file)
+  console.log('...done')
+}
 cli
   .command('add [filename]')
   .description('Add new file to a datagram')
@@ -218,22 +231,24 @@ cli
   .option('-a --address [address]', "Datagram's local address")
   .option('-e --encryption [encryption_password]', "Datagram's encryption password")
   .option('-d --datagram [dg_filename]', 'Datagram credentials file', openCredsFile)
-  .action(async (filename, options) => {
-    if (!filename) return error('filename missing')
-    if (!await fs.exists(filename)) return error('non-existing file')
-    const args = generateArgs(options)
-    const DG = new Datagram(args, args.keys)
-    dg = await DG.ready()
-    const f = path.parse(filename)
-    const p = path.normalize(filename)
-    console.log(`Importing ${f.base}...`)
-
-    const file = await fs.readFile(p)
-    await dg.write(f.base, file)
-    console.log('...done')
-  })
+  .action(add)
 
 // List
+const list = async (options) => {
+  const args = {
+    ...generateArgs(options),
+    sharelink: options.sharelink,
+    realtime: false,
+    full_sync: options.fullsync || false,
+    host: options.host || false,
+  }
+  
+  const DG = new Datagram(args, args.keys)
+  dg = await DG.ready()
+  const ls = await dg.ls()
+  ls.sort().forEach(f => console.log(f))
+  process.exit()
+}
 cli
   .command('list')
   .description('List all files')
@@ -243,18 +258,30 @@ cli
   .option('-a --address [address]', "Datagram's local address")
   .option('-e --encryption [encryption_password]', "Datagram's encryption password")
   .option('-d --datagram [dg_filename]', 'Datagram credentials file', openCredsFile)
-  .action(async (options) => {
-    const args = generateArgs(options)
-
-    const DG = new Datagram(args, args.keys)
-    dg = await DG.ready()
-    const ls = await dg.ls()
-    ls.sort().forEach(f => console.log(f))
-  })
+  .option('-l --sharelink [sharelink]', 'Sharelink')
+  .action(list)
 
 // Search
 
 // Export data
+const exprt = async (data_name, target_file, options) => {
+  if (!data_name) return error('data_name missing')
+  if (!target_file) return error('target_file missing')
+  const args = generateArgs(options)
+
+  const DG = new Datagram(args, args.keys)
+  dg = await DG.ready()
+  const data = await dg.read(data_name)
+  if (data) {
+    const f = path.parse(target_file)
+    const p = path.normalize(target_file)
+    console.log(`Data found, exporting to ${f.base}...`)
+    await fs.writeFile(p, data)
+    console.log('Export done')
+  } else {
+    console.log(`no data found with data name ${data_name}`)
+  }
+}
 cli
   .command('export [data_name] [target_file]')
   .description('Export data')
@@ -264,24 +291,7 @@ cli
   .option('-a --address [address]', "Datagram's local address")
   .option('-e --encryption [encryption_password]', "Datagram's encryption password")
   .option('-d --datagram [dg_filename]', 'Datagram credentials file', openCredsFile)
-  .action(async (data_name, target_file, options) => {
-    if (!data_name) return error('data_name missing')
-    if (!target_file) return error('target_file missing')
-    const args = generateArgs(options)
-
-    const DG = new Datagram(args, args.keys)
-    dg = await DG.ready()
-    const data = await dg.read(data_name)
-    if(data) {
-      const f = path.parse(target_file)
-      const p = path.normalize(target_file)
-      console.log(`Data found, exporting to ${f.base}...`)
-      await fs.writeFile(p, data)
-      console.log('Export done')
-    } else {
-      console.log(`no data found with data name ${data_name}`)
-    }
-  })
+  .action(exprt)
 
 // Get stats
 
