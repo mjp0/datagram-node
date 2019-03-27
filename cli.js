@@ -44,7 +44,7 @@ process.on('SIGINT', async () => {
 })
 
 function openUserFile(filename) {
-  const ufile = fs.readFileSync(filename, 'UTF-8')
+  const ufile = fs.readFileSync(filename + '.user.dg', 'UTF-8')
   if (ufile) {
     const u = ufile.split('/')
     if (u.length === 2 && u[0].length > 0 && u[1].length > 0) {
@@ -53,11 +53,11 @@ function openUserFile(filename) {
         password: u[1].trim(),
       }
     } else return error('invalid file')
-  } else return error('no file found at ' + filename)
+  } else return error('no file found at ' + filename + '.user.dg')
 }
 
 function openCredsFile(filename) {
-  const ufile = fs.readFileSync(filename, 'UTF-8')
+  const ufile = fs.readFileSync(filename + '.creds.dg', 'UTF-8')
   if (ufile) {
     const u = ufile.split('/')
     if (u.length === 2 && u[0].length > 0 && u[1].length > 0) {
@@ -66,7 +66,7 @@ function openCredsFile(filename) {
         encryption_password: u[1].trim(),
       }
     } else return error('invalid file')
-  } else return error('no file found at ' + filename)
+  } else return error('no file found at ' + filename + '.creds.dg')
 }
 
 function generateArgs(options) {
