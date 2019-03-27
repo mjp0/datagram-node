@@ -242,7 +242,9 @@ const list = async (options) => {
     full_sync: options.fullsync || false,
     host: options.host || false,
   }
-  
+  if (options.sharelink) {
+    console.log('Sharelink provided, connecting to remote datagrams...')
+  }
   const DG = new Datagram(args, args.keys)
   dg = await DG.ready()
   const ls = await dg.ls()
@@ -267,8 +269,16 @@ cli
 const exprt = async (data_name, target_file, options) => {
   if (!data_name) return error('data_name missing')
   if (!target_file) return error('target_file missing')
-  const args = generateArgs(options)
-
+  const args = {
+    ...generateArgs(options),
+    sharelink: options.sharelink,
+    realtime: false,
+    full_sync: options.fullsync || false,
+    host: options.host || false,
+  }
+  if (options.sharelink) {
+    console.log('Sharelink provided, connecting to remote datagrams...')
+  }
   const DG = new Datagram(args, args.keys)
   dg = await DG.ready()
   const data = await dg.read(data_name)
@@ -278,8 +288,10 @@ const exprt = async (data_name, target_file, options) => {
     console.log(`Data found, exporting to ${f.base}...`)
     await fs.writeFile(p, data)
     console.log('Export done')
+    process.exit()
   } else {
     console.log(`no data found with data name ${data_name}`)
+    process.exit()
   }
 }
 cli
@@ -291,6 +303,7 @@ cli
   .option('-a --address [address]', "Datagram's local address")
   .option('-e --encryption [encryption_password]', "Datagram's encryption password")
   .option('-d --datagram [dg_filename]', 'Datagram credentials file', openCredsFile)
+  .option('-l --sharelink [sharelink]', 'Sharelink')
   .action(exprt)
 
 // Get stats
