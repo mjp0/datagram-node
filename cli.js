@@ -145,6 +145,9 @@ const clone = async (options) => {
 
     try {
       console.log('Connecting to the share...')
+      if(args.host) {
+        console.log('Host mode activated')
+      }
       const DG = new Datagram(args || null)
       dg = await DG.ready()
       console.log('Real-time cloning started (stop by pressing CTRL+C)')
@@ -163,6 +166,19 @@ cli
   .option('--fullsync [boolean]', 'Syncs everything')
   .option('--host [boolean]', 'Partipates in the hosting')
   .action(clone)
+
+// Host
+cli
+  .command('host')
+  .option('-u --userfile [credentials_file]', 'User file', openUserFile)
+  .option('-i --id [id]', 'User id')
+  .option('-p --pass [password]', 'User password')
+  .option('-l --sharelink [sharelink]', 'Sharelink')
+  .action(async (options) => {
+    options.fullsync = true
+    options.host = true
+    await clone(options)
+  })
 
 // Share
 async function createShare(dg) {
