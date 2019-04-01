@@ -48,19 +48,19 @@ There is no pricing. Everything is free. This is peer-to-peer which means that y
 Let's create a new datagram, put a file in and share it.
 ```bash
 // Generate Datagram user file
-$ npx dg user foo
+$ npx datagram user foo
 
 // Create new datagram
-$ npx dg create -u foo my_datagram
+$ npx datagram create -u foo my_datagram
 
 // Add a file
-$ npx dg add -u foo -d my_datagram cat.jpg
+$ npx datagram add -u foo -d my_datagram cat.jpg
 
 // Check that file is there
-$ npx dg list -u foo -d my_datagram
+$ npx datagram list -u foo -d my_datagram
 
 // Share your datagram
-$ npx dg share -u foo -d my_datagram
+$ npx datagram share -u foo -d my_datagram
 -> you get a sharelink
 ```
 
@@ -70,10 +70,10 @@ Please note that multi-user support is underway but right now Datagram doesn't s
 
 ```bash
 // List the contents of remote datagram
-$ npx dg list -u foo -l [sharelink]
+$ npx datagram list -u foo -l [sharelink]
 
 // Export a file from remote datagram
-$ npx dg export cat.jpg exported-cat.jpg -u foo -l [sharelink]
+$ npx datagram export cat.jpg exported-cat.jpg -u foo -l [sharelink]
 ```
 
 > More documentation coming shortly.

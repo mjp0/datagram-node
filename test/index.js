@@ -66,6 +66,7 @@ describe('datagram', async () => {
       await dg.set('hello', 'world')
       expect(await dg.get('hello')).equal('world')
       const keys = await dg.getKeys()
+
       // Just to be sure...
       delete dg
       delete DG
@@ -83,7 +84,6 @@ describe('datagram', async () => {
       const DG = new Datagram({ storage: ram })
       const dg = await DG.ready()
       const settings = await dg.getSettings()
-      const keys = await dg.getKeys()
       expect(typeof settings.storage).eql('function')
 
       const DG2 = new Datagram({ path: '/tmp/dg' })

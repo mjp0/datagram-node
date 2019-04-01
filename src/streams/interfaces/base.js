@@ -241,7 +241,7 @@ exports.base = function(stream_reference) {
         const address = await API.getAddress().catch(error)
         done({
           read: stream.key,
-          write: stream.secretKey,
+          write: stream._secretKey || null,
           auth: stream.local.key,
           address,
           encryption_password: stream.encryption_password,
