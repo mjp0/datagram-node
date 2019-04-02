@@ -76,7 +76,7 @@ $ npx datagram list -u foo -l [sharelink]
 $ npx datagram export cat.jpg exported-cat.jpg -u foo -l [sharelink]
 ```
 
-> More documentation coming shortly.
+> More documentation at [datagramjs.com](https://datagramjs.com).
 
 
 ## 🏎 Performance
