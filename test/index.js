@@ -115,6 +115,9 @@ describe('datagram', async () => {
         const hello1 = await dg2.get('hello').catch(reject)
         expect(hello1.toString()).equal('world')
 
+        let auth_token = await dg2.getAuthToken()
+        await dg.authorizeDevice({ auth_token })
+
         let rand = String(_.random(0, 234))
         await dg.set('h3ll0', rand).catch(reject)
         expect(await dg.get('h3ll0')).equal(rand)
@@ -129,8 +132,10 @@ describe('datagram', async () => {
 
         await dg.disconnect()
         stats1 = await dg.monitor()
-        setTimeout(() => {
+        setTimeout(async () => {
           expect(stats1.connections[peer_keys[0]].status).equal('ENDED')
+          const r = await dg.get('h3ll0')
+          expect(r).equal(rand)
           resolve()
         }, 500)
       } catch (e) {
@@ -138,6 +143,48 @@ describe('datagram', async () => {
       }
     })
   }).timeout(15000)
+
+  // it('share & authorize', async () => {
+  //   return new Promise(async (resolve, reject) => {
+  //     try {
+  //       const user = await generateUserIfNecessary({ credentials: {} })
+  //       const args = Object.assign({}, user.credentials, { type: 'redis' })
+  //       const DG = new Datagram(args)
+  //       const dg = await DG.ready()
+  //       dg.debug()
+  //       await dg.set('hello', 'world')
+  //       const sharelink = await dg.share().catch(reject)
+        
+  //       const args2 = Object.assign({}, user.credentials, { sharelink, storage: ram })
+  //       const DG2 = new Datagram(args2)
+  //       const dg2 = await DG2.ready()
+
+  //       const hello1 = await dg2.get('hello').catch(reject)
+  //       expect(hello1.toString()).equal('world')
+
+  //       let rand = String(_.random(0, 234))
+  //       await dg.set('h3ll0', rand).catch(reject)
+  //       expect(await dg.get('h3ll0')).equal(rand)
+  //       expect(await dg2.get('h3ll0')).equal(rand)
+
+  //       let stats1 = await dg.monitor()
+  //       const peer_keys = Object.keys(stats1.connections)
+  //       expect(stats1.connections[peer_keys[0]].status).equal('ACTIVE')
+  //       expect(stats1.connections[peer_keys[0]].type).equal('PUBLISH')
+  //       expect(stats1.connections[peer_keys[0]].download_speed.length > 0).equal(true)
+  //       expect(stats1.connections[peer_keys[0]].upload_speed.length > 0).equal(true)
+
+  //       await dg.disconnect()
+  //       stats1 = await dg.monitor()
+  //       setTimeout(() => {
+  //         expect(stats1.connections[peer_keys[0]].status).equal('ENDED')
+  //         resolve()
+  //       }, 500)
+  //     } catch (e) {
+  //       error(e)
+  //     }
+  //   })
+  // }).timeout(15000)
 
   it('destroy', async () => {
     try {
