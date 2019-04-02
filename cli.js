@@ -5,7 +5,6 @@ const pkg = require('./package.json')
 const Datagram = require('./src')
 const { generateUser, fromB58 } = require('./src/utils')
 const fs = require('fs-extra')
-const templates = require('./src/templates/streams')
 const path = require('path')
 const chokidar = require('chokidar')
 
@@ -325,8 +324,54 @@ cli
 // Get stats
 
 // Get authorization token
+const authtoken = async (options) => {
+  const args = {
+    ...generateArgs(options)
+  }
+  const DG = new Datagram(args, args.keys)
+  dg = await DG.ready()
+  const auth_token = await dg.getAuthToken()
+  console.log(`Authorization token: ${auth_token}`)
+  process.exit()
+}
+cli
+  .command('authtoken')
+  .description('Get authorization token')
+  .option('-u --userfile [credentials_file]', 'User file', openUserFile)
+  .option('-i --id [id]', 'User id')
+  .option('-p --pass [password]', 'User password')
+  .option('-a --address [address]', "Datagram's local address")
+  .option('-e --encryption [encryption_password]', "Datagram's encryption password")
+  .option('-d --datagram [dg_filename]', 'Datagram credentials file', openCredsFile)
+  .action(authtoken)
 
 // Authorize another datagram
+const authdevice = async (authorization_token, options) => {
+  const args = {
+    ...generateArgs(options)
+  }
+  if (!authorization_token) {
+    console.log('Authorization token missing')
+    process.exit()
+  }
+  const DG = new Datagram(args, args.keys)
+  dg = await DG.ready()
+  const a = await dg.authorizeDevice({ auth_token: authorization_token })
+  console.log(`Authorization for ${authorization_token} done`)
+  process.exit()
+}
+cli
+  .command('authdevice [authorization_token]')
+  .description('Authorize another device')
+  .option('-u --userfile [credentials_file]', 'User file', openUserFile)
+  .option('-i --id [id]', 'User id')
+  .option('-p --pass [password]', 'User password')
+  .option('-a --address [address]', "Datagram's local address")
+  .option('-e --encryption [encryption_password]', "Datagram's encryption password")
+  .option('-d --datagram [dg_filename]', 'Datagram credentials file', openCredsFile)
+  .action(authdevice)
+
+
 // const repl = async (options) => {
 //   let args = generateArgs(options)
 //   let dg = null

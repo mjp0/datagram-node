@@ -101,7 +101,6 @@ const API = {
           const auth_token = fromB58(args.auth_token)
           await _.streams[stream_keys[0]].base.authorize({ key: auth_token })
           if (await _.streams[stream_keys[0]].base.isAuthorized({ key: auth_token })) {
-            console.log(_.streams[stream_keys[0]].base.feeds)
             done(true)
           } else {
             done(false)
