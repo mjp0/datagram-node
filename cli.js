@@ -107,6 +107,7 @@ cli.command('user [filename]').description('Generate new user credentials to a f
   const user = await generateUser().catch(error)
   fs.writeFileSync(filename + '.user.dg', `${user.id}/${user.password}`)
   console.log(`User: ${user.id}\nPassword: ${user.password}\n\nStored at ${filename}.user.dg`)
+  process.exit()
 })
 
 // Create new
@@ -120,6 +121,7 @@ const create = async (filename, options) => {
     fs.writeFileSync(filename + '.creds.dg', `${keys.read}/${keys.encryption_password}`)
     console.log(`Created new Datagram\nLocal address: ${keys.read}\nEncryption password: ${keys.encryption_password}`)
     done(dg)
+    process.exit()
   })
 }
 cli
@@ -236,6 +238,7 @@ const add = async (filename, options) => {
   const file = await fs.readFile(p)
   await dg.write(f.base, file)
   console.log('...done')
+  process.exit()
 }
 cli
   .command('add [filename]')
