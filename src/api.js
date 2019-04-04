@@ -45,7 +45,7 @@ const API = {
           if (stream_keys.length === 0) return error(new Error('NO_STREAMS_FOUND'))
           const keys = await _.streams[stream_keys[0]].base.getKeys()
           keys.read = toB58(keys.read.toString('hex'))
-          keys.write = toB58(keys.write.toString('hex'))
+          keys.write = keys.write ? toB58(keys.write.toString('hex')) : null
           keys.auth = toB58(keys.auth.toString('hex'))
           keys.encryption_password = toB58(keys.encryption_password.toString('hex'))
           done(keys)
